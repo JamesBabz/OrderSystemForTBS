@@ -7,16 +7,18 @@ namespace DAL.UOW
     public class UnitOfWork : IUnitOfWork
     {
         public IRepository<Customer> CustomerRepository { get; internal set; }
+        public IRepository<Employee> EmployeeRepository { get; internal set; }
 
 
-        public OrderSystemtContext context;
+        public OrderSystemContext context;
         //private static DbContextOptions<CustomerProjectContext> optionsStatic;
 
         public UnitOfWork(DbOptions opt)
         {
-            context = new OrderSystemtContext();
+            context = new OrderSystemContext();
 
             CustomerRepository = new CustomerRepository(context);
+            EmployeeRepository = new EmployeeRepository(context);
             
             context.Database.EnsureCreated();
         }
