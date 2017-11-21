@@ -3,11 +3,10 @@ mono: none
 solution: OrderSystemForTBS.sln
 dotnet: 2.0.0
 dist: trusty
-install:
-- dotnet restore
 script:
 - cd Backend/OrderSystemForTBS
 - dotnet build
+- dotnet restore
 branches:
   only:
   - master
