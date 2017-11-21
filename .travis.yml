@@ -1,11 +1,12 @@
 language: csharp
 mono: none
-solution: OrderSystemForTBS.snl
+solution: OrderSystemForTBS.sln
 dotnet: 2.0.0
 dist: trusty
 install:
 - dotnet restore
 script:
+- cd Backend/OrderSystemForTBS
 - dotnet build
 branches:
   only:
