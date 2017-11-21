@@ -1,0 +1,12 @@
+language: csharp
+solution: SDMGitProject.sln
+branches:
+  only:
+  - master
+  - development
+notifications:
+  email: false
+  dotnet: 2.0.0
+dist: trusty
+script:
+- dotnet build
