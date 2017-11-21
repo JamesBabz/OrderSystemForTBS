@@ -1,12 +1,16 @@
 language: csharp
-solution: SDMGitProject.sln
+mono: none
+solution: OrderSystemForTBS.sln
+dotnet: 2.0.0
+dist: trusty
+install:
+- dotnet restore
+script:
+- cd Backend/OrderSystemForTBS
+- dotnet build
 branches:
   only:
   - master
-  - development
+  - Development
 notifications:
   email: false
-  dotnet: 2.0.0
-dist: trusty
-script:
-- dotnet build
