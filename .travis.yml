@@ -11,6 +11,5 @@ branches:
   only:
   - master
   - Development
-  - Jacob
 notifications:
   email: false
