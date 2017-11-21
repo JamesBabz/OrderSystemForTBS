@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Context
 {
-        public class OrderSystemtContext : DbContext
+        public class OrderSystemContext : DbContext
         {
 
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
