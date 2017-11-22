@@ -7,6 +7,8 @@ namespace DAL
     public interface IUnitOfWork : IDisposable
     {
         IRepository<Customer> CustomerRepository { get; }
+        IRepository<Employee> EmployeeRepository { get; }
+        IRepository<Proposition> PropositionRepository { get; }
 
         int Complete();
     }

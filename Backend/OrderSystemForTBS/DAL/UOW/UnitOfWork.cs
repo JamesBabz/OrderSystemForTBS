@@ -8,6 +8,7 @@ namespace DAL.UOW
     {
         public IRepository<Customer> CustomerRepository { get; internal set; }
         public IRepository<Employee> EmployeeRepository { get; internal set; }
+        public IRepository<Proposition> PropositionRepository { get; internal set; }
 
 
         public OrderSystemContext context;
@@ -19,7 +20,9 @@ namespace DAL.UOW
 
             CustomerRepository = new CustomerRepository(context);
             EmployeeRepository = new EmployeeRepository(context);
-            
+            PropositionRepository = new PropositionRepository(context);
+
+
             context.Database.EnsureCreated();
         }
 

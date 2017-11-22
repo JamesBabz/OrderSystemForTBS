@@ -21,5 +21,10 @@ namespace BLL.Facade
             get { return new CustomerService(facade); }
         }
 
+        public PropositionService PropositionService
+        {
+            get { return new PropositionService(facade);}
+        }
+
     }
 }
