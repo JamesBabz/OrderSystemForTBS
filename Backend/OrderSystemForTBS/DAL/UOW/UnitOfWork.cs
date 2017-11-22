@@ -20,23 +20,9 @@ namespace DAL.UOW
             CustomerRepository = new CustomerRepository(context);
             EmployeeRepository = new EmployeeRepository(context);
 
-          
+            
+
             context.Database.EnsureCreated();
-
-
-            Employee employeeJens = new Employee()
-            {
-                Id = 1,
-                FirstName = "Jens",
-                LastName = "Hansen",
-                MacAddress = "",
-                Username = "jh@tbs.dk",
-                Password = "1234"
-            };
-
-
-            context.Employees.Add(employeeJens);
-            Complete();
 
         }
 

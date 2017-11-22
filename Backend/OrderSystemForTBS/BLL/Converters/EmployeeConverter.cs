@@ -6,7 +6,7 @@ using DAL.Entities;
 
 namespace BLL.Converters
 {
-    class EmployeeConverter
+    public class EmployeeConverter
     {
         public Employee Convert(EmployeeBO employee)
         {
@@ -14,7 +14,13 @@ namespace BLL.Converters
             {
                 return new Employee()
                 {
-                    Id = employee.Id
+                    Id = employee.Id,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    Username = employee.Username,
+                    Password = employee.Password,
+                    MacAddress = employee.MacAddress
+                    
                 };
             }
         }
@@ -24,7 +30,12 @@ namespace BLL.Converters
             if (employee == null) { return null; }
             return new EmployeeBO()
             {
-                Id = employee.Id
+                Id = employee.Id,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Username = employee.Username,
+                Password = employee.Password,
+                MacAddress = employee.MacAddress
             };
         }
     }

@@ -9,11 +9,16 @@ using DAL.Entities;
 
 namespace BLL.Services
 {
-    class EmployeeService : IService<EmployeeBO>
+    public class EmployeeService : IService<EmployeeBO>
     {
         private IDALFacade facade;
         private EmployeeConverter employeeConverter = new EmployeeConverter();
         private Employee newEmployee;
+
+        public EmployeeService(IDALFacade facade)
+        {
+            this.facade = facade;
+        }
 
         public EmployeeBO Create(EmployeeBO employee)
         {
