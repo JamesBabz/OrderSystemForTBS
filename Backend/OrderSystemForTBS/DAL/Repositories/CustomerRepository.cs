@@ -10,9 +10,9 @@ namespace DAL.Repositories
 {
     public class CustomerRepository : IRepository<Customer>
     {
-        OrderSystemtContext _context;
+        OrderSystemContext _context;
 
-        public CustomerRepository(OrderSystemtContext context)
+        public CustomerRepository(OrderSystemContext context)
         {
             _context = context;
         }
