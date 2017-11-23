@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using BLL;
 using BLL.Facade;
 using DAL;
+using DAL.Entities;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -16,12 +18,22 @@ namespace OrderSystemForTBS
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
 
         public IConfiguration Configuration { get; }
+
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        {
+            Configuration = configuration;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
+
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -37,9 +49,10 @@ namespace OrderSystemForTBS
 
                 services.AddSingleton(Configuration);
 
+                
+
+                services.AddScoped<IRepository<Employee>, EmployeeRepository>();
                 services.AddScoped<IBLLFacade, BLLFacade>();
-
-
             }));
         }
 
