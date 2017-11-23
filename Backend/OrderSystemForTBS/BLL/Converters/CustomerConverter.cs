@@ -11,7 +11,14 @@ namespace BLL.Converters
             {
                 return new Customer()
                 {
-                    Id = cust.Id
+                    Id = cust.Id,
+                    Firstname = cust.Firstname,
+                    Lastname = cust.Lastname,
+                    Address = cust.Address,
+                    ZipCode = cust.ZipCode,
+                    City = cust.City,
+                    Email = cust.Email,
+                    CVR = cust.CVR
 
                 };
             }
@@ -22,7 +29,14 @@ namespace BLL.Converters
             if (cust == null) { return null; }
             return new CustomerBO()
             {
-                Id = cust.Id
+                Id = cust.Id,
+                Firstname = cust.Firstname,
+                Lastname = cust.Lastname,
+                Address = cust.Address,
+                ZipCode = cust.ZipCode,
+                City = cust.City,
+                Email = cust.Email,
+                CVR = cust.CVR
             };
         }
 
