@@ -27,7 +27,7 @@ namespace OrderSystemForTBS.Controllers
         public IActionResult Login([FromBody]LoginInput LoginInput)
         {
             var user = facade.EmployeeService.GetAll().FirstOrDefault(u => u.Username == LoginInput.Username);
-
+            s
             // check if username exists
             if (user == null)
                 return Unauthorized();
