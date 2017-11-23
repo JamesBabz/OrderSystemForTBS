@@ -47,13 +47,12 @@ namespace OrderSystemForTBS
                     .AllowAnyHeader()
                     .AllowAnyOrigin();
 
-                services.AddSingleton(Configuration);
-
-                
-
-                services.AddScoped<IRepository<Employee>, EmployeeRepository>();
-                services.AddScoped<IBLLFacade, BLLFacade>();
             }));
+
+            services.AddSingleton(Configuration);
+
+            services.AddScoped<IRepository<Employee>, EmployeeRepository>();
+            services.AddScoped<IBLLFacade, BLLFacade>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
