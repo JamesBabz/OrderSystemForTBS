@@ -15,8 +15,6 @@ namespace BLL.Services
         private CustomerConverter custConv = new CustomerConverter();
         private Customer newCustomer;
 
-
-
         public CustomerService(IDALFacade facade)
         {
             this.facade = facade;
@@ -32,26 +30,6 @@ namespace BLL.Services
             }
         }
 
-        public CustomerBO Delete(int id)
-        {
-            using (var uow = facade.UnitOfWork)
-            {
-                newCustomer = uow.CustomerRepository.Delete(id);
-                uow.Complete();
-                return custConv.Convert(newCustomer);
-            }
-        }
-
-        public CustomerBO Get(int id)
-        {
-            using (var uow = facade.UnitOfWork)
-            {
-                newCustomer = uow.CustomerRepository.Get(id);
-                uow.Complete();
-                return custConv.Convert(newCustomer);
-            }
-        }
-
         public List<CustomerBO> GetAll()
         {
             using (var uow = facade.UnitOfWork)
@@ -60,21 +38,41 @@ namespace BLL.Services
             }
         }
 
+        public CustomerBO Get(int Id)
+        {
+            using (var uow = facade.UnitOfWork)
+            {
+                newCustomer = uow.CustomerRepository.Get(Id);
+                uow.Complete();
+                return custConv.Convert(newCustomer);
+            }
+        }
+
         public CustomerBO Update(CustomerBO cust)
         {
             using (var uow = facade.UnitOfWork)
             {
                 var customerFromDb = uow.CustomerRepository.Get(cust.Id);
-                if (customerFromDb==null)
-                {
-                    throw new InvalidOperationException("Customer not found");
-                }
-
                 customerFromDb.Id = cust.Id;
+                customerFromDb.Firstname = cust.Firstname;
+                customerFromDb.Lastname = cust.Lastname;
+                customerFromDb.Address = customerFromDb.Address;
+                customerFromDb.ZipCode = cust.ZipCode;
+                customerFromDb.City = cust.City;
+                customerFromDb.Email = cust.City;
+                customerFromDb.CVR = cust.CVR;
                 uow.Complete();
-
                 return custConv.Convert(customerFromDb);
+            }
+        }
 
+        public CustomerBO Delete(int Id)
+        {
+            using (var uow = facade.UnitOfWork)
+            {
+                newCustomer = uow.CustomerRepository.Delete(Id);
+                uow.Complete();
+                return custConv.Convert(newCustomer);
             }
         }
     }

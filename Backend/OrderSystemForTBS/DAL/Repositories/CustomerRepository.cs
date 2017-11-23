@@ -17,10 +17,10 @@ namespace DAL.Repositories
             _context = context;
         }
 
-        public Customer Create(Customer ent)
+        public Customer Create(Customer cust)
         {
-            _context.Customers.Add(ent);
-            return ent;
+            _context.Customers.Add(cust);
+            return cust;
         }
 
         public IEnumerable<Customer> GetAll()
@@ -28,10 +28,6 @@ namespace DAL.Repositories
             return _context.Customers.ToList();
         }
 
-        public IEnumerable<Customer> GetAllById(List<int> ids)
-        {
-            throw new NotImplementedException();
-        }
 
         public Customer Get(int Id)
         {
