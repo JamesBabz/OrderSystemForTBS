@@ -18,9 +18,9 @@ namespace DAL.UOW
         public UnitOfWork(OrderSystemContext context)
         {
             this.context = context;
-            CustomerRepository = new CustomerRepository(context);
-            EmployeeRepository = new EmployeeRepository(context);
-            PropositionRepository = new PropositionRepository(context);
+            CustomerRepository = new CustomerRepository(this.context);
+            EmployeeRepository = new EmployeeRepository(this.context);
+            PropositionRepository = new PropositionRepository(this.context);
 
 
             context.Database.EnsureCreated();
