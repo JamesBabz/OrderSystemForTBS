@@ -24,6 +24,11 @@ namespace BLL.Facade
         {
             get { return new PropositionService(facade);}
         }
+        
+        public EmployeeService EmployeeService
+         {
+             get { return new EmployeeService(facade); }
+         }
 
     }
 }
