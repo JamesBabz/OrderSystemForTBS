@@ -10,7 +10,7 @@ namespace DAL
         IRepository<Customer> CustomerRepository { get; }
         IRepository<Employee> EmployeeRepository { get; }
         IRepository<Proposition> PropositionRepository { get; }
-
+        IRepository<Employee> EmployeeRepository { get; }
         int Complete();
     }
 }
