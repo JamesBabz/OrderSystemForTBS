@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL.BusinessObjects;
+using BLL.Facade;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OrderSystemForTBS.Controllers
@@ -11,9 +13,9 @@ namespace OrderSystemForTBS.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public PropositionBO Get()
         {
-            return new string[] { "value1", "value2" };
+            return new BLLFacade().PropositionService.Create(new PropositionBO(){Title = "Ost"});
         }
 
         // GET api/values/5

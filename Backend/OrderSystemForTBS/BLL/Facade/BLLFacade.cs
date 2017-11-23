@@ -10,9 +10,8 @@ namespace BLL.Facade
     {
         private IDALFacade facade;
 
-        public BLLFacade(IConfiguration conf) => facade = new DALFacade(new DbOptions()
+        public BLLFacade() => facade = new DALFacade(new DbOptions()
         {
-            ConnectionString = conf.GetConnectionString("DefaultConnection"),
             Environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
         });
 

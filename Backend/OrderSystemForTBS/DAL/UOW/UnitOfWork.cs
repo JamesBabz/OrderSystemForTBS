@@ -1,6 +1,7 @@
 ﻿using DAL.Context;
 using DAL.Entities;
 using DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.UOW
 {
@@ -14,10 +15,9 @@ namespace DAL.UOW
         public OrderSystemContext context;
         //private static DbContextOptions<CustomerProjectContext> optionsStatic;
 
-        public UnitOfWork(DbOptions opt)
+        public UnitOfWork(OrderSystemContext context)
         {
-            context = new OrderSystemContext();
-
+            this.context = context;
             CustomerRepository = new CustomerRepository(context);
             EmployeeRepository = new EmployeeRepository(context);
             PropositionRepository = new PropositionRepository(context);
@@ -25,7 +25,7 @@ namespace DAL.UOW
 
             context.Database.EnsureCreated();
         }
-
+        
         public int Complete()
         {
             //The number of objects written to the underlying database.

@@ -17,6 +17,8 @@ namespace BLL.Services
         public PropositionService(IDALFacade facade)
         {
             this.facade = facade;
+            this.propConv = new PropositionConverter();
+            
         }
 
         public PropositionBO Create(PropositionBO bo)
