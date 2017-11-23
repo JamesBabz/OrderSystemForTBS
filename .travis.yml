@@ -13,3 +13,8 @@ branches:
   - Development
 notifications:
   email: false
+before_install:
+  - sudo apt-get install nunit-console
+after_script:
+  - nunit-console Tests/bin/Release/Tests.dll
+
