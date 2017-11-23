@@ -53,7 +53,7 @@ namespace BLL.Services
             using (var uow = facade.UnitOfWork)
             {
                 var customerFromDb = uow.CustomerRepository.Get(cust.Id);
-                customerFromDb.Id = cust.Id;
+//                customerFromDb.Id = cust.Id;
                 customerFromDb.Firstname = cust.Firstname;
                 customerFromDb.Lastname = cust.Lastname;
                 customerFromDb.Address = customerFromDb.Address;
