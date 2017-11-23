@@ -5,6 +5,7 @@ dotnet: 2.0.0
 dist: trusty
 script:
 - cd Backend/OrderSystemForTBS
+- dotnet test UnitTest/UnitTest.csproj
 - dotnet build
 - dotnet restore
 branches:
