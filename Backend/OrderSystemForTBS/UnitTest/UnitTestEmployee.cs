@@ -39,7 +39,6 @@ namespace UnitTest
             this.GetService().Create(employee1);
             EmployeeBO employee2 = new EmployeeBO()
             {
-
                 FirstName = "Bent",
                 LastName = "Nygaard",
                 Username = "jbs",
@@ -48,6 +47,22 @@ namespace UnitTest
             };
             employee2 = this.GetService().Create(employee2);
             Assert.AreEqual(this.GetService().Get(employee2.Id).FirstName, "Bent");
+        }
+
+        [TestMethod]
+        public void TestCreateEmployee()
+        {
+            this.GetMemoContext().Database.EnsureDeleted();
+            EmployeeBO employee = new EmployeeBO()
+            {
+                FirstName = "Bent",
+                LastName = "Nygaard",
+                Username = "jbs",
+                Password = "1234",
+                MacAddress = "asdDDFASFDSF"
+            };
+            employee = this.GetService().Create(employee);
+            Assert.IsNotNull(employee);
         }
 
         //Generer samme ny bll, skal have ny service hvergang. 
