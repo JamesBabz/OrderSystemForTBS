@@ -80,7 +80,7 @@ namespace UnitTest
                 CustomerId = 4
             };
 
-            PropositionBO temp1 = GetMockService().Create(prop1);
+            prop1 = GetMockService().Create(prop1);
 
             PropositionBO prop2 = new PropositionBO()
             {
@@ -92,13 +92,20 @@ namespace UnitTest
                 CustomerId = 5
             };
 
-            PropositionBO temp2 = GetMockService().Create(prop2);
+            prop2 = GetMockService().Create(prop2);
 
-            PropositionBO snurf = GetMockService().Get(2);
+            PropositionBO snurf = GetMockService().Get(prop1.Id);
 
             //Expected results
             Assert.IsNotNull(snurf);
             Assert.AreEqual("ost", snurf.Title);
 
         }
-    }}
+
+        [TestMethod]
+        public void GetAllPropositionsMethod()
+        {
+            
+        }
+    }
+}
