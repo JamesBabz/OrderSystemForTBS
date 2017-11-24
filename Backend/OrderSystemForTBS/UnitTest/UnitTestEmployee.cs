@@ -49,24 +49,6 @@ namespace UnitTest
             Assert.AreEqual(this.GetService().Get(employee2.Id).FirstName, "Bent");
         }
 
-        [TestMethod]
-        public void TestCreateEmployee()
-        {
-            this.GetMemoContext().Database.EnsureDeleted();
-            EmployeeBO employee = new EmployeeBO()
-            {
-                FirstName = "Bo",
-                LastName = "Pedersen",
-                Username = "jbs",
-                Password = "1234",
-                MacAddress = "asdDDFASFDSF"
-            };
-            employee = this.GetService().Create(employee);
-            Assert.IsNotNull(employee);
-        }
-
-
-
         //Generer samme ny bll, skal have ny service hvergang. 
         public IService<EmployeeBO> GetService()
         {
