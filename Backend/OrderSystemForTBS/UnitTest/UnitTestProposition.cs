@@ -44,7 +44,6 @@ namespace UnitTest
         {
 
             GetInMemoryContext().Database.EnsureDeleted();
-            GetInMemoryContext().Database.ExecuteSqlCommand("TRUNCATE TABLE");
 
             var snurf = new PropositionBO()
             {
