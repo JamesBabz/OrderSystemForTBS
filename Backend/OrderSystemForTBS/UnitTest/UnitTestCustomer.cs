@@ -124,7 +124,7 @@ namespace UnitTest
 
         }
 
-//        [TestMethod]
+//        [TestMethod] NOT WORKING
 //        public void TestUpdateCustomer()
 //        {
 //            this.GetMemoContext().Database.EnsureDeleted();
