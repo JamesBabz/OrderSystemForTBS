@@ -6,18 +6,17 @@ using DAL.Context;
 using DAL.UOW;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using BLL.BusinessObjects;
+using BLL.Services;
+
+using DAL;
+using DAL.Entities;
+using DAL.Facade;
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest
 {
-    using BLL.BusinessObjects;
-    using BLL.Services;
-
-    using DAL;
-    using DAL.Entities;
-    using DAL.Facade;
-
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     [TestClass]
     public class UnitTestCustomer
     {
