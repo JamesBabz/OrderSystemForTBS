@@ -1,4 +1,5 @@
-﻿using BLL;
+﻿using System;
+using BLL;
 using BLL.BusinessObjects;
 using BLL.Facade;
 using BLL.Services;
@@ -7,6 +8,7 @@ using DAL.Context;
 using DAL.Entities;
 using DAL.UOW;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -15,28 +17,90 @@ namespace UnitTest
     [TestClass]
     public class UnitTestProposition
     {
-        [TestMethod]
-        public void CreateMethod()
-        {
 
+        public OrderSystemContext GetInMemoryContext()
+        {
             //Creates an InMemoryDatabaseContext for use in the UOW
             var c = new OrderSystemContext(new DbContextOptionsBuilder<OrderSystemContext>()
                 .UseInMemoryDatabase("Database").Options);
+            return c;
+        }
 
+        public IService<PropositionBO> GetMockService()
+        {
+
+            var c = GetInMemoryContext();
             //Creates a mock DALFacade and initiates it with the InMemoeryDatabaseContext
             Mock<IDALFacade> dalFacadeMock = new Mock<IDALFacade>();
             dalFacadeMock.Setup(x => x.UnitOfWork).Returns(new UnitOfWork(c));
 
             //Creates the Service
             IService<PropositionBO> service = new PropositionService(dalFacadeMock.Object);
+            return service;
+        }
 
+        [TestMethod]
+        public void CreatePropositionMethod()
+        {
 
-            var snurf = service.Create(new PropositionBO() { Title = "ost" });
+            GetInMemoryContext().Database.EnsureDeleted();
+            GetInMemoryContext().Database.ExecuteSqlCommand("TRUNCATE TABLE");
+
+            var snurf = new PropositionBO()
+            {
+                Title = "ostemad",
+                Description = "ostemad beskrivelse",
+                CreationDate = DateTime.MinValue,
+                EmployeeId = 2,
+                FileId = 3,
+                CustomerId = 4
+            };
+
+                GetMockService().Create(snurf);
 
             //Expected results
             Assert.IsNotNull(snurf);
-            Assert.AreEqual(snurf.Title, "ost");
+            Assert.AreEqual("ostemad", snurf.Title);
+
+
         }
 
-    }
-}
+        [TestMethod]
+        public void GetPropositionMethod()
+        {
+
+            GetInMemoryContext().Database.EnsureDeleted();
+            GetInMemoryContext().Database.ExecuteSqlCommand("TRUNCATE TABLE");
+
+            PropositionBO prop1 = new PropositionBO()
+            {
+                Title = "ost",
+                Description = "beskrivelse",
+                CreationDate = DateTime.MinValue,
+                EmployeeId = 2,
+                FileId = 3,
+                CustomerId = 4
+            };
+
+            PropositionBO temp1 = GetMockService().Create(prop1);
+
+            PropositionBO prop2 = new PropositionBO()
+            {
+                Title = "marmelade",
+                Description = "en ny beskrivelse",
+                CreationDate = DateTime.MinValue.Add(TimeSpan.FromMinutes(3)),
+                EmployeeId = 3,
+                FileId = 4,
+                CustomerId = 5
+            };
+
+            PropositionBO temp2 = GetMockService().Create(prop2);
+
+            PropositionBO snurf = GetMockService().Get(2);
+
+            //Expected results
+            Assert.IsNotNull(snurf);
+            Assert.AreEqual("ost", snurf.Title);
+
+        }
+    }}
