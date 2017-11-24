@@ -1,0 +1,8 @@
+.CustomersBorder{
+  width: 300px;
+  height: 97vh;
+  border: solid 2px gray;
+  border-radius: 10px;
+  margin: 5px;
+
+}
