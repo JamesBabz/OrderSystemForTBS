@@ -20,28 +20,16 @@ namespace UnitTest
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 
+using BLL;
+using BLL.BusinessObjects;
+using BLL.Services;
 
-    [TestClass]
-    public class UnitTestCustomer
-    {
-        [TestMethod]
-        public void TestCreateCustomer()
-        {
-            this.GetMemoContext().Database.EnsureDeleted();
-            CustomerBO customer = new CustomerBO()
-                                      {
-                                          Firstname = "Bo",
-                                          Lastname = "Jensen",
-                                          Address = "Skolevej 3",
-                                          ZipCode = 4510,
-                                          City = "Dumby",
-                                          Email = "Email@mail.dk",
-                                          CVR = 12345678
-                                      };
-            customer = this.GetService().Create(customer);
-            Assert.IsNotNull(customer);
+using DAL;
+using DAL.Context;
+using DAL.UOW;
 
-        }
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
         [TestMethod]
         public void GetallCustomers()
@@ -61,7 +49,6 @@ namespace UnitTest
             Assert.AreEqual(this.GetService().GetAll().Count, 1);
         }
 
-        [TestMethod]
         public void TestGetCustomerById()
         {
 
