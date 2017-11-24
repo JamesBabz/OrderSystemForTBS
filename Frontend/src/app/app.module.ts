@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -10,9 +9,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {CustomerService} from './customers/shared/customer.service';
 import { CustomerComponent } from './customers/customer/customer.component';
 import {FormsModule} from '@angular/forms';
+import {LoginComponent} from './login/login/login.component';
+import {LoginService} from './login/shared/login.service';
 
 const appRoutes: Routes = [
   {path: 'customers/:id', component: CustomerDetailComponent},
+  { path: 'login', component: LoginComponent },
   {
     path: 'customers',
     component: CustomerListComponent,
@@ -24,7 +26,7 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**', redirectTo: ''
+    path: '**', redirectTo: 'login'
   }
 ];
 
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     AppComponent,
     CustomerListComponent,
     CustomerDetailComponent,
-    CustomerComponent
+    CustomerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,7 @@ const appRoutes: Routes = [
     FormsModule
 
   ],
-  providers: [CustomerService],
+  providers: [CustomerService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,7 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
 using BLL;
 using DAL.Context;
 using DAL.UOW;
@@ -14,6 +18,7 @@ namespace UnitTest
     using DAL.Facade;
 
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 
 
     [TestClass]
