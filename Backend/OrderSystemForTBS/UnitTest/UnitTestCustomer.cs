@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+
 using BLL;
 using DAL.Context;
 using DAL.UOW;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using BLL.BusinessObjects;
-using BLL.Services;
-
-using DAL;
-using DAL.Entities;
-using DAL.Facade;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest
 {
+    using BLL.BusinessObjects;
+    using BLL.Services;
+
+    using DAL;
+    using DAL.Entities;
+    using DAL.Facade;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+
+
     [TestClass]
     public class UnitTestCustomer
     {
@@ -55,7 +59,6 @@ namespace UnitTest
                                       };
             this.GetService().Create(customer);
             Assert.AreEqual(this.GetService().GetAll().Count, 1);
-
         }
 
         [TestMethod]
@@ -88,6 +91,7 @@ namespace UnitTest
             Assert.AreEqual(this.GetService().Get(customer2.Id).Firstname, "Lars");
 
         }
+
 
         [TestMethod]
         public void TestDeleteCustomer()
@@ -122,30 +126,7 @@ namespace UnitTest
             Assert.AreEqual(GetService().Get(customer1.Id).Firstname, "Bo");
 
         }
-
-//        [TestMethod]
-//        public void TestUpdateCustomer()
-//        {
-//            this.GetMemoContext().Database.EnsureDeleted();
-//            CustomerBO customer1 = new CustomerBO()
-//                                       {
-//                                           Firstname = "Bo",
-//                                           Lastname = "Jensen",
-//                                           Address = "Skolevej 3",
-//                                           ZipCode = 4510,
-//                                           City = "Dumby",
-//                                           Email = "Email@mail.dk",
-//                                           CVR = 12345678
-//                                       };
-//            customer1 = GetService().Create(customer1);
-//            Assert.AreEqual(GetService().Get(1).Firstname, "Bo");
-//            this.GetMemoContext().Database.EnsureDeleted();
-//            customer1.Firstname = "Lars";
-//
-//            GetService().Update(customer1);
-//            Assert.AreEqual(GetService().Get(1).Firstname, "Lars");
-//
-//        }
+    
 
         //Generer samme ny bll, skal have ny service hvergang. 
         public IService<CustomerBO> GetService()
@@ -167,3 +148,4 @@ namespace UnitTest
         }
     }
 }
+
