@@ -1,8 +1,18 @@
 .CustomersBorder{
   width: 300px;
-  height: 97vh;
+  height: 78vh;
   border: solid 2px gray;
   border-radius: 10px;
   margin: 5px;
-
+}
+.img{
+  width: 200px;
+  height: auto;
+}
+.leftBorder{
+  text-align: center;
+  width: 300px;
+}
+.text{
+  margin: 5px;
 }
