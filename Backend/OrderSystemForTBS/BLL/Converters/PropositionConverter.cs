@@ -30,6 +30,7 @@ namespace BLL.Converters
             if (prop == null) { return null; }
             return new PropositionBO()
             {
+                Id = prop.Id,
                 Title = prop.Title,
                 Description = prop.Description,
                 CreationDate = prop.CreationDate,
