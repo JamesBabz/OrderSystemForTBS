@@ -19,8 +19,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService) { }
 
   ngOnInit() {
-    // reset login status
-    this.loginService.logout();
+
   }
 
   login() {
@@ -28,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.model.username, this.model.password)
       .subscribe(
         success => {
-          this.router.navigate(['/']);
+          this.router.navigate(['/customers']);
         },
         error => {
           this.errormessage = 'Wrong username or password!';
