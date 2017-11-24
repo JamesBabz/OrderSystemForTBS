@@ -1,0 +1,32 @@
+.CustomersBorder{
+  height: 78vh;
+  border: solid 2px gray;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+.img{
+  width: 200px;
+  height: auto;
+}
+.leftBorder{
+  text-align: center;
+  width: 300px;
+}
+.text{
+
+  text-align: center;
+}
+.centerBorder{
+text-align: center;
+}
+.buttonsContainer{
+  margin-top: 14.75%;
+
+}
+
+.btn{
+  height: 65px;
+  width: 80%;
+  font-size: x-large;
+  margin-bottom: 20px;
+}
