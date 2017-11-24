@@ -38,7 +38,12 @@ namespace BLL.Services
 
         public PropositionBO Get(int Id)
         {
-            throw new NotImplementedException();
+            using (var uow = facade.UnitOfWork)
+            {
+                newProp = uow.PropositionRepository.Get(Id);
+                uow.Complete();
+                return propConv.Convert(newProp);
+            }
         }
 
         public PropositionBO Update(PropositionBO bo)
