@@ -20,12 +20,13 @@
 text-align: center;
 }
 .buttonsContainer{
-  margin-top: 13%;
+  margin-top: 14.75%;
 
 }
 
 .btn{
-  width: 700px;
+  height: 65px;
+  width: 80%;
   font-size: x-large;
   margin-bottom: 20px;
 }
