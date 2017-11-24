@@ -1,35 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using BLL;
-using DAL.Context;
-using DAL.UOW;
-using Microsoft.EntityFrameworkCore;
-using Moq;
+﻿using Moq;
 
 namespace UnitTest
 {
+    using BLL;
     using BLL.BusinessObjects;
     using BLL.Services;
-
     using DAL;
-    using DAL.Entities;
-    using DAL.Facade;
-
+    using DAL.Context;
+    using DAL.UOW;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+    [TestClass]
+    public class UnitTestCustomer
+    {
 
-using BLL;
-using BLL.BusinessObjects;
-using BLL.Services;
-
-using DAL;
-using DAL.Context;
-using DAL.UOW;
-
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
         [TestMethod]
         public void GetallCustomers()
