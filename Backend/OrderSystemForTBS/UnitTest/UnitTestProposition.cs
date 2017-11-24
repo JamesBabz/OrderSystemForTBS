@@ -69,7 +69,6 @@ namespace UnitTest
         {
 
             GetInMemoryContext().Database.EnsureDeleted();
-            GetInMemoryContext().Database.ExecuteSqlCommand("TRUNCATE TABLE");
 
             PropositionBO prop1 = new PropositionBO()
             {
