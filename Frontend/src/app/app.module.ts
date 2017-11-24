@@ -9,6 +9,7 @@ import { CustomerDetailComponent } from './customers/customer-detail/customer-de
 import {HttpClientModule} from '@angular/common/http';
 import {CustomerService} from './customers/shared/customer.service';
 import { CustomerComponent } from './customers/customer/customer.component';
+import {FormsModule} from '@angular/forms';
 
 const appRoutes: Routes = [
   {path: 'customers/:id', component: CustomerDetailComponent},
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FormsModule
 
   ],
   providers: [CustomerService],

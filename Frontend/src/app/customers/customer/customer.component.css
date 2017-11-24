@@ -1,0 +1,5 @@
+.customerBorder{
+  border: dashed 1px lightgray;
+  border-radius: 10px;
+  margin: 5px;
+}
