@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Customer} from '../shared/customer-model';
+import {Customer} from '../shared/customer.model';
 import {CustomerService} from '../shared/customer.service';
-import {forEach} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-customer-list',
@@ -10,11 +9,12 @@ import {forEach} from '@angular/router/src/utils/collection';
 })
 export class CustomerListComponent implements OnInit {
   customers: Customer[];
-  constructor(private customerService: CustomerService) { }
+  constructor(private customerService: CustomerService) {
+
+  }
 
   ngOnInit() {
     this.customerService.getCustomers().subscribe(Customers => this.customers = Customers);
-
   }
 
 }
