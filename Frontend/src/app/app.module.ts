@@ -8,7 +8,7 @@ import { CustomerDetailComponent } from './customers/customer-detail/customer-de
 import {HttpClientModule} from '@angular/common/http';
 import {CustomerService} from './customers/shared/customer.service';
 import { CustomerComponent } from './customers/customer/customer.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LoginComponent} from './login/login/login.component';
 import {LoginService} from './login/shared/login.service';
@@ -48,6 +48,7 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    ReactiveFormsModule,
     NgbModule
 
   ],
