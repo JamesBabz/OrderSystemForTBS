@@ -17,9 +17,10 @@ export class CustomerListComponent implements OnInit {
   ngOnInit() {
     this.customerService.getCustomers().subscribe(Customers => this.customers = Customers);
   }
-
-  details(customer: Customer){
+  details(customer: Customer) {
     this.router.navigateByUrl('/customer/' + customer.id);
   }
-
+  createCustomer() {
+    this.router.navigateByUrl('/customers/create');
+  }
 }
