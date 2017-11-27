@@ -22,7 +22,7 @@ namespace DAL.UOW
             EmployeeRepository = new EmployeeRepository(this.context);
             PropositionRepository = new PropositionRepository(this.context);
 
-
+            
             context.Database.EnsureCreated();
         }
         

@@ -18,6 +18,7 @@ namespace BLL.Converters
                     ZipCode = cust.ZipCode,
                     City = cust.City,
                     Email = cust.Email,
+                    Phone = cust.Phone,
                     CVR = cust.CVR
 
                 };
@@ -36,6 +37,7 @@ namespace BLL.Converters
                 ZipCode = cust.ZipCode,
                 City = cust.City,
                 Email = cust.Email,
+                Phone = cust.Phone,
                 CVR = cust.CVR
             };
         }
