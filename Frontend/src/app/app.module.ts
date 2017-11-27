@@ -13,6 +13,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LoginComponent} from './login/login/login.component';
 import {LoginService} from './login/shared/login.service';
 import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
+import {TabModule} from 'angular-tabs-component';
 
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent},
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    TabModule
 
   ],
   providers: [CustomerService, LoginService],

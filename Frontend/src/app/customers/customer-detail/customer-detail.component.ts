@@ -4,7 +4,6 @@ import {Customer} from '../shared/customer.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import {stringify} from 'querystring';
-import 'TabModule' from 'angular-tabs-component';
 
 @Component({
   selector: 'app-customer-detail',
