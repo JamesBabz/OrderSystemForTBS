@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BLL;
 using BLL.BusinessObjects;
 using BLL.Facade;
 using Microsoft.AspNetCore.Mvc;
@@ -11,33 +12,45 @@ namespace OrderSystemForTBS.Controllers
     [Route("api/[controller]")]
     public class PropositionsController : Controller
     {
-        // GET api/values
+        private IBLLFacade _facade;
+
+        public PropositionsController(IBLLFacade facade)
+        {
+            _facade = facade;
+        }
+
+        // GET api/Propositions
         [HttpGet]
-        public PropositionBO Get()
+        public IEnumerable<PropositionBO> Get()
         {
-            return new BLLFacade().PropositionService.Create(new PropositionBO(){Title = "Ost"});
+            return _facade.PropositionService.GetAll();
         }
 
-        // GET api/values/5
+        // GET api/Propositions/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public PropositionBO Get(int id)
         {
-            return "value";
+            return _facade.PropositionService.Get(id);
         }
 
-        // POST api/values
+        // POST api/Propositions
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]PropositionBO prop)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(_facade.PropositionService.Create(prop));
         }
 
-        // PUT api/values/5
+        // PUT api/Propositions/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/values/5
+        // DELETE api/Propositions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

@@ -30,3 +30,8 @@ text-align: center;
   font-size: x-large;
   margin-bottom: 20px;
 }
+
+.btn:disabled{
+  background-color: grey;
+  border-color: grey;
+}
