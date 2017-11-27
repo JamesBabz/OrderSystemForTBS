@@ -1,14 +1,11 @@
-.img{
-  width: 150px;
-  height: auto;
-}
+
 .container{
   margin: 5px;
 }
 .input{
   float: right;
 }
-.btnc{
+.btn{
   float: right;
   margin-left: 5px;
   margin-top: 20px;
