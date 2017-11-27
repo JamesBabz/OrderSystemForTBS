@@ -1,3 +1,42 @@
-<p>
-  customer-detail works!
-</p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+
+<div *ngIf="customer">
+  <div class="row">
+    <div class="col-md-2">
+      <p (click)="alertC()">
+        {{customer.firstname}} {{customer.lastname}}
+        <br/>
+        CVR-Nr: {{customer.cvr}}
+      </p>
+    </div>
+    <div class="col-md-1 offset-md-9">
+      <p>
+        <a href="">Kundeoplysninger</a><br/>
+        <a href="">Redigér kunde</a><br/>
+        <a href="">Slet kunde</a>
+      </p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+
+      <tabs class="col-md-12 customerTab">
+        <tab tabTitle="Tilbud">
+          TILBUD!
+        </tab>
+        <tab tabTitle="Slutseddel">
+          SLUTSEDDEL!
+        </tab>
+        <tab tabTitle="Maskinliste">
+          MASKINLISTE!
+        </tab>
+        <tab tabTitle="Besøg">
+          BESØG!
+        </tab>
+      </tabs>
+
+    </div>
+  </div>
+</div>
