@@ -1,11 +1,26 @@
 <img class="img" src="assets/TBSLogo.png">
-<div class="leftBorder">
-<h1 class="text">Kunder</h1>
-<div class="CustomersBorder">
-  <app-customer  *ngFor="let cust of customers" [customer]="cust"></app-customer>
-</div>
-</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <h1 class="text">Kunder</h1>
+    </div>
+  </div>
+  <div class="row">
 
-<div class="centerBorder">
-  <button class=" btn btn-primary"> button </button>
+    <div class="leftBorder col-md-3">
+
+
+      <div class="CustomersBorder">
+        <app-customer *ngFor="let cust of customers" [customer]="cust"></app-customer>
+      </div>
+    </div>
+    <div class="centerBorder col-md-9">
+      <div class="buttonsContainer">
+        <button class=" btn btn-success"> Opret kunde</button>
+        <button class=" btn btn-success"> Opret besøg</button>
+        <button class=" btn btn-success"> Tilføj tilbud</button>
+        <button class=" btn btn-success"> Tilføj slutseddel</button>
+      </div>
+    </div>
+  </div>
 </div>
