@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginService.logout();
     this.showHeader(false);
   }
 
