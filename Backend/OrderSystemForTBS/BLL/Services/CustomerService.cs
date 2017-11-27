@@ -61,6 +61,7 @@ namespace BLL.Services
                 customerFromDb.City = cust.City;
                 customerFromDb.Email = cust.City;
                 customerFromDb.CVR = cust.CVR;
+                customerFromDb.Phone = cust.Phone;
                 uow.Complete();
                 return custConv.Convert(customerFromDb);
             }
