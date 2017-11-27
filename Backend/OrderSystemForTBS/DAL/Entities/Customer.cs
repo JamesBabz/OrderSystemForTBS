@@ -14,6 +14,7 @@ namespace DAL.Entities
         public int ZipCode { get; set; }
         public string City { get; set; }
         public string Email { get; set; }
+        public int Phone { get; set; }
         public int CVR { get; set; }
     }
 }
