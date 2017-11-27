@@ -4,10 +4,7 @@
   border-radius: 10px;
   margin-left: 5px;
 }
-.img{
-  width: 200px;
-  height: auto;
-}
+
 .leftBorder{
   text-align: center;
   width: 300px;
@@ -29,4 +26,9 @@ text-align: center;
   width: 80%;
   font-size: x-large;
   margin-bottom: 20px;
+}
+
+.btn:disabled{
+  background-color: grey;
+  border-color: grey;
 }

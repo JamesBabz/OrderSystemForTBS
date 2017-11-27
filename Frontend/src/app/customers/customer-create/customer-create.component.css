@@ -1,0 +1,13 @@
+
+.container{
+  margin: 5px;
+}
+.input{
+  float: right;
+}
+.btn{
+  float: right;
+  margin-left: 5px;
+  margin-top: 20px;
+  width: 88px;
+}
