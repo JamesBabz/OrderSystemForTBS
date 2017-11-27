@@ -12,9 +12,11 @@ import {FormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LoginComponent} from './login/login/login.component';
 import {LoginService} from './login/shared/login.service';
+import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
 
 const appRoutes: Routes = [
-  {path: 'customers/:id', component: CustomerDetailComponent},
+  {path: 'customer/:id', component: CustomerDetailComponent},
+  {path: 'customers/create', component: CustomerCreateComponent},
   { path: 'login', component: LoginComponent },
   {
     path: 'customers',
@@ -27,7 +29,7 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**', redirectTo: 'login'
+    path: '**', redirectTo: 'customers'
   }
 ];
 
@@ -37,7 +39,8 @@ const appRoutes: Routes = [
     CustomerListComponent,
     CustomerDetailComponent,
     CustomerComponent,
-    LoginComponent
+    LoginComponent,
+    CustomerCreateComponent
   ],
   imports: [
     BrowserModule,
