@@ -17,7 +17,12 @@
   height: auto;
 }
 
-.floatRight{
-  float: right;
-  margin: 10px;
+ul.tabs__tab-bar{
+  width: 100%!important;
+}
+
+.customerTab > ul > li.tabs__tab{
+  width: 25%;
+  height: 50px;
+
 }
