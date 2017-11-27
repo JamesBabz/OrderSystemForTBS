@@ -16,3 +16,8 @@
   width: 150px;
   height: auto;
 }
+
+.floatRight{
+  float: right;
+  margin: 10px;
+}
