@@ -14,11 +14,13 @@ import {LoginComponent} from './login/login/login.component';
 import {LoginService} from './login/shared/login.service';
 import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
 import {TabModule} from 'angular-tabs-component';
+import {AuthGuard} from './login/shared/auth.guard';
 
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent},
   {path: 'customers/create', component: CustomerCreateComponent},
   { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent, canActivate: [AuthGuard] },
   {
     path: 'customers',
     component: CustomerListComponent,
@@ -54,7 +56,7 @@ const appRoutes: Routes = [
     TabModule
 
   ],
-  providers: [CustomerService, LoginService],
+  providers: [CustomerService, LoginService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

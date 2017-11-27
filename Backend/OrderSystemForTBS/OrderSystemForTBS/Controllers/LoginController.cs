@@ -1,12 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
+
 using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using BLL;
+using BLL.Converters;
 using DAL.Entities;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace OrderSystemForTBS.Controllers
 {
@@ -16,6 +21,7 @@ namespace OrderSystemForTBS.Controllers
     public class LoginController : Controller
     {
         IBLLFacade facade;
+        private EmployeeConverter employeeConverter = new EmployeeConverter();
 
         public LoginController(IBLLFacade facade)
         {
@@ -40,8 +46,29 @@ namespace OrderSystemForTBS.Controllers
             return Ok(new
             {
                 username = user.Username,
-                password = user.Password
+                password = user.Password,
+                token = GenerateToken(employeeConverter.Convert(user)),             
             });
+        }
+
+        private string GenerateToken(Employee employee)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, employee.Username)
+            };
+
+            var token = new JwtSecurityToken(
+                new JwtHeader(new SigningCredentials(
+                    JwtSecurityKey.Key,
+                    SecurityAlgorithms.HmacSha256)),
+                new JwtPayload(null, // issuer - not needed (ValidateIssuer = false)
+                    null, // audience - not needed (ValidateAudience = false)
+                    claims.ToArray(),
+                    DateTime.Now,               // notBefore
+                    DateTime.Now.AddDays(1)));  // expires
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
