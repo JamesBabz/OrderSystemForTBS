@@ -1,0 +1,16 @@
+.img{
+  width: 150px;
+  height: auto;
+}
+.container{
+  margin: 5px;
+}
+.input{
+  float: right;
+}
+.btnc{
+  float: right;
+  margin-left: 5px;
+  margin-top: 20px;
+  width: 88px;
+}
