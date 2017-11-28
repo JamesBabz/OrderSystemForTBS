@@ -12,14 +12,17 @@ export class LoginComponent implements OnInit {
 
   model: any = Employee;
   loading = false;
+  username: string;
   errormessage = '';
 
-  constructor(
-    private router: Router,
-    private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.username = currentUser && currentUser.username;
+  }
 
   ngOnInit() {
-
+    this.loginService.logout();
+    this.showHeader(false);
   }
 
   login() {
@@ -33,5 +36,15 @@ export class LoginComponent implements OnInit {
           this.errormessage = 'Wrong username or password!';
           this.loading = false;
         });
+    this.showHeader(true);
   }
+
+  private showHeader(b: boolean) {
+    if (b) {
+      document.getElementById('headerContainer').style.display = 'block';
+    } else {
+      document.getElementById('headerContainer').style.display = 'none';
+    }
+  }
+
 }

@@ -24,7 +24,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Proposition> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Propositions.ToList();
         }
 
         public Proposition Get(int Id)

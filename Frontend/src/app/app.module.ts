@@ -8,14 +8,19 @@ import { CustomerDetailComponent } from './customers/customer-detail/customer-de
 import {HttpClientModule} from '@angular/common/http';
 import {CustomerService} from './customers/shared/customer.service';
 import { CustomerComponent } from './customers/customer/customer.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LoginComponent} from './login/login/login.component';
 import {LoginService} from './login/shared/login.service';
+import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
+import {TabModule} from 'angular-tabs-component';
+import {AuthGuard} from './login/shared/auth.guard';
 
 const appRoutes: Routes = [
-  {path: 'customers/:id', component: CustomerDetailComponent},
+  {path: 'customer/:id', component: CustomerDetailComponent},
+  {path: 'customers/create', component: CustomerCreateComponent},
   { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent, canActivate: [AuthGuard] },
   {
     path: 'customers',
     component: CustomerListComponent,
@@ -27,7 +32,7 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: '**', redirectTo: 'login'
+    path: '**', redirectTo: 'customers'
   }
 ];
 
@@ -37,7 +42,8 @@ const appRoutes: Routes = [
     CustomerListComponent,
     CustomerDetailComponent,
     CustomerComponent,
-    LoginComponent
+    LoginComponent,
+    CustomerCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -45,10 +51,12 @@ const appRoutes: Routes = [
     HttpModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    NgbModule
+    ReactiveFormsModule,
+    NgbModule,
+    TabModule
 
   ],
-  providers: [CustomerService, LoginService],
+  providers: [CustomerService, LoginService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

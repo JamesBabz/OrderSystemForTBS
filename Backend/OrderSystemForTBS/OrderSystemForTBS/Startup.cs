@@ -7,12 +7,14 @@ using BLL.Facade;
 using DAL;
 using DAL.Entities;
 using DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace OrderSystemForTBS
 {
@@ -32,6 +34,7 @@ namespace OrderSystemForTBS
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+            JwtSecurityKey.SetSecret("a secret that needs to be at least 16 characters long");
 
         }
 
@@ -53,6 +56,20 @@ namespace OrderSystemForTBS
 
             services.AddScoped<IRepository<Employee>, EmployeeRepository>();
             services.AddScoped<IBLLFacade, BLLFacade>();
+
+            // Add JWT based authentication
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateIssuerSigningKey = false,
+                    IssuerSigningKey = JwtSecurityKey.Key,
+                    ValidateLifetime = true, //validate the expiration and not before values in the token
+                    ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +83,9 @@ namespace OrderSystemForTBS
 
                 app.UseDeveloperExceptionPage();
             }
+
+            // Use authentication
+            app.UseAuthentication();
 
             app.UseMvc();
         }

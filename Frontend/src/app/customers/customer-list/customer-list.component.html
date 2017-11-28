@@ -1,4 +1,4 @@
-<img class="img" src="assets/TBSLogo.png">
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
@@ -11,15 +11,15 @@
 
 
       <div class="CustomersBorder">
-        <app-customer *ngFor="let cust of customers" [customer]="cust"></app-customer>
+        <app-customer (click)="details(cust)" *ngFor="let cust of customers" [customer]="cust"></app-customer>
       </div>
     </div>
     <div class="centerBorder col-md-9">
       <div class="buttonsContainer">
-        <button class=" btn btn-success"> Opret kunde</button>
-        <button class=" btn btn-success"> Opret besøg</button>
-        <button class=" btn btn-success"> Tilføj tilbud</button>
-        <button class=" btn btn-success"> Tilføj slutseddel</button>
+        <button (click)="createCustomer()" class=" btn btn-success clickable"> Opret kunde</button>
+        <button class=" btn btn-success clickable" disabled> Opret besøg</button>
+        <button class=" btn btn-success clickable" disabled> Tilføj tilbud</button>
+        <button class=" btn btn-success clickable" disabled> Tilføj slutseddel</button>
       </div>
     </div>
   </div>

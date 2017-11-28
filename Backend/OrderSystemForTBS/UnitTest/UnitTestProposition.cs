@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BLL;
 using BLL.BusinessObjects;
 using BLL.Facade;
@@ -105,7 +106,39 @@ namespace UnitTest
         [TestMethod]
         public void GetAllPropositionsMethod()
         {
-            
+
+            GetInMemoryContext().Database.EnsureDeleted();
+
+            PropositionBO prop1 = new PropositionBO()
+            {
+                Title = "ost",
+                Description = "beskrivelse",
+                CreationDate = DateTime.MinValue,
+                EmployeeId = 2,
+                FileId = 3,
+                CustomerId = 4
+            };
+
+            prop1 = GetMockService().Create(prop1);
+
+            PropositionBO prop2 = new PropositionBO()
+            {
+                Title = "marmelade",
+                Description = "en ny beskrivelse",
+                CreationDate = DateTime.MinValue.Add(TimeSpan.FromMinutes(3)),
+                EmployeeId = 3,
+                FileId = 4,
+                CustomerId = 5
+            };
+
+            prop2 = GetMockService().Create(prop2);
+
+            List<PropositionBO> allProps = GetMockService().GetAll();
+
+            Assert.IsNotNull(allProps);
+            Assert.AreEqual(2, allProps.Count);
+            Assert.IsNotNull(allProps.Find(x => x.Description == "beskrivelse"));
+            Assert.IsNotNull(allProps.Find(x => x.Title == "marmelade"));
         }
     }
 }
