@@ -15,8 +15,8 @@ namespace BLL.Converters
                 return new Employee()
                 {
                     Id = employee.Id,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
+                    Firstname = employee.Firstname,
+                    Lastname = employee.Lastname,
                     Username = employee.Username,
                     Password = employee.Password,
                     MacAddress = employee.MacAddress
@@ -31,8 +31,8 @@ namespace BLL.Converters
             return new EmployeeBO()
             {
                 Id = employee.Id,
-                FirstName = employee.FirstName,
-                LastName = employee.LastName,
+                Firstname = employee.Firstname,
+                Lastname = employee.Lastname,
                 Username = employee.Username,
                 Password = employee.Password,
                 MacAddress = employee.MacAddress
