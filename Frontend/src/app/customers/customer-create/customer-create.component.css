@@ -2,13 +2,12 @@
 .container{
   margin: 5px;
 }
-.input{
-  float: right;
-}
+
 .btn{
-  float: right;
-  margin: 5px;
   width: 88px;
+}
+.center-block{
+  margin-right: 15px;
 }
 
 .no-spin::-webkit-inner-spin-button, .no-spin::-webkit-outer-spin-button {
