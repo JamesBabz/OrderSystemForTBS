@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OrderSystemForTBS.Controllers
 {
+    using Microsoft.AspNetCore.Cors;
+
+    [EnableCors("MyPolicy")]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class PropositionsController : Controller
     {
