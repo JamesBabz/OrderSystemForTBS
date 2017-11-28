@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.logout();
     this.showHeader(false);
+    this.loginService.logout();
   }
 
   login() {
@@ -31,17 +31,19 @@ export class LoginComponent implements OnInit {
       .subscribe(
         success => {
           this.router.navigate(['/customers']);
+          this.showHeader(true);
+
         },
         error => {
           this.errormessage = 'Wrong username or password!';
           this.loading = false;
+          this.showHeader(false);
         });
-    this.showHeader(true);
   }
 
   private showHeader(b: boolean) {
     if (b) {
-      document.getElementById('headerContainer').style.display = 'block';
+      document.getElementById('headerContainer').style.display = 'flex';
     } else {
       document.getElementById('headerContainer').style.display = 'none';
     }

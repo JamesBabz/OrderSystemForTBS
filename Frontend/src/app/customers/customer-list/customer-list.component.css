@@ -1,8 +1,8 @@
 .CustomersBorder{
   height: 78vh;
   border: solid 2px gray;
-  border-radius: 10px;
   margin-left: 5px;
+  overflow-y: scroll;
 }
 
 .leftBorder{

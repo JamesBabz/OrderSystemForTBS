@@ -42,13 +42,13 @@ export class CustomerCreateComponent implements OnInit {
     const customer: Customer = {firstname: values.firstname,
       lastname: values.lastname,
       address: values.address,
-      zipCode: values.zipCode,
+      zipCode: Number(values.zipCode),
       city: values.city,
-      phone: values.phone,
+      phone: Number(values.phone),
       email: values.email,
-      cvr: values.cvr};
-    this.customerService.createCustomer(customer).subscribe(Customer => console.log(customer));
-    this.close();
-
+      cvr: Number(values.cvr)};
+    this.customerService.createCustomer(customer).subscribe(newCustomer => {
+      this.router.navigateByUrl('customer/' + newCustomer.id);
+    });
   }
 }

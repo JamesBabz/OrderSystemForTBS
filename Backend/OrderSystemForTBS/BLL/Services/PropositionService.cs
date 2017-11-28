@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using BLL.BusinessObjects;
 using BLL.Converters;
@@ -59,5 +60,23 @@ namespace BLL.Services
         {
             throw new NotImplementedException();
         }
+
+        public List<PropositionBO> GetAllByCustomerId(int Id)
+        {
+            using (var uow = facade.UnitOfWork)
+            {
+                List<PropositionBO> returnList = new List<PropositionBO>();
+               var fullList = uow.PropositionRepository.GetAll().Select(propConv.Convert);
+                foreach (var prop in fullList)
+                {
+                    if (prop.CustomerId == Id)
+                    {
+                    returnList.Add(prop);
+                    }
+                }
+                return returnList;
+            }
+        }
+
     }
 }
