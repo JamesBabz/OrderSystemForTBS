@@ -4,6 +4,7 @@ import {Customer} from './customer.model';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import {Proposition} from '../../propositions/shared/proposition.model';
 
 const url = environment.ApiEndPoint + '/customers';
 
@@ -21,7 +22,9 @@ export class CustomerService {
   getCustomerById(id: number): Observable<Customer> {
     return this.http.get<Customer>(url + '/' + id);
   }
-  createCustomer(cust: Customer): Observable <Customer> {
+
+  createCustomer(cust: Customer): Observable<Customer> {
     return this.http.post<Customer>(url, cust);
   }
+
 }

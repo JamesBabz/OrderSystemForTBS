@@ -24,5 +24,15 @@ ul.tabs__tab-bar{
 .customerTab > ul > li.tabs__tab{
   width: 25%;
   height: 50px;
+  font-size: 30px;
+  border-right: 1px solid #c9c9c9;
 
 }
+
+.customerTab > ul > li.tabs__tab.active{
+  background-color: #EE7203!important;
+}
+.tabs__panel{
+  background-color: white!important;
+}
+

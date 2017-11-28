@@ -16,7 +16,11 @@ namespace BLL.BusinessObjects
 
         public DateTime CreationDate { get; set; }
 
+        public CustomerBO Customer { get; set; }
+
         public int CustomerId { get; set; }
+
+        public EmployeeBO Employee { get; set; }
 
         public int EmployeeId { get; set; }
 

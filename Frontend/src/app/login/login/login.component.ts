@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
   private showHeader(b: boolean) {
     if (b) {
-      document.getElementById('headerContainer').style.display = 'block';
+      document.getElementById('headerContainer').style.display = 'flex';
     } else {
       document.getElementById('headerContainer').style.display = 'none';
     }
