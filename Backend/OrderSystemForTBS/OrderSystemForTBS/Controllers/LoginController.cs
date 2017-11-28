@@ -46,7 +46,6 @@ namespace OrderSystemForTBS.Controllers
             return Ok(new
             {
                 username = user.Username,
-                password = user.Password,
                 token = GenerateToken(employeeConverter.Convert(user)),             
             });
         }
