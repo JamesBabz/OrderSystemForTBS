@@ -30,8 +30,8 @@ export class CustomerDetailComponent implements OnInit {
   ngOnInit() {
   }
 
-  showProp(){
-    // console.log(this.propositions);
+  showProp() {
+     console.log(this.propositions);
   }
 
   showAProp(prop){

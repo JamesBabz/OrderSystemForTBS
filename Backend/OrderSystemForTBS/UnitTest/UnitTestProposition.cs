@@ -141,13 +141,25 @@ namespace UnitTest
                 ZipCode = 6700
 
             };
+            EmployeeBO employee = new EmployeeBO()
+                                      {
+                                         Id = 1,
+                                          Firstname = "Sigurd",
+                                          Lastname = "Hansen",
+                                          Username = "User",
+                                          Password = "Pass",
+                                          MacAddress = "dfkmgkldfnmg"
+                                      };
+            employee = new EmployeeService(GetDalFacadeMock(this.GetInMemoryContext()).Object).Create(employee);
 
             cust2 = new CustomerService(GetDalFacadeMock(GetInMemoryContext()).Object).Create(cust2);
 
             PropositionBO prop1 = new PropositionBO()
             {
                 Title = "qwe1",
-                CustomerId = 1
+                CustomerId = 1,
+                EmployeeId = 1
+               
             };
 
             prop1 = GetMockService().Create(prop1);
@@ -155,7 +167,8 @@ namespace UnitTest
             PropositionBO prop2 = new PropositionBO()
             {
                 Title = "qwe2",
-                CustomerId = 1
+                CustomerId = 1,
+                EmployeeId = 1
             };
 
             prop2 = GetMockService().Create(prop2);
@@ -163,7 +176,8 @@ namespace UnitTest
             PropositionBO prop3 = new PropositionBO()
             {
                 Title = "qwe3",
-                CustomerId = 1
+                CustomerId = 1,
+                EmployeeId = 1
             };
 
             prop3 = GetMockService().Create(prop3);
@@ -171,7 +185,8 @@ namespace UnitTest
             PropositionBO prop4 = new PropositionBO()
             {
                 Title = "qwe4",
-                CustomerId = 2
+                CustomerId = 2,
+                EmployeeId = 1
             };
 
             prop4 = GetMockService().Create(prop4);
@@ -179,7 +194,8 @@ namespace UnitTest
             PropositionBO prop5 = new PropositionBO()
             {
                 Title = "qwe5",
-                CustomerId = 2
+                CustomerId = 2,
+                EmployeeId = 1
             };
 
             prop5 = GetMockService().Create(prop5);
@@ -187,7 +203,8 @@ namespace UnitTest
             PropositionBO prop6 = new PropositionBO()
             {
                 Title = "qwe6",
-                CustomerId = 2
+                CustomerId = 2,
+                EmployeeId = 1
             };
 
             prop6 = GetMockService().Create(prop6);

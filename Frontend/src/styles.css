@@ -35,4 +35,10 @@ ul.tabs__tab-bar{
 .tabs__panel{
   background-color: white!important;
 }
+body{
+  overflow-x: hidden;
+}
+#headerContainer > hr{
+  margin-top: 0px;
+}
 
