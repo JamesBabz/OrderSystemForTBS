@@ -8,15 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="assets/FaviconTBS.png">
 </head>
-<body>
-<span id="headerContainer">
-<a href="customers"><img class="logo" src="assets/TBSLogo.png"></a>
-<a href="login"><button class=" btn btn-link floatRight" (click)="logout()"  >Log ud</button></a>
-</div>
-
+<div class="row" id="headerConatiner">
+  <div class="col-md-11">
+    <a href="customers"><img class="logo" src="assets/TBSLogo.png"></a>
+  </div>
+  <div class="col-md-1">
+    <a href="login">
+      <button class=" btn btn-link" (click)="logout()">Log ud</button>
+    </a>
+  </div>
 </div>
 <hr>
-</span>
-  <app-root></app-root>
+<app-root></app-root>
 </body>
 </html>
+
