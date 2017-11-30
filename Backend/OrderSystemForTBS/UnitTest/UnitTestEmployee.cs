@@ -1,5 +1,5 @@
-
-﻿using System;
+﻿
+ using System;
 using System.Data.Entity;
 using System.Transactions;
 using BLL;
@@ -30,8 +30,8 @@ namespace UnitTest
             EmployeeBO employee1 = new EmployeeBO()
             {
 
-                FirstName = "Bo",
-                LastName = "Pedersen",
+                Firstname = "Bo",
+                Lastname = "Pedersen",
                 Username = "jbs",
                 Password = "1234",
                 MacAddress = "asdDDFASFDSF"
@@ -39,14 +39,14 @@ namespace UnitTest
             this.GetService().Create(employee1);
             EmployeeBO employee2 = new EmployeeBO()
             {
-                FirstName = "Bent",
-                LastName = "Nygaard",
+                Firstname = "Bent",
+                Lastname = "Nygaard",
                 Username = "jbs",
                 Password = "1234",
                 MacAddress = "asdDDFASFDSF"
             };
             employee2 = this.GetService().Create(employee2);
-            Assert.AreEqual(this.GetService().Get(employee2.Id).FirstName, "Bent");
+            Assert.AreEqual(this.GetService().Get(employee2.Id).Firstname, "Bent");
         }
 
         [TestMethod]
@@ -55,8 +55,8 @@ namespace UnitTest
             this.GetMemoContext().Database.EnsureDeleted();
             EmployeeBO employee = new EmployeeBO()
             {
-                FirstName = "Bent",
-                LastName = "Nygaard",
+                Firstname = "Bent",
+                Lastname = "Nygaard",
                 Username = "jbs",
                 Password = "1234",
                 MacAddress = "asdDDFASFDSF"

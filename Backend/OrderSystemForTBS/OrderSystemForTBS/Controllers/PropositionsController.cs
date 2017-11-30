@@ -9,6 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OrderSystemForTBS.Controllers
 {
+    using Microsoft.AspNetCore.Cors;
+
+    [EnableCors("MyPolicy")]
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class PropositionsController : Controller
     {
@@ -28,9 +32,10 @@ namespace OrderSystemForTBS.Controllers
 
         // GET api/Propositions/5
         [HttpGet("{id}")]
-        public PropositionBO Get(int id)
+        public IEnumerable<PropositionBO> Get(int id)
         {
-            return _facade.PropositionService.Get(id);
+            IEnumerable<PropositionBO> stuff = _facade.PropositionService.GetAllByCustomerId(id);
+            return stuff;
         }
 
         // POST api/Propositions

@@ -5,8 +5,10 @@
 <div *ngIf="customer">
   <div class="row">
     <div class="col-md-2">
-      <p (click)="alertC()">
-        {{customer.firstname}} {{customer.lastname}}
+      <p>
+        <strong>{{customer.firstname}} {{customer.lastname}}</strong>
+        <br/>
+        Tlf: {{customer.phone}}
         <br/>
         CVR-Nr: {{customer.cvr}}
       </p>
@@ -19,22 +21,29 @@
       </p>
     </div>
   </div>
-    <div class="row">
+  <div class="row">
 
-      <tabs class="col-md-12 customerTab">
-        <tab tabTitle="Tilbud">
-          TILBUD!
-        </tab>
-        <tab tabTitle="Slutseddel">
-          SLUTSEDDEL!
-        </tab>
-        <tab tabTitle="Maskinliste">
-          MASKINLISTE!
-        </tab>
-        <tab tabTitle="Besøg">
-          BESØG!
-        </tab>
-      </tabs>
+    <tabs class="col-md-12 customerTab">
+      <tab tabTitle="Tilbud">
+        <div class="row">
+          <ng-container *ngFor="let prop of propositions; let i = index">
+            <div class="clearfix" *ngIf="i % 4 == 0"><br></div>
+            <div class="col-xl-3 col-md-6">
+              <app-proposition [proposition]="prop" [employee]="prop.employee"></app-proposition>
+            </div>
+          </ng-container>
+        </div>
+      </tab>
+      <tab tabTitle="Slutseddel">
+        SLUTSEDDEL!
+      </tab>
+      <tab tabTitle="Maskinliste">
+        MASKINLISTE!
+      </tab>
+      <tab tabTitle="Besøg">
+        BESØG!
+      </tab>
+    </tabs>
 
-    </div>
+  </div>
 </div>

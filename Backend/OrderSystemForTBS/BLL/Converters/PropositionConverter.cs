@@ -8,6 +8,10 @@ namespace BLL.Converters
 {
     class PropositionConverter
     {
+
+        CustomerConverter custConv = new CustomerConverter();
+        EmployeeConverter empConv = new EmployeeConverter();
+
         public Proposition Convert(PropositionBO prop)
         {
             if (prop == null) { return null; }
@@ -18,7 +22,9 @@ namespace BLL.Converters
                     Title = prop.Title,
                     Description = prop.Description,
                     CreationDate = prop.CreationDate,
+                    Customer = custConv.Convert(prop.Customer),
                     CustomerId = prop.CustomerId,
+                    Employee = empConv.Convert(prop.Employee),
                     EmployeeId = prop.EmployeeId,
                     FileId = prop.FileId
                 };
@@ -34,7 +40,9 @@ namespace BLL.Converters
                 Title = prop.Title,
                 Description = prop.Description,
                 CreationDate = prop.CreationDate,
+                Customer = custConv.Convert(prop.Customer),
                 CustomerId = prop.CustomerId,
+                Employee = empConv.Convert(prop.Employee),
                 EmployeeId = prop.EmployeeId,
                 FileId = prop.FileId
             };
