@@ -14,7 +14,7 @@ import {LoginComponent} from './login/login/login.component';
 import {LoginService} from './login/shared/login.service';
 import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
 import {TabModule} from 'angular-tabs-component';
-import {AuthGuard} from './login/shared/auth.guard';
+import {AuthGuard} from './login/login/Auth/auth.guard';
 
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent},
