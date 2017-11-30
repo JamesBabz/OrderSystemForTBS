@@ -23,6 +23,7 @@ import {PropositionService} from './propositions/shared/proposition.service';
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent},
   {path: 'customers/create', component: CustomerCreateComponent},
+  {path: 'proposition/:id', component: PropositionDetailComponent},
   { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent, canActivate: [AuthGuard] },
   {

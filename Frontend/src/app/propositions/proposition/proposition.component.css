@@ -4,4 +4,19 @@
   padding: 5px;
 }
 
+.title > h3{
+  white-space: nowrap;
+}
+
+.description{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.title > h3, .description{
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
 

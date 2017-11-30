@@ -16,8 +16,7 @@ export class CustomerDetailComponent implements OnInit {
 
   customer: Customer;
 
-  constructor(private customerService: CustomerService, private propositionService: PropositionService,
-              private router: Router, private route: ActivatedRoute) {
+  constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute) {
     this.route.paramMap
       .switchMap(params => this.customerService.getCustomerById(+params.get('id')))
       .subscribe(Customer => this.customer = Customer);
