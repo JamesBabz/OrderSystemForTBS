@@ -22,9 +22,15 @@ namespace BLL.Services
 
         public EmployeeBO Create(EmployeeBO employee)
         {
+            string password;
+            byte[] passwordHash, passwordSalt;
             using (var uow = facade.UnitOfWork)
             {
+                password = employee.Password;
                 newEmployee = uow.EmployeeRepository.Create(employeeConverter.Convert(employee));
+                PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                newEmployee.PasswordHash = passwordHash;
+                newEmployee.PasswordSalt = passwordSalt;
                 uow.Complete();
                 return employeeConverter.Convert(newEmployee);
             }
