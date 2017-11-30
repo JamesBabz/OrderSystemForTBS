@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { AppComponent } from './app.component';
 import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -20,21 +20,17 @@ import { PropositionDetailComponent } from './propositions/proposition-detail/pr
 import { PropositionListComponent } from './propositions/proposition-list/proposition-list.component';
 import {PropositionService} from './propositions/shared/proposition.service';
 import {TokenInterceptor} from './login/login/Auth/token.interceptor';
+import {AuthErrorHandler} from './login/login/Auth/AuthErrorHandler';
 
 const appRoutes: Routes = [
-  {path: 'customer/:id', component: CustomerDetailComponent},
-  {path: 'customers/create', component: CustomerCreateComponent},
+  {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
+  {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
-  { path: '', component: LoginComponent, canActivate: [AuthGuard] },
   {
     path: 'customers',
     component: CustomerListComponent,
+    canActivate: [ AuthGuard ] ,
     data: {title: 'Customer list'}
-  },
-  {
-    path: 'customers',
-    redirectTo: '/customers',
-    pathMatch: 'full'
   },
   {
     path: '**', redirectTo: 'customers'
@@ -64,7 +60,8 @@ const appRoutes: Routes = [
     TabModule
   ],
   providers: [CustomerService, LoginService, AuthGuard, PropositionService,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: ErrorHandler, useClass: AuthErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
