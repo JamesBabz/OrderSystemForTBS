@@ -22,8 +22,11 @@ import {PropositionService} from './propositions/shared/proposition.service';
 import {TokenInterceptor} from './login/login/Auth/token.interceptor';
 
 const appRoutes: Routes = [
+
   {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
   {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
+  {path: 'proposition/:id', component: PropositionDetailComponent canActivate: [AuthGuard]},
+
   { path: 'login', component: LoginComponent },
   {
     path: 'customers',
@@ -55,7 +58,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
+    NgbModule.forRoot(),
     TabModule
   ],
   providers: [CustomerService, LoginService, AuthGuard, PropositionService,
