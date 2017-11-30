@@ -60,7 +60,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
-    NgbModule,
+    NgbModule.forRoot(),
     TabModule
   ],
   providers: [CustomerService, LoginService, AuthGuard, PropositionService,
