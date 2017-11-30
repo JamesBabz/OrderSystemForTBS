@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-md-2">
       <p>
-        <span style="font-weight: bold">{{customer.firstname}} {{customer.lastname}}</span>
+        <strong>{{customer.firstname}} {{customer.lastname}}</strong>
         <br/>
         Tlf: {{customer.phone}}
         <br/>
@@ -23,7 +23,7 @@
   </div>
   <div class="row">
 
-    <tabs class="col-md-12 customerTab" (click)="showProp()">
+    <tabs class="col-md-12 customerTab">
       <tab tabTitle="Tilbud">
         <div class="row">
           <ng-container *ngFor="let prop of propositions; let i = index">
