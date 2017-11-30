@@ -14,11 +14,11 @@
       </p>
     </div>
     <div class="col-md-1 offset-md-9">
-      <p>
-        <a href="">Kundeoplysninger</a><br/>
+
+        <button class="btn-link" (click)="open(content)">Kundeoplysninger</button>
         <a href="">Redigér kunde</a><br/>
         <a href="">Slet kunde</a>
-      </p>
+
     </div>
   </div>
   <div class="row">
@@ -37,6 +37,20 @@
         BESØG!
       </tab>
     </tabs>
-
+    <ng-template #content let-c="close">
+      <div class="modal-header">
+        <h4 class="modal-title">Kundeoplysninger</h4>
+        <button type="button" class="close" aria-label="Close"  (click)="c('Close click')" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>One fine body&hellip;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="c('Close click')" >Luk</button>
+      </div>
+    </ng-template>
   </div>
 </div>
+
