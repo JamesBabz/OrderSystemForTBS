@@ -34,7 +34,7 @@ namespace BLL.Services
         {
             using (var uow = facade.UnitOfWork)
             {
-                return uow.CustomerRepository.GetAll().Select(custConv.Convert).ToList();
+                return uow.CustomerRepository.GetAll().Select(custConv.Convert).OrderBy(cust => cust.Firstname).ToList();
             }
         }
 

@@ -16,7 +16,11 @@ namespace DAL.Entities
 
         public DateTime CreationDate { get; set; }
 
+        public Customer Customer { get; set; }
+
         public int CustomerId { get; set; }
+
+        public Employee Employee { get; set; }
 
         public int EmployeeId { get; set; }
 

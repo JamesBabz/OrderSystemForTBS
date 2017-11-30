@@ -1,17 +1,17 @@
+<div class=" col-md-4" xmlns="">
+  <h1>Opret kunde</h1>
 
-<div class="container col-md-4">
-  <h1>Opret kunde  <button (click)="close()" class=" btn btn-danger">Anuller</button>
-    <button [disabled]="customerGroup.invalid" type ="submit" (click)="createCustomer()" class=" btn btn-success">Gem</button>
-  </h1>
-
-  <div class="inputsContainer col-md-6">
+  <div class="inputsContainer row-md">
     <form (ngSubmit)="createCustomer()" [formGroup]="customerGroup" novalidate>
       <div class="form-group">
-        <label class="center-block">Fornavn:*
+        <label class="center-block">Fornavn:<span style="color: red">*</span>
           <input type="text" class="form-control" formControlName="firstname">
         </label>
-        <label class="center-block">Efternavn:*
+        <label class="center-block">Efternavn:<span style="color: red">*</span>
           <input type="text" class="form-control" formControlName="lastname">
+        </label>
+        <label class="center-block">CVR:
+          <input type="number" class="form-control no-spin" formControlName="cvr">
         </label>
         <label class="center-block">Adresse:
           <input type="text" class="form-control" formControlName="address">
@@ -28,12 +28,11 @@
         <label class="left">Email:
           <input type="email" class="form-control" formControlName="email">
         </label>
-        <label class="center-block">CVR:
-          <input type="number" class="form-control no-spin" formControlName="cvr">
-        </label>
       </div>
     </form>
   </div>
-
+  <button (click)="close()" class=" btn btn-danger" >Anuller</button>
+  <button  [disabled]="customerGroup.invalid" type ="submit" (click)="createCustomer()" onclick="disabled=true" class=" btn btn-success" >Gem</button>
 </div>
+
 

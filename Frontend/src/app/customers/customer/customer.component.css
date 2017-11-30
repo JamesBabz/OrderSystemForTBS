@@ -6,4 +6,7 @@
 }
 .text{
   margin: 5px;
+  text-overflow: clip;
+  white-space: nowrap;
+  overflow: hidden;
 }

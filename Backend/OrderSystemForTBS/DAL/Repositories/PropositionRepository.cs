@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DAL.Context;
 using DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
@@ -24,17 +24,23 @@ namespace DAL.Repositories
 
         public IEnumerable<Proposition> GetAll()
         {
-            return _context.Propositions.ToList();
+            //return _context.Propositions.Include(prop => prop.Customer).ToList();
+            return _context.Propositions.Include(prop => prop.Customer).Include(prop => prop.Employee).ToList();
         }
 
-        public Proposition Get(int Id)
+        public Proposition Get(int id)
         {
-            return _context.Propositions.FirstOrDefault(x => x.Id == Id);
+            return _context.Propositions.FirstOrDefault(x => x.Id == id);
         }
 
-        public Proposition Delete(int Id)
+        public Proposition Delete(int id)
         {
             throw new NotImplementedException();
         }
+
+        //public IEnumerable<Proposition> GetAllPropositionsByCustomerId(int id)
+        //{
+        //    return _context.Propositions.Include(prop => prop.CustomerId).Include(prop => prop.EmployeeId).ToList();
+        //}
     }
 }

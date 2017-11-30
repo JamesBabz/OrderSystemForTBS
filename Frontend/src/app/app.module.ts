@@ -15,6 +15,10 @@ import {LoginService} from './login/shared/login.service';
 import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
 import {TabModule} from 'angular-tabs-component';
 import {AuthGuard} from './login/login/Auth/auth.guard';
+import { PropositionComponent } from './propositions/proposition/proposition.component';
+import { PropositionDetailComponent } from './propositions/proposition-detail/proposition-detail.component';
+import { PropositionListComponent } from './propositions/proposition-list/proposition-list.component';
+import {PropositionService} from './propositions/shared/proposition.service';
 
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent},
@@ -43,7 +47,10 @@ const appRoutes: Routes = [
     CustomerDetailComponent,
     CustomerComponent,
     LoginComponent,
-    CustomerCreateComponent
+    CustomerCreateComponent,
+    PropositionComponent,
+    PropositionDetailComponent,
+    PropositionListComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +63,7 @@ const appRoutes: Routes = [
     TabModule
 
   ],
-  providers: [CustomerService, LoginService, AuthGuard],
+  providers: [CustomerService, LoginService, AuthGuard, PropositionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
