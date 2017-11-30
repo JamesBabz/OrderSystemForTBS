@@ -37,7 +37,7 @@ namespace BLL.Services
         {
             using (var uow = facade.UnitOfWork)
             {
-                return uow.PropositionRepository.GetAll().Select(propConv.Convert).ToList(); ;
+                return uow.PropositionRepository.GetAll().Select(propConv.Convert).ToList();
             }
         }
 

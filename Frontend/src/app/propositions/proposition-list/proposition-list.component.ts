@@ -10,6 +10,7 @@ import {Customer} from '../../customers/shared/customer.model';
   templateUrl: './proposition-list.component.html',
   styleUrls: ['./proposition-list.component.css']
 })
+
 export class PropositionListComponent implements OnInit {
 
   propositions: Proposition[];
@@ -21,6 +22,12 @@ export class PropositionListComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+
+  details(prop: Proposition) {
+    this.propositionService.setCurrentProposition(prop);
+    this.router.navigateByUrl('/proposition/' + prop.id);
   }
 
 }

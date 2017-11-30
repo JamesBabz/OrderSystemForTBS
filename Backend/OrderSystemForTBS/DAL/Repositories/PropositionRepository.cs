@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using DAL.Context;
 using DAL.Entities;
@@ -25,7 +26,7 @@ namespace DAL.Repositories
         public IEnumerable<Proposition> GetAll()
         {
             //return _context.Propositions.Include(prop => prop.Customer).ToList();
-            return _context.Propositions.Include(prop => prop.Customer).Include(prop => prop.Employee).ToList();
+            return _context.Propositions.Include(prop => prop.Customer).Include(prop => prop.Employee).OrderByDescending(x => x.CreationDate).ToList();
         }
 
         public Proposition Get(int id)
