@@ -16,33 +16,33 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class CustomerDetailComponent implements OnInit {
 
   customer: Customer;
-
-  closeResult: string;
+  editCustomer: Customer;
   constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
-
-    this.route.paramMap
-      .switchMap(params => this.customerService.getCustomerById(+params.get('id')))
-      .subscribe(Customer => this.customer = Customer);
   }
 
   ngOnInit() {
+    this.route.paramMap
+      .switchMap(params => this.customerService
+        .getCustomerById(+params.get('id')))
+      .subscribe(Customer => {
+        this.customer = Customer;
+        this.editCustomer = Object.assign({}, this.customer);
+      });
   }
   open(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService.open(content);
   }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK ) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
+  openEdit(editContent) {
+    this.modalService.open(editContent);
+  }
+  cancel() {
+    this.editCustomer = Object.assign({}, this.customer);
+  }
+  updateCustomer() {
+    this.customerService.updateCustomerById(this.customer.id, this.editCustomer).subscribe(Customer => {
+      this.customer = Customer;
+      this.editCustomer = Object.assign({}, this.customer);
+    });
   }
 
 
