@@ -59,7 +59,7 @@ namespace BLL.Services
                 customerFromDb.Address = customerFromDb.Address;
                 customerFromDb.ZipCode = cust.ZipCode;
                 customerFromDb.City = cust.City;
-                customerFromDb.Email = cust.City;
+                customerFromDb.Email = cust.Email;
                 customerFromDb.CVR = cust.CVR;
                 customerFromDb.Phone = cust.Phone;
                 uow.Complete();
