@@ -37,7 +37,7 @@ namespace BLL.Services
         {
             using (var uow = facade.UnitOfWork)
             {
-                return uow.PropositionRepository.GetAll().Select(propConv.Convert).ToList(); ;
+                return uow.PropositionRepository.GetAll().Select(propConv.Convert).ToList();
             }
         }
 
@@ -66,14 +66,13 @@ namespace BLL.Services
             using (var uow = facade.UnitOfWork)
             {
                 List<PropositionBO> returnList = new List<PropositionBO>();
-               var fullList = uow.PropositionRepository.GetAll().Select(propConv.Convert);
+               var fullList = uow.PropositionRepository.GetAll(Id);
                 foreach (var prop in fullList)
                 {
-                    if (prop.CustomerId == Id)
-                    {
-                    returnList.Add(prop);
-                    }
+                        returnList.Add(propConv.Convert(prop));
                 }
+                Console.Write(returnList.ToString());
+                
                 return returnList;
             }
         }

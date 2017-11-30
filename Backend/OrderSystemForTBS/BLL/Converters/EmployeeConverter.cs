@@ -19,6 +19,8 @@ namespace BLL.Converters
                     Lastname = employee.Lastname,
                     Username = employee.Username,
                     Password = employee.Password,
+                    PasswordHash = employee.PasswordHash,
+                    PasswordSalt = employee.PasswordSalt,
                     MacAddress = employee.MacAddress
                     
                 };
@@ -35,6 +37,8 @@ namespace BLL.Converters
                 Lastname = employee.Lastname,
                 Username = employee.Username,
                 Password = employee.Password,
+                PasswordHash = employee.PasswordHash,
+                PasswordSalt = employee.PasswordSalt,
                 MacAddress = employee.MacAddress
             };
         }

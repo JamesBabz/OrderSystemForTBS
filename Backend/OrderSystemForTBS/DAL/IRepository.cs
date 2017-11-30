@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DAL.Entities;
 
 namespace DAL
 {
@@ -13,5 +14,6 @@ namespace DAL
         //No Update for Repository, It will be the task of Unit of Work
         //D
         IEntity Delete(int Id);
+        IEnumerable<IEntity> GetAll(int id);
     }
 }

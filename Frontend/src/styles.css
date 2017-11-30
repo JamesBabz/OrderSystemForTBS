@@ -42,3 +42,11 @@ body{
   margin-top: 0px;
 }
 
+.customerTab > tab > .tabs__panel{
+  padding: 12px 15px 0!important;
+}
+
+.addBtnRow .addBtn{
+  background-color: #AAD48C;
+}
+

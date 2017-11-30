@@ -34,9 +34,9 @@ namespace OrderSystemForTBS.Controllers
         [HttpGet("{id}")]
         public IEnumerable<PropositionBO> Get(int id)
         {
-            IEnumerable<PropositionBO> stuff = _facade.PropositionService.GetAllByCustomerId(id);
-            return stuff;
+            return _facade.PropositionService.GetAllByCustomerId(id);
         }
+        
 
         // POST api/Propositions
         [HttpPost]
