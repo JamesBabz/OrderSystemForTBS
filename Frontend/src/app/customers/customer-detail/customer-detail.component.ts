@@ -14,28 +14,16 @@ import {PropositionService} from '../../propositions/shared/proposition.service'
 })
 export class CustomerDetailComponent implements OnInit {
 
-  propositions: Proposition[];
   customer: Customer;
 
   constructor(private customerService: CustomerService, private propositionService: PropositionService,
               private router: Router, private route: ActivatedRoute) {
-    this.route.paramMap
-      .switchMap(params => this.propositionService.getPropositionsByCustomerId(+params.get('id')))
-      .subscribe(Proposition => this.propositions = Proposition);
     this.route.paramMap
       .switchMap(params => this.customerService.getCustomerById(+params.get('id')))
       .subscribe(Customer => this.customer = Customer);
   }
 
   ngOnInit() {
-  }
-
-  showProp() {
-     console.log(this.propositions);
-  }
-
-  showAProp(prop){
-    console.log(prop);
   }
 
 }
