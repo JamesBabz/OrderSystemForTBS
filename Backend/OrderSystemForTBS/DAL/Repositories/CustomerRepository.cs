@@ -40,5 +40,10 @@ namespace DAL.Repositories
             _context.Customers.Remove(customer);
             return customer;
         }
+
+        public IEnumerable<Customer> GetAll(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace OrderSystemForTBS.Controllers
             return _facade.PropositionService.GetAll();
         }
 
-        // GET api/Propositions/cust/5
+        // GET api/Propositions/5
         [HttpGet("{id}")]
         public IEnumerable<PropositionBO> Get(int id)
         {

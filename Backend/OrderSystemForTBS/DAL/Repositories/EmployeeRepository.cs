@@ -30,6 +30,11 @@ namespace DAL.Repositories
 
         }
 
+        public IEnumerable<Employee> GetAll(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Employee Get(int Id)
         {
             return _context.Employees.FirstOrDefault(x => x.Id == Id);
