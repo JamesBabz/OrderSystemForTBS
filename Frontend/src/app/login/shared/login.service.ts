@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {environment} from '../../../environments/environment';
 import {Employee} from './employee-model';
-import {HttpClient} from '@angular/common/http';
 import {Http, Headers, Response, RequestOptions} from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -35,16 +33,6 @@ export class LoginService {
           return false;
         }
       });
-  }
-
-  getItems(): Observable<Employee> {
-    // add authorization header with jwt token
-    const headers = new Headers({ 'Authorization': 'Bearer ' + this.token });
-    const options = new RequestOptions({ headers: headers });
-
-    // get users from api
-    return this.http.get('http://localhost:55000/api/employee/', options)
-      .map((response: Response) => response.json());
   }
 
   logout(): void {

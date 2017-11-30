@@ -5,7 +5,7 @@ import { CustomerListComponent } from './customers/customer-list/customer-list.c
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { CustomerDetailComponent } from './customers/customer-detail/customer-detail.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CustomerService} from './customers/shared/customer.service';
 import { CustomerComponent } from './customers/customer/customer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -19,6 +19,7 @@ import { PropositionComponent } from './propositions/proposition/proposition.com
 import { PropositionDetailComponent } from './propositions/proposition-detail/proposition-detail.component';
 import { PropositionListComponent } from './propositions/proposition-list/proposition-list.component';
 import {PropositionService} from './propositions/shared/proposition.service';
+import {TokenInterceptor} from './login/login/Auth/token.interceptor';
 
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent},
@@ -61,9 +62,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     NgbModule,
     TabModule
-
   ],
-  providers: [CustomerService, LoginService, AuthGuard, PropositionService],
+  providers: [CustomerService, LoginService, AuthGuard, PropositionService,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
