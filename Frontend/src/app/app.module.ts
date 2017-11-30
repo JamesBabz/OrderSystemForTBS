@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { AppComponent } from './app.component';
 import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -22,20 +22,17 @@ import {PropositionService} from './propositions/shared/proposition.service';
 import {TokenInterceptor} from './login/login/Auth/token.interceptor';
 
 const appRoutes: Routes = [
-  {path: 'customer/:id', component: CustomerDetailComponent},
-  {path: 'customers/create', component: CustomerCreateComponent},
-  {path: 'proposition/:id', component: PropositionDetailComponent},
+
+  {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
+  {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
+  {path: 'proposition/:id', component: PropositionDetailComponent canActivate: [AuthGuard]},
+
   { path: 'login', component: LoginComponent },
-  { path: '', component: LoginComponent, canActivate: [AuthGuard] },
   {
     path: 'customers',
     component: CustomerListComponent,
+    canActivate: [ AuthGuard ] ,
     data: {title: 'Customer list'}
-  },
-  {
-    path: 'customers',
-    redirectTo: '/customers',
-    pathMatch: 'full'
   },
   {
     path: '**', redirectTo: 'customers'
