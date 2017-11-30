@@ -25,14 +25,7 @@
 
     <tabs class="col-md-12 customerTab">
       <tab tabTitle="Tilbud">
-        <div class="row">
-          <ng-container *ngFor="let prop of propositions; let i = index">
-            <div class="clearfix" *ngIf="i % 4 == 0"><br></div>
-            <div class="col-xl-3 col-md-6">
-              <app-proposition [proposition]="prop" [employee]="prop.employee"></app-proposition>
-            </div>
-          </ng-container>
-        </div>
+        <app-proposition-list></app-proposition-list>
       </tab>
       <tab tabTitle="Slutseddel">
         SLUTSEDDEL!
