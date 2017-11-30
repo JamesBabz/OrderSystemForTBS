@@ -5,7 +5,7 @@ import { CustomerListComponent } from './customers/customer-list/customer-list.c
 import {RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { CustomerDetailComponent } from './customers/customer-detail/customer-detail.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {CustomerService} from './customers/shared/customer.service';
 import { CustomerComponent } from './customers/customer/customer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,22 +14,14 @@ import {LoginComponent} from './login/login/login.component';
 import {LoginService} from './login/shared/login.service';
 import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
 import {TabModule} from 'angular-tabs-component';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import {AuthGuard} from './login/login/Auth/auth.guard';
-=======
-import {AuthGuard} from './login/shared/auth.guard';
-=======
-import {AuthGuard} from './login/login/Auth/auth.guard';
->>>>>>> 64a32f6bd8e94399593f335db7b43a90fc0618cb
 import { PropositionComponent } from './propositions/proposition/proposition.component';
 import { PropositionDetailComponent } from './propositions/proposition-detail/proposition-detail.component';
 import { PropositionListComponent } from './propositions/proposition-list/proposition-list.component';
 import {PropositionService} from './propositions/shared/proposition.service';
-<<<<<<< HEAD
->>>>>>> Development
-=======
->>>>>>> 64a32f6bd8e94399593f335db7b43a90fc0618cb
+import {TokenInterceptor} from './login/login/Auth/token.interceptor';
+import {AuthService} from './login/login/Auth/authService';
+
 
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent},
@@ -72,9 +64,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     NgbModule,
     TabModule
-
   ],
-  providers: [CustomerService, LoginService, AuthGuard, PropositionService],
+  providers: [CustomerService, LoginService, AuthGuard, PropositionService, AuthService,
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
