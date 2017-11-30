@@ -15,14 +15,21 @@ import {LoginService} from './login/shared/login.service';
 import { CustomerCreateComponent } from './customers/customer-create/customer-create.component';
 import {TabModule} from 'angular-tabs-component';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {AuthGuard} from './login/login/Auth/auth.guard';
 =======
 import {AuthGuard} from './login/shared/auth.guard';
+=======
+import {AuthGuard} from './login/login/Auth/auth.guard';
+>>>>>>> 64a32f6bd8e94399593f335db7b43a90fc0618cb
 import { PropositionComponent } from './propositions/proposition/proposition.component';
 import { PropositionDetailComponent } from './propositions/proposition-detail/proposition-detail.component';
 import { PropositionListComponent } from './propositions/proposition-list/proposition-list.component';
 import {PropositionService} from './propositions/shared/proposition.service';
+<<<<<<< HEAD
 >>>>>>> Development
+=======
+>>>>>>> 64a32f6bd8e94399593f335db7b43a90fc0618cb
 
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent},
