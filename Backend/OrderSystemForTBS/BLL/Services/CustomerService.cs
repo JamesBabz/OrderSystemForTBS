@@ -56,7 +56,7 @@ namespace BLL.Services
 //                customerFromDb.Id = cust.Id;
                 customerFromDb.Firstname = cust.Firstname;
                 customerFromDb.Lastname = cust.Lastname;
-                customerFromDb.Address = customerFromDb.Address;
+                customerFromDb.Address = cust.Address;
                 customerFromDb.ZipCode = cust.ZipCode;
                 customerFromDb.City = cust.City;
                 customerFromDb.Email = cust.Email;
