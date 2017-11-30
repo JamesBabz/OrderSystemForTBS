@@ -2,22 +2,43 @@
 import { Router, CanActivate } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {AuthService} from './authService';
+import {LoginService} from '../../shared/login.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(public auth: AuthService) {}
+  constructor(private loginService: LoginService) { }
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${this.auth.getToken()}`
-      }
-    });
+    // get the token from a service
 
-    return next.handle(request);
+    const token: string = this.loginService.token;
+
+    // add it if we have one
+
+    if (token) {
+      req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
+    }
+
+    // if this is a login-request the header is
+
+    // already set to x/www/formurl/encoded.
+
+    // so if we already have a content-type, do not
+
+    // set it, but if we don't have one, set it to
+
+    // default --> json
+
+    if (!req.headers.has('Content-Type')) {
+      req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+    }
+
+    // setting the accept header
+
+    req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+    return next.handle(req);
   }
 }
 
