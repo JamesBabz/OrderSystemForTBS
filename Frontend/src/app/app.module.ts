@@ -20,7 +20,6 @@ import { PropositionDetailComponent } from './propositions/proposition-detail/pr
 import { PropositionListComponent } from './propositions/proposition-list/proposition-list.component';
 import {PropositionService} from './propositions/shared/proposition.service';
 import {TokenInterceptor} from './login/login/Auth/token.interceptor';
-import {AuthErrorHandler} from './login/login/Auth/AuthErrorHandler';
 
 const appRoutes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
@@ -60,8 +59,7 @@ const appRoutes: Routes = [
     TabModule
   ],
   providers: [CustomerService, LoginService, AuthGuard, PropositionService,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    {provide: ErrorHandler, useClass: AuthErrorHandler}],
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
