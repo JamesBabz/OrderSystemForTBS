@@ -10,7 +10,7 @@
 }
 
 .editModal-title {
-  margin-top: 21.6%;
+  margin-top: 26%;
 }
 
 .input{
@@ -25,4 +25,10 @@
   -webkit-appearance: none !important;
   margin: 0 !important;
   -moz-appearance:textfield !important;
+}
+.property-text{
+  margin-bottom: 18px;
+}
+.notSaved-text{
+  color: red;
 }
