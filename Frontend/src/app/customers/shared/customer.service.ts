@@ -26,5 +26,8 @@ export class CustomerService {
   createCustomer(cust: Customer): Observable<Customer> {
     return this.http.post<Customer>(url, cust);
   }
+  updateCustomerById(id: number, cust: Customer): Observable<Customer> {
+    return this.http.put(environment.ApiEndPoint + '/customers/' + id, cust);
+  }
 
 }
