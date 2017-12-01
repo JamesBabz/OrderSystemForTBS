@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Proposition} from '../shared/proposition.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CustomerService} from '../../customers/shared/customer.service';
@@ -12,6 +12,10 @@ import {Customer} from '../../customers/shared/customer.model';
 })
 
 export class PropositionListComponent implements OnInit {
+
+  @Input()
+  customer: Customer;
+
 
   propositions: Proposition[];
 
@@ -28,6 +32,11 @@ export class PropositionListComponent implements OnInit {
   details(prop: Proposition) {
     this.propositionService.setCurrentProposition(prop);
     this.router.navigateByUrl('/proposition/' + prop.id);
+  }
+
+  create() {
+    this.propositionService.setCurrentCustomer(this.customer);
+    this.router.navigateByUrl('/propositions/create');
   }
 
 }
