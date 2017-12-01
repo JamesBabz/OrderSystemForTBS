@@ -25,7 +25,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Proposition> GetAll()
         {
-            return _context.Propositions.Include(prop => prop.Customer).Include(prop => prop.Employee).OrderByDescending(x => x.CreationDate).ToList();
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Proposition> GetAll(int id)

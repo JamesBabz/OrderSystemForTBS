@@ -61,12 +61,12 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
-        public List<PropositionBO> GetAllByCustomerId(int Id)
+        public List<PropositionBO> GetAllById(int customerId)
         {
             using (var uow = facade.UnitOfWork)
             {
                 List<PropositionBO> returnList = new List<PropositionBO>();
-               var fullList = uow.PropositionRepository.GetAll(Id);
+               var fullList = uow.PropositionRepository.GetAll(customerId);
                 foreach (var prop in fullList)
                 {
                         returnList.Add(propConv.Convert(prop));
