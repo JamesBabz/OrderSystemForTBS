@@ -3,6 +3,7 @@ import {environment} from '../../../environments/environment';
 import {Proposition} from './proposition.model';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
+import {Customer} from '../../customers/shared/customer.model';
 
 
 const url = environment.ApiEndPoint + '/propositions/';
@@ -11,6 +12,7 @@ const url = environment.ApiEndPoint + '/propositions/';
 export class PropositionService {
 
   private currentProp: Proposition;
+  private currentCust: Customer;
 
 
   constructor(private http: HttpClient) {
@@ -37,5 +39,11 @@ export class PropositionService {
     return this.currentProp;
   }
 
+  setCurrentCustomer(customer: Customer) {
+    this.currentCust = customer;
+  }
 
+  getCurrentCustomer() {
+    return this.currentCust;
+  }
 }

@@ -45,14 +45,14 @@ export class CustomerDetailComponent implements OnInit {
     this.editCustomer = Object.assign({}, this.customer);
   }
   updateCustomer() {
-    this.isSaved = true;
-    this.changes = false;
     if (this.changes) {
       this.customerService.updateCustomerById(this.customer.id, this.editCustomer).subscribe(Customer => {
         this.customer = Customer;
         this.editCustomer = Object.assign({}, this.customer);
+        this.isSaved = true;
       });
     }
+    this.changes = false;
   }
 
 
