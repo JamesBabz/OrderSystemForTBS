@@ -23,4 +23,8 @@ export class CustomerListComponent implements OnInit {
   createCustomer() {
     this.router.navigateByUrl('/customers/create');
   }
+
+  creaeteProposition(){
+    this.router.navigateByUrl('propositions/create');
+  }
 }

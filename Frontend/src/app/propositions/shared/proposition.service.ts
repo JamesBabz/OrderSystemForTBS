@@ -17,6 +17,7 @@ export class PropositionService {
 
   constructor(private http: HttpClient) {
     this.currentProp = null;
+    this.currentCust = null;
   }
 
   getPropositionsByCustomerId(id: number): Observable<Proposition[]> {

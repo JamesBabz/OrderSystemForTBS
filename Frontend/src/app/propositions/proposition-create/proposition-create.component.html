@@ -1,4 +1,20 @@
-<p>
-  proposition-create works!
-  {{customer.firstname}}
-</p>
+<form>
+  <select>
+    <option value="0">Vælg kunde</option>
+    <ng-container *ngFor="let cust of customers">
+
+      <ng-container *ngIf="customer != null">
+
+        <option *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+        <option selected *ngIf="cust.id == customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+
+      </ng-container>
+
+      <ng-container *ngIf="customer == null">
+
+        <option value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+
+      </ng-container>
+    </ng-container>
+  </select>
+</form>
