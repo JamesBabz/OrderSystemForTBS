@@ -17,6 +17,8 @@ export class CustomerDetailComponent implements OnInit {
 
   customer: Customer;
   editCustomer: Customer;
+  isSaved = false;
+  changes = false;
   constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
   }
 
@@ -34,16 +36,23 @@ export class CustomerDetailComponent implements OnInit {
   }
   openEdit(editContent) {
     this.modalService.open(editContent);
+    if (this.isSaved) {
+      this.isSaved = false;
+    }
   }
   cancel() {
+  this.changes = false;
     this.editCustomer = Object.assign({}, this.customer);
   }
   updateCustomer() {
+    this.isSaved = true;
+    this.changes = false;
     this.customerService.updateCustomerById(this.customer.id, this.editCustomer).subscribe(Customer => {
       this.customer = Customer;
       this.editCustomer = Object.assign({}, this.customer);
     });
   }
+
 
 
 }

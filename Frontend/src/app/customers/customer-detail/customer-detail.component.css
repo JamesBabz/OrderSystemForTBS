@@ -29,3 +29,6 @@
 .property-text{
   margin-bottom: 18px;
 }
+.notSaved-text{
+  color: red;
+}
