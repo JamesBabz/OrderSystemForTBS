@@ -46,76 +46,61 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void CreatePropositionMethod()
+        public void CreateEquipmentMethod()
         {
 
             GetInMemoryContext().Database.EnsureDeleted();
 
-            var snurf = new PropositionBO()
+            var equipment = new EquipmentBO()
             {
-                Title = "ostemad",
-                Description = "ostemad beskrivelse",
-                CreationDate = DateTime.MinValue,
-                EmployeeId = 2,
-                FileId = 3,
-                CustomerId = 4
+                Name = "Traktor",
+                CustomerId = 1
             };
 
-            GetMockService().Create(snurf);
+            GetMockService().Create(equipment);
 
             //Expected results
-            Assert.IsNotNull(snurf);
-            Assert.AreEqual("ostemad", snurf.Title);
-
-
+            Assert.IsNotNull(equipment);
+            Assert.AreEqual("Traktor", equipment.Name);
         }
 
         [TestMethod]
-        public void GetPropositionMethod()
+        public void GetEquipmentMethod()
         {
 
             GetInMemoryContext().Database.EnsureDeleted();
 
-            PropositionBO prop1 = new PropositionBO()
+            EquipmentBO equip1 = new EquipmentBO()
             {
-                Title = "ost",
-                Description = "beskrivelse",
-                CreationDate = DateTime.MinValue,
-                EmployeeId = 2,
-                FileId = 3,
-                CustomerId = 4
+                Name = "Traktor",
+                CustomerId = 1
             };
 
-            prop1 = GetMockService().Create(prop1);
+            equip1 = GetMockService().Create(equip1);
 
-            PropositionBO prop2 = new PropositionBO()
+            EquipmentBO equip2 = new EquipmentBO()
             {
-                Title = "marmelade",
-                Description = "en ny beskrivelse",
-                CreationDate = DateTime.MinValue.Add(TimeSpan.FromMinutes(3)),
-                EmployeeId = 3,
-                FileId = 4,
-                CustomerId = 5
+                Name = "Plov",
+                CustomerId = 2
             };
 
-            prop2 = GetMockService().Create(prop2);
+            equip2 = GetMockService().Create(equip2);
 
-            PropositionBO snurf = GetMockService().Get(prop1.Id);
+            EquipmentBO equip = GetMockService().Get(equip2.Id);
 
             //Expected results
-            Assert.IsNotNull(snurf);
-            Assert.AreEqual("ost", snurf.Title);
+            Assert.IsNotNull(equip);
+            Assert.AreEqual("Plov", equip.Name);
 
         }
 
         [TestMethod]
-        public void GetAllPropositionsMethod()
+        public void GetAllEquipmentMethod()
         {
             GetInMemoryContext().Database.EnsureDeleted();
 
             CustomerBO cust1 = new CustomerBO()
             {
-                Id = 1,
                 Firstname = "ham her",
                 Lastname = "Fuhlendorff",
                 Address = "testvej1",
@@ -131,7 +116,6 @@ namespace UnitTest
 
             CustomerBO cust2 = new CustomerBO()
             {
-                Id = 2,
                 Firstname = "ikke ham her",
                 Lastname = "Meyer",
                 Address = "testvej2222",
@@ -142,83 +126,64 @@ namespace UnitTest
                 ZipCode = 6700
 
             };
-            EmployeeBO employee = new EmployeeBO()
-            {
-                Id = 1,
-                Firstname = "Sigurd",
-                Lastname = "Hansen",
-                Username = "User",
-                Password = "Pass",
-                MacAddress = "dfkmgkldfnmg"
-            };
-            employee = new EmployeeService(GetDalFacadeMock(this.GetInMemoryContext()).Object).Create(employee);
 
             cust2 = new CustomerService(GetDalFacadeMock(GetInMemoryContext()).Object).Create(cust2);
 
-            PropositionBO prop1 = new PropositionBO()
+            EquipmentBO equip1 = new EquipmentBO()
             {
-                Title = "qwe1",
-                CustomerId = 1,
-                EmployeeId = 1
-
+                Name = "Traktor",
+                CustomerId = cust1.Id
             };
 
-            prop1 = GetMockService().Create(prop1);
+            equip1 = GetMockService().Create(equip1);
 
-            PropositionBO prop2 = new PropositionBO()
+            EquipmentBO equip2 = new EquipmentBO()
             {
-                Title = "qwe2",
-                CustomerId = 1,
-                EmployeeId = 1
+                Name = "Plov",
+                CustomerId = cust1.Id
             };
 
-            prop2 = GetMockService().Create(prop2);
+            equip2 = GetMockService().Create(equip2);
 
-            PropositionBO prop3 = new PropositionBO()
+            EquipmentBO equip3 = new EquipmentBO()
             {
-                Title = "qwe3",
-                CustomerId = 1,
-                EmployeeId = 1
+                Name = "Vogn",
+                CustomerId = cust1.Id
             };
 
-            prop3 = GetMockService().Create(prop3);
+            equip3 = GetMockService().Create(equip3);
 
-            PropositionBO prop4 = new PropositionBO()
+            EquipmentBO equip4 = new EquipmentBO()
             {
-                Title = "qwe4",
-                CustomerId = 2,
-                EmployeeId = 1
+                Name = "AndenVogn",
+                CustomerId = cust2.Id
             };
 
-            prop4 = GetMockService().Create(prop4);
+            equip4 = GetMockService().Create(equip4);
 
-            PropositionBO prop5 = new PropositionBO()
+            EquipmentBO equip5 = new EquipmentBO()
             {
-                Title = "qwe5",
-                CustomerId = 2,
-                EmployeeId = 1
+                Name = "AndenTraktor",
+                CustomerId = cust2.Id
             };
 
-            prop5 = GetMockService().Create(prop5);
+            equip5 = GetMockService().Create(equip5);
 
-            PropositionBO prop6 = new PropositionBO()
+            EquipmentBO equip6 = new EquipmentBO()
             {
-                Title = "qwe6",
-                CustomerId = 2,
-                EmployeeId = 1
+                Name = "AndenPlov",
+                CustomerId = cust2.Id
             };
 
-            prop6 = GetMockService().Create(prop6);
+            equip6 = GetMockService().Create(equip6);
 
-            List<PropositionBO> allProps = GetMockService().GetAll();
+            List<EquipmentBO> allEquipment = GetMockService().GetAllById(cust1.Id);
 
-            Assert.IsNotNull(allProps);
-            Assert.AreEqual(6, allProps.Count);
-            Assert.AreEqual(cust2.Firstname, allProps.Find(x => x.Title == "qwe4").Customer.Firstname);
-            Assert.IsNotNull(allProps.Find(x => x.Title == "qwe4"));
-
-
+            Assert.IsNotNull(allEquipment);
+            Assert.AreEqual(3, allEquipment.Count);
+            Assert.AreEqual(cust1.Firstname, allEquipment.Find(x => x.Name == "Plov").Customer.Firstname);
+            Assert.IsNull(allEquipment.Find(x => x.Name == "hej"));
         }
     }
 }
-}
+

@@ -39,6 +39,22 @@ namespace BLL.Services
             }
         }
 
+        public List<EquipmentBO> GetAllById(int customerId)
+        {
+            using (var uow = facade.UnitOfWork)
+            {
+                List<EquipmentBO> returnList = new List<EquipmentBO>();
+                var fullList = uow.EquipmentRepository.GetAll(customerId);
+                foreach (var equip in fullList)
+                {
+                    returnList.Add(equipmentConverter.Convert(equip));
+                }
+                Console.Write(returnList.ToString());
+
+                return returnList;
+            }
+        }
+
         public EquipmentBO Get(int Id)
         {
             using (var uow = facade.UnitOfWork)

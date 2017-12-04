@@ -26,7 +26,6 @@ namespace DAL.Repositories
         public IEnumerable<Equipment> GetAll()
         {
             return _context.Equipments.Include(prop => prop.Customer).ToList();
-
         }
 
         public Equipment Get(int Id)
@@ -43,7 +42,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Equipment> GetAll(int id)
         {
-            throw new NotImplementedException();
+            return _context.Equipments.Include(prop => prop.Customer).Where(x => x.CustomerId == id).ToList();
         }
     }
 }
