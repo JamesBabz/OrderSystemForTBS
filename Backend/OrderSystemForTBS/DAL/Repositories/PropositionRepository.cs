@@ -42,7 +42,9 @@ namespace DAL.Repositories
 
         public Proposition Delete(int id)
         {
-            throw new NotImplementedException();
+            var prop = Get(id);
+            _context.Propositions.Remove(prop);
+            return prop;
         }
 
         //public IEnumerable<Proposition> GetAllPropositionsByCustomerId(int id)

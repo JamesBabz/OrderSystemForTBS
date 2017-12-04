@@ -57,8 +57,13 @@ namespace OrderSystemForTBS.Controllers
 
         // DELETE api/Propositions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(_facade.PropositionService.Delete(id));
         }
     }
 }
