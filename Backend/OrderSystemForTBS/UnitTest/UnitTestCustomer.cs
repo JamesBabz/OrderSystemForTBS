@@ -154,13 +154,13 @@ namespace UnitTest
     
 
         //Generer samme ny bll, skal have ny service hvergang. 
-        public IService<CustomerBO> GetService()
+        public ICustomerService GetService()
         {
             var c = this.GetMemoContext();
 
             Mock<IDALFacade> dalFacadeMock = new Mock<IDALFacade>();
             dalFacadeMock.Setup(x => x.UnitOfWork).Returns(new UnitOfWork(c));
-            IService<CustomerBO> service = new CustomerService(dalFacadeMock.Object);
+            ICustomerService service = new CustomerService(dalFacadeMock.Object);
 
             return service;
         }

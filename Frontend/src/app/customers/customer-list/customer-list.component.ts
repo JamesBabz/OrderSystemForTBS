@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 })
 export class CustomerListComponent implements OnInit {
   customers: Customer[];
+  query: string;
   constructor(private customerService: CustomerService, private router: Router) {
 
   }
@@ -26,5 +27,11 @@ export class CustomerListComponent implements OnInit {
 
   creaeteProposition(){
     this.router.navigateByUrl('propositions/create');
+  }
+  search() {
+    this.customerService.searchQuery(this.query).subscribe(Customers => this.customers = Customers);
+  }
+  showQuery(){
+    console.log(this.query);
   }
 }
