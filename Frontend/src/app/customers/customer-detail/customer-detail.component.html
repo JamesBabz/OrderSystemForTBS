@@ -17,7 +17,7 @@
 
       <button class="btn-link" style="outline: none" (click)="open(content)">Kundeoplysninger</button>
       <button class="btn-link" style="outline: none" (click)="openEdit(editContent)">Redigér kunde</button>
-      <button class="btn-link" style="outline: none" (click)="open(content)">Slet</button>
+      <button class="btn-link" style="outline: none" (click)="open(deleteContent)">Slet</button>
 
     </div>
   </div>
@@ -103,6 +103,24 @@
     <div class="col-md-7">
       <button type="button" class="btn btn-outline-danger" (click)="cancel(); c('Close click')">Anuller</button>
       <button type="button" class="btn btn-outline-success" (click)="updateCustomer(); c('Close click')">Gem</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteContent let-c="close">
+  <div class="modal-header">
+    <h3 class="deleteModal-title">Slet kunde</h3>
+    <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  Du er igang med at slette {{customer.firstname}} {{customer.lastname}}!
+  </div>
+  <div class="modal-footer">
+    <div class="col-md-7">
+      <button type="button" class="btn btn-outline-secondary" (click)="c('Close click')">Anuller</button>
+      <button type="button" class="btn btn-outline-danger" (click)=" deleteCustomer(); c('Close click')">Slet</button>
     </div>
   </div>
 </ng-template>
