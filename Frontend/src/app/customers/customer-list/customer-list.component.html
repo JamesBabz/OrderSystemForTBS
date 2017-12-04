@@ -7,9 +7,8 @@
   </div>
   <div class="row">
 
-    <div class="leftBorder col-md-3" (click)="showQuery()">
-     <h3> <input class="input"  (input)="query= $event.target.value" > </h3>
-      <button (click)="search()"> Søg</button>
+    <div class="leftBorder col-md-3">
+      <input class="input" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
 
       <div class="CustomersBorder">
         <app-customer (click)="details(cust)" *ngFor="let cust of customers" [customer]="cust"></app-customer>

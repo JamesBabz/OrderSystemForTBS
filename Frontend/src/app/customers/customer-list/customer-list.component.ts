@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 export class CustomerListComponent implements OnInit {
   customers: Customer[];
   query: string;
+
   constructor(private customerService: CustomerService, private router: Router) {
 
   }
@@ -18,20 +19,20 @@ export class CustomerListComponent implements OnInit {
   ngOnInit() {
     this.customerService.getCustomers().subscribe(Customers => this.customers = Customers);
   }
+
   details(customer: Customer) {
     this.router.navigateByUrl('/customer/' + customer.id);
   }
+
   createCustomer() {
     this.router.navigateByUrl('/customers/create');
   }
 
-  creaeteProposition(){
+  creaeteProposition() {
     this.router.navigateByUrl('propositions/create');
   }
+
   search() {
     this.customerService.searchQuery(this.query).subscribe(Customers => this.customers = Customers);
-  }
-  showQuery(){
-    console.log(this.query);
   }
 }
