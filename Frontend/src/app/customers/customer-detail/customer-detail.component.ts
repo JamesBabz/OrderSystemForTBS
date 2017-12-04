@@ -40,6 +40,9 @@ export class CustomerDetailComponent implements OnInit {
       this.isSaved = false;
     }
   }
+  openDelete(deleteContent) {
+    this.modalService.open(deleteContent);
+  }
   cancel() {
   this.changes = false;
     this.editCustomer = Object.assign({}, this.customer);
@@ -53,6 +56,9 @@ export class CustomerDetailComponent implements OnInit {
         this.editCustomer = Object.assign({}, this.customer);
       });
     }
+  }
+  deleteCustomer() {
+    this.customerService.deleteCustomerById(this.customer.id).subscribe(Customer => this.router.navigate(['/customers']));
   }
 
 
