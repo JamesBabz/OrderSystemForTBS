@@ -1,18 +1,40 @@
+<div class="row">
+
+  <div class="col-md-1 offset-md-11">
+
+    <button class="btn-link" (click)="edit()">Redigér tilbud</button>
+    <button class="btn-link" (click)="openModal()">Slet</button>
+
+  </div>
+</div>
+
 <div class="container">
   <div class="row addBtnRow">
     <button class="addBtn" (click)="goBack()">Tilbage til tilbud</button>
   </div>
   <div class="row">
-      <h1>
-        {{proposition.title}}
-      </h1>
+    <h1>
+      {{proposition.title}}
+    </h1>
   </div>
   <div class="row">
-      <p>
-        {{proposition.description}}
-      </p>
+    <p>
+      {{proposition.description}}
+    </p>
   </div>
 </div>
 
+<div class="myModal shouldClose" id="deleteModal" *ngIf="deleteModal" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Slet Tilbud</h3><i class="fa fa-times shouldCLose" aria-hidden="true"></i>
+    <hr>
+    <p>Er du siker på du vil slette dette tilbud?</p>
+    <hr>
+    <div class="right">
+    <button class="btn btn-outline-danger" (click)="delete()">Slet</button>
+    <button class="btn btn-outline-secondary shouldClose" (click)="closeModal()">Annuller</button>
+    </div>
+  </div>
+</div>
 
 
