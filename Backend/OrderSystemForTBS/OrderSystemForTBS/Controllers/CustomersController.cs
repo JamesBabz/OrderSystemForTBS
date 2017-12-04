@@ -16,7 +16,7 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
+   [Authorize]
     public class CustomersController : Controller
     {
         private IBLLFacade facade;
@@ -26,6 +26,14 @@ namespace OrderSystemForTBS.Controllers
             this.facade = facade;
         }
 
+        [HttpGet]
+        [Route("search")]
+        public IActionResult Search([FromQuery]string q)
+        {
+            var custsomers = facade.CustomerService
+                .GetAllBySearchQuery(q);
+            return Ok(custsomers);
+        }
 
         // GET: api/Customers
         [HttpGet]
