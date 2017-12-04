@@ -7,5 +7,6 @@ namespace BLL
         CustomerService CustomerService { get; }
         PropositionService PropositionService { get; }
         EmployeeService EmployeeService { get; }
+        EquipmentService EquipmentService { get; }
     }
 }
