@@ -24,6 +24,10 @@ export class PropositionService {
     return this.http.get<Proposition[]>(url + id);
   }
 
+  createProposition(prop: Proposition) {
+    return this.http.post<Proposition>(url, prop);
+  }
+
   getCreationDateAsEUString(date: Date) {
     const newDate = new Date(date);
     let dateString;
