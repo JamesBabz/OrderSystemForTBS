@@ -26,4 +26,12 @@ export class PropositionCreateComponent implements OnInit {
     console.log(stringify(this.customers));
   }
 
+  createNewProposition() {
+    title
+
+  }
+
+  cancel(){
+    window.history.back();
+  }
 }

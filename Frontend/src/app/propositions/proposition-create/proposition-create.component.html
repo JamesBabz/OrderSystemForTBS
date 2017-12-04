@@ -1,20 +1,49 @@
-<form>
-  <select>
-    <option value="0">Vælg kunde</option>
-    <ng-container *ngFor="let cust of customers">
+<div class="cont">
+  <h2>Tilføj tilbud</h2>
+  <form *ngIf="customers" method="post" (submit)="createNewProposition()">
+    <div class="row top20">
+      <div class="col-md-4">
+        <select>
+          <option value="0">Vælg kunde</option>
+          <ng-container *ngFor="let cust of customers">
 
-      <ng-container *ngIf="customer != null">
+            <ng-container *ngIf="customer != null">
 
-        <option *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
-        <option selected *ngIf="cust.id == customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+              <option *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+              <option selected *ngIf="cust.id == customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}
+              </option>
 
-      </ng-container>
+            </ng-container>
 
-      <ng-container *ngIf="customer == null">
+            <ng-container *ngIf="customer == null">
 
-        <option value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+              <option value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
 
-      </ng-container>
-    </ng-container>
-  </select>
-</form>
+            </ng-container>
+          </ng-container>
+        </select>
+      </div>
+    </div>
+    <div class="row top20">
+      <div class="col-md-4">
+        <input type="text" placeholder="Titel" name="title" />
+      </div>
+    </div>
+    <div class="row top20">
+      <div class="col-md-4">
+        <textarea class="descTextArea" placeholder="Kort beskrivelse" name="description"></textarea>
+      </div>
+    </div>
+    <div class="row top20">
+      <div class="col-md-4">
+        <input type="file" name="file" disabled/>
+      </div>
+    </div>
+    <div class="row top20">
+      <div class="col-md-4">
+        <input class="btn btn-success" type="submit" value="Gem" name="save"/>
+        <input class="btn btn-danger" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
+      </div>
+    </div>
+  </form>
+</div>
