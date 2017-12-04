@@ -27,11 +27,14 @@ export class CustomerService {
     return this.http.post<Customer>(url, cust);
   }
   updateCustomerById(id: number, cust: Customer): Observable<Customer> {
-    return this.http.put<Customer>(environment.ApiEndPoint + '/customers/' + id, cust);
+    return this.http.put<Customer>(url + '/' + id, cust);
   }
 
   deleteCustomerById(id: Number): Observable<Customer> {
-    return this.http.delete<Customer>(environment.ApiEndPoint + '/customers/' + id);
+    return this.http.delete<Customer>(url + '/' + id);
   }
+  searchQuery(q: string): Observable<Customer[]> {
+    return this.http.get<Customer[]>(url + '/search?q=' + q);
+}
 
 }
