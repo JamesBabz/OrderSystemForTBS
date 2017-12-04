@@ -41,6 +41,11 @@ namespace BLL.Services
             throw new NotImplementedException();
         }
 
+        public List<EmployeeBO> GetAllById(int customerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public EmployeeBO Get(int Id)
         {
             using (var uow = facade.UnitOfWork)

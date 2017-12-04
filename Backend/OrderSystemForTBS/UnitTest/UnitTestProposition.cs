@@ -114,7 +114,6 @@ namespace UnitTest
 
             CustomerBO cust1 = new CustomerBO()
             {
-                Id = 1,
                 Firstname = "ham her",
                 Lastname = "Fuhlendorff",
                 Address = "testvej1",
@@ -130,7 +129,6 @@ namespace UnitTest
 
             CustomerBO cust2 = new CustomerBO()
             {
-                Id = 2,
                 Firstname = "ikke ham her",
                 Lastname = "Meyer",
                 Address = "testvej2222",
@@ -143,7 +141,6 @@ namespace UnitTest
             };
             EmployeeBO employee = new EmployeeBO()
                                       {
-                                         Id = 1,
                                           Firstname = "Sigurd",
                                           Lastname = "Hansen",
                                           Username = "User",
@@ -157,9 +154,9 @@ namespace UnitTest
             PropositionBO prop1 = new PropositionBO()
             {
                 Title = "qwe1",
-                CustomerId = 1,
-                EmployeeId = 1
-               
+                CustomerId = cust1.Id,
+                EmployeeId = employee.Id
+
             };
 
             prop1 = GetMockService().Create(prop1);
@@ -167,8 +164,8 @@ namespace UnitTest
             PropositionBO prop2 = new PropositionBO()
             {
                 Title = "qwe2",
-                CustomerId = 1,
-                EmployeeId = 1
+                CustomerId = cust1.Id,
+                EmployeeId = employee.Id
             };
 
             prop2 = GetMockService().Create(prop2);
@@ -176,8 +173,8 @@ namespace UnitTest
             PropositionBO prop3 = new PropositionBO()
             {
                 Title = "qwe3",
-                CustomerId = 1,
-                EmployeeId = 1
+                CustomerId = cust1.Id,
+                EmployeeId = employee.Id
             };
 
             prop3 = GetMockService().Create(prop3);
@@ -185,8 +182,8 @@ namespace UnitTest
             PropositionBO prop4 = new PropositionBO()
             {
                 Title = "qwe4",
-                CustomerId = 2,
-                EmployeeId = 1
+                CustomerId = cust2.Id,
+                EmployeeId = employee.Id
             };
 
             prop4 = GetMockService().Create(prop4);
@@ -194,7 +191,7 @@ namespace UnitTest
             PropositionBO prop5 = new PropositionBO()
             {
                 Title = "qwe5",
-                CustomerId = 2,
+                CustomerId = cust2.Id,
                 EmployeeId = 1
             };
 
@@ -203,18 +200,18 @@ namespace UnitTest
             PropositionBO prop6 = new PropositionBO()
             {
                 Title = "qwe6",
-                CustomerId = 2,
-                EmployeeId = 1
+                CustomerId = cust2.Id,
+                EmployeeId = employee.Id
             };
 
             prop6 = GetMockService().Create(prop6);
 
-            List<PropositionBO> allProps = GetMockService().GetAll();
+            List<PropositionBO> allProps = GetMockService().GetAllById(cust1.Id);
 
             Assert.IsNotNull(allProps);
-            Assert.AreEqual(6, allProps.Count);
-            Assert.AreEqual(cust2.Firstname, allProps.Find(x => x.Title == "qwe4").Customer.Firstname);
-            Assert.IsNotNull(allProps.Find(x => x.Title == "qwe4"));
+            Assert.AreEqual(3, allProps.Count);
+            Assert.AreEqual(cust1.Firstname, allProps.Find(x => x.Title == "qwe3").Customer.Firstname);
+            Assert.IsNull(allProps.Find(x => x.Title == "qwe4"));
 
 
         }

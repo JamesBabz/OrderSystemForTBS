@@ -17,7 +17,7 @@
 
       <button class="btn-link" style="outline: none" (click)="open(content)">Kundeoplysninger</button>
       <button class="btn-link" style="outline: none" (click)="openEdit(editContent)">Redigér kunde</button>
-      <button class="btn-link" style="outline: none" (click)="open(content)">Slet</button>
+      <button class="btn-link" style="outline: none" (click)="open(deleteContent)">Slet</button>
 
     </div>
   </div>
@@ -25,7 +25,7 @@
 
     <tabs class="col-md-12 customerTab">
       <tab tabTitle="Tilbud">
-        <app-proposition-list></app-proposition-list>
+        <app-proposition-list [customer]="customer"></app-proposition-list>
       </tab>
       <tab tabTitle="Slutseddel">
         SLUTSEDDEL!
@@ -59,41 +59,69 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="c('Close click')">Luk</button>
   </div>
+
 </ng-template>
-<ng-template #editContent  let-c="close" >
+<ng-template #editContent let-c="close">
   <div class="modal-header">
     <h3 class="editModal-title">Redigér kunde</h3>
     <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="row">
   <div class="modal-body">
     <div class="col-md-4">
-      <h4>Fornavn: </h4>
-      <h4>Efternavn: </h4>
-      <h4>CVR-nr: </h4>
-      <h4>Adresse: </h4>
-      <h4>Postnr: </h4>
-      <h4>By: </h4>
-      <h4>Tlf: </h4>
-      <h4>Email: </h4>
+      <h4 class="property-text">Fornavn: </h4>
+      <h4 class="property-text">Efternavn: </h4>
+      <h4 class="property-text">CVR-nr: </h4>
+      <h4 class="property-text">Adresse: </h4>
+      <h4 class="property-text">Postnr: </h4>
+      <h4 class="property-text">By: </h4>
+      <h4 class="property-text">Tlf: </h4>
+      <h4 class="property-text">Email: </h4>
     </div>
     <div class=" input-container col-md-8">
-      <input class="input" type="text" [(ngModel)]="editCustomer.firstname">
-      <input class="input" type="text" [(ngModel)]="editCustomer.lastname">
-      <input class="input no-spin" type="number" [(ngModel)]="editCustomer.cvr">
-      <input class="input" type="text" [(ngModel)]="editCustomer.address">
-      <input class="input no-spin" type="number" [(ngModel)]="editCustomer.zipCode">
-      <input class="input" type="text" [(ngModel)]="editCustomer.city">
-      <input class="input no-spin" type="number" [(ngModel)]="editCustomer.phone">
-      <input class="input" type="text" [(ngModel)]="editCustomer.email">
+      <input class="input form-control" type="text" (change)="changes = true" [(ngModel)]="editCustomer.firstname">
+      <input class="input form-control" type="text" (change)="changes = true" [(ngModel)]="editCustomer.lastname">
+      <input class="input form-control no-spin" (change)="changes = true" type="number" [(ngModel)]="editCustomer.cvr">
+      <input class="input form-control" type="text" (change)="changes = true" [(ngModel)]="editCustomer.address">
+      <input class="input form-control no-spin" (change)="changes = true" type="number"
+             [(ngModel)]="editCustomer.zipCode">
+      <input class="input form-control" type="text" (change)="changes = true" [(ngModel)]="editCustomer.city">
+      <input class="input form-control no-spin" (change)="changes = true" type="number"
+             [(ngModel)]="editCustomer.phone">
+      <input class="input form-control" type="text" (change)="changes = true" [(ngModel)]="editCustomer.email">
     </div>
   </div>
+  <div class="modal-footer">
+    <div class="col-md-5">
+      <div *ngIf="!isSaved ">
+        <div *ngIf="changes">
+          <strong class="notSaved-text"> Ændringer er ikke gemt </strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <button type="button" class="btn btn-outline-danger" (click)="cancel(); c('Close click')">Anuller</button>
+      <button type="button" class="btn btn-outline-success" (click)="updateCustomer(); c('Close click')">Gem</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteContent let-c="close">
+  <div class="modal-header">
+    <h3 class="deleteModal-title">Slet kunde</h3>
+    <button type="button" class="close" aria-label="Close" (click)="c('Close click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  Du er igang med at slette {{customer.firstname}} {{customer.lastname}}!
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-danger" (click)="cancel(); c('Close click')">Anuller</button>
-    <button type="button" class="btn btn-outline-success" (click)="updateCustomer(); c('Close click')">Gem</button>
+    <div class="col-md-7">
+      <button type="button" class="btn btn-outline-secondary" (click)="c('Close click')">Anuller</button>
+      <button type="button" class="btn btn-outline-danger" (click)=" deleteCustomer(); c('Close click')">Slet</button>
+    </div>
   </div>
 </ng-template>
 
