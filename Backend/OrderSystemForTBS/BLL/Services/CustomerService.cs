@@ -65,7 +65,7 @@ namespace BLL.Services
                     || customer.Phone.ToString().Contains(query) 
                     || customer.Address.ToUpper().Contains(query.ToUpper()))
                     .Select(customer => this.custConv.Convert(customer))
-                    .ToList();
+                    .OrderBy(customer => customer.Firstname).ToList();
             }
         }
 
