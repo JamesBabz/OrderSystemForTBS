@@ -27,7 +27,7 @@ export class PropositionCreateComponent implements OnInit {
   }
 
   createNewProposition() {
-    title
+    
 
   }
 
