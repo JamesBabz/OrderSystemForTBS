@@ -30,5 +30,10 @@ namespace BLL.Facade
              get { return new EmployeeService(facade); }
          }
 
+        public EquipmentService EquipmentService
+        {
+            get { return new EquipmentService(facade); }
+        }
+
     }
 }

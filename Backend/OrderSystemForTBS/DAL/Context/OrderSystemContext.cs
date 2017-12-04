@@ -10,6 +10,7 @@ namespace DAL.Context
             public DbSet<Customer> Customers { get; set; }
             public DbSet<Employee> Employees { get; set; }
             public DbSet<Proposition> Propositions { get; set; }
+            public DbSet<Equipment> Equipments { get; set; }
 
             public OrderSystemContext(DbContextOptions<OrderSystemContext> options) : base(options)
             {
