@@ -140,13 +140,13 @@ namespace UnitTest
 
             };
             EmployeeBO employee = new EmployeeBO()
-                                      {
-                                          Firstname = "Sigurd",
-                                          Lastname = "Hansen",
-                                          Username = "User",
-                                          Password = "Pass",
-                                          MacAddress = "dfkmgkldfnmg"
-                                      };
+            {
+                Firstname = "Sigurd",
+                Lastname = "Hansen",
+                Username = "User",
+                Password = "Pass",
+                MacAddress = "dfkmgkldfnmg"
+            };
             employee = new EmployeeService(GetDalFacadeMock(this.GetInMemoryContext()).Object).Create(employee);
 
             cust2 = new CustomerService(GetDalFacadeMock(GetInMemoryContext()).Object).Create(cust2);
@@ -221,7 +221,8 @@ namespace UnitTest
         {
             GetInMemoryContext().Database.EnsureDeleted();
 
-            var prop1 = new PropositionBO(){
+            var prop1 = new PropositionBO()
+            {
                 Title = "nummerEt"
             };
             var prop2 = new PropositionBO()
@@ -245,6 +246,31 @@ namespace UnitTest
             prop3 = GetMockService().Delete(prop3.Id);
             Assert.IsNull(GetMockService().Get(prop3.Id));
 
+
+        }
+
+        [TestMethod]
+        public void UpdatePropositionMethod()
+        {
+            GetInMemoryContext().Database.EnsureDeleted();
+
+            var prop = new PropositionBO()
+            {
+                Title = "Tit",
+                Description = "Desc"
+            };
+
+            var newProp = new PropositionBO()
+            {
+                Title = "Title",
+                Description = "Description"
+            };
+
+            prop = GetMockService().Create(prop);
+
+            Assert.AreEqual("Tit", prop.Title);
+            prop = GetMockService().Update(GetMockService().Create(newProp));
+            Assert.AreEqual("Title", prop.Title);
 
         }
     }

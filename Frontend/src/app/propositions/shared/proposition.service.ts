@@ -55,4 +55,8 @@ export class PropositionService {
   deleteProposition(id: number) {
     return this.http.delete<Proposition>(url + id);
   }
+
+  updateProposition(proposition: Proposition) {
+    return this.http.put<Proposition>(url + proposition.id, proposition);
+  }
 }
