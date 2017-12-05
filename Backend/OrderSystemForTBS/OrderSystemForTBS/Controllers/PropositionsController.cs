@@ -27,7 +27,7 @@ namespace OrderSystemForTBS.Controllers
         [HttpGet]
         public IEnumerable<PropositionBO> Get()
         {
-            return _facade.PropositionService.GetAll();
+            return null;
         }
 
         // GET api/Propositions/5

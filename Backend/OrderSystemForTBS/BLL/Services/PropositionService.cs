@@ -10,7 +10,7 @@ using DAL.Entities;
 
 namespace BLL.Services
 {
-    public class PropositionService : IService<PropositionBO>
+    public class PropositionService : IPropositionService
     {
         private IDALFacade facade;
         private PropositionConverter propConv;
@@ -30,14 +30,6 @@ namespace BLL.Services
                 newProp = uow.PropositionRepository.Create(propConv.Convert(bo));
                 uow.Complete();
                 return propConv.Convert(newProp);
-            }
-        }
-
-        public List<PropositionBO> GetAll()
-        {
-            using (var uow = facade.UnitOfWork)
-            {
-                return uow.PropositionRepository.GetAll().Select(propConv.Convert).ToList();
             }
         }
 

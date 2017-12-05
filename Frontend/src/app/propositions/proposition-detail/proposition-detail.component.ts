@@ -20,7 +20,7 @@ export class PropositionDetailComponent implements OnInit {
 
   modalString: string;
   editPropGroup: FormGroup;
-  
+
   constructor(private propositionService: PropositionService, private router: Router) {
   }
 
@@ -44,12 +44,21 @@ export class PropositionDetailComponent implements OnInit {
     this.modalString = toDo;
   }
 
+  /**
+   * closes the modal.
+   * reads css classes from the clicked element.
+   * shouldKeepInput class lets the changed input stay in the fields
+   * shouldClose class is to prevent child elements from closing
+   * @param $event
+   */
   closeModal($event) {
     if ($event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
+      // sets the temporary object to contain the input values
       const values = this.editPropGroup.value;
       this.editedProp.title = values.title;
       this.editedProp.description = values.description;
     } else if (!$event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
+      // resets the input values
       this.createFormGroup(this.proposition);
     }
     if ($event.srcElement.classList.contains('shouldClose')) {
@@ -71,7 +80,6 @@ export class PropositionDetailComponent implements OnInit {
           this.proposition = prop,
           this.editedProp = prop;
       });
-    console.log(this.proposition);
   }
 
   createFormGroup(prop: Proposition) {
