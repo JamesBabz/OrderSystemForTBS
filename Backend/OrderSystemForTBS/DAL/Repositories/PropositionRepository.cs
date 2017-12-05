@@ -4,11 +4,12 @@ using System.Collections.Immutable;
 using System.Linq;
 using DAL.Context;
 using DAL.Entities;
+using DAL.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    class PropositionRepository : IRepository<Proposition>
+    class PropositionRepository : IPropositionRepository
     {
         private OrderSystemContext _context;
 
@@ -21,11 +22,6 @@ namespace DAL.Repositories
         {
             _context.Propositions.Add(ent);
             return ent;
-        }
-
-        public IEnumerable<Proposition> GetAll()
-        {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<Proposition> GetAll(int id)
