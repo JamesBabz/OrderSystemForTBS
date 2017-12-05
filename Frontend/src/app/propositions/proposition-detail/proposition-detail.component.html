@@ -1,6 +1,9 @@
 <div class="row">
 
-  <div class="col-md-1 offset-md-11">
+  <div class="col-md-4 addBtnRow">
+    <button class="addBtn" (click)="goBack()">Tilbage til tilbud</button>
+  </div>
+  <div class="col-md-1 offset-md-7">
 
     <button class="btn-link" (click)="edit()">Redigér tilbud</button>
     <button class="btn-link" (click)="openModal()">Slet</button>
@@ -8,10 +11,8 @@
   </div>
 </div>
 
+<hr />
 <div class="container">
-  <div class="row addBtnRow">
-    <button class="addBtn" (click)="goBack()">Tilbage til tilbud</button>
-  </div>
   <div class="row">
     <h1>
       {{proposition.title}}
