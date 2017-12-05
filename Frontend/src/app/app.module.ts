@@ -21,6 +21,10 @@ import {PropositionListComponent} from './propositions/proposition-list/proposit
 import {PropositionService} from './propositions/shared/proposition.service';
 import {TokenInterceptor} from './login/login/Auth/token.interceptor';
 import {PropositionCreateComponent} from './propositions/proposition-create/proposition-create.component';
+import {EquipmentComponent} from './equipment/equipment/equipment.component';
+import { EquipmentListComponent } from './equipment/equipment-list/equipment-list.component';
+import {EquipmentService} from './equipment/shared/equipment.service';
+
 
 const appRoutes: Routes = [
 
@@ -45,7 +49,9 @@ const appRoutes: Routes = [
     PropositionComponent,
     PropositionDetailComponent,
     PropositionListComponent,
-    PropositionCreateComponent
+    PropositionCreateComponent,
+    EquipmentComponent,
+    EquipmentListComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +63,7 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     TabModule
   ],
-  providers: [CustomerService, LoginService, AuthGuard, PropositionService,
+  providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

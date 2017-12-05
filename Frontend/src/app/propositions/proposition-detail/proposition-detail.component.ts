@@ -20,7 +20,7 @@ export class PropositionDetailComponent implements OnInit {
 
   modalString: string;
   editPropGroup: FormGroup;
-
+  
   constructor(private propositionService: PropositionService, private router: Router) {
   }
 
@@ -68,6 +68,7 @@ export class PropositionDetailComponent implements OnInit {
     return this.propositionService.getCreationDateAsEUString(date);
   }
 
+
   save($event) {
     this.closeModal($event);
     this.editedProp.id = this.proposition.id;
@@ -87,6 +88,5 @@ export class PropositionDetailComponent implements OnInit {
       file: new FormControl()
     });
   }
-
-
 }
+

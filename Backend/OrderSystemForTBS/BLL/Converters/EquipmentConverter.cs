@@ -16,11 +16,10 @@ namespace BLL.Converters
             {
                 return new Equipment()
                 {
-                    Id = equipment.Id,
-                    Name = equipment.Name,
+                    Name = equipment.name,
 
-                    Customer = custConv.Convert(equipment.Customer),
-                    CustomerId = equipment.CustomerId
+                    Customer = custConv.Convert(equipment.customer),
+                    CustomerId = equipment.customerId
                 };
             }
         }
@@ -31,11 +30,10 @@ namespace BLL.Converters
             {
                 return new EquipmentBO()
                 {
-                    Id = equipment.Id,
-                    Name = equipment.Name,
+                    name = equipment.Name,
 
-                    Customer = custConv.Convert(equipment.Customer),
-                    CustomerId = equipment.CustomerId
+                    customer = custConv.Convert(equipment.Customer),
+                    customerId = equipment.CustomerId
 
                 };
             }
