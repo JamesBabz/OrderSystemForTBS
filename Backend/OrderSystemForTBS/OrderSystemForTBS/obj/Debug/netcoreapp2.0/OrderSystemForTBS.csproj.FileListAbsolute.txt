@@ -1,0 +1,15 @@
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\OrderSystemForTBS.deps.json
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\OrderSystemForTBS.runtimeconfig.json
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\OrderSystemForTBS.runtimeconfig.dev.json
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\OrderSystemForTBS.dll
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\OrderSystemForTBS.pdb
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\BLL.dll
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\DAL.dll
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\BLL.pdb
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\bin\Debug\netcoreapp2.0\DAL.pdb
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\obj\Debug\netcoreapp2.0\OrderSystemForTBS.csprojResolveAssemblyReference.cache
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\obj\Debug\netcoreapp2.0\OrderSystemForTBS.csproj.CoreCompileInputs.cache
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\obj\Debug\netcoreapp2.0\OrderSystemForTBS.AssemblyInfoInputs.cache
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\obj\Debug\netcoreapp2.0\OrderSystemForTBS.AssemblyInfo.cs
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\obj\Debug\netcoreapp2.0\OrderSystemForTBS.dll
+C:\Users\James\Documents\GitHub\OrderSystemForTBS\Backend\OrderSystemForTBS\OrderSystemForTBS\obj\Debug\netcoreapp2.0\OrderSystemForTBS.pdb
