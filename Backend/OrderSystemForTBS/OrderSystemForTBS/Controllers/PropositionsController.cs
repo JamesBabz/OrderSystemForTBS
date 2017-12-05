@@ -51,14 +51,31 @@ namespace OrderSystemForTBS.Controllers
 
         // PUT api/Propositions/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody] PropositionBO prop)
         {
+            if (id != prop.Id)
+            {
+                return StatusCode(405, "Path id does not match customer ID json object");
+            }
+            try
+            {
+                return Ok(_facade.PropositionService.Update(prop));
+            }
+            catch (InvalidOperationException e)
+            {
+                return StatusCode(404, e.Message);
+            }
         }
 
         // DELETE api/Propositions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(_facade.PropositionService.Delete(id));
         }
     }
 }

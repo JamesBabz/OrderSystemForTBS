@@ -15,8 +15,11 @@ export class PropositionDetailComponent implements OnInit {
 
   @Input()
   proposition: Proposition;
-  @Input()
-  employee: Employee;
+
+  editedProp: Proposition;
+
+  modalString: string;
+  editPropGroup: FormGroup;
 
   editedProp: Proposition;
 
@@ -29,12 +32,8 @@ export class PropositionDetailComponent implements OnInit {
   ngOnInit() {
     this.proposition = this.propositionService.getCurrentProposition();
     this.modalString = '';
-    this.editedProp = this.proposition;
-    this.editPropGroup = new FormGroup({
-      title: new FormControl(this.editedProp.title, Validators.required),
-      description: new FormControl(this.editedProp.description, Validators.required),
-      file: new FormControl()
-    });
+    this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
+    this.createFormGroup(this.editedProp);
   }
 
   goBack() {
@@ -48,23 +47,44 @@ export class PropositionDetailComponent implements OnInit {
 
   openModal(toDo: string) {
     this.modalString = toDo;
-    if (this.modalString === 'delete') {
-
-    } else if (this.modalString === 'edit') {
-      this.editPropGroup.reset();
-    }
   }
 
   closeModal($event) {
-
+    if ($event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
+      const values = this.editPropGroup.value;
+      this.editedProp.title = values.title;
+      this.editedProp.description = values.description;
+    } else if (!$event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
+      this.createFormGroup(this.proposition);
+    }
+    if ($event.srcElement.classList.contains('shouldClose')) {
+      this.modalString = '';
+    }
   }
 
   getEUString(date: Date) {
     return this.propositionService.getCreationDateAsEUString(date);
   }
 
-  save() {
-    this.modalString = '';
+
+  save($event) {
+    this.closeModal($event);
+    this.editedProp.id = this.proposition.id;
+    this.propositionService.updateProposition(this.editedProp)
+      .subscribe(prop => {
+        prop.employee = this.propositionService.getCurrentProposition().employee,
+          this.proposition = prop,
+          this.editedProp = prop;
+      });
+    console.log(this.proposition);
+  }
+
+  createFormGroup(prop: Proposition) {
+    this.editPropGroup = new FormGroup({
+      title: new FormControl(prop.title, Validators.required),
+      description: new FormControl(prop.description, Validators.required),
+      file: new FormControl()
+    });
   }
 }
 

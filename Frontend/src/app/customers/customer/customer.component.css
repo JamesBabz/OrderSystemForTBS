@@ -1,12 +1,20 @@
 .customerBorder{
-  border: dashed 1px lightgray;
-  border-radius: 10px;
-  margin: 5px;
   text-align: left;
 }
-.text{
-  margin: 5px;
+.textBorder{
   text-overflow: clip;
   white-space: nowrap;
   overflow: hidden;
+  font-size: x-large;
+  font-weight: 500;
 }
+
+.singleCust :hover{
+  background-color: #AAD48C;
+
+}
+.label{
+  margin-left: 5px;
+  margin-bottom: -2px;
+}
+

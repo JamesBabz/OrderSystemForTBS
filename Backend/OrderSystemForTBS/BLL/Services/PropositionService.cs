@@ -53,12 +53,26 @@ namespace BLL.Services
 
         public PropositionBO Update(PropositionBO bo)
         {
-            throw new NotImplementedException();
+            using (var uow = facade.UnitOfWork)
+            {
+                var propFromDb = uow.PropositionRepository.Get(bo.Id);
+                
+                propFromDb.Title = bo.Title;
+                propFromDb.Description = bo.Description;
+                uow.Complete();
+                return propConv.Convert(propFromDb);
+            }
         }
 
         public PropositionBO Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (var uow = facade.UnitOfWork)
+            {
+                newProp = uow.PropositionRepository.Get(Id);
+                uow.PropositionRepository.Delete(newProp.Id);
+                uow.Complete();
+                return propConv.Convert(newProp);
+            }
         }
 
         public List<PropositionBO> GetAllById(int customerId)

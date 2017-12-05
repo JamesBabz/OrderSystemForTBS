@@ -140,13 +140,13 @@ namespace UnitTest
 
             };
             EmployeeBO employee = new EmployeeBO()
-                                      {
-                                          Firstname = "Sigurd",
-                                          Lastname = "Hansen",
-                                          Username = "User",
-                                          Password = "Pass",
-                                          MacAddress = "dfkmgkldfnmg"
-                                      };
+            {
+                Firstname = "Sigurd",
+                Lastname = "Hansen",
+                Username = "User",
+                Password = "Pass",
+                MacAddress = "dfkmgkldfnmg"
+            };
             employee = new EmployeeService(GetDalFacadeMock(this.GetInMemoryContext()).Object).Create(employee);
 
             cust2 = new CustomerService(GetDalFacadeMock(GetInMemoryContext()).Object).Create(cust2);
@@ -213,6 +213,64 @@ namespace UnitTest
             Assert.AreEqual(cust1.Firstname, allProps.Find(x => x.Title == "qwe3").Customer.Firstname);
             Assert.IsNull(allProps.Find(x => x.Title == "qwe4"));
 
+
+        }
+
+        [TestMethod]
+        public void DeletePropositionMethod()
+        {
+            GetInMemoryContext().Database.EnsureDeleted();
+
+            var prop1 = new PropositionBO()
+            {
+                Title = "nummerEt"
+            };
+            var prop2 = new PropositionBO()
+            {
+                Title = "nummerTo"
+            };
+            var prop3 = new PropositionBO()
+            {
+                Title = "nummerTre"
+            };
+            var prop4 = new PropositionBO()
+            {
+                Title = "nummerFire"
+            };
+            prop1 = GetMockService().Create(prop1);
+            prop2 = GetMockService().Create(prop2);
+            prop3 = GetMockService().Create(prop3);
+            prop4 = GetMockService().Create(prop4);
+
+            Assert.IsNotNull(GetMockService().Get(prop3.Id));
+            prop3 = GetMockService().Delete(prop3.Id);
+            Assert.IsNull(GetMockService().Get(prop3.Id));
+
+
+        }
+
+        [TestMethod]
+        public void UpdatePropositionMethod()
+        {
+            GetInMemoryContext().Database.EnsureDeleted();
+
+            var prop = new PropositionBO()
+            {
+                Title = "Tit",
+                Description = "Desc"
+            };
+
+            var newProp = new PropositionBO()
+            {
+                Title = "Title",
+                Description = "Description"
+            };
+
+            prop = GetMockService().Create(prop);
+
+            Assert.AreEqual("Tit", prop.Title);
+            prop = GetMockService().Update(GetMockService().Create(newProp));
+            Assert.AreEqual("Title", prop.Title);
 
         }
     }
