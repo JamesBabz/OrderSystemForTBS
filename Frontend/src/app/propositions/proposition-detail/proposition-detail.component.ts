@@ -20,12 +20,7 @@ export class PropositionDetailComponent implements OnInit {
 
   modalString: string;
   editPropGroup: FormGroup;
-
-  editedProp: Proposition;
-
-  modalString: string;
-  editPropGroup: FormGroup;
-
+  
   constructor(private propositionService: PropositionService, private router: Router) {
   }
 
