@@ -29,7 +29,6 @@ export class PropositionCreateComponent implements OnInit {
 
   ngOnInit() {
     this.createPropFormGroup = new FormGroup({
-      // customerSelector: new FormControl(this.customer === null ? 0 : this.customer.id, Validators.pattern(/^([^0]*)$/)),
       customerSelector: new FormControl(this.customer === null ? '' : this.customer.id, Validators.required),
       title: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
