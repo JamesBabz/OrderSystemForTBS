@@ -40,9 +40,6 @@ export class CustomerDetailComponent implements OnInit {
       this.isSaved = false;
     }
   }
-  openDelete(deleteContent) {
-    this.modalService.open(deleteContent);
-  }
   cancel() {
   this.changes = false;
     this.editCustomer = Object.assign({}, this.customer);
