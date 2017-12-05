@@ -22,14 +22,6 @@ namespace OrderSystemForTBS.Controllers
             this.facade = facade;
         }
 
-
-        // GET: api/Equipment
-        [HttpGet]
-        public IEnumerable<EquipmentBO> Get()
-        {
-            return this.facade.EquipmentService.GetAll();
-        }
-
         // GET: api/Equipment/5
         [HttpGet("{id}")]
         public IEnumerable<EquipmentBO> Get(int Id)

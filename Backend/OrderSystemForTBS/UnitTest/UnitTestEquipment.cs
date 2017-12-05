@@ -65,36 +65,6 @@ namespace UnitTest
         }
 
         [TestMethod]
-        public void GetEquipmentMethod()
-        {
-
-            GetInMemoryContext().Database.EnsureDeleted();
-
-            EquipmentBO equip1 = new EquipmentBO()
-            {
-                name = "Traktor",
-                customerId = 1
-            };
-
-            equip1 = GetMockService().Create(equip1);
-
-            EquipmentBO equip2 = new EquipmentBO()
-            {
-                name = "Plov",
-                customerId = 2
-            };
-
-            equip2 = GetMockService().Create(equip2);
-
-            EquipmentBO equip = GetMockService().Get(equip2.id);
-
-            //Expected results
-            Assert.IsNotNull(equip);
-            Assert.AreEqual("Plov", equip.name);
-
-        }
-
-        [TestMethod]
         public void GetAllEquipmentMethod()
         {
             GetInMemoryContext().Database.EnsureDeleted();
