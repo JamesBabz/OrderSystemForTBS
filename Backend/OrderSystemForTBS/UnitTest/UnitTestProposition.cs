@@ -33,14 +33,14 @@ namespace UnitTest
             return dalFacadeMock;
         }
 
-        public IService<PropositionBO> GetMockService()
+        public IPropositionService GetMockService()
         {
 
             var c = GetInMemoryContext();
             var dalFacadeMock = GetDalFacadeMock(c);
 
             //Creates the Service
-            IService<PropositionBO> service = new PropositionService(dalFacadeMock.Object);
+            IPropositionService service = new PropositionService(dalFacadeMock.Object);
             return service;
         }
 
