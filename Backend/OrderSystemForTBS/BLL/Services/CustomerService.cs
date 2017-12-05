@@ -14,6 +14,8 @@ namespace BLL.Services
     {
         private IDALFacade facade;
 
+        private List<CustomerBO> allCusts = new List<CustomerBO>();
+
         private CustomerConverter custConv = new CustomerConverter();
 
         private Customer newCustomer;
@@ -42,7 +44,6 @@ namespace BLL.Services
             }
         }
 
-
         public CustomerBO Get(int id)
         {
             using (var uow = facade.UnitOfWork)
@@ -55,17 +56,23 @@ namespace BLL.Services
 
         public List<CustomerBO> GetAllBySearchQuery(string query)
         {
+            var queryList = query.Split(" ");
+
             using (var uow = facade.UnitOfWork)
             {
-                
-                return uow.CustomerRepository
-                    .GetAll()
-                    .Where(customer => customer.Firstname.ToUpper().Contains(query.ToUpper()) 
-                    || customer.Lastname.ToUpper().Contains(query.ToUpper()) 
-                    || customer.Phone.ToString().Contains(query) 
-                    || customer.Address.ToUpper().Contains(query.ToUpper()))
-                    .Select(customer => this.custConv.Convert(customer))
-                    .OrderBy(customer => customer.Firstname).ToList();
+                return uow.CustomerRepository.GetAll()
+                    .Where(
+                        customer => customer.Firstname.ToUpper().Contains(query.ToUpper())
+                                    || customer.Lastname.ToUpper().Contains(query.ToUpper())
+                                    || customer.Phone.ToString().Contains(query)
+                                    || customer.Address.ToUpper().Contains(query.ToUpper())
+                                    || customer.Firstname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper())
+                                    && customer.Lastname.ToUpper().Contains(queryList.GetValue(1).ToString().ToUpper())
+                                    || customer.Lastname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper())
+                                    && customer.Firstname.ToUpper()
+                                        .Contains(queryList.GetValue(1).ToString().ToUpper()))
+                    .Select(customer => this.custConv.Convert(customer)).OrderBy(customer => customer.Firstname)
+                    .ToList();
             }
         }
 
