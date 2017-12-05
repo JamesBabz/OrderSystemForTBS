@@ -13,11 +13,11 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class EquipmentController : Controller
+    public class EquipmentsController : Controller
     {
         private IBLLFacade facade;
 
-        public EquipmentController(IBLLFacade facade)
+        public EquipmentsController(IBLLFacade facade)
         {
             this.facade = facade;
         }
@@ -30,12 +30,12 @@ namespace OrderSystemForTBS.Controllers
             return this.facade.EquipmentService.GetAll();
         }
 
-        //// GET: api/Equipment/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public EquipmentBO Get(int Id)
-        //{
-        //    return this.facade.EquipmentService.Get(Id);
-        //}
+        // GET: api/Equipment/5
+        [HttpGet("{id}")]
+        public IEnumerable<EquipmentBO> Get(int Id)
+        {
+            return facade.EquipmentService.GetAllById(Id);
+        }
 
         // POST: api/Equipments
         [HttpPost]
@@ -52,7 +52,7 @@ namespace OrderSystemForTBS.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] EquipmentBO equip)
         {
-            if (id != equip.Id)
+            if (id != equip.id)
             {
                 return StatusCode(405, "Path id does not match customer ID json object");
             }
