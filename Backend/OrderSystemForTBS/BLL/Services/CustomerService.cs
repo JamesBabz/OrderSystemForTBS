@@ -55,6 +55,8 @@ namespace BLL.Services
 
         public List<CustomerBO> GetAllBySearchQuery(string query)
         {
+            var queryList = query.Split(" ");
+
             using (var uow = facade.UnitOfWork)
             {
                 
@@ -63,7 +65,11 @@ namespace BLL.Services
                     .Where(customer => customer.Firstname.ToUpper().Contains(query.ToUpper()) 
                     || customer.Lastname.ToUpper().Contains(query.ToUpper()) 
                     || customer.Phone.ToString().Contains(query) 
-                    || customer.Address.ToUpper().Contains(query.ToUpper()))
+                    || customer.Address.ToUpper().Contains(query.ToUpper())
+                    || customer.Firstname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper()) 
+                    && customer.Lastname.ToUpper().Contains(queryList.GetValue(1).ToString().ToUpper())
+                    || customer.Lastname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper()) 
+                    && customer.Firstname.ToUpper().Contains(queryList.GetValue(1).ToString().ToUpper()))
                     .Select(customer => this.custConv.Convert(customer))
                     .OrderBy(customer => customer.Firstname).ToList();
             }
