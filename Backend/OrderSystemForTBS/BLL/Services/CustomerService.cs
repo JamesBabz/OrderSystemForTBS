@@ -14,6 +14,8 @@ namespace BLL.Services
     {
         private IDALFacade facade;
 
+        private List<CustomerBO> allCusts = new List<CustomerBO>();
+
         private CustomerConverter custConv = new CustomerConverter();
 
         private Customer newCustomer;
@@ -21,6 +23,7 @@ namespace BLL.Services
         public CustomerService(IDALFacade facade)
         {
             this.facade = facade;
+            this.setAllCustomers();
         }
 
         public CustomerBO Create(CustomerBO cust)
@@ -42,7 +45,6 @@ namespace BLL.Services
             }
         }
 
-
         public CustomerBO Get(int id)
         {
             using (var uow = facade.UnitOfWork)
@@ -57,22 +59,16 @@ namespace BLL.Services
         {
             var queryList = query.Split(" ");
 
-            using (var uow = facade.UnitOfWork)
-            {
-                
-                return uow.CustomerRepository
-                    .GetAll()
-                    .Where(customer => customer.Firstname.ToUpper().Contains(query.ToUpper()) 
-                    || customer.Lastname.ToUpper().Contains(query.ToUpper()) 
-                    || customer.Phone.ToString().Contains(query) 
-                    || customer.Address.ToUpper().Contains(query.ToUpper())
-                    || customer.Firstname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper()) 
-                    && customer.Lastname.ToUpper().Contains(queryList.GetValue(1).ToString().ToUpper())
-                    || customer.Lastname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper()) 
-                    && customer.Firstname.ToUpper().Contains(queryList.GetValue(1).ToString().ToUpper()))
-                    .Select(customer => this.custConv.Convert(customer))
-                    .OrderBy(customer => customer.Firstname).ToList();
-            }
+            return this.getAllCustomers().Where(
+                    customer => customer.Firstname.ToUpper().Contains(query.ToUpper())
+                                || customer.Lastname.ToUpper().Contains(query.ToUpper())
+                                || customer.Phone.ToString().Contains(query)
+                                || customer.Address.ToUpper().Contains(query.ToUpper())
+                                || customer.Firstname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper())
+                                && customer.Lastname.ToUpper().Contains(queryList.GetValue(1).ToString().ToUpper())
+                                || customer.Lastname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper())
+                                && customer.Firstname.ToUpper().Contains(queryList.GetValue(1).ToString().ToUpper()))
+                .OrderBy(customer => customer.Firstname).ToList();
         }
 
         public CustomerBO Update(CustomerBO cust)
@@ -103,6 +99,23 @@ namespace BLL.Services
                 uow.Complete();
                 return custConv.Convert(newCustomer);
             }
+        }
+        /// Sets all customers in a variable
+        /// Method runs in thr constructor 
+        /// </summary>
+        private void setAllCustomers()
+        {
+            this.allCusts = this.GetAll();
+        }
+
+        /// <summary>
+        /// Gets all all customers from the set variable
+        /// Is used on the search function, because it avoids many database calls
+        /// <returns> all customers</returns>
+
+        private List<CustomerBO> getAllCustomers()
+        {
+            return this.allCusts;
         }
     }
 }
