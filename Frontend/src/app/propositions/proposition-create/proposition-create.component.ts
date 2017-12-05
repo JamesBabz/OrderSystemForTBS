@@ -7,6 +7,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Proposition} from '../shared/proposition.model';
 import {Router} from '@angular/router';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+import {LoginService} from '../../login/shared/login.service';
 
 @Component({
   selector: 'app-proposition-create',
@@ -20,7 +21,7 @@ export class PropositionCreateComponent implements OnInit {
   createPropFormGroup: FormGroup;
   employeeId: number;
 
-  constructor(private propositionService: PropositionService, private customerService: CustomerService, private router: Router) {
+  constructor(private propositionService: PropositionService, private loginService: LoginService, private customerService: CustomerService, private router: Router) {
     this.customer = propositionService.getCurrentCustomer();
     customerService.getCustomers().subscribe(Customers => this.customers = Customers);
 
@@ -47,19 +48,22 @@ export class PropositionCreateComponent implements OnInit {
 
   createNewProposition() {
     const values = this.createPropFormGroup.value;
-
+    const selectedCust = this.customerService.getCustomerById(Number(values.customerSelector));
     const proposition: Proposition = {
       title: values.title,
       description: values.description,
       creationDate: new Date(),
       customerId: Number(values.customerSelector),
-      EmployeeId: this.employeeId,
+      customer: selectedCust,
+      employeeId: this.employeeId,
+      employee: this.loginService.getEmployee(),
       fileId: 0
     };
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
         this.propositionService.setCurrentProposition(newProp);
-        this.router.navigateByUrl('proposition/' + newProp.id);
+        console.log(newProp);
+        // this.router.navigateByUrl('proposition/' + newProp.id);
       });
 
   }

@@ -42,7 +42,7 @@ namespace OrderSystemForTBS.Controllers
 
         // GET api/employee/5
         [HttpGet("{id}")]
-        public EmployeeBO Get(int Id)
+        public IEnumerable<EmployeeBO> Get(int Id)
         {
             return facade.EmployeeService.Get(Id);
         }

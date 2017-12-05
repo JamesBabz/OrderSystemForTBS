@@ -10,7 +10,7 @@ export class Proposition {
   customer?: Customer;
   customerId: number;
   employee?: Employee;
-  EmployeeId: number;
+  employeeId: number;
   fileId: number;
 
 }
