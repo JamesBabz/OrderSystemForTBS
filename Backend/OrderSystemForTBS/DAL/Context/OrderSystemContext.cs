@@ -11,6 +11,7 @@ namespace DAL.Context
             public DbSet<Employee> Employees { get; set; }
             public DbSet<Proposition> Propositions { get; set; }
             public DbSet<Equipment> Equipments { get; set; }
+            public DbSet<Visit> Visits { get; set; }
 
             public OrderSystemContext(DbContextOptions<OrderSystemContext> options) : base(options)
             {
