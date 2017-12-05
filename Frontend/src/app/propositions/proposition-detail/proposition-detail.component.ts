@@ -56,19 +56,7 @@ export class PropositionDetailComponent implements OnInit {
   }
 
   closeModal($event) {
-    if ($event.srcElement.classList.contains('shouldKeepInput')) {
-      const values = this.editPropGroup.value;
-      this.editedProp = {
-        title: values.title,
-        description: values.description
-      };
-      console.log(this.editedProp);
-    } else {
-      this.editedProp = this.proposition;
-    }
-    if ($event.srcElement.classList.contains('shouldClose')) {
-      this.modalString = '';
-    }
+
   }
 
   getEUString(date: Date) {
@@ -79,3 +67,4 @@ export class PropositionDetailComponent implements OnInit {
     this.modalString = '';
   }
 }
+
