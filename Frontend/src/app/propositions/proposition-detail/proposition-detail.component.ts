@@ -44,6 +44,13 @@ export class PropositionDetailComponent implements OnInit {
     this.modalString = toDo;
   }
 
+  /**
+   * closes the modal.
+   * reads css classes from the clicked element.
+   * shouldKeepInput class lets the changed input stay in the fields
+   * shouldClose class 
+   * @param $event
+   */
   closeModal($event) {
     if ($event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
       const values = this.editPropGroup.value;
