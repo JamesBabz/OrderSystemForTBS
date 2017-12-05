@@ -64,6 +64,7 @@ namespace OrderSystemForTBS.Controllers
         {
             try
             {
+                asdsadsa
                 return Ok(facade.EquipmentService.Delete(Id));
             }
             catch (InvalidOperationException e)
