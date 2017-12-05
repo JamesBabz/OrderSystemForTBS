@@ -1,0 +1,11 @@
+.equipmentListCont{
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.equipCont{
+  height: 100%;
+  flex-direction: row;
+  display: flex;
+}
+

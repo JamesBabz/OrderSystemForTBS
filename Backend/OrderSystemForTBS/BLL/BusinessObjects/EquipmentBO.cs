@@ -7,10 +7,10 @@ namespace BLL.BusinessObjects
 {
     public class EquipmentBO
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int id { get; set; }
+        public string name { get; set; }
 
-        public CustomerBO Customer { get; set; }
-        public int CustomerId { get; set; }
+        public CustomerBO customer { get; set; }
+        public int customerId { get; set; }
     }
 }

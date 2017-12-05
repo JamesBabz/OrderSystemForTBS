@@ -30,7 +30,7 @@ namespace DAL.Repositories
 
         public Equipment Get(int Id)
         {
-            return _context.Equipments.FirstOrDefault(equip => equip.Id == Id);
+            return _context.Equipments.FirstOrDefault(equip => equip.CustomerId == Id);
         }
 
         public Equipment Delete(int Id)
@@ -42,7 +42,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Equipment> GetAll(int id)
         {
-            return _context.Equipments.Include(prop => prop.Customer).Where(x => x.CustomerId == id).ToList();
+            return _context.Equipments.Include(equip => equip.Customer).Where(x => x.CustomerId == id).ToList();
         }
     }
 }

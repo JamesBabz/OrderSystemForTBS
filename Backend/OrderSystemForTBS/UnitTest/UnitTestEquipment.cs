@@ -53,45 +53,15 @@ namespace UnitTest
 
             var equipment = new EquipmentBO()
             {
-                Name = "Traktor",
-                CustomerId = 1
+                name = "Traktor",
+                customerId = 1
             };
 
             GetMockService().Create(equipment);
 
             //Expected results
             Assert.IsNotNull(equipment);
-            Assert.AreEqual("Traktor", equipment.Name);
-        }
-
-        [TestMethod]
-        public void GetEquipmentMethod()
-        {
-
-            GetInMemoryContext().Database.EnsureDeleted();
-
-            EquipmentBO equip1 = new EquipmentBO()
-            {
-                Name = "Traktor",
-                CustomerId = 1
-            };
-
-            equip1 = GetMockService().Create(equip1);
-
-            EquipmentBO equip2 = new EquipmentBO()
-            {
-                Name = "Plov",
-                CustomerId = 2
-            };
-
-            equip2 = GetMockService().Create(equip2);
-
-            EquipmentBO equip = GetMockService().Get(equip2.Id);
-
-            //Expected results
-            Assert.IsNotNull(equip);
-            Assert.AreEqual("Plov", equip.Name);
-
+            Assert.AreEqual("Traktor", equipment.name);
         }
 
         [TestMethod]
@@ -131,48 +101,48 @@ namespace UnitTest
 
             EquipmentBO equip1 = new EquipmentBO()
             {
-                Name = "Traktor",
-                CustomerId = cust1.Id
+                name = "Traktor",
+                customerId = cust1.Id
             };
 
             equip1 = GetMockService().Create(equip1);
 
             EquipmentBO equip2 = new EquipmentBO()
             {
-                Name = "Plov",
-                CustomerId = cust1.Id
+                name = "Plov",
+                customerId = cust1.Id
             };
 
             equip2 = GetMockService().Create(equip2);
 
             EquipmentBO equip3 = new EquipmentBO()
             {
-                Name = "Vogn",
-                CustomerId = cust1.Id
+                name = "Vogn",
+                customerId = cust1.Id
             };
 
             equip3 = GetMockService().Create(equip3);
 
             EquipmentBO equip4 = new EquipmentBO()
             {
-                Name = "AndenVogn",
-                CustomerId = cust2.Id
+                name = "AndenVogn",
+                customerId = cust2.Id
             };
 
             equip4 = GetMockService().Create(equip4);
 
             EquipmentBO equip5 = new EquipmentBO()
             {
-                Name = "AndenTraktor",
-                CustomerId = cust2.Id
+                name = "AndenTraktor",
+                customerId = cust2.Id
             };
 
             equip5 = GetMockService().Create(equip5);
 
             EquipmentBO equip6 = new EquipmentBO()
             {
-                Name = "AndenPlov",
-                CustomerId = cust2.Id
+                name = "AndenPlov",
+                customerId = cust2.Id
             };
 
             equip6 = GetMockService().Create(equip6);
@@ -181,8 +151,8 @@ namespace UnitTest
 
             Assert.IsNotNull(allEquipment);
             Assert.AreEqual(3, allEquipment.Count);
-            Assert.AreEqual(cust1.Firstname, allEquipment.Find(x => x.Name == "Plov").Customer.Firstname);
-            Assert.IsNull(allEquipment.Find(x => x.Name == "hej"));
+            Assert.AreEqual(cust1.Firstname, allEquipment.Find(x => x.name == "Plov").customer.Firstname);
+            Assert.IsNull(allEquipment.Find(x => x.name == "hej"));
         }
     }
 }

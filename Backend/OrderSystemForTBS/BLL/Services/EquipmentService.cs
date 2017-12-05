@@ -49,7 +49,6 @@ namespace BLL.Services
                 {
                     returnList.Add(equipmentConverter.Convert(equip));
                 }
-                Console.Write(returnList.ToString());
 
                 return returnList;
             }
