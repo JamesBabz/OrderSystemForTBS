@@ -4,6 +4,8 @@ using System.Text;
 
 namespace BLL.Services
 {
+    using System.Linq;
+
     using BLL.BusinessObjects;
     using BLL.Converters;
 
@@ -33,7 +35,11 @@ namespace BLL.Services
 
         public List<VisitBO> GetAll()
         {
-            throw new NotImplementedException();
+            using (var uow = this.facade.UnitOfWork)
+            {
+                return uow.VisitRepository.GetAll().Select(this.visitConv.Convert).OrderBy(visit => visit.DateOfVisit)
+                    .ToList();
+            }
         }
 
         public VisitBO Get(int id)

@@ -40,6 +40,37 @@ namespace UnitTest
             Assert.AreEqual("Besøg", visit.Title);
         }
 
+        [TestMethod]
+        public void TestGetAll()
+        {
+            this.GetMemoContext().Database.EnsureDeleted();
+            VisitBO visit1 = new VisitBO()
+                                {
+                                    Title = "Besøg",
+                                    Description = "Godt besøg",
+                                    DateOfVisit = DateTime.Today,
+                                    IsDone = true,
+                                    customerId = 2,
+                                    employeeId = 1
+
+                                };
+            this.GetService().Create(visit1);
+            Assert.AreEqual(1, this.GetService().GetAll().Count);
+            VisitBO visit2 = new VisitBO()
+                                {
+                                    Title = "Besøg2",
+                                    Description = "Godt besøg2",
+                                    DateOfVisit = DateTime.Today,
+                                    IsDone = false,
+                                    customerId = 2,
+                                    employeeId = 1
+
+                                };
+            this.GetService().Create(visit2);
+            Assert.AreEqual(2, this.GetService().GetAll().Count);
+
+        }
+
         private IVisitService GetService()
         {
             var c = this.GetMemoContext();
