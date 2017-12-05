@@ -1,5 +1,5 @@
 import {Customer} from '../../customers/shared/customer.model';
-import {Employee} from '../../login/shared/employee-model';
+import {Employee} from '../../login/shared/employee.model';
 import {DateFormatter} from '@angular/common/src/pipes/intl';
 
 export class Proposition {
@@ -7,9 +7,9 @@ export class Proposition {
   title: string;
   description: string;
   creationDate: Date;
-  customer: Customer;
+  customer?: Customer;
   customerId: number;
-  employee: Employee;
+  employee?: Employee;
   EmployeeId: number;
   fileId: number;
 

@@ -1,13 +1,12 @@
 .CustomersBorder{
   height: 78vh;
   border: solid 2px gray;
-  margin-left: 5px;
   overflow-y: scroll;
 }
 
 .leftBorder{
   text-align: center;
-  width: 300px;
+  width: 100%;
 }
 .text{
 
@@ -31,4 +30,12 @@ text-align: center;
 .btn:disabled{
   background-color: grey;
   border-color: grey;
+}
+.input {
+  width: 100%;
+  margin-bottom: 5px;
+  border: solid 2px lightgray;
+  text-align: left;
+  font-size: x-large;
+  ;
 }

@@ -17,10 +17,15 @@ export class PropositionService {
 
   constructor(private http: HttpClient) {
     this.currentProp = null;
+    this.currentCust = null;
   }
 
   getPropositionsByCustomerId(id: number): Observable<Proposition[]> {
     return this.http.get<Proposition[]>(url + id);
+  }
+
+  createProposition(prop: Proposition) {
+    return this.http.post<Proposition>(url, prop);
   }
 
   getCreationDateAsEUString(date: Date) {
@@ -45,5 +50,9 @@ export class PropositionService {
 
   getCurrentCustomer() {
     return this.currentCust;
+  }
+
+  deleteProposition(id: number) {
+    return this.http.delete<Proposition>(url + id);
   }
 }
