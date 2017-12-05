@@ -51,4 +51,12 @@ export class PropositionService {
   getCurrentCustomer() {
     return this.currentCust;
   }
+
+  deleteProposition(id: number) {
+    return this.http.delete<Proposition>(url + id);
+  }
+
+  updateProposition(proposition: Proposition) {
+    return this.http.put<Proposition>(url + proposition.id, proposition);
+  }
 }
