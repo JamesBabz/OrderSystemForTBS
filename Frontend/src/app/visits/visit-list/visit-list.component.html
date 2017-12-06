@@ -1,3 +1,9 @@
-<p>
-  visit-list works!
-</p>
+<div class="row">
+  <div class="col-xl-6 col-md-6 futureVisitListCont">
+    <p class="headline">Fremtidige besøg</p>
+    <app-visit  *ngFor="let visit of visits" [visit]="visit"></app-visit>
+  </div>
+  <div class="col-xl-6 col-md-6  pastVisitListCont">
+    <p class="headline">Afsluttede besøg</p>
+  </div>
+</div>

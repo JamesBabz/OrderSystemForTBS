@@ -25,7 +25,7 @@ namespace BLL.Converters
                            {
                                Id = visit.Id,
                                Title = visit.Title,
-                               Description = visit.Title,
+                               Description = visit.Description,
                                IsDone = visit.IsDone,
                                DateOfVisit = visit.DateOfVisit,
                                Customer = this.custConv.Convert(visit.Customer),
@@ -47,7 +47,7 @@ namespace BLL.Converters
                        {
                            Id = visit.Id,
                            Title = visit.Title,
-                           Description = visit.Title,
+                           Description = visit.Description,
                            IsDone = visit.IsDone,
                            DateOfVisit = visit.DateOfVisit,
                            Customer = this.custConv.Convert(visit.Customer),

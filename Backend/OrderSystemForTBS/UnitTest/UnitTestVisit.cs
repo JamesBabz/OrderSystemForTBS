@@ -36,6 +36,7 @@ namespace UnitTest
             this.GetService().Create(visit);
             Assert.IsNotNull(visit);
             Assert.AreEqual("Besøg", visit.Title);
+            Assert.AreEqual("Godt besøg", visit.Description);
         }
 
         [TestMethod]
@@ -97,34 +98,34 @@ namespace UnitTest
             Assert.AreEqual(2, this.GetService().GetAll().Count);
         }
 
-//        [TestMethod]
-//        public void TestUpdateVisit()
-//        {
-//            this.GetMemoContext().Database.EnsureDeleted();
-//
-//            VisitBO visit = new VisitBO()
-//                                {
-//                                    Id = 1,
-//                                    Title = "Besøg",
-//                                    Description = "Godt besøg",
-//                                    DateOfVisit = DateTime.Today,
-//                                    IsDone = true,
-//                                    customerId = 2,
-//                                    employeeId = 1
-//                                };
-//            visit = this.GetService().Create(visit);
-//            Assert.AreEqual("Besøg", this.GetService().Get(visit.Id).Title);
-//            visit.Title = "Visit";
-//            visit.Description = "Nice visit";
-//            this.GetService().Update(visit);
-//            visit.IsDone = false;
-//            visit.DateOfVisit = DateTime.Now;
-//            this.GetService().Update(visit);
-//            Assert.AreEqual("Visit", this.GetService().Get(1).Title);
-//            Assert.AreEqual("Nice visit", this.GetService().Get(1).Description);
-//            Assert.AreEqual(false, this.GetService().Get(1).IsDone);
-//           
-//        }
+        [TestMethod]
+        public void TestUpdateVisit()
+        {
+            this.GetMemoContext().Database.EnsureDeleted();
+
+            VisitBO visit = new VisitBO()
+                                {
+                                    Id = 1,
+                                    Title = "Besøg",
+                                    Description = "Godt besøg",
+                                    DateOfVisit = DateTime.Today,
+                                    IsDone = true,
+                                    customerId = 2,
+                                    employeeId = 1
+                                };
+            visit = this.GetService().Create(visit);
+            Assert.AreEqual("Besøg", this.GetService().Get(visit.Id).Title);
+            visit.Title = "Visit";
+            visit.Description = "Nice visit";
+            this.GetService().Update(visit);
+            visit.IsDone = false;
+            visit.DateOfVisit = DateTime.Now;
+            this.GetService().Update(visit);
+            Assert.AreEqual("Visit", this.GetService().Get(1).Title);
+            Assert.AreEqual("Nice visit", this.GetService().Get(1).Description);
+            Assert.AreEqual(false, this.GetService().Get(1).IsDone);
+           
+        }
 
         private IVisitService GetService()
         {

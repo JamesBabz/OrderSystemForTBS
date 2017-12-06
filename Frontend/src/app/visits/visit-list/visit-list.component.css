@@ -1,0 +1,10 @@
+.headline{
+  font-size: xx-large;
+  font-weight: 550;
+  text-align: center;
+}
+
+.futureVisitListCont{
+
+  overflow-y: scroll;
+}
