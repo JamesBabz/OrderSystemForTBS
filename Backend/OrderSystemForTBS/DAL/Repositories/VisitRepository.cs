@@ -10,6 +10,8 @@ namespace DAL.Repositories
     using DAL.Entities;
     using DAL.IRepositories;
 
+    using Microsoft.EntityFrameworkCore;
+
     public class VisitRepository : IVisitRepository
     {
         OrderSystemContext _context;
@@ -44,7 +46,8 @@ namespace DAL.Repositories
 
         public IEnumerable<Visit> GetAll(int id)
         {
-            throw new NotImplementedException();
+            return _context.Visits.Include(visit => visit.Customer).Include(visit => visit.Employee)
+                .OrderByDescending(visit => visit.DateOfVisit).Where(x => x.customerId == id).ToList();
         }
     }
 }

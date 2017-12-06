@@ -15,7 +15,9 @@ namespace BLL.Services
     public class VisitService : IVisitService
     {
         private IDALFacade facade;
+
         private VisitConverter visitConv = new VisitConverter();
+
         private Visit newVisit;
 
         public VisitService(IDALFacade facade)
@@ -39,6 +41,21 @@ namespace BLL.Services
             {
                 return uow.VisitRepository.GetAll().Select(this.visitConv.Convert).OrderBy(visit => visit.DateOfVisit)
                     .ToList();
+            }
+        }
+
+        public List<VisitBO> GetAllById(int customerId)
+        {
+            using (var uow = facade.UnitOfWork)
+            {
+                List<VisitBO> returnList = new List<VisitBO>();
+                var fullList = uow.VisitRepository.GetAll(customerId);
+                foreach (var visit in fullList)
+                {
+                    returnList.Add(this.visitConv.Convert(visit));
+                }
+
+                return returnList;
             }
         }
 

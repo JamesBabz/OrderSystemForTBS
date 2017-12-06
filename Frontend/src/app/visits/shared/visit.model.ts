@@ -1,5 +1,6 @@
 import {Customer} from '../../customers/shared/customer.model';
-import {Employee} from '../../login/shared/employee-model';
+import {Employee} from '../../login/shared/employee.model';
+
 
 export class Visit {
   id?: number;

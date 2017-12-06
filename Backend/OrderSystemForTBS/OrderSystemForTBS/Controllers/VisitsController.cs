@@ -10,6 +10,9 @@ namespace OrderSystemForTBS.Controllers
     using BLL;
     using BLL.BusinessObjects;
 
+    using Microsoft.AspNetCore.Cors;
+
+    [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     public class VisitsController : Controller
@@ -30,9 +33,9 @@ namespace OrderSystemForTBS.Controllers
 
         // GET: api/Visits/5
         [HttpGet("{id}")]
-        public VisitBO Get(int id)
+        public IEnumerable<VisitBO> Get(int id)
         {
-            return this.facade.VisitService.Get(id);
+            return this.facade.VisitService.GetAllById(id);
         }
         
         // POST: api/Visits

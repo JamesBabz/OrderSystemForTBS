@@ -12,7 +12,7 @@ namespace BLL
         VisitBO Create(VisitBO visit);
         //R
         List<VisitBO> GetAll();
-
+        List<VisitBO> GetAllById(int customerId);
         VisitBO Get(int id);
 
         //U
