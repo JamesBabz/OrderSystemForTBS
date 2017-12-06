@@ -67,9 +67,14 @@
         </div>
       </div>
     </form>
+    <div>
+    <div *ngIf="unsavedChanges">
+      <strong class="unsavedChangesText"> Ændringer er ikke gemt*</strong>
+    </div>
     <div class="right">
       <button class="btn btn-outline-success shouldClose shouldKeepInput" (click)="save($event)">Gem</button>
       <button class="btn btn-outline-secondary shouldClose" (click)="closeModal($event)">Annuller</button>
+    </div>
     </div>
   </div>
 </div>
