@@ -1,5 +1,4 @@
 <div class="row">
-
   <div class="col-md-4 addBtnRow">
     <button class="addBtn" (click)="goBack()">Tilbage til tilbud</button>
   </div>
@@ -40,7 +39,7 @@
     <p>Er du siker på du vil slette dette tilbud?</p>
     <hr>
     <div class="right">
-      <button class="btn btn-outline-danger" (click)="delete()">Slet</button>
+      <button class="btn btn-outline-danger" onclick="this.disabled=true" (click)="delete()">Slet</button>
       <button class="btn btn-outline-secondary shouldClose" (click)="closeModal($event)">Annuller</button>
     </div>
   </div>
