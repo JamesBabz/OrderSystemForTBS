@@ -26,6 +26,7 @@ export class PropositionDetailComponent implements OnInit {
 
   ngOnInit() {
     this.proposition = this.propositionService.getCurrentProposition();
+
     this.modalString = '';
     this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
     this.createFormGroup(this.editedProp);
@@ -41,6 +42,7 @@ export class PropositionDetailComponent implements OnInit {
   }
 
   openModal(toDo: string) {
+    document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
     this.modalString = toDo;
   }
 
@@ -62,6 +64,7 @@ export class PropositionDetailComponent implements OnInit {
       this.createFormGroup(this.proposition);
     }
     if ($event.srcElement.classList.contains('shouldClose')) {
+      document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
       this.modalString = '';
     }
   }

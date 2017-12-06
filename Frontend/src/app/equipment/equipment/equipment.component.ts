@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Employee} from '../../login/shared/employee-model';
 import {Proposition} from '../../propositions/shared/proposition.model';
 import {Equipment} from '../shared/equipment.model';
 import {Customer} from '../../customers/shared/customer.model';
