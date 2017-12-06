@@ -47,7 +47,7 @@ namespace DAL.Repositories
         public IEnumerable<Visit> GetAll(int id)
         {
             return _context.Visits.Include(visit => visit.Customer).Include(visit => visit.Employee)
-                .OrderByDescending(visit => visit.DateOfVisit).Where(x => x.customerId == id).ToList();
+                .OrderByDescending(visit => visit.DateOfVisit).Where(x => x.CustomerId == id).ToList();
         }
     }
 }

@@ -29,9 +29,9 @@ namespace BLL.Converters
                                IsDone = visit.IsDone,
                                DateOfVisit = visit.DateOfVisit,
                                Customer = this.custConv.Convert(visit.Customer),
-                               customerId = visit.customerId,
+                               CustomerId = visit.CustomerId,
                                Employee = this.empConv.Convert(visit.Employee),
-                               employeeId = visit.employeeId
+                               EmployeeId = visit.EmployeeId
                            };
             }
         }
@@ -51,9 +51,9 @@ namespace BLL.Converters
                            IsDone = visit.IsDone,
                            DateOfVisit = visit.DateOfVisit,
                            Customer = this.custConv.Convert(visit.Customer),
-                           customerId = visit.customerId,
+                           CustomerId = visit.CustomerId,
                            Employee = this.empConv.Convert(visit.Employee),
-                           employeeId = visit.employeeId
+                           EmployeeId = visit.EmployeeId
                        };
         }
     }
