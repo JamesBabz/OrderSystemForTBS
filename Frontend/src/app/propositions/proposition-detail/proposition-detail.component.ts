@@ -20,6 +20,7 @@ export class PropositionDetailComponent implements OnInit {
 
   modalString: string;
   editPropGroup: FormGroup;
+  unsavedChanges: boolean;
 
   constructor(private propositionService: PropositionService, private router: Router) {
   }
@@ -55,13 +56,17 @@ export class PropositionDetailComponent implements OnInit {
    */
   closeModal($event) {
     if ($event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
-      // sets the temporary object to contain the input values
       const values = this.editPropGroup.value;
+      if (this.editedProp.title !== values.title || this.editedProp.description !== values.description) {
+        // sets the temporary object to contain the input values
       this.editedProp.title = values.title;
       this.editedProp.description = values.description;
+      this.unsavedChanges = true;
+    }
     } else if (!$event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
       // resets the input values
       this.createFormGroup(this.proposition);
+      this.unsavedChanges = false;
     }
     if ($event.srcElement.classList.contains('shouldClose')) {
       document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
@@ -77,6 +82,7 @@ export class PropositionDetailComponent implements OnInit {
   save($event) {
     this.closeModal($event);
     this.editedProp.id = this.proposition.id;
+    this.unsavedChanges = false;
     this.propositionService.updateProposition(this.editedProp)
       .subscribe(prop => {
         prop.employee = this.propositionService.getCurrentProposition().employee,
