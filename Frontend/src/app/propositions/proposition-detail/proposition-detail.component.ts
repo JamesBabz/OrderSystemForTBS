@@ -26,6 +26,7 @@ export class PropositionDetailComponent implements OnInit {
 
   ngOnInit() {
     this.proposition = this.propositionService.getCurrentProposition();
+
     this.modalString = '';
     this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
     this.createFormGroup(this.editedProp);

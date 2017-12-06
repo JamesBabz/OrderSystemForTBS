@@ -8,6 +8,8 @@ import {Proposition} from '../shared/proposition.model';
 import {Router} from '@angular/router';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {LoginService} from '../../login/shared/login.service';
+import {EmployeeService} from "../../login/shared/employee.service";
+import {Employee} from "../../login/shared/employee.model";
 
 @Component({
   selector: 'app-proposition-create',
@@ -17,14 +19,16 @@ import {LoginService} from '../../login/shared/login.service';
 export class PropositionCreateComponent implements OnInit {
 
   customer: Customer;
+  selectedCust: Customer;
   customers: Customer[];
   createPropFormGroup: FormGroup;
   employeeId: number;
+  employee: Employee;
 
-  constructor(private propositionService: PropositionService, private loginService: LoginService, private customerService: CustomerService, private router: Router) {
+  constructor(private employeeService: EmployeeService, private propositionService: PropositionService, private loginService: LoginService, private customerService: CustomerService, private router: Router) {
+
     this.customer = propositionService.getCurrentCustomer();
     customerService.getCustomers().subscribe(Customers => this.customers = Customers);
-
 
   }
 
@@ -35,11 +39,11 @@ export class PropositionCreateComponent implements OnInit {
       description: new FormControl('', Validators.required),
       file: new FormControl()
     });
-    this.employeeId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
+    this.employeeService.getEmployee().subscribe(Employee => this.employee = Employee);
   }
 
   showAll() {
-    console.log(stringify(this.customers));
+    console.log(this.employee);
   }
 
   cancel() {
@@ -48,22 +52,20 @@ export class PropositionCreateComponent implements OnInit {
 
   createNewProposition() {
     const values = this.createPropFormGroup.value;
-    const selectedCust = this.customerService.getCustomerById(Number(values.customerSelector));
+    this.customerService.getCustomerById(Number(values.customerSelector)).subscribe(cust => this.selectedCust = cust);
     const proposition: Proposition = {
       title: values.title,
       description: values.description,
       creationDate: new Date(),
       customerId: Number(values.customerSelector),
-      customer: selectedCust,
-      employeeId: this.employeeId,
-      employee: this.loginService.getEmployee(),
+      employeeId: this.employee.id,
       fileId: 0
     };
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
+        newProp.employee = this.employee,
         this.propositionService.setCurrentProposition(newProp);
-        console.log(newProp);
-        // this.router.navigateByUrl('proposition/' + newProp.id);
+        this.router.navigateByUrl('proposition/' + newProp.id);
       });
 
   }

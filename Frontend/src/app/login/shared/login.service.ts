@@ -3,10 +3,6 @@ import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Employee} from './employee.model';
-import {Customer} from '../../customers/shared/customer.model';
-import {environment} from '../../../environments/environment';
-import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
-import {Proposition} from '../../propositions/shared/proposition.model';
 
 @Injectable()
 export class LoginService {
@@ -45,11 +41,6 @@ export class LoginService {
     // clear token remove user from local storage to log user out
     this.token = null;
     localStorage.removeItem('currentUser');
-  }
-
-  getEmployee() {
-    // return this.http.get<Employee>(environment.ApiEndPoint + '/employees/' + 5);
-    return this.http.get(environment.ApiEndPoint + '/employees/' + toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6)));
   }
 
 
