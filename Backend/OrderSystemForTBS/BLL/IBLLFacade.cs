@@ -8,5 +8,6 @@ namespace BLL
         PropositionService PropositionService { get; }
         EmployeeService EmployeeService { get; }
         EquipmentService EquipmentService { get; }
+        VisitService VisitService { get; }
     }
 }
