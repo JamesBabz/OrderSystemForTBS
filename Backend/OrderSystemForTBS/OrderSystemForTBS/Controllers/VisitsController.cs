@@ -49,10 +49,22 @@ namespace OrderSystemForTBS.Controllers
         
         // PUT: api/Visits/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody] VisitBO visit)
         {
+            if (id != visit.Id)
+            {
+                return StatusCode(405, "Path id does not match customer ID json object");
+            }
+            try
+            {
+                return Ok(this.facade.VisitService.Update(visit));
+            }
+            catch (InvalidOperationException e)
+            {
+                return StatusCode(404, e.Message);
+            }
         }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)

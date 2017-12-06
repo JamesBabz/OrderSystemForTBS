@@ -18,7 +18,6 @@ namespace UnitTest
     using Moq;
 
     [TestClass]
-
     public class UnitTestVisit
     {
         [TestMethod]
@@ -33,7 +32,6 @@ namespace UnitTest
                                     IsDone = true,
                                     customerId = 2,
                                     employeeId = 1
-
                                 };
             this.GetService().Create(visit);
             Assert.IsNotNull(visit);
@@ -45,31 +43,88 @@ namespace UnitTest
         {
             this.GetMemoContext().Database.EnsureDeleted();
             VisitBO visit1 = new VisitBO()
-                                {
-                                    Title = "Besøg",
-                                    Description = "Godt besøg",
-                                    DateOfVisit = DateTime.Today,
-                                    IsDone = true,
-                                    customerId = 2,
-                                    employeeId = 1
-
-                                };
+                                 {
+                                     Title = "Besøg",
+                                     Description = "Godt besøg",
+                                     DateOfVisit = DateTime.Today,
+                                     IsDone = true,
+                                     customerId = 2,
+                                     employeeId = 1
+                                 };
             this.GetService().Create(visit1);
             Assert.AreEqual(1, this.GetService().GetAll().Count);
             VisitBO visit2 = new VisitBO()
-                                {
-                                    Title = "Besøg2",
-                                    Description = "Godt besøg2",
-                                    DateOfVisit = DateTime.Today,
-                                    IsDone = false,
-                                    customerId = 2,
-                                    employeeId = 1
-
-                                };
+                                 {
+                                     Title = "Besøg2",
+                                     Description = "Godt besøg2",
+                                     DateOfVisit = DateTime.Today,
+                                     IsDone = false,
+                                     customerId = 2,
+                                     employeeId = 1
+                                 };
             this.GetService().Create(visit2);
             Assert.AreEqual(2, this.GetService().GetAll().Count);
-
         }
+
+        [TestMethod]
+        public void TestGetVisitById()
+        {
+            this.GetMemoContext().Database.EnsureDeleted();
+
+            VisitBO visit1 = new VisitBO()
+                                 {
+                                     Title = "Besøg",
+                                     Description = "Godt besøg",
+                                     DateOfVisit = DateTime.Today,
+                                     IsDone = true,
+                                     customerId = 2,
+                                     employeeId = 1
+                                 };
+            this.GetService().Create(visit1);
+            Assert.AreEqual(1, this.GetService().GetAll().Count);
+            VisitBO visit2 = new VisitBO()
+                                 {
+                                     Title = "Besøg2",
+                                     Description = "Godt besøg2",
+                                     DateOfVisit = DateTime.Today,
+                                     IsDone = false,
+                                     customerId = 2,
+                                     employeeId = 1
+                                 };
+            visit2 = this.GetService().Create(visit2);
+
+            Assert.AreEqual("Besøg2", this.GetService().Get(visit2.Id).Title);
+            Assert.AreEqual(2, this.GetService().GetAll().Count);
+        }
+
+//        [TestMethod]
+//        public void TestUpdateVisit()
+//        {
+//            this.GetMemoContext().Database.EnsureDeleted();
+//
+//            VisitBO visit = new VisitBO()
+//                                {
+//                                    Id = 1,
+//                                    Title = "Besøg",
+//                                    Description = "Godt besøg",
+//                                    DateOfVisit = DateTime.Today,
+//                                    IsDone = true,
+//                                    customerId = 2,
+//                                    employeeId = 1
+//                                };
+//            visit = this.GetService().Create(visit);
+//            Assert.AreEqual("Besøg", this.GetService().Get(visit.Id).Title);
+//            visit.Title = "Visit";
+//            visit.Description = "Nice visit";
+//            this.GetService().Update(visit);
+//            visit.IsDone = false;
+//            visit.DateOfVisit = DateTime.Now;
+//            this.GetService().Update(visit);
+//            Assert.AreEqual("Visit", this.GetService().Get(1).Title);
+//            Assert.AreEqual("Nice visit", this.GetService().Get(1).Description);
+//            Assert.AreEqual(false, this.GetService().Get(1).IsDone);
+//           
+//        }
 
         private IVisitService GetService()
         {
@@ -84,8 +139,8 @@ namespace UnitTest
 
         private OrderSystemContext GetMemoContext()
         {
-            var c = new OrderSystemContext(new DbContextOptionsBuilder<OrderSystemContext>()
-                .UseInMemoryDatabase("Database").Options);
+            var c = new OrderSystemContext(
+                new DbContextOptionsBuilder<OrderSystemContext>().UseInMemoryDatabase("Database").Options);
             return c;
         }
     }

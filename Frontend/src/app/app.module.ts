@@ -24,6 +24,9 @@ import {PropositionCreateComponent} from './propositions/proposition-create/prop
 import {EquipmentComponent} from './equipment/equipment/equipment.component';
 import { EquipmentListComponent } from './equipment/equipment-list/equipment-list.component';
 import {EquipmentService} from './equipment/shared/equipment.service';
+import { VisitListComponent } from './visits/visit-list/visit-list.component';
+import { VisitCreateComponent } from './visits/visit-create/visit-create.component';
+import { VisitComponent } from './visits/visit/visit.component';
 
 
 const appRoutes: Routes = [
@@ -32,6 +35,7 @@ const appRoutes: Routes = [
   {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
   {path: 'proposition/:id', component: PropositionDetailComponent, canActivate: [AuthGuard]},
   {path: 'propositions/create', component: PropositionCreateComponent, canActivate: [AuthGuard]},
+  {path: 'visits/create', component: VisitCreateComponent},
   {path: 'login', component: LoginComponent},
   {path: 'customers', component: CustomerListComponent, canActivate: [AuthGuard]},
 
@@ -52,6 +56,9 @@ const appRoutes: Routes = [
     PropositionCreateComponent,
     EquipmentComponent,
     EquipmentListComponent,
+    VisitListComponent,
+    VisitCreateComponent,
+    VisitComponent,
   ],
   imports: [
     BrowserModule,

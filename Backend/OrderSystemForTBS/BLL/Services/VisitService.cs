@@ -44,12 +44,27 @@ namespace BLL.Services
 
         public VisitBO Get(int id)
         {
-            throw new NotImplementedException();
+            using (var uow = this.facade.UnitOfWork)
+            {
+                this.newVisit = uow.VisitRepository.Get(id);
+                uow.Complete();
+                return this.visitConv.Convert(this.newVisit);
+            }
         }
 
         public VisitBO Update(VisitBO visit)
         {
-            throw new NotImplementedException();
+            using (var uow = this.facade.UnitOfWork)
+            {
+                var visitFromDb = uow.VisitRepository.Get(visit.Id);
+
+                visitFromDb.Title = visit.Title;
+                visitFromDb.Description = visit.Description;
+                visitFromDb.IsDone = visit.IsDone;
+                visitFromDb.DateOfVisit = visit.DateOfVisit;
+                uow.Complete();
+                return this.visitConv.Convert(visitFromDb);
+            }
         }
 
         public VisitBO Delete(int id)

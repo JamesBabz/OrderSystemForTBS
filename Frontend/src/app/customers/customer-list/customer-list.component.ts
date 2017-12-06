@@ -31,6 +31,9 @@ export class CustomerListComponent implements OnInit {
   creaeteProposition() {
     this.router.navigateByUrl('propositions/create');
   }
+  createVisit() {
+    this.router.navigateByUrl('visits/create');
+  }
 
   search() {
     this.customerService.searchQuery(this.query).subscribe(Customers => this.customers = Customers);
