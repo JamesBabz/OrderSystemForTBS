@@ -4,7 +4,20 @@
   text-align: center;
 }
 
-.futureVisitListCont{
-
+.VisitListCont{
+height: 100%;
   overflow-y: scroll;
+  overflow-x: hidden;
+
+}
+
+.addBtnRow{
+  border-bottom: 1px solid #c9c9c9;
+  padding: 5px;
+  display: block;
+}
+.visitCont{
+  height: 86%;
+  display: flex;
+
 }

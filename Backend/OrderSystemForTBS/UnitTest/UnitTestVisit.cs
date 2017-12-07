@@ -30,8 +30,8 @@ namespace UnitTest
                                     Description = "Godt besøg",
                                     DateOfVisit = DateTime.Today,
                                     IsDone = true,
-                                    customerId = 2,
-                                    employeeId = 1
+                                    CustomerId = 2,
+                                    EmployeeId = 1
                                 };
             this.GetService().Create(visit);
             Assert.IsNotNull(visit);
@@ -49,8 +49,8 @@ namespace UnitTest
                                      Description = "Godt besøg",
                                      DateOfVisit = DateTime.Today,
                                      IsDone = true,
-                                     customerId = 2,
-                                     employeeId = 1
+                                     CustomerId = 2,
+                                     EmployeeId = 1
                                  };
             this.GetService().Create(visit1);
             Assert.AreEqual(1, this.GetService().GetAll().Count);
@@ -60,8 +60,8 @@ namespace UnitTest
                                      Description = "Godt besøg2",
                                      DateOfVisit = DateTime.Today,
                                      IsDone = false,
-                                     customerId = 2,
-                                     employeeId = 1
+                                     CustomerId = 2,
+                                     EmployeeId = 1
                                  };
             this.GetService().Create(visit2);
             Assert.AreEqual(2, this.GetService().GetAll().Count);
@@ -78,8 +78,8 @@ namespace UnitTest
                                      Description = "Godt besøg",
                                      DateOfVisit = DateTime.Today,
                                      IsDone = true,
-                                     customerId = 2,
-                                     employeeId = 1
+                                     CustomerId = 2,
+                                     EmployeeId = 1
                                  };
             this.GetService().Create(visit1);
             Assert.AreEqual(1, this.GetService().GetAll().Count);
@@ -89,8 +89,8 @@ namespace UnitTest
                                      Description = "Godt besøg2",
                                      DateOfVisit = DateTime.Today,
                                      IsDone = false,
-                                     customerId = 2,
-                                     employeeId = 1
+                                     CustomerId = 2,
+                                     EmployeeId = 1
                                  };
             visit2 = this.GetService().Create(visit2);
 
@@ -110,8 +110,8 @@ namespace UnitTest
                                     Description = "Godt besøg",
                                     DateOfVisit = DateTime.Today,
                                     IsDone = true,
-                                    customerId = 2,
-                                    employeeId = 1
+                                    CustomerId = 2,
+                                    EmployeeId = 1
                                 };
             visit = this.GetService().Create(visit);
             Assert.AreEqual("Besøg", this.GetService().Get(visit.Id).Title);

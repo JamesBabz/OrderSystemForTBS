@@ -18,10 +18,10 @@ namespace BLL.BusinessObjects
 
         public CustomerBO Customer { get; set; }
 
-        public int customerId { get; set; }
+        public int CustomerId { get; set; }
 
         public EmployeeBO Employee { get; set; }
 
-        public int employeeId { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

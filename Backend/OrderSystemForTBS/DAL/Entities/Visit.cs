@@ -18,11 +18,11 @@ namespace DAL.Entities
 
         public Customer Customer { get; set; }
 
-        public int customerId { get; set; }
+        public int CustomerId { get; set; }
 
         public Employee Employee { get; set; }
 
-        public int employeeId { get; set; }
+        public int EmployeeId { get; set; }
 
     }
 }
