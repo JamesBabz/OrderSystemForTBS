@@ -26,6 +26,7 @@ export class VisitListComponent implements OnInit {
   constructor(private visitService: VisitService, private router: Router, private route: ActivatedRoute) {
     this.pastVisits = [];
     this.futureVisits = [];
+    this.customer = this.visitService.getCurrentCustomer();
   }
 
   ngOnInit() {
@@ -34,14 +35,12 @@ export class VisitListComponent implements OnInit {
       .switchMap(params => this.visitService.getVisitsByCustomerId(+params.get('id')))
       .subscribe(Visit => this.sortCurrentDate(this.visits = Visit));
 
-
   }
 
   sortCurrentDate(list: Visit[]) {
 
     var today = new Date();
     var currentDate = new Date(today.getTime());
-    console.log(list);
     for (let visit of list) {
       var date = new Date(visit.dateOfVisit);
       var dateFromVisit = new Date(date.getTime());
@@ -60,6 +59,9 @@ export class VisitListComponent implements OnInit {
 
   addToPastVisits(visit: Visit) {
     this.pastVisits.push(visit);
+  }
+  createVisit() { this.visitService.setCurrentCustomer(this.customer);
+    this.router.navigateByUrl('visits/create');
   }
 
 }

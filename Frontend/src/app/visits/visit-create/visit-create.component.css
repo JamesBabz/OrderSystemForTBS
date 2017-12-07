@@ -7,3 +7,23 @@
   min-width: 350px;
   resize: horizontal;
 }
+.bs-datepicker{
+  background-color: #AAD48C;
+
+}
+
+.input{
+  width: 81%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.dropdown{
+  width: 81%;
+}
+
+.bs-datepicker{
+  margin-top: 10px;
+}
+.btn{
+  width: 88px;
+}
