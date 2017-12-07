@@ -13,6 +13,7 @@ namespace DAL
         IPropositionRepository PropositionRepository { get; }
         IRepository<Equipment> EquipmentRepository { get; }
         IVisitRepository VisitRepository { get; }
+        IFilePathRepository FilePathRepository { get; }
         int Complete();
     }
 }

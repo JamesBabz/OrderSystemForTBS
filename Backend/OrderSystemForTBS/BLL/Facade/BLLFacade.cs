@@ -67,5 +67,13 @@ namespace BLL.Facade
                 return new DawaService();
             }
         }
+        
+        public FilePathService FilePathService
+        {
+            get
+            {
+                return new FilePathService(this.facade);
+            }
+        }
     }
 }
