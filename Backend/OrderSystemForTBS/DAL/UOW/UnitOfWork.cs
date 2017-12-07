@@ -13,6 +13,7 @@ namespace DAL.UOW
         public IPropositionRepository PropositionRepository { get; internal set; }
         public IRepository<Equipment> EquipmentRepository { get; internal set; }
         public IVisitRepository VisitRepository { get; internal set; }
+        public IFilePathRepository FilePathRepository { get; internal set; }
 
 
         public OrderSystemContext context;
@@ -26,8 +27,9 @@ namespace DAL.UOW
             PropositionRepository = new PropositionRepository(this.context);
             EquipmentRepository = new EquipmentRepository(this.context);
             VisitRepository = new VisitRepository(this.context);
+            FilePathRepository = new FilePathRepository(this.context);
 
-          
+
 
             context.Database.EnsureCreated();
         }
