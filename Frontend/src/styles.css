@@ -81,3 +81,43 @@ body {
   overflow: hidden!important;
 }
 
+
+
+
+/*Modal*/
+.myModal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+.myModalContent {
+  background-color: white;
+  color: black;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 500px;
+  opacity: 1;
+}
+
+.right{
+  text-align: right;
+}
+
+.right > .btn{
+  width: 90px;
+  font-size: 20px;
+}
+
+.descTextArea{
+  width: 100%;
+  min-height: 100px;
+}
+
+.unsavedChangesText{
+  color:red;
+  float: left;
+}

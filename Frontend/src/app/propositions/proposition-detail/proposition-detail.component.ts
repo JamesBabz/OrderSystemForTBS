@@ -42,6 +42,13 @@ export class PropositionDetailComponent implements OnInit {
       .subscribe(prop => this.router.navigateByUrl('customer/' + prop.customerId));
   }
 
+
+  getEUString(date: Date) {
+    return this.propositionService.getCreationDateAsEUString(date);
+  }
+
+
+
   openModal(toDo: string) {
     document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
     this.modalString = toDo;
@@ -72,10 +79,6 @@ export class PropositionDetailComponent implements OnInit {
       document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
       this.modalString = '';
     }
-  }
-
-  getEUString(date: Date) {
-    return this.propositionService.getCreationDateAsEUString(date);
   }
 
 
