@@ -29,6 +29,7 @@ import { VisitCreateComponent } from './visits/visit-create/visit-create.compone
 import { VisitComponent } from './visits/visit/visit.component';
 import {EmployeeService} from './login/shared/employee.service';
 import {VisitService} from './visits/shared/visit.service';
+import {DawaService} from './customers/shared/dawa.service';
 
 
 const appRoutes: Routes = [
@@ -72,7 +73,7 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     TabModule
   ],
-  providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService, EmployeeService, VisitService,
+  providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService, EmployeeService, VisitService, DawaService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })

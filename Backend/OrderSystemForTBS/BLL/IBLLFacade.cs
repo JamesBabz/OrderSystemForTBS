@@ -9,5 +9,6 @@ namespace BLL
         EmployeeService EmployeeService { get; }
         EquipmentService EquipmentService { get; }
         VisitService VisitService { get; }
+        DawaService DawaService { get; }
     }
 }

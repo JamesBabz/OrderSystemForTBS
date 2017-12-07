@@ -17,7 +17,7 @@
           <input type="text" class="form-control" formControlName="address">
         </label>
         <label class="center-block">Postnr:
-          <input type="number" class="form-control no-spin" formControlName="zipCode">
+          <input type="number" class="form-control no-spin" (blur)="getCity()" formControlName="zipCode">
         </label>
         <label class="center-block">By:
           <input type="text" class="form-control" formControlName="city">

@@ -59,5 +59,13 @@ namespace BLL.Facade
                 return new VisitService(this.facade);
             }
         }
+
+        public DawaService DawaService
+        {
+            get
+            {
+                return new DawaService();
+            }
+        }
     }
 }
