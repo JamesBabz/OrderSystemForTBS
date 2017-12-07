@@ -65,6 +65,44 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void DeleteEquipmentMethod()
+        {
+            GetInMemoryContext().Database.EnsureDeleted();
+
+            var equip1 = new EquipmentBO()
+            {
+                name = "nummerEt",
+                customerId = 1
+
+            };
+            var equip2 = new EquipmentBO()
+            {
+                name = "nummerTo",
+                customerId = 2
+            };
+            var equip3 = new EquipmentBO()
+            {
+                name = "nummerTre",
+                customerId = 3
+            };
+            var equip4 = new EquipmentBO()
+            {
+                name = "nummerFire",
+                customerId = 4
+            };
+            equip1 = GetMockService().Create(equip1);
+            equip2 = GetMockService().Create(equip2);
+            equip3 = GetMockService().Create(equip3);
+            equip4 = GetMockService().Create(equip4);
+
+            Assert.IsNotNull(GetMockService().Get(equip3.id));
+            equip3 = GetMockService().Delete(equip3.id);
+            Assert.IsNull(GetMockService().Get(equip3.id));
+
+
+        }
+
+        [TestMethod]
         public void GetAllEquipmentMethod()
         {
             GetInMemoryContext().Database.EnsureDeleted();

@@ -73,7 +73,8 @@ namespace BLL.Services
         {
             using (var uow = facade.UnitOfWork)
             {
-                newEquipment = uow.EquipmentRepository.Delete(Id);
+                newEquipment = uow.EquipmentRepository.Get(Id);
+                uow.EquipmentRepository.Delete(newEquipment.Id);
                 uow.Complete();
                 return equipmentConverter.Convert(newEquipment);
             }
