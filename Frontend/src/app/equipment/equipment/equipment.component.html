@@ -1,7 +1,13 @@
- <div class="row singleEquipCont">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="row singleEquipCont">
     <div class="col-md-12">
-      <h3>{{equipment.name}}</h3>
+      <h3>{{equipment.name}}
+        <button style="float: right" class="button" (click)="deleteEquipment();"> <i class="fa fa-trash" > </i></button>
+      </h3>
       <br>
     </div>
-  </div>
+</div>
+
+
 

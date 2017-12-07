@@ -16,6 +16,7 @@ namespace BLL.Converters
             {
                 return new Equipment()
                 {
+                    Id = equipment.id,
                     Name = equipment.name,
 
                     Customer = custConv.Convert(equipment.customer),
@@ -30,6 +31,7 @@ namespace BLL.Converters
             {
                 return new EquipmentBO()
                 {
+                    id = equipment.Id,
                     name = equipment.Name,
 
                     customer = custConv.Convert(equipment.Customer),

@@ -30,7 +30,7 @@ namespace DAL.Repositories
 
         public Equipment Get(int Id)
         {
-            return _context.Equipments.FirstOrDefault(equip => equip.CustomerId == Id);
+            return _context.Equipments.FirstOrDefault(equip => equip.Id == Id);
         }
 
         public Equipment Delete(int Id)

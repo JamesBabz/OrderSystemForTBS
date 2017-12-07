@@ -1,10 +1,23 @@
 <div class="row equipCont">
-  <div class="col-xl-6 col-md-6 equipmentListCont">
+  <div class="col-md-6 equipmentListCont">
     <ng-container *ngFor="let equip of equipments; let i = index ">
         <app-equipment [equipment]="equip" ></app-equipment>
     </ng-container>
   </div>
+
+
+  <form [formGroup]="createEquipFormGroup" class="equipAddField" *ngIf="customers">
+    <input type="text" class="form-control" placeholder="Indtast maskine" name="name" formControlName="name" >
+    <input class="btn btn-success equipAddButton" type="button" (click)="createNewEquipment()" value="Tilføj" name="save">
+  </form>
 </div>
+
+
+
+
+
+
+
 
 
 
