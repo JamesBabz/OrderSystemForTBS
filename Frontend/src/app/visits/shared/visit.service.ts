@@ -3,12 +3,15 @@ import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Visit} from './visit.model';
 import {Observable} from 'rxjs/Observable';
+import {Customer} from '../../customers/shared/customer.model';
 
 const url = environment.ApiEndPoint + '/visits/';
 @Injectable()
 export class VisitService {
-
-  constructor(private http: HttpClient) { }
+  private currentCust: Customer;
+  constructor(private http: HttpClient) {
+    this.currentCust = null;
+  }
 
   getVisitsByCustomerId(id: number): Observable<Visit[]> {
     return this.http.get<Visit[]>(url + id);
@@ -23,5 +26,13 @@ export class VisitService {
     const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
     dateString = newDate.toLocaleString('en-GB', options);
     return dateString;
+  }
+
+  setCurrentCustomer(customer: Customer) {
+    this.currentCust = customer;
+  }
+
+  getCurrentCustomer() {
+    return this.currentCust;
   }
 }
