@@ -26,6 +26,7 @@ export class CustomerService {
   createCustomer(cust: Customer): Observable<Customer> {
     return this.http.post<Customer>(url, cust);
   }
+
   updateCustomerById(id: number, cust: Customer): Observable<Customer> {
     return this.http.put<Customer>(url + '/' + id, cust);
   }
@@ -33,8 +34,9 @@ export class CustomerService {
   deleteCustomerById(id: Number): Observable<Customer> {
     return this.http.delete<Customer>(url + '/' + id);
   }
+
   searchQuery(q: string): Observable<Customer[]> {
     return this.http.get<Customer[]>(url + '/search?q=' + q);
-}
+  }
 
 }
