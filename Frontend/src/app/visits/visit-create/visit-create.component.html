@@ -1,6 +1,8 @@
-<div class="col-md-2">
-  <h2>Opret besøg</h2>
+<div class="col-md-4">
+  <h2 class="Headline">Opret besøg</h2>
 <form [formGroup]="visitGroup" >
+  <div class="row">
+  <div class="col-md-10">
 
       <select class="dropdown" name="customerSelector" formControlName="customerSelector">
           <option value="" >Vælg kunde</option>
@@ -15,9 +17,18 @@
             </ng-container>
           </ng-container>
         </select>
-      <ngb-datepicker class="bs-datepicker " [(ngModel)]="model" (navigate)="date = $event.next" formControlName="datePicked" ></ngb-datepicker>
-      <input type="text" class="input" placeholder="Titel" name="title" formControlName="title"/>
-        <textarea class="descTextArea"  placeholder="Kort beskrivelse" name="description" formControlName="description"></textarea>
+    <div class="col-md-12">
+    <input type="text" class="input" placeholder="Titel" name="title" formControlName="title"/>
+
+  <input  placeholder="yyyy-mm-dd" class="datepicker"
+         name="dp" [(ngModel)]="model" (navigate)="date = $event.next" formControlName="datePicked" ngbDatepicker #d="ngbDatepicker">
+  <button  (click)="d.toggle()" type="button">
+    <i class="fa fa-calendar" aria-hidden="true"></i>
+  </button>
+    </div>
+  </div>
+  </div>
+  <textarea class="descTextArea"  placeholder="Kort beskrivelse" name="description" formControlName="description"></textarea>
 </form>
 </div>
 
