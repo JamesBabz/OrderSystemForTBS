@@ -1,7 +1,7 @@
 <div class="row equipCont">
   <div class="col-md-6 equipmentListCont">
     <ng-container *ngFor="let equip of equipments; let i = index ">
-        <app-equipment [equipment]="equip" ></app-equipment>
+        <app-equipment [equipment]="equip" (eDeleted)="refresh()"></app-equipment>
     </ng-container>
   </div>
 

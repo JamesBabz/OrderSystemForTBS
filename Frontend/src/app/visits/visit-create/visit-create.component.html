@@ -1,3 +1,43 @@
-<p>
-  visit-create works!
-</p>
+<form [formGroup]="visitGroup" >
+  <div class="row top20">
+    <div class="col-md-4">
+      <select name="customerSelector" formControlName="customerSelector">
+        <option value="" >Vælg kunde</option>
+        <ng-container *ngFor="let cust of customers">
+
+          <ng-container *ngIf="customer != null">
+
+            <option *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+            <option selected *ngIf="cust.id == customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}
+            </option>
+
+          </ng-container>
+
+          <ng-container *ngIf="customer == null">
+
+            <option value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+
+          </ng-container>
+        </ng-container>
+      </select>
+    </div>
+  </div>
+  <ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next" formControlName="datePicked" ></ngb-datepicker>
+  <div class="row top20">
+    <div class="col-md-4">
+      <input type="text" placeholder="Titel" name="title" formControlName="title"/>
+    </div>
+  </div>
+  <div class="row top20">
+    <div class="col-md-4">
+      <textarea class="descTextArea" placeholder="Kort beskrivelse" name="description" formControlName="description"></textarea>
+    </div>
+  </div>
+</form>
+
+<div class="row top20">
+  <div class="col-md-4">
+    <input class="btn btn-success" type="button" (click)="createVisit()" value="Gem" name="save" [disabled]="!visitGroup.valid"/>
+    <input class="btn btn-danger" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
+  </div>
+</div>

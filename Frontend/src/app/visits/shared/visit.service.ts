@@ -14,6 +14,9 @@ export class VisitService {
     return this.http.get<Visit[]>(url + id);
   }
 
+  createVisit(visit: Visit): Observable<Visit> {
+    return this.http.post(url, visit);
+  }
   getDateAsEUString(date: Date) {
     const newDate = new Date(date);
     let dateString;

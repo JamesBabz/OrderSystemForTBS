@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Proposition} from '../../propositions/shared/proposition.model';
 import {Equipment} from '../shared/equipment.model';
 import {Customer} from '../../customers/shared/customer.model';
@@ -19,6 +19,9 @@ export class EquipmentComponent implements OnInit {
   equipment: Equipment;
   @Input()
   customer: Customer;
+  @Output()
+    eDeleted = new EventEmitter();
+
 
   customers: Customer[];
   equipments: Equipment[];
@@ -30,9 +33,10 @@ export class EquipmentComponent implements OnInit {
   }
 
   deleteEquipment() {
-    this.equipmentService.deleteEquipmentById(this.equipment.id).subscribe(Equip =>
-    this.equipmentService.getEquipmentById(this.customer.id)
-      .subscribe(Equipment => this.equipments = Equipment));
+    this.equipmentService.deleteEquipmentById(this.equipment.id).subscribe(Equip =>{
+      this.eDeleted.emit(Equip);
+    });
+
   }
 }
 
