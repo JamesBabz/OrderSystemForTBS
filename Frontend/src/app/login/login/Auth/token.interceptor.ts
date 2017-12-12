@@ -1,5 +1,5 @@
-﻿import { Injectable } from '@angular/core';
-import { Router, CanActivate } from '@angular/router';
+﻿import {Injectable} from '@angular/core';
+import {Router, CanActivate} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {LoginService} from '../../shared/login.service';
@@ -7,9 +7,16 @@ import {LoginService} from '../../shared/login.service';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService) {
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+
+    // if (req.url.startsWith('https://dawa.aws.dk/')) {
+    //   return next.handle(req);
+    // }
+
 
     // get the token from a service
 
@@ -18,7 +25,7 @@ export class TokenInterceptor implements HttpInterceptor {
     // add it if we have one
 
     if (token) {
-      req = req.clone({ headers: req.headers.set('Authorization', 'Bearer ' + token) });
+      req = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + token)});
     }
 
     // if this is a login-request the header is
@@ -32,12 +39,12 @@ export class TokenInterceptor implements HttpInterceptor {
     // default --> json
 
     if (!req.headers.has('Content-Type')) {
-      req = req.clone({ headers: req.headers.set('Content-Type', 'application/json') });
+      req = req.clone({headers: req.headers.set('Content-Type', 'application/json')});
     }
 
     // setting the accept header
 
-    req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
+    req = req.clone({headers: req.headers.set('Accept', 'application/json')});
     return next.handle(req);
   }
 }

@@ -40,6 +40,32 @@
         <app-visit-list [customer]="customer"></app-visit-list>
       </tab>
     </tabs>
+
+
+    <ngb-tabset class="col-md-12 customerTab">
+      <ngb-tab title="Tilbud">
+        <ng-template ngbTabContent>
+          <app-proposition-list [customer]="customer"></app-proposition-list>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Slutseddel" active="">
+        <ng-template ngbTabContent>
+        SLUTSEDDEL!
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Maskinliste">
+        <ng-template ngbTabContent>
+        <app-equipment-list [customer]="customer"></app-equipment-list>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Besøg">
+        <ng-template ngbTabContent>
+        <app-visit-list [customer]="customer"></app-visit-list>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+
   </div>
 </div>
 
