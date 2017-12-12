@@ -1,5 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Employee} from '../../login/shared/employee-model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Proposition} from '../../propositions/shared/proposition.model';
 import {Equipment} from '../shared/equipment.model';
 import {Customer} from '../../customers/shared/customer.model';
@@ -20,6 +19,11 @@ export class EquipmentComponent implements OnInit {
   equipment: Equipment;
   @Input()
   customer: Customer;
+  @Output()
+    eDeleted = new EventEmitter();
+
+  modalString: string;
+
 
   customers: Customer[];
   equipments: Equipment[];
@@ -31,8 +35,41 @@ export class EquipmentComponent implements OnInit {
   }
 
   deleteEquipment() {
+<<<<<<< HEAD
     this.equipmentService.deleteEquipmentById(this.equipment.id)
       .subscribe();
+=======
+    this.equipmentService.deleteEquipmentById(this.equipment.id).subscribe(Equip =>{
+      this.eDeleted.emit(Equip);
+    });
+
   }
+
+
+  openModal(toDo: string) {
+    document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
+    this.modalString = toDo;
+>>>>>>> Development
+  }
+
+  /**
+   * closes the modal.
+   * reads css classes from the clicked element.
+   * shouldKeepInput class lets the changed input stay in the fields
+   * shouldClose class is to prevent child elements from closing
+   * @param $event
+   */
+  closeModal($event) {
+    if ($event.srcElement.classList.contains('shouldClose')) {
+      document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
+      this.modalString = '';
+    }
+  }
+
+  delete($event){
+    this.closeModal($event);
+    this.deleteEquipment();
+  }
+
 }
 
