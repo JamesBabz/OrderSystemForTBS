@@ -1,0 +1,27 @@
+.cont {
+  padding-left: 15px;
+}
+.datepicker{
+  margin-left: 20px;
+}
+.dropdown{
+  width: 178px;
+}
+.descTextArea {
+  height: 150px;
+  min-width: 350px;
+  resize: horizontal;
+}
+.datepicker {
+  margin-bottom: 20px;
+}
+.input{
+margin-left: -15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.btn{
+  margin-top: 15px;
+  width: 88px;
+}
+

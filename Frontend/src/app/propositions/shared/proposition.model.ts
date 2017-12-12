@@ -8,9 +8,9 @@ export class Proposition {
   description: string;
   creationDate: Date;
   customer?: Customer;
-  customerId: number;
+  customerId?: number;
   employee?: Employee;
-  EmployeeId: number;
+  employeeId?: number;
   fileId: number;
 
 }

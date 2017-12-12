@@ -14,8 +14,6 @@ namespace BLL.Services
     {
         private IDALFacade facade;
 
-        private List<CustomerBO> allCusts = new List<CustomerBO>();
-
         private CustomerConverter custConv = new CustomerConverter();
 
         private Customer newCustomer;

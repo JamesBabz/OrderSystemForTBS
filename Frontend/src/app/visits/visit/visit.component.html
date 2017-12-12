@@ -1,0 +1,22 @@
+<div class="singleVisitCont">
+  <div class="row">
+    <div class="col-md-12 title">
+      <h3 style="margin:0px">{{visit?.title}}</h3>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 description">
+      {{visit?.description}}
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+      {{getEUString(visit?.dateOfVisit)}}
+    </div>
+    <div class="col-md-2 offset-7 right">
+      Af: {{employee?.firstname}} {{employee?.lastname}}
+    </div>
+  </div>
+</div>

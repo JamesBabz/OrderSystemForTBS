@@ -32,9 +32,7 @@ export class EquipmentListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.paramMap
-      .switchMap(params => this.equipmentService.getEquipmentById(+params.get('id')))
-      .subscribe(Equipment => this.equipments = Equipment);
+  this.refresh();
   }
 
   createNewEquipment() {
@@ -51,5 +49,10 @@ export class EquipmentListComponent implements OnInit {
           .subscribe(Equipment => this.equipments = Equipment);
       });
 
+  }
+  refresh(){
+    this.route.paramMap
+      .switchMap(params => this.equipmentService.getEquipmentById(+params.get('id')))
+      .subscribe(Equipment => this.equipments = Equipment);
   }
 }

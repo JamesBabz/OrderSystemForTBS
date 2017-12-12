@@ -28,8 +28,11 @@ export class CustomerListComponent implements OnInit {
     this.router.navigateByUrl('/customers/create');
   }
 
-  creaeteProposition() {
+  createProposition() {
     this.router.navigateByUrl('propositions/create');
+  }
+  createVisit() {
+    this.router.navigateByUrl('visits/create');
   }
 
   search() {

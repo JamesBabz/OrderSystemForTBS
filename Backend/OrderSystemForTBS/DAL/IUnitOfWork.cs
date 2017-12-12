@@ -12,6 +12,8 @@ namespace DAL
         IRepository<Employee> EmployeeRepository { get; }
         IPropositionRepository PropositionRepository { get; }
         IRepository<Equipment> EquipmentRepository { get; }
+        IVisitRepository VisitRepository { get; }
+        IFilePathRepository FilePathRepository { get; }
         int Complete();
     }
 }

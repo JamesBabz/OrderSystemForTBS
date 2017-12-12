@@ -3,11 +3,22 @@
 <div class="row singleEquipCont">
     <div class="col-md-12">
       <h3>{{equipment.name}}
-        <button style="float: right" class="button" (click)="deleteEquipment();"> <i class="fa fa-trash" > </i></button>
+        <button style="float: right" class="button" (click)="modalString = 'delete'"> <i class="fa fa-trash" > </i></button>
       </h3>
       <br>
     </div>
 </div>
 
-
+<div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Slet maskine</h3>
+    <hr>
+    <p>Er du siker på du vil slette denne maskine?</p>
+    <hr>
+    <div class="right">
+      <button class="btn btn-outline-danger shouldClose" onclick="this.disabled=true" (click)="delete($event)">Slet</button>
+      <button class="btn btn-outline-secondary shouldClose" (click)="closeModal($event)">Annuller</button>
+    </div>
+  </div>
+</div>
 

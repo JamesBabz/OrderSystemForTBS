@@ -2,11 +2,13 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Employee} from './employee.model';
 
 @Injectable()
 export class LoginService {
   public token: string;
 
+  employee: Employee;
 
   constructor(private http: Http) {
     // set token if saved in local storage
@@ -26,7 +28,6 @@ export class LoginService {
           // store username and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify({id: id, username: username, token: token}));
 
-          // setEmployee();
           // return true to indicate successful login
           return true;
         } else {
@@ -42,9 +43,5 @@ export class LoginService {
     localStorage.removeItem('currentUser');
   }
 
-
-  setEmployee() {
-
-  }
 
 }
