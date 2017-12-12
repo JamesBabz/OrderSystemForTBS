@@ -24,6 +24,8 @@ export class PropositionCreateComponent implements OnInit {
   createPropFormGroup: FormGroup;
   employeeId: number;
   employee: Employee;
+  selectedFile: File;
+
 
   constructor(private employeeService: EmployeeService, private propositionService: PropositionService, private loginService: LoginService, private customerService: CustomerService, private router: Router) {
 
@@ -67,6 +69,12 @@ export class PropositionCreateComponent implements OnInit {
         this.propositionService.setCurrentProposition(newProp);
         this.router.navigateByUrl('proposition/' + newProp.id);
       });
+    this.propositionService.upLoadImage(this.selectedFile).subscribe(File => console.log(this.selectedFile));
+  }
 
+  onFileChange(event) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }
   }
 }

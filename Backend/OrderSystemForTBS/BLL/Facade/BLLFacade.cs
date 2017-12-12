@@ -75,5 +75,11 @@ namespace BLL.Facade
                 return new FilePathService(this.facade);
             }
         }
+
+        public FileService FileService
+
+        {
+            get {return new FileService();}
+        }
     }
 }
