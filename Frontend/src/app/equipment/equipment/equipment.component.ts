@@ -35,21 +35,18 @@ export class EquipmentComponent implements OnInit {
   }
 
   deleteEquipment() {
-<<<<<<< HEAD
     this.equipmentService.deleteEquipmentById(this.equipment.id)
       .subscribe();
-=======
+
     this.equipmentService.deleteEquipmentById(this.equipment.id).subscribe(Equip =>{
       this.eDeleted.emit(Equip);
     });
 
   }
 
-
   openModal(toDo: string) {
     document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
     this.modalString = toDo;
->>>>>>> Development
   }
 
   /**
