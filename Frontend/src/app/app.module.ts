@@ -24,6 +24,7 @@ import {PropositionCreateComponent} from './propositions/proposition-create/prop
 import {EquipmentComponent} from './equipment/equipment/equipment.component';
 import { EquipmentListComponent } from './equipment/equipment-list/equipment-list.component';
 import {EquipmentService} from './equipment/shared/equipment.service';
+import {ErrorInterceptor} from './login/login/Auth/error.interceptor';
 
 
 const appRoutes: Routes = [
@@ -64,7 +65,9 @@ const appRoutes: Routes = [
     TabModule
   ],
   providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}],
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
