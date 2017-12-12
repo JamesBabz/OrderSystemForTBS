@@ -24,12 +24,13 @@ import {PropositionCreateComponent} from './propositions/proposition-create/prop
 import {EquipmentComponent} from './equipment/equipment/equipment.component';
 import { EquipmentListComponent } from './equipment/equipment-list/equipment-list.component';
 import {EquipmentService} from './equipment/shared/equipment.service';
-import {ErrorInterceptor} from './login/login/Auth/error.interceptor';
 import { VisitListComponent } from './visits/visit-list/visit-list.component';
 import { VisitCreateComponent } from './visits/visit-create/visit-create.component';
 import { VisitComponent } from './visits/visit/visit.component';
-
-
+import {EmployeeService} from './login/shared/employee.service';
+import {VisitService} from './visits/shared/visit.service';
+import {DawaService} from './customers/shared/dawa.service';
+import {ErrorInterceptor} from './login/login/Auth/error.interceptor';
 
 
 const appRoutes: Routes = [
@@ -73,10 +74,12 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     TabModule
   ],
-  providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService,
+  providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService, EmployeeService, VisitService, DawaService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
-  ],}
-)
+    ],
+
+  bootstrap: [AppComponent]
+})
 export class AppModule {
 }
