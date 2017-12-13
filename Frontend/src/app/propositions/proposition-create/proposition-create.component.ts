@@ -8,8 +8,8 @@ import {Proposition} from '../shared/proposition.model';
 import {Router} from '@angular/router';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {LoginService} from '../../login/shared/login.service';
-import {EmployeeService} from '../../login/shared/employee.service';
-import {Employee} from '../../login/shared/employee.model';
+import {EmployeeService} from "../../login/shared/employee.service";
+import {Employee} from "../../login/shared/employee.model";
 
 @Component({
   selector: 'app-proposition-create',
@@ -56,8 +56,6 @@ export class PropositionCreateComponent implements OnInit {
   createNewProposition() {
     const values = this.createPropFormGroup.value;
     this.customerService.getCustomerById(Number(values.customerSelector)).subscribe(cust => this.selectedCust = cust);
-
-
     const proposition: Proposition = {
       title: values.title,
       description: values.description,
@@ -69,10 +67,9 @@ export class PropositionCreateComponent implements OnInit {
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
         newProp.employee = this.employee,
-          this.propositionService.setCurrentProposition(newProp);
+        this.propositionService.setCurrentProposition(newProp);
         this.router.navigateByUrl('proposition/' + newProp.id);
       });
-    alert(values.file.getAsFile().name);
     this.propositionService.upLoadImage(this.base64textString).subscribe(File => console.log(this.base64textString));
   }
 
@@ -101,22 +98,4 @@ export class PropositionCreateComponent implements OnInit {
     console.log(btoa(binaryString));
 
   }
-
-
-  onFileChange(event) {
-    let reader = new FileReader();
-    if (event.target.files && event.target.files.length > 0) {
-      let file = event.target.files[0];
-      this.propositionService.uploadFileToDropbox(file);
-      // reader.onload = () => {
-      //   this.createPropFormGroup.get('file').setValue({
-      //     filename: file.name,
-      //     filetype: file.type,
-      //     value: reader.result.split(',')[1]
-      //   });
-      // };
-    }
-  }
-
-
 }
