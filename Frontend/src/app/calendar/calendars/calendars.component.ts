@@ -1,9 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {CalendarService} from '../shared/calendar.service';
 import {CalendarComponent} from 'ng-fullcalendar';
 import {Options} from 'fullcalendar';
 import {VisitService} from '../../visits/shared/visit.service';
 import {Visit} from '../../visits/shared/visit.model';
+import {waitForMap} from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-calendars',
@@ -14,19 +14,45 @@ export class CalendarsComponent implements OnInit {
 
   visits: Visit[];
 
-  constructor(private calendarService: CalendarService, private visitService: VisitService) {
-  }
+  private data: any[];
 
   calendarOptions: Options;
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
+
+  constructor(private visitService: VisitService) {
+  }
+
   ngOnInit() {
+    this.visitService.getAllVisits().subscribe(Visit => this.visits = Visit);
+    // this.addEvents();
+    setTimeout(() => this.addEvents(), 500);
+    // this.getSampleEvents();
     this.setCalendarOptions();
-    // this.visitService.getAllVisits().subscribe(x => this.visits = x);
+  }
+
+  addEvents() {
+    console.log(this.visits);
+    // this.data = [
+    //   {
+    //     title: this.visits[1].title,
+    //     start: this.visits[1].dateOfVisit.toString()
+    //   },
+    //   {
+    //     title: this.visits[2].title,
+    //     start: this.visits[2].dateOfVisit.toString()
+    //   }
+    // ];
+    // this.ucCalendar.fullCalendar( 'removeEvents');
+    this.data = [];
+    for (let i = 0; i < this.visits.length; i++) {
+      this.data[i] = ({title: this.visits[i].title, start: this.visits[i].dateOfVisit.toString()});
+    }
+    this.ucCalendar.fullCalendar('addEventSource', this.data);
   }
 
   getSampleEvents() {
-    return [
+    this.data = [
       {
         title: 'All Day Event',
         start: '2017-12-01'
@@ -100,7 +126,7 @@ export class CalendarsComponent implements OnInit {
       allDayText: 'Hele dagen',
       buttonText: {today: 'Idag', month: 'Måned', week: 'Uge', day: 'Dag', list: 'Liste'},
       header: {left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay,listMonth'},
-      events: this.getSampleEvents()
+      events: this.data
     };
   }
 }

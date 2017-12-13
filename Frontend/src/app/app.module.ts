@@ -33,9 +33,9 @@ import {DawaService} from './customers/shared/dawa.service';
 import {ErrorInterceptor} from './login/login/Auth/error.interceptor';
 import {CalendarsComponent} from './calendar/calendars/calendars.component';
 import {CalendarService} from './calendar/shared/calendar.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CalendarModule } from 'angular-calendar';
-import { FullCalendarModule } from 'ng-fullcalendar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CalendarModule} from 'angular-calendar';
+import {FullCalendarModule} from 'ng-fullcalendar';
 
 
 const appRoutes: Routes = [
