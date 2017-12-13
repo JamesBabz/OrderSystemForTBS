@@ -32,7 +32,7 @@ namespace BLL.Services
 
                       if (currentResult.Contains("null"))
                     {
-                        currentResult = currentResult.Replace("null", "FUCKING ÆNDRER DIG");
+                        currentResult = currentResult.Replace("null", "Ingen data oplyst");
                     }
 
                     currentResult = currentResult.Substring(indexOf + 2);
