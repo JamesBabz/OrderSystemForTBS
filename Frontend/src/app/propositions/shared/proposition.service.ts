@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {Proposition} from './proposition.model';
 import {Observable} from 'rxjs/Observable';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Customer} from '../../customers/shared/customer.model';
 
 
@@ -57,5 +57,9 @@ export class PropositionService {
   }
   updateProposition(proposition: Proposition) {
     return this.http.put<Proposition>(url + proposition.id, proposition);
+  }
+
+  upLoadImage(file: string) {
+    return this.http.post(environment.ApiEndPoint + '/files', '\"' + file + '\"');
   }
 }

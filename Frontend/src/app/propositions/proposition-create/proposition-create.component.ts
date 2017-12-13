@@ -24,6 +24,9 @@ export class PropositionCreateComponent implements OnInit {
   createPropFormGroup: FormGroup;
   employeeId: number;
   employee: Employee;
+  selectedFile: File;
+  base64textString: string;
+
 
   constructor(private employeeService: EmployeeService, private propositionService: PropositionService, private loginService: LoginService, private customerService: CustomerService, private router: Router) {
 
@@ -67,6 +70,32 @@ export class PropositionCreateComponent implements OnInit {
         this.propositionService.setCurrentProposition(newProp);
         this.router.navigateByUrl('proposition/' + newProp.id);
       });
+    this.propositionService.upLoadImage(this.base64textString).subscribe(File => console.log(this.base64textString));
+  }
+
+  onFileChange(event) {
+   /* if (event.target.files && event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }*/
+    var files = event.target.files;
+    var file = files[0];
+
+    if (files && file) {
+      var reader = new FileReader();
+
+      reader.onload = this._handleReaderLoaded.bind(this);
+
+      reader.readAsBinaryString(file);
+    }
+  }
+
+
+
+  _handleReaderLoaded(readerEvt) {
+
+    var binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
+    console.log(btoa(binaryString));
 
   }
 }

@@ -11,5 +11,6 @@ namespace BLL
         VisitService VisitService { get; }
         DawaService DawaService { get; }
         FilePathService FilePathService { get; }
+        FileService FileService { get; }
     }
 }
