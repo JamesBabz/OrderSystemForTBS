@@ -13,6 +13,10 @@ export class VisitService {
     this.currentCust = null;
   }
 
+  getAllVisits(): Observable<Visit[]>{
+    return this.http.get<Visit[]>(url);
+  }
+
   getVisitsByCustomerId(id: number): Observable<Visit[]> {
     return this.http.get<Visit[]>(url + id);
   }

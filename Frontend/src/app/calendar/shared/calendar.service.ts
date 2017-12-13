@@ -17,7 +17,4 @@ export class CalendarService {
     return this.http.get('https://outlook.office.com/owa/?realm=calendars.read.shared');
   }
 
-  firstLetterUppercase(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);;
-  }
 }

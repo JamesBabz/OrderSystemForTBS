@@ -2,6 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CalendarService} from '../shared/calendar.service';
 import {CalendarComponent} from 'ng-fullcalendar';
 import {Options} from 'fullcalendar';
+import {VisitService} from '../../visits/shared/visit.service';
+import {Visit} from '../../visits/shared/visit.model';
 
 @Component({
   selector: 'app-calendars',
@@ -10,8 +12,9 @@ import {Options} from 'fullcalendar';
 })
 export class CalendarsComponent implements OnInit {
 
+  visits: Visit[];
 
-  constructor(private calendarService: CalendarService) {
+  constructor(private calendarService: CalendarService, private visitService: VisitService) {
   }
 
   calendarOptions: Options;
@@ -19,7 +22,7 @@ export class CalendarsComponent implements OnInit {
 
   ngOnInit() {
     this.setCalendarOptions();
-
+    // this.visitService.getAllVisits().subscribe(x => this.visits = x);
   }
 
   getSampleEvents() {
