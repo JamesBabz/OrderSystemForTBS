@@ -26,8 +26,12 @@ namespace OrderSystemForTBS.Controllers
 
 
 
-        [HttpPost("[Action]")]
-        async public Task<IActionResult> SaveFile(IFormFile files)
+      
+
+
+        // POST: api/Customers
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]IFormFile files)
         {
             // Connect to Azure
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(this.facade.FileService.getConnectionString());
