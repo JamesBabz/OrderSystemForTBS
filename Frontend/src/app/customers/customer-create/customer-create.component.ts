@@ -5,6 +5,8 @@ import {CustomerService} from '../shared/customer.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {waitForMap} from '@angular/router/src/utils/collection';
 import {DawaService} from '../shared/dawa.service';
+import {CVRService} from '../shared/cvr.service';
+
 
 
 @Component({
@@ -17,7 +19,8 @@ export class CustomerCreateComponent implements OnInit {
 
   customerGroup: FormGroup;
 
-  constructor(private customerService: CustomerService, private dawaService: DawaService, private router: Router, private formBuilder: FormBuilder) {
+
+  constructor(private customerService: CustomerService, private dawaService: DawaService, private cvrService: CVRService, private router: Router, private formBuilder: FormBuilder) {
     this.customerGroup = this.formBuilder.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -36,6 +39,16 @@ export class CustomerCreateComponent implements OnInit {
   close() {
     this.router.navigateByUrl('/customers');
   }
+
+  getCvr(){
+
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({address: res[2]}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({zipCode: res[3]}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({city: res[4]}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({phone: res[7]}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({email: res[8]}));
+
+    }
 
   getCity() {
     this.dawaService.getCity(this.customerGroup.value.zipCode).subscribe(res => this.customerGroup.patchValue({city: res}));

@@ -1,3 +1,7 @@
+<head>
+  <meta charset="utf-8">
+</head>
+
 <div class=" col-md-4" xmlns="">
   <h1>Opret kunde</h1>
 
@@ -5,13 +9,13 @@
     <form (ngSubmit)="createCustomer()" [formGroup]="customerGroup" novalidate>
       <div class="form-group">
         <label class="center-block">Fornavn:<span style="color: red">*</span>
-          <input type="text" class="form-control" formControlName="firstname">
+          <input type="text" class="form-control"  formControlName="firstname">
         </label>
         <label class="center-block">Efternavn:<span style="color: red">*</span>
           <input type="text" class="form-control" formControlName="lastname">
         </label>
         <label class="center-block">CVR:
-          <input type="number" class="form-control no-spin" formControlName="cvr">
+          <input type="number" class="form-control no-spin" (blur)="getCvr()" formControlName="cvr">
         </label>
         <label class="center-block">Adresse:
           <input type="text" class="form-control" formControlName="address">

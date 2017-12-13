@@ -31,6 +31,7 @@ import {EmployeeService} from './login/shared/employee.service';
 import {VisitService} from './visits/shared/visit.service';
 import {DawaService} from './customers/shared/dawa.service';
 import {ErrorInterceptor} from './login/login/Auth/error.interceptor';
+import {CVRService} from './customers/shared/cvr.service';
 
 
 const appRoutes: Routes = [
@@ -74,7 +75,7 @@ const appRoutes: Routes = [
     NgbModule.forRoot(),
     TabModule
   ],
-  providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService, EmployeeService, VisitService, DawaService,
+  providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService, EmployeeService, VisitService, DawaService, CVRService,
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
     ],
