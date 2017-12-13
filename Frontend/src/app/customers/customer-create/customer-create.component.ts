@@ -24,7 +24,7 @@ export class CustomerCreateComponent implements OnInit {
       address: '',
       zipCode: '',
       city: '',
-      email: '',
+      email: ['', Validators.email],
       phone: '',
       cvr: ''
     });

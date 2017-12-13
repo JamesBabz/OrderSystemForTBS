@@ -35,12 +35,14 @@ export class EquipmentComponent implements OnInit {
   }
 
   deleteEquipment() {
+    this.equipmentService.deleteEquipmentById(this.equipment.id)
+      .subscribe();
+
     this.equipmentService.deleteEquipmentById(this.equipment.id).subscribe(Equip =>{
       this.eDeleted.emit(Equip);
     });
 
   }
-
 
   openModal(toDo: string) {
     document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
