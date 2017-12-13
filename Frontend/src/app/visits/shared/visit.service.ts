@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Visit} from './visit.model';
@@ -6,11 +6,17 @@ import {Observable} from 'rxjs/Observable';
 import {Customer} from '../../customers/shared/customer.model';
 
 const url = environment.ApiEndPoint + '/visits/';
+
 @Injectable()
 export class VisitService {
   private currentCust: Customer;
+
   constructor(private http: HttpClient) {
     this.currentCust = null;
+  }
+
+  getAllVisits(): Observable<Visit[]> {
+    return this.http.get<Visit[]>(url);
   }
 
   getVisitsByCustomerId(id: number): Observable<Visit[]> {
@@ -20,6 +26,7 @@ export class VisitService {
   createVisit(visit: Visit): Observable<Visit> {
     return this.http.post(url, visit);
   }
+
   getDateAsEUString(date: Date) {
     const newDate = new Date(date);
     let dateString;

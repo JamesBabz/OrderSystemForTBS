@@ -28,6 +28,15 @@ export class PropositionService {
     return this.http.post<Proposition>(url, prop);
   }
 
+  uploadFileToDropbox(file: File) {
+    return this.http.post('https://content.dropboxapi.com/2/files/upload', 'sdfdsfdsfdsfdsfds', {
+      headers: new HttpHeaders()
+        .set('Authorization', 'Bearer FIATtzvU2VAAAAAAAAAAI1hnBsvo44i7mRvbvyu4L47dVLhZC_yfiIYt_lozlC7t')
+        .set('Content-Type', 'application/octet-stream')
+        .set('Dropbox-API-Arg', '{"path": "/Homework/math/Matrices.txt","mode": "add","autorename": true,"mute": false}')
+    });
+  }
+
   getCreationDateAsEUString(date: Date) {
     const newDate = new Date(date);
     let dateString;
@@ -55,6 +64,7 @@ export class PropositionService {
   deleteProposition(id: number) {
     return this.http.delete<Proposition>(url + id);
   }
+
   updateProposition(proposition: Proposition) {
     return this.http.put<Proposition>(url + proposition.id, proposition);
   }
