@@ -59,7 +59,7 @@ export class PropositionService {
     return this.http.put<Proposition>(url + proposition.id, proposition);
   }
 
-  upLoadImage(file: File) {
-    return this.http.post(environment.ApiEndPoint + '/files', file);
+  upLoadImage(file: string) {
+    return this.http.post(environment.ApiEndPoint + '/files', '\"' + file + '\"');
   }
 }
