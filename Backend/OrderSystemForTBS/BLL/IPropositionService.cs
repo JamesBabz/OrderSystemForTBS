@@ -12,7 +12,9 @@ namespace BLL
         //R
         List<PropositionBO> GetAllById(int customerId);
         PropositionBO Get(int Id);
-        //U
+
+        List<int> allFileIds();
+            //U
         PropositionBO Update(PropositionBO bo);
         //D
         PropositionBO Delete(int Id);

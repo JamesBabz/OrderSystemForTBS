@@ -29,12 +29,16 @@ namespace OrderSystemForTBS.Controllers
         {
             this.facade = facade;
         }
-
+        [HttpGet]
+        public IEnumerable<int> Get()
+        {
+            return this.facade.PropositionService.allFileIds();
+        }
         // POST: api/Customers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] string file)
         {
-
+            int id = this.facade.PropositionService.allFileIds().Max() + 1;
 
             // Connect to Azure
             string storageConnectionString =
@@ -49,7 +53,7 @@ namespace OrderSystemForTBS.Controllers
             // Save file to blob
             // Get a reference to a blob  
 
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference("dfklgmdfkogsdø.png");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.png");
             blockBlob.UploadFromByteArrayAsync(imageBytes, 0, imageBytes.Length);
 
             // Create or overwrite the blob with the contents of a local file 
@@ -67,11 +71,5 @@ namespace OrderSystemForTBS.Controllers
         }
         
     }
-
-    public class Photo
-    {
-        public string File { get; set; }
-
-        public string FileName { get; set; }
-    }
+    
 }
