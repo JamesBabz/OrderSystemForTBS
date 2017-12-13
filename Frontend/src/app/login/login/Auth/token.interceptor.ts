@@ -13,7 +13,7 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
 
-    // if (req.url.startsWith('https://dawa.aws.dk/')) {
+    // if (req.url.startsWith('https://outlook.office.com')) {
     //   return next.handle(req);
     // }
 
