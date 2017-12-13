@@ -8,7 +8,7 @@
   <div class="row">
 
     <div class="leftBorder col-md-3">
-
+      <input class="input" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
 
       <div class="CustomersBorder">
         <app-customer (click)="details(cust)" *ngFor="let cust of customers" [customer]="cust"></app-customer>
@@ -16,9 +16,10 @@
     </div>
     <div class="centerBorder col-md-9">
       <div class="buttonsContainer">
-        <button (click)="createCustomer()" class=" btn btn-success clickable"> Opret kunde</button>
-        <button class=" btn btn-success clickable" disabled> Opret besøg</button>
-        <button class=" btn btn-success clickable" disabled> Tilføj tilbud</button>
+        <button class=" btn btn-success clickable" (click)="showCalendar()"> Vis kalender</button>
+        <button class=" btn btn-success clickable" (click)="createCustomer()"> Opret kunde</button>
+        <button class=" btn btn-success clickable"  (click)="createVisit()"> Opret besøg</button>
+        <button class=" btn btn-success clickable" (click)="createProposition()"> Tilføj tilbud</button>
         <button class=" btn btn-success clickable" disabled> Tilføj slutseddel</button>
       </div>
     </div>

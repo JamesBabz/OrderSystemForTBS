@@ -4,11 +4,12 @@ using System.Collections.Immutable;
 using System.Linq;
 using DAL.Context;
 using DAL.Entities;
+using DAL.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    class PropositionRepository : IRepository<Proposition>
+    class PropositionRepository : IPropositionRepository
     {
         private OrderSystemContext _context;
 
@@ -21,11 +22,6 @@ namespace DAL.Repositories
         {
             _context.Propositions.Add(ent);
             return ent;
-        }
-
-        public IEnumerable<Proposition> GetAll()
-        {
-            return _context.Propositions.Include(prop => prop.Customer).Include(prop => prop.Employee).OrderByDescending(x => x.CreationDate).ToList();
         }
 
         public IEnumerable<Proposition> GetAll(int id)
@@ -42,7 +38,20 @@ namespace DAL.Repositories
 
         public Proposition Delete(int id)
         {
-            throw new NotImplementedException();
+            var prop = Get(id);
+            _context.Propositions.Remove(prop);
+            return prop;
+        }
+
+        public List<int> getFileIds()
+        {
+            List<int> ids = new List<int>();
+            foreach (var contextProposition in this._context.Propositions)
+            {
+                ids.Add(contextProposition.FileId);
+            }
+            ids.Sort();
+            return ids;
         }
 
         //public IEnumerable<Proposition> GetAllPropositionsByCustomerId(int id)

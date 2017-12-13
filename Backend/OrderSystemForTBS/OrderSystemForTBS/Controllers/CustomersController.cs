@@ -26,6 +26,19 @@ namespace OrderSystemForTBS.Controllers
             this.facade = facade;
         }
 
+       
+        [HttpGet]
+        [Route("search")]
+        public IEnumerable<CustomerBO> Search([FromQuery]string q)
+        {
+            if (q == null)
+            {
+                return this.Get();
+            }
+            var custsomers = facade.CustomerService
+                .GetAllBySearchQuery(q);
+            return custsomers;
+        }
 
         // GET: api/Customers
         [HttpGet]

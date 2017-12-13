@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Proposition} from '../shared/proposition.model';
 import {stringify} from 'querystring';
-import {Employee} from '../../login/shared/employee-model';
+import {Employee} from '../../login/shared/employee.model';
 import {getDayOfWeek} from 'ngx-bootstrap/bs-moment/utils/date-getters';
 import {PropositionService} from '../shared/proposition.service';
 

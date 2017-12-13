@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-.clickable{
+.clickable {
   cursor: pointer;
 }
 
@@ -12,16 +12,16 @@
   user-select: none;
 }
 
-.logo{
+.logo {
   width: 150px;
   height: auto;
 }
 
-ul.tabs__tab-bar{
-  width: 100%!important;
+ul.tabs__tab-bar {
+  width: 100% !important;
 }
 
-.customerTab > ul > li.tabs__tab{
+.customerTab > ul > li.tabs__tab {
   width: 25%;
   height: 50px;
   font-size: 30px;
@@ -29,24 +29,95 @@ ul.tabs__tab-bar{
 
 }
 
-.customerTab > ul > li.tabs__tab.active{
-  background-color: #EE7203!important;
+.customerTab > ul > li.tabs__tab.active {
+  background-color: #EE7203 !important;
 }
-.tabs__panel{
-  background-color: white!important;
+
+.tabs__panel {
+  background-color: white !important;
 }
-body{
+
+body {
   overflow-x: hidden;
 }
-#headerContainer > hr{
+
+#headerContainer > hr {
   margin-top: 0px;
 }
 
-.customerTab > tab > .tabs__panel{
-  padding: 12px 15px 0!important;
+.customerTab > tab > .tabs__panel {
+  padding: 12px 15px 0 !important;
 }
 
-.addBtnRow .addBtn{
-  background-color: #AAD48C;
+.addBtnRow .addBtn {
+  background-color: #c9c9c9;
 }
 
+.top5 {
+  margin-top: 5px;
+}
+
+.top10 {
+  margin-top: 10px;
+}
+
+.top15 {
+  margin-top: 15px;
+}
+
+.top20 {
+  margin-top: 20px;
+}
+
+.top25 {
+  margin-top: 25px;
+}
+
+.top30 {
+  margin-top: 30px;
+}
+
+.disableScroll{
+  overflow: hidden!important;
+}
+
+
+
+
+/*Modal*/
+.myModal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-color: rgba(128, 128, 128, 0.3);
+}
+
+.myModalContent {
+  background-color: white;
+  color: black;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 500px;
+  opacity: 1;
+}
+
+.right{
+  text-align: right;
+}
+
+.right > .btn{
+  width: 90px;
+  font-size: 20px;
+}
+
+.descTextArea{
+  width: 100%;
+  min-height: 100px;
+}
+
+.unsavedChangesText{
+  color:red;
+  float: left;
+}

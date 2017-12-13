@@ -8,6 +8,7 @@ namespace BLL
         IBusinessObject Create(IBusinessObject bo);
         //R
         List<IBusinessObject> GetAll();
+        List<IBusinessObject> GetAllById(int customerId);
         IBusinessObject Get(int Id);
         //U
         IBusinessObject Update(IBusinessObject bo);

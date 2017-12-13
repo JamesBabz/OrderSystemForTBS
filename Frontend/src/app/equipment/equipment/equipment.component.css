@@ -1,0 +1,21 @@
+.singleEquipCont{
+  background-color: #AAD48C;
+  margin: 5px 5px 30px 5px;
+}
+
+.singleEquipCont > h3{
+  margin: auto;
+}
+
+.button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+
+
+

@@ -1,18 +1,82 @@
-<div class="container">
-  <div class="row addBtnRow">
+<div class="row">
+  <div class="col-md-4 addBtnRow">
     <button class="addBtn" (click)="goBack()">Tilbage til tilbud</button>
   </div>
-  <div class="row">
-      <h1>
-        {{proposition.title}}
-      </h1>
-  </div>
-  <div class="row">
-      <p>
-        {{proposition.description}}
-      </p>
+  <div class="col-md-1 offset-md-7">
+
+    <button class="btn-link" (click)="openModal('edit')">Redigér tilbud</button>
+    <button class="btn-link" (click)="openModal('delete')">Slet</button>
+
   </div>
 </div>
 
+<hr/>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>
+        {{proposition.title}}
+      </h1>
+    </div>
+    <div class="col-md-6 right">
+      <strong>Dato: {{getEUString(proposition.creationDate)}}</strong>
+      <br>
+      <strong>Af: {{proposition.employee.firstname}} {{proposition.employee.lastname}}</strong>
+
+    </div>
+  </div>
+  <div class="row">
+    <p>
+      {{proposition.description}}
+    </p>
+  </div>
+</div>
+
+<div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Slet Tilbud</h3>
+    <hr>
+    <p>Er du siker på du vil slette dette tilbud?</p>
+    <hr>
+    <div class="right">
+      <button class="btn btn-outline-danger" onclick="this.disabled=true" (click)="delete()">Slet</button>
+      <button class="btn btn-outline-secondary shouldClose" (click)="closeModal($event)">Annuller</button>
+    </div>
+  </div>
+</div>
+
+<div class="myModal shouldClose shouldKeepInput" id="editModal" *ngIf="modalString === 'edit'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Redigér Tilbud</h3>
+    <form [formGroup]="editPropGroup" *ngIf="proposition">
+      <div class="row top20">
+        <div class="col-md-12">
+          Titel: <br>
+          <input type="text" name="title" formControlName="title"/>
+        </div>
+      </div>
+      <div class="row top20">
+        <div class="col-md-12">
+          Beskrivelse: <br>
+          <textarea class="descTextArea" name="description" formControlName="description"></textarea>
+        </div>
+      </div>
+      <div class="row top20">
+        <div class="col-md-12">
+          <input type="file" name="file" formControlName="file" disabled/>
+        </div>
+      </div>
+    </form>
+    <div>
+    <div *ngIf="unsavedChanges">
+      <strong class="unsavedChangesText"> Ændringer er ikke gemt*</strong>
+    </div>
+    <div class="right">
+      <button class="btn btn-outline-success shouldClose shouldKeepInput" (click)="save($event)">Gem</button>
+      <button class="btn btn-outline-secondary shouldClose" (click)="closeModal($event)">Annuller</button>
+    </div>
+    </div>
+  </div>
+</div>
 
 

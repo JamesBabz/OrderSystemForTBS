@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Employee} from './employee-model';
-import {Http, Headers, Response, RequestOptions} from '@angular/http';
+import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Employee} from './employee.model';
 
 @Injectable()
 export class LoginService {
-    public token: string;
+  public token: string;
+
+  employee: Employee;
 
   constructor(private http: Http) {
     // set token if saved in local storage
@@ -15,16 +17,16 @@ export class LoginService {
   }
 
   login(username: string, password: string): Observable<boolean> {
-    return this.http.post('http://localhost:55000/api/login', { username: username, password: password })
+    return this.http.post('http://localhost:55000/api/login', {username: username, password: password})
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         const token = response.json() && response.json().token;
+        const id = response.json().id;
         if (token) {
           // set token property
           this.token = token;
-
           // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+          localStorage.setItem('currentUser', JSON.stringify({id: id, username: username, token: token}));
 
           // return true to indicate successful login
           return true;
@@ -40,4 +42,6 @@ export class LoginService {
     this.token = null;
     localStorage.removeItem('currentUser');
   }
+
+
 }

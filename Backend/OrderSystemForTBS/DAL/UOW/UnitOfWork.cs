@@ -1,5 +1,6 @@
 ﻿using DAL.Context;
 using DAL.Entities;
+using DAL.IRepositories;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +10,10 @@ namespace DAL.UOW
     {
         public IRepository<Customer> CustomerRepository { get; internal set; }
         public IRepository<Employee> EmployeeRepository { get; internal set; }
-        public IRepository<Proposition> PropositionRepository { get; internal set; }
+        public IPropositionRepository PropositionRepository { get; internal set; }
+        public IRepository<Equipment> EquipmentRepository { get; internal set; }
+        public IVisitRepository VisitRepository { get; internal set; }
+        public IFilePathRepository FilePathRepository { get; internal set; }
 
 
         public OrderSystemContext context;
@@ -21,6 +25,11 @@ namespace DAL.UOW
             CustomerRepository = new CustomerRepository(this.context);
             EmployeeRepository = new EmployeeRepository(this.context);
             PropositionRepository = new PropositionRepository(this.context);
+            EquipmentRepository = new EquipmentRepository(this.context);
+            VisitRepository = new VisitRepository(this.context);
+            FilePathRepository = new FilePathRepository(this.context);
+
+
 
             context.Database.EnsureCreated();
         }

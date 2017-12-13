@@ -17,7 +17,7 @@
           <input type="text" class="form-control" formControlName="address">
         </label>
         <label class="center-block">Postnr:
-          <input type="number" class="form-control no-spin" formControlName="zipCode">
+          <input type="number" class="form-control no-spin" (blur)="getCity()" formControlName="zipCode">
         </label>
         <label class="center-block">By:
           <input type="text" class="form-control" formControlName="city">
@@ -25,14 +25,14 @@
         <label class="center-block">Tlf:
           <input type="number" class="form-control no-spin" formControlName="phone">
         </label>
-        <label class="left">Email:
+        <label class="left">Email:<span style="color: red">*</span>
           <input type="email" class="form-control" formControlName="email">
         </label>
       </div>
     </form>
   </div>
-  <button (click)="close()" class=" btn btn-danger" >Anuller</button>
   <button  [disabled]="customerGroup.invalid" type ="submit" (click)="createCustomer()" onclick="disabled=true" class=" btn btn-success" >Gem</button>
+  <button (click)="close()" class=" btn btn-danger" >Anuller</button>
 </div>
 
 

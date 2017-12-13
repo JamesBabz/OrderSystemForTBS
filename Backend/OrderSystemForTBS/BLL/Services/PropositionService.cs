@@ -10,7 +10,7 @@ using DAL.Entities;
 
 namespace BLL.Services
 {
-    public class PropositionService : IService<PropositionBO>
+    public class PropositionService : IPropositionService
     {
         private IDALFacade facade;
         private PropositionConverter propConv;
@@ -33,14 +33,6 @@ namespace BLL.Services
             }
         }
 
-        public List<PropositionBO> GetAll()
-        {
-            using (var uow = facade.UnitOfWork)
-            {
-                return uow.PropositionRepository.GetAll().Select(propConv.Convert).ToList();
-            }
-        }
-
         public PropositionBO Get(int Id)
         {
             using (var uow = facade.UnitOfWork)
@@ -51,22 +43,43 @@ namespace BLL.Services
             }
         }
 
+        public List<int> allFileIds()
+        {
+            using (var uow = this.facade.UnitOfWork)
+            {
+                return uow.PropositionRepository.getFileIds().ToList();
+            }
+        }
+
         public PropositionBO Update(PropositionBO bo)
         {
-            throw new NotImplementedException();
+            using (var uow = facade.UnitOfWork)
+            {
+                var propFromDb = uow.PropositionRepository.Get(bo.Id);
+                propFromDb.Title = bo.Title;
+                propFromDb.Description = bo.Description;
+                uow.Complete();
+                return propConv.Convert(propFromDb);
+            }
         }
 
         public PropositionBO Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (var uow = facade.UnitOfWork)
+            {
+                newProp = uow.PropositionRepository.Get(Id);
+                uow.PropositionRepository.Delete(newProp.Id);
+                uow.Complete();
+                return propConv.Convert(newProp);
+            }
         }
 
-        public List<PropositionBO> GetAllByCustomerId(int Id)
+        public List<PropositionBO> GetAllById(int customerId)
         {
             using (var uow = facade.UnitOfWork)
             {
                 List<PropositionBO> returnList = new List<PropositionBO>();
-               var fullList = uow.PropositionRepository.GetAll(Id);
+               var fullList = uow.PropositionRepository.GetAll(customerId);
                 foreach (var prop in fullList)
                 {
                         returnList.Add(propConv.Convert(prop));
@@ -76,6 +89,5 @@ namespace BLL.Services
                 return returnList;
             }
         }
-
     }
 }

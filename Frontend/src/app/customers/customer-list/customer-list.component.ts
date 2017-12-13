@@ -10,6 +10,8 @@ import {Router} from '@angular/router';
 })
 export class CustomerListComponent implements OnInit {
   customers: Customer[];
+  query: string;
+
   constructor(private customerService: CustomerService, private router: Router) {
 
   }
@@ -17,10 +19,27 @@ export class CustomerListComponent implements OnInit {
   ngOnInit() {
     this.customerService.getCustomers().subscribe(Customers => this.customers = Customers);
   }
+
   details(customer: Customer) {
     this.router.navigateByUrl('/customer/' + customer.id);
   }
+
   createCustomer() {
     this.router.navigateByUrl('/customers/create');
+  }
+
+  createProposition() {
+    this.router.navigateByUrl('propositions/create');
+  }
+  createVisit() {
+    this.router.navigateByUrl('visits/create');
+  }
+
+  search() {
+    this.customerService.searchQuery(this.query).subscribe(Customers => this.customers = Customers);
+  }
+
+  showCalendar() {
+    this.router.navigateByUrl('/calendar');
   }
 }
