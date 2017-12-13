@@ -29,18 +29,7 @@ namespace BLL.Services
 
         }
 
-        public string CreateBlob()
-        {
-            // Create container. Name must be lower case.
-            Console.WriteLine("Creating container...");
-            var container = serviceClient.GetContainerReference("photos");
-            container.CreateIfNotExistsAsync().Wait();
-
-            // write a blob to the container
-            CloudBlockBlob blob = container.GetBlockBlobReference("helloworld.txt");
-            blob.UploadTextAsync("Hello, World!").Wait();
-            return "done";
-        }
+     
 
         
         

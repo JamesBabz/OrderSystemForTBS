@@ -43,6 +43,17 @@ namespace DAL.Repositories
             return prop;
         }
 
+        public List<int> getFileIds()
+        {
+            List<int> ids = new List<int>();
+            foreach (var contextProposition in this._context.Propositions)
+            {
+                ids.Add(contextProposition.FileId);
+            }
+            ids.Sort();
+            return ids;
+        }
+
         //public IEnumerable<Proposition> GetAllPropositionsByCustomerId(int id)
         //{
         //    return _context.Propositions.Include(prop => prop.CustomerId).Include(prop => prop.EmployeeId).ToList();

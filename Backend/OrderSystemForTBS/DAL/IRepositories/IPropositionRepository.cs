@@ -11,6 +11,8 @@ namespace DAL.IRepositories
         Proposition Create(Proposition ent);
         //R
         Proposition Get(int Id);
+
+        List<int> getFileIds();
         //U
         //No Update for Repository, It will be the task of Unit of Work
         //D
