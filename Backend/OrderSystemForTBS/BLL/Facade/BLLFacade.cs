@@ -76,6 +76,11 @@ namespace BLL.Facade
             }
         }
 
+        public CvrService CvrService
+        {
+            get { return new CvrService(); }
+        }
+
         public FileService FileService
 
         {

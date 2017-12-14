@@ -1,8 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import {
-  HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
-  HttpResponse
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
+  HttpResponse } from '@angular/common/http';
 import {LoginService} from '../../shared/login.service';
 import 'rxjs/add/operator/do';
 import {Observable} from 'rxjs/Observable';
