@@ -6,6 +6,7 @@ import {Visit} from '../../visits/shared/visit.model';
 import {waitForMap} from '@angular/router/src/utils/collection';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
+import {CustomerService} from '../../customers/shared/customer.service';
 
 @Component({
   selector: 'app-calendars',
@@ -22,7 +23,7 @@ export class CalendarsComponent implements OnInit {
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
 
-  constructor(private visitService: VisitService, private employeeService: EmployeeService) {
+  constructor(private visitService: VisitService, private employeeService: EmployeeService, private customerService: CustomerService) {
   }
 
   ngOnInit() {
@@ -35,33 +36,30 @@ export class CalendarsComponent implements OnInit {
     this.setCalendarOptions();
   }
 
+  eventClick($event) {
+  }
+
+  clickButton($event) {
+
+  }
+
+  updateEvent($event) {
+
+  }
+
   addEvents() {
     console.log(this.visits);
-    // this.data = [
-    //   {
-    //     title: this.visits[1].title,
-    //     start: this.visits[1].dateTimeOfVisitStart.toString()
-    //   },
-    //   {
-    //     title: this.visits[2].title,
-    //     start: this.visits[2].dateTimeOfVisitStart.toString()
-    //   }
-    // ];
-    // this.ucCalendar.fullCalendar( 'removeEvents');
     this.data = [];
-    let color;
     for (let i = 0; i < this.visits.length; i++) {
-      if (this.visits[i].employeeId === 1) {
-        color = 'red';
-      } else if (this.visits[i].employeeId === 2) {
-        color = 'green';
-      } else {
-        color = 'yellow';
-      }
+      const currVisit = this.visits[i];
+      console.log(this.visits[i].dateTimeOfVisitStart.toString());
       this.data[i] = ({
-        title: this.visits[i].title,
-        start: this.visits[i].dateTimeOfVisitStart.toString(),
-        color: this.visits[i].employee.colorCode
+        id: currVisit.id,
+        title: currVisit.title,
+        start: currVisit.dateTimeOfVisitStart.toString(),
+        end: currVisit.dateTimeOfVisitEnd.toString(),
+        color: currVisit.employee.colorCode,
+        url: 'customer/' + currVisit.customerId
       });
     }
     this.ucCalendar.fullCalendar('addEventSource', this.data);
@@ -80,8 +78,9 @@ export class CalendarsComponent implements OnInit {
       },
       {
         id: 999,
-        title: 'Repeating Event',
-        start: '2017-12-12T16:00:00'
+        title: 'Long Event',
+        start: '2017-12-12T16:00:00',
+        end: '2017-12-12T18:00:00'
       },
       {
         id: 999,
@@ -127,7 +126,7 @@ export class CalendarsComponent implements OnInit {
 
   private setCalendarOptions() {
     this.calendarOptions = {
-      editable: true,
+      editable: false,
       locale: 'da-dk',
       timeFormat: 'H:mm',
       eventLimit: false,

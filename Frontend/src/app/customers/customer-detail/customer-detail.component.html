@@ -27,22 +27,22 @@
   <div class="row">
 
     <tabs class="col-md-12 customerTab">
-      <tab tabTitle="Tilbud" active="">
+      <tab tabTitle="Tilbud" id="Tilbud" active="{{propTab}}">
         <app-proposition-list [customer]="customer"></app-proposition-list>
       </tab>
-      <tab tabTitle="Slutseddel" active="">
+      <tab tabTitle="Slutseddel" id="Slutseddel" active="">
         SLUTSEDDEL!
       </tab>
-      <tab tabTitle="Maskinliste">
+      <tab tabTitle="Maskinliste" id="Maskinliste" active="{{equipTab}}">
         <app-equipment-list [customer]="customer"></app-equipment-list>
       </tab>
-      <tab tabTitle="Besøg">
+      <tab tabTitle="Besøg" id="Besøg" active="{{visitTab}}">
         <app-visit-list [customer]="customer"></app-visit-list>
       </tab>
     </tabs>
 
 
-   
+
 
 
   </div>

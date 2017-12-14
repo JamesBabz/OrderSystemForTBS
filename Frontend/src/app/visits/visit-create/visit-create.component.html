@@ -1,11 +1,11 @@
 <div class="col-md-4">
   <h2 class="Headline">Opret besøg</h2>
-<form [formGroup]="visitGroup" >
-  <div class="row">
-  <div class="col-md-10">
+  <form [formGroup]="visitGroup">
+    <div class="row">
+      <div class="col-md-10">
 
-      <select class="dropdown" name="customerSelector" formControlName="customerSelector">
-          <option value="" >Vælg kunde</option>
+        <select class="dropdown" name="customerSelector" formControlName="customerSelector">
+          <option value="">Vælg kunde</option>
           <ng-container *ngFor="let cust of customers">
             <ng-container *ngIf="customer != null">
               <option *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
@@ -17,24 +17,46 @@
             </ng-container>
           </ng-container>
         </select>
-    <div class="col-md-12">
-    <input type="text" class="input" placeholder="Titel" name="title" formControlName="title"/>
+        <div class="col-md-12">
+          <input type="text" class="input" placeholder="Titel" name="title" formControlName="title"/>
 
-  <input  placeholder="yyyy-mm-dd" class="datepicker"
-         name="dp" [(ngModel)]="model" (navigate)="date = $event.next" formControlName="datePicked" ngbDatepicker #d="ngbDatepicker">
-  <button  (click)="d.toggle()" type="button">
-    <i class="fa fa-calendar" aria-hidden="true"></i>
-  </button>
+          <input placeholder="yyyy-mm-dd" class="datepicker"
+                 name="dp" [(ngModel)]="model" (navigate)="date = $event.next" formControlName="datePicked"
+                 ngbDatepicker #d="ngbDatepicker"/>
+
+          <button (click)="d.toggle()" type="button">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="row marginB5">
+          <div class="col-md-1">
+            <span>Fra: </span>
+          </div>
+          <div class="col-md-11">
+            <input class="timeInput" type="number" placeholder="TT" name="hours" formControlName="fromHours" min="0" max="24"/>
+            <input class="timeInput" type="number" placeholder="MM" name="minutes" formControlName="fromMinutes" min="0" max="59"/>
+          </div>
+        </div>
+        <div class="row marginB5">
+          <div class="col-md-1">
+            <span>Til: </span>
+          </div>
+          <div class="col-md-11">
+            <input class="timeInput" type="number" placeholder="TT" name="hours" formControlName="toHours" min="0" max="24"/>
+            <input class="timeInput" type="number" placeholder="MM" name="minutes" formControlName="toMinutes" min="0" max="59"/>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
-  <textarea class="descTextArea"  placeholder="Kort beskrivelse" name="description" formControlName="description"></textarea>
-</form>
+    <textarea class="descTextArea" placeholder="Kort beskrivelse" name="description"
+              formControlName="description"></textarea>
+  </form>
 </div>
 
-  <div class="col-md-4">
-    <input class="btn btn-success" type="button" (click)="createVisit()" value="Gem" name="save" [disabled]="!visitGroup.valid"/>
-    <input class="btn btn-danger" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
-  </div>
+<div class="col-md-4">
+  <input class="btn btn-success" type="button" (click)="createVisit()" value="Gem" name="save"
+         [disabled]="!visitGroup.valid"/>
+  <input class="btn btn-danger" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
+</div>
 
 
