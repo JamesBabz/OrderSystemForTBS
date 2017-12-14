@@ -76,6 +76,7 @@ namespace BLL.Facade
             }
         }
 
+<<<<<<< HEAD
 
         public CvrService CvrService
         {
@@ -83,6 +84,12 @@ namespace BLL.Facade
             {
                 return new CvrService();
             }
+=======
+        public FileService FileService
+
+        {
+            get {return new FileService();}
+>>>>>>> Development
         }
     }
 }
