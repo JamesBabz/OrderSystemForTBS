@@ -6,7 +6,7 @@
 
     <button class="btn-link" (click)="openModal('edit')">Redigér tilbud</button>
     <button class="btn-link" (click)="openModal('delete')">Slet</button>
-
+  <button (click)="getFileById()">dfdr</button>
   </div>
 </div>
 
@@ -22,7 +22,7 @@
       <strong>Dato: {{getEUString(proposition.creationDate)}}</strong>
       <br>
       <strong>Af: {{proposition.employee.firstname}} {{proposition.employee.lastname}}</strong>
-      <img [src]="'data:image/jpg;base64,'+image"/>
+
     </div>
   </div>
   <div class="row">
@@ -31,7 +31,7 @@
     </p>
   </div>
 </div>
-
+<img [src]="'data:image/jpg;base64,'+fileString"/>
 <div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
   <div class="myModalContent">
     <h3>Slet Tilbud</h3>
