@@ -21,8 +21,10 @@ export class PropositionDetailComponent implements OnInit {
   modalString: string;
   editPropGroup: FormGroup;
   unsavedChanges: boolean;
+  fileString: string;
 
   constructor(private propositionService: PropositionService, private router: Router) {
+
   }
 
   ngOnInit() {
@@ -100,6 +102,12 @@ export class PropositionDetailComponent implements OnInit {
       description: new FormControl(prop.description, Validators.required),
       file: new FormControl()
     });
+  }
+  getFileById() {
+    this.propositionService.getFileById(this.proposition.fileId).subscribe(File => console.log(this.fileString = File));
+  }
+  showFile() {
+    console.log(this.fileString);
   }
 }
 

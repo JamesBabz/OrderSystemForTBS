@@ -76,4 +76,7 @@ export class PropositionService {
   getAllFileIds(): Observable<number[]> {
     return this.http.get<number[]>(environment.ApiEndPoint + '/files');
   }
+  getFileById(id: number): Observable<string> {
+    return this.http.get(environment.ApiEndPoint + '/files/' + id);
+  }
 }
