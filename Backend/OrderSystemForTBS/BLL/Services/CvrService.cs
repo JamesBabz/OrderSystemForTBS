@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 
 
@@ -13,40 +15,29 @@ namespace BLL.Services
     {
         public string[] GetCompanyInfo(string query)
         {
+
             HttpClient client = new HttpClient();
             try
             {
                 client.DefaultRequestHeaders.Add("User-Agent", "mit-navn");
-
                 string response = client.GetStringAsync("http://cvrapi.dk/api?search=" + query + "&country=DK").Result;
+                Console.WriteLine(response);
+                //response = response.Replace("\"", string.Empty);
+                var result = response.Split(",\"");
 
-                response = response.Replace('"', ' ');
-
-                var result = response.Split(",");
-
-                for (int i = 1; i < result.Length; i++)
+                var company = new Company()
                 {
-                    var currentResult = result[i];
+                    Vat = result[0].Split(":")[1].Replace("\"", String.Empty),
+                    Name = result[1].Split(":")[1].Replace("\"", String.Empty),
+                    Address = result[2].Split(":")[1].Replace("\"", String.Empty),
+                    ZipCode = int.Parse(result[3].Split(":")[1].Replace("\"", String.Empty)),
+                };
 
-                    var indexOf = currentResult.IndexOf(":");
+                string[] CompanyArray = ((IEnumerable)company).Cast<Company>()
+                    .Select(x => x.ToString())
+                    .ToArray();
 
-                      if (currentResult.Contains("null"))
-                    {
-                        currentResult = currentResult.Replace("null", "Ingen data oplyst");
-                    }
-
-                    currentResult = currentResult.Substring(indexOf + 2);
-                    currentResult = currentResult.Trim();
-
-                    if (currentResult.Contains("\\u00f8"))
-                    {
-                        currentResult = currentResult.Replace("\\u00f8", "ø");
-                    }
-
-                    result[i] = currentResult;
-                }
-
-                return result;
+                return CompanyArray;
             }
 
             catch (Exception e)
@@ -55,6 +46,14 @@ namespace BLL.Services
                 return null;
             }
         }
+    }
+
+    public class Company
+    {
+        public string Vat { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public int ZipCode { get; set; }
     }
 }
 

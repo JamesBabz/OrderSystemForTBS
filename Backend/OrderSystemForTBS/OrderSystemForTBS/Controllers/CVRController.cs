@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BLL;
+using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,7 @@ namespace OrderSystemForTBS.Controllers
             _facade = facade;
         }
         
-        // GET api/dawas/5
+        // GET api/cvr/5
         [HttpGet("{query}")]
         public string[] Get(string query)
         {

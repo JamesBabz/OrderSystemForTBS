@@ -42,18 +42,16 @@ export class CustomerCreateComponent implements OnInit {
 
   getCvr(){
 
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({address: res[2]}));
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({zipCode: res[3]}));
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({city: res[4]}));
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({phone: res[7]}));
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({email: res[8]}));
-
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({address: res.toString()}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({zipCode: res.toString()}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({city: res.toString()}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({phone: res.toString()}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({email: res.toString()}));
     }
 
   getCity() {
     this.dawaService.getCity(this.customerGroup.value.zipCode).subscribe(res => this.customerGroup.patchValue({city: res}));
   }
-
 
   createCustomer() {
     const values = this.customerGroup.value;
