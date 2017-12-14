@@ -17,6 +17,7 @@ import {Router} from '@angular/router';
 export class CalendarsComponent implements OnInit {
 
   visits: Visit[];
+  employees: Employee[];
 
   private data: any[];
 
@@ -32,6 +33,7 @@ export class CalendarsComponent implements OnInit {
       this.visits = Visit;
       // this.addEvents();
     });
+    this.employeeService.getEmployees().subscribe(emp => this.employees = emp);
     setTimeout(() => this.addEvents(), 500);
     // this.getSampleEvents();
     this.setCalendarOptions();
@@ -61,7 +63,8 @@ export class CalendarsComponent implements OnInit {
         start: currVisit.dateTimeOfVisitStart.toString(),
         end: currVisit.dateTimeOfVisitEnd.toString(),
         color: currVisit.employee.colorCode,
-        customerId: currVisit.customerId
+        customerId: currVisit.customerId,
+        className: 'clickable'
       });
     }
     this.ucCalendar.fullCalendar('addEventSource', this.data);
