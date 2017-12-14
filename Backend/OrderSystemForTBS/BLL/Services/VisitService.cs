@@ -39,7 +39,7 @@ namespace BLL.Services
         {
             using (var uow = this.facade.UnitOfWork)
             {
-                return uow.VisitRepository.GetAll().Select(this.visitConv.Convert).OrderBy(visit => visit.DateOfVisit)
+                return uow.VisitRepository.GetAll().Select(this.visitConv.Convert).OrderBy(visit => visit.DateTimeOfVisitStart)
                     .ToList();
             }
         }
@@ -78,7 +78,8 @@ namespace BLL.Services
                 visitFromDb.Title = visit.Title;
                 visitFromDb.Description = visit.Description;
                 visitFromDb.IsDone = visit.IsDone;
-                visitFromDb.DateOfVisit = visit.DateOfVisit;
+                visitFromDb.DateTimeOfVisitStart = visit.DateTimeOfVisitStart;
+                visitFromDb.DateTimeOfVisitEnd = visit.DateTimeOfVisitEnd;
                 uow.Complete();
                 return this.visitConv.Convert(visitFromDb);
             }
@@ -86,7 +87,13 @@ namespace BLL.Services
 
         public VisitBO Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var uow = facade.UnitOfWork)
+            {
+                this.newVisit = uow.VisitRepository.Delete(id);
+                uow.Complete();
+                return this.visitConv.Convert(this.newVisit);
+
+            }
         }
     }
 }

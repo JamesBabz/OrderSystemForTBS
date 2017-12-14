@@ -31,6 +31,7 @@ namespace DAL.UOW
 
 
 
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         }
         

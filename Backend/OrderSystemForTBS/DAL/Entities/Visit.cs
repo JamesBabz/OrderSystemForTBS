@@ -12,7 +12,9 @@ namespace DAL.Entities
 
         public string Description { get; set; }
 
-        public DateTime DateOfVisit { get; set; }
+        public DateTime DateTimeOfVisitStart { get; set; }
+
+        public DateTime DateTimeOfVisitEnd { get; set; }
 
         public bool IsDone { get; set; }
 
