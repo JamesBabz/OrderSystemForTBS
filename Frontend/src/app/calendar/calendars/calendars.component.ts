@@ -4,6 +4,8 @@ import {Options} from 'fullcalendar';
 import {VisitService} from '../../visits/shared/visit.service';
 import {Visit} from '../../visits/shared/visit.model';
 import {waitForMap} from '@angular/router/src/utils/collection';
+import {EmployeeService} from '../../login/shared/employee.service';
+import {Employee} from '../../login/shared/employee.model';
 
 @Component({
   selector: 'app-calendars',
@@ -20,15 +22,15 @@ export class CalendarsComponent implements OnInit {
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
 
-  constructor(private visitService: VisitService) {
+  constructor(private visitService: VisitService, private employeeService: EmployeeService) {
   }
 
   ngOnInit() {
     this.visitService.getAllVisits().subscribe(Visit => {
       this.visits = Visit;
-      this.addEvents();
+      // this.addEvents();
     });
-    // setTimeout(() => this.addEvents(), 500);
+    setTimeout(() => this.addEvents(), 500);
     // this.getSampleEvents();
     this.setCalendarOptions();
   }
@@ -38,11 +40,11 @@ export class CalendarsComponent implements OnInit {
     // this.data = [
     //   {
     //     title: this.visits[1].title,
-    //     start: this.visits[1].dateOfVisit.toString()
+    //     start: this.visits[1].dateTimeOfVisitStart.toString()
     //   },
     //   {
     //     title: this.visits[2].title,
-    //     start: this.visits[2].dateOfVisit.toString()
+    //     start: this.visits[2].dateTimeOfVisitStart.toString()
     //   }
     // ];
     // this.ucCalendar.fullCalendar( 'removeEvents');
@@ -58,8 +60,8 @@ export class CalendarsComponent implements OnInit {
       }
       this.data[i] = ({
         title: this.visits[i].title,
-        start: this.visits[i].dateOfVisit.toString(),
-        color: color
+        start: this.visits[i].dateTimeOfVisitStart.toString(),
+        color: this.visits[i].employee.colorCode
       });
     }
     this.ucCalendar.fullCalendar('addEventSource', this.data);

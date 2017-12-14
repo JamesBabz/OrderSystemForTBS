@@ -45,7 +45,7 @@ export class PropositionCreateComponent implements OnInit {
       description: new FormControl('', Validators.required),
       file: new FormControl()
     });
-    this.employeeService.getEmployee().subscribe(Employee => this.employee = Employee);
+    this.employeeService.getCurrentEmployee().subscribe(Employee => this.employee = Employee);
     this.propositionService.getAllFileIds().subscribe(Ids => this.fileIds = Ids);
 
   }

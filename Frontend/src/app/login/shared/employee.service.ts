@@ -4,6 +4,9 @@ import {Employee} from './employee.model';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs/Observable';
+import {Customer} from '../../customers/shared/customer.model';
+
+const url = environment.ApiEndPoint + '/employees/';
 
 @Injectable()
 export class EmployeeService {
@@ -11,9 +14,13 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
-  getEmployee(): Observable<Employee> {
+  getCurrentEmployee(): Observable<Employee> {
     const localStorageId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
-    return this.http.get<Employee>('http://localhost:55000/api/employees/' + localStorageId);
+    return this.http.get<Employee>(url + localStorageId);
+  }
+
+  getEmployeeById(id: number): Observable<Employee> {
+    return this.http.get<Employee>(url + id);
   }
 
 }

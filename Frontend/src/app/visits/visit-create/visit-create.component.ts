@@ -20,8 +20,9 @@ export class VisitCreateComponent implements OnInit {
   visitGroup: FormGroup;
   customer: Customer;
   model: NgbDateStruct;
-  date: {year: number, month: number, day: number};
+  date: { year: number, month: number, day: number };
   employee: Employee;
+
   constructor(private visitService: VisitService, private router: Router, private formBuilder: FormBuilder, private customerService: CustomerService, private employeeService: EmployeeService) {
 
     this.customer = this.visitService.getCurrentCustomer();
@@ -35,7 +36,7 @@ export class VisitCreateComponent implements OnInit {
 
   ngOnInit() {
     this.customerService.getCustomers().subscribe(c => this.customers = c);
-    this.employeeService.getEmployee().subscribe(Employee => this.employee = Employee);
+    this.employeeService.getCurrentEmployee().subscribe(Employee => this.employee = Employee);
   }
 
   cancel() {
@@ -43,15 +44,17 @@ export class VisitCreateComponent implements OnInit {
   }
 
   createVisit() {
-    const newDate = new Date(this.model.year, this.model.month - 1, this.model.day + 1);
+    const newStartDate = new Date(this.model.year, this.model.month - 1, this.model.day + 1, 12 + 1, 30);
+    const newEndDate = new Date(this.model.year, this.model.month - 1, this.model.day + 1, 12 + 1, 30);
     const values = this.visitGroup.value;
     const visit: Visit = {
-      dateOfVisit: newDate,
+      dateTimeOfVisitStart: newStartDate,
+      dateTimeOfVisitEnd: newEndDate,
       title: values.title,
       description: values.description,
       isDone: false,
       employeeId: this.employee.id,
-      customerId:  Number(values.customerSelector)
+      customerId: Number(values.customerSelector)
     };
     this.visitService.createVisit(visit).subscribe(newVisit => this.router.navigateByUrl('customer/' + Number(values.customerSelector)));
 

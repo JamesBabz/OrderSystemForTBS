@@ -4,4 +4,5 @@ export class Employee {
   lastname: string;
   userName?: string;
   passWord?: string;
+  colorCode: string;
 }

@@ -6,7 +6,8 @@ export class Visit {
   id?: number;
   title: string;
   description: string;
-  dateOfVisit: Date;
+  dateTimeOfVisitStart: Date;
+  dateTimeOfVisitEnd: Date;
   isDone: boolean;
   customer?: Customer;
   customerId?: number;

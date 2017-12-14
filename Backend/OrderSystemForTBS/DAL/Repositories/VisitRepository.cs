@@ -29,7 +29,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Visit> GetAll()
         {
-            return this._context.Visits.ToList();
+            return this._context.Visits.Include(visit => visit.Employee).ToList();
         }
 
         public Visit Get(int id)
