@@ -15,9 +15,17 @@
 .centerBorder{
 text-align: center;
 }
-.buttonsContainer{
-  margin-top: 14.75%;
+.calendarButtonContainer{
+  margin-top: 10.75%;
+}
 
+.calendarButton{
+  background-color: #EE7203;
+  border-color: #EE7203;
+}
+
+.buttonsContainer{
+  margin-top: 4%;
 }
 
 .btn{
