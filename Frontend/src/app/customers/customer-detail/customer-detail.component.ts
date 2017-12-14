@@ -8,6 +8,7 @@ import {Proposition} from '../../propositions/shared/proposition.model';
 import {PropositionService} from '../../propositions/shared/proposition.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {isChangedDate} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools';
 
 @Component({
   selector: 'app-customer-detail',
@@ -17,7 +18,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class CustomerDetailComponent implements OnInit {
 
   modalString: string;
-
+  propTab: string;
+  equipTab: string;
+  visitTab: string;
+  lastPage: string;
 
   customer: Customer;
   editCustomer: Customer;
@@ -28,6 +32,7 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.lastPage = document.referrer.substr(document.referrer.indexOf('0/') + 2);
     this.route.paramMap
       .switchMap(params => this.customerService
         .getCustomerById(+params.get('id')))
@@ -36,6 +41,22 @@ export class CustomerDetailComponent implements OnInit {
         this.editCustomer = Object.assign({}, this.customer);
       });
     this.modalString = '';
+    console.log(this.lastPage);
+    switch (this.lastPage) {
+      case 'qwe':
+        this.propTab = '1';
+        break;
+      case 'asd':
+        this.equipTab = '1';
+        break;
+      case 'zxc':
+        // this.propTab = '1';
+        break;
+      case 'calendar':
+        this.visitTab = '1';
+        break;
+    }
+
   }
 
   open(content) {

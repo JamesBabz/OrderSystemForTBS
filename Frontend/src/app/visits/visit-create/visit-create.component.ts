@@ -30,7 +30,11 @@ export class VisitCreateComponent implements OnInit {
       customerSelector: new FormControl(this.customer === null ? '' : this.customer.id, Validators.required),
       title: ['', Validators.required],
       description: ['', Validators.required],
-      datePicked: ['', Validators.required]
+      datePicked: ['', Validators.required],
+      fromHours: ['', Validators.required],
+      fromMinutes: ['', Validators.required],
+      toHours: ['', Validators.required],
+      toMinutes: ['', Validators.required]
     });
   }
 
@@ -44,9 +48,9 @@ export class VisitCreateComponent implements OnInit {
   }
 
   createVisit() {
-    const newStartDate = new Date(this.model.year, this.model.month - 1, this.model.day + 1, 12 + 1, 30);
-    const newEndDate = new Date(this.model.year, this.model.month - 1, this.model.day + 1, 12 + 1, 30);
     const values = this.visitGroup.value;
+    const newStartDate = new Date(this.model.year, this.model.month - 1, this.model.day, values.fromHours + 1, values.fromMinutes);
+    const newEndDate = new Date(this.model.year, this.model.month - 1, this.model.day, values.toHours + 1, values.toMinutes);
     const visit: Visit = {
       dateTimeOfVisitStart: newStartDate,
       dateTimeOfVisitEnd: newEndDate,
