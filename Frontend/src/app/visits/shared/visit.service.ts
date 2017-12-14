@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {Visit} from './visit.model';
 import {Observable} from 'rxjs/Observable';
 import {Customer} from '../../customers/shared/customer.model';
+import {forEach} from '@angular/router/src/utils/collection';
+import {EmployeeService} from '../../login/shared/employee.service';
 
 const url = environment.ApiEndPoint + '/visits/';
 

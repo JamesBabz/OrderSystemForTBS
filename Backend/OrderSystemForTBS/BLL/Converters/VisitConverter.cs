@@ -29,10 +29,10 @@ namespace BLL.Converters
                                IsDone = visit.IsDone,
                                DateTimeOfVisitStart = visit.DateTimeOfVisitStart,
                                DateTimeOfVisitEnd = visit.DateTimeOfVisitEnd,
-                               Customer = this.custConv.Convert(visit.Customer),
                                CustomerId = visit.CustomerId,
-                               Employee = this.empConv.Convert(visit.Employee),
-                               EmployeeId = visit.EmployeeId
+                               Customer = this.custConv.Convert(visit.Customer),
+                               EmployeeId = visit.EmployeeId,
+                               Employee = this.empConv.Convert(visit.Employee)
                            };
             }
         }
@@ -52,10 +52,10 @@ namespace BLL.Converters
                            IsDone = visit.IsDone,
                            DateTimeOfVisitStart = visit.DateTimeOfVisitStart,
                            DateTimeOfVisitEnd = visit.DateTimeOfVisitEnd,
-                           Customer = this.custConv.Convert(visit.Customer),
                            CustomerId = visit.CustomerId,
-                           Employee = this.empConv.Convert(visit.Employee),
-                           EmployeeId = visit.EmployeeId
+                           Customer = this.custConv.Convert(visit.Customer),
+                           EmployeeId = visit.EmployeeId,
+                           Employee = this.empConv.Convert(visit.Employee)
                        };
         }
     }
