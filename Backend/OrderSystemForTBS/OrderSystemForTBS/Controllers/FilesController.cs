@@ -16,6 +16,8 @@ namespace OrderSystemForTBS.Controllers
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Blob;
 
+    using NuGet.Frameworks;
+
     using static System.Net.Mime.MediaTypeNames;
 
     [EnableCors("MyPolicy")]
@@ -32,8 +34,74 @@ namespace OrderSystemForTBS.Controllers
         [HttpGet]
         public IEnumerable<int> Get()
         {
-            return this.facade.PropositionService.allFileIds();
+            
+          return this.facade.PropositionService.allFileIds();
+
+     
+            
         }
+        [HttpGet("{id}")]
+        public async Task<string> Get(int id)
+        {
+            string returnString = "";
+            // Connect to Azure
+            string storageConnectionString =
+                "DefaultEndpointsProtocol=https;AccountName=thom953b;AccountKey=0VQ3Mi5N2NCA5IWykeZltouBC6h0Pn+DOfy7rNXZlLYW/K9NwbMHXmTgMp1eOdDvq5iYeHk0l3gM/j0i1J/lQQ==;EndpointSuffix=core.windows.net";
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlobContainer container = blobClient.GetContainerReference("photos");
+
+            var listBlobItems = await container.ListBlobsSegmentedAsync
+                                    ("", true, BlobListingDetails.All, 200, null, null, null);
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.png");
+
+
+            foreach (var item in listBlobItems.Results)
+            {
+                if (item.GetType() == typeof(CloudBlockBlob))
+                {
+                    CloudBlockBlob blob = (CloudBlockBlob)item;
+
+                    byte[] b = new byte[blob.Properties.Length];
+
+                    int done = await blob.DownloadToByteArrayAsync(b, 0);
+                    string base64 = Convert.ToBase64String(b);
+                    Console.WriteLine();
+                    return base64;
+                }
+
+            }
+
+
+            return returnString;
+
+            // Retrieve reference to a blob named "photo1.jpg".
+           
+            byte[] imageByte;
+        }
+
+        //        // GET: api/Customers/5
+        //        [HttpGet("{id}", Name = "Get")]
+        //        public async Task<string> Get(int id)
+        //        {
+        //            // Connect to Azure
+        //            string storageConnectionString =
+        //                "DefaultEndpointsProtocol=https;AccountName=thom953b;AccountKey=0VQ3Mi5N2NCA5IWykeZltouBC6h0Pn+DOfy7rNXZlLYW/K9NwbMHXmTgMp1eOdDvq5iYeHk0l3gM/j0i1J/lQQ==;EndpointSuffix=core.windows.net";
+        //            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
+        //            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+        //            CloudBlobContainer container = blobClient.GetContainerReference("photos");
+        //
+        //            var listBlobItems = await container.ListBlobsSegmentedAsync
+        //                                    ("", true, BlobListingDetails.All, 200, null, null, null);
+        //
+        //
+        //            foreach (var listBlobItem in listBlobItems.Results)
+        //            {
+        //                Console.WriteLine(listBlobItem);
+        //            }
+        //            return "";
+        //        }
+
         // POST: api/Customers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] string file)
@@ -46,6 +114,7 @@ namespace OrderSystemForTBS.Controllers
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer container = blobClient.GetContainerReference("photos");
+           
 
             // Convert base 64 string to byte[]
             byte[] imageBytes = Convert.FromBase64String(file);

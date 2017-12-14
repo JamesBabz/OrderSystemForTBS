@@ -1,7 +1,10 @@
 <div class="singleVisitCont">
   <div class="row">
     <div class="col-md-12 title">
-      <h3 style="margin:0px">{{visit?.title}}</h3>
+      <h3 style="margin:0px">{{visit?.title}}
+        <button class="button" (click)="openModal('edit')"><i class="fa fa-trash" ></i></button>
+      <button class="button" (click)="openModal('edit')"><i class="fa fa-pencil" ></i></button>
+      </h3>
       <br>
     </div>
   </div>
@@ -20,3 +23,41 @@
     </div>
   </div>
 </div>
+
+<div class="myModal shouldClose" id="editModal" *ngIf="modalString === 'edit'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3 class="editModal-title">Redigér besøg</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <h4 class="property-text">Titel: </h4>
+        <h4 class="property-text">Beskrivelse: </h4>
+
+      </div>
+      <div class=" input-container col-md-8">
+        <input type="text" class="input"  [(ngModel)]="visit.title" name="title" />
+        <textarea class="descTextArea"  [(ngModel)]="visit.description" name="description" ></textarea>
+      </div>
+    </div>
+    <div class="row">
+    <div class="col-md-12 right">
+      <button type="button" class="btn btn-outline-success shouldClose" (click)="updateVisit(); closeModal($event)">Gem
+      </button>
+      <button type="button" class="btn btn-outline-danger shouldClose" (click)="  closeModal($event)">Anuller
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+<div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Slet Tilbud</h3>
+    <hr>
+    <p>Er du siker på du vil slette dette tilbud?</p>
+    <hr>
+    <div class="right">
+      <button class="btn btn-outline-danger" onclick="this.disabled=true" (click)="deleteVisit()">Slet</button>
+      <button class="btn btn-outline-secondary shouldClose" (click)="closeModal($event)">Annuller</button>
+    </div>
+  </div>
+</div>
+
