@@ -38,4 +38,8 @@ export class CustomerListComponent implements OnInit {
   search() {
     this.customerService.searchQuery(this.query).subscribe(Customers => this.customers = Customers);
   }
+
+  showCalendar() {
+    this.router.navigateByUrl('/calendar');
+  }
 }

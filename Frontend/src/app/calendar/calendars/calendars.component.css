@@ -1,0 +1,28 @@
+.calendar > .row{
+  margin: 0;
+}
+
+.dayNames{
+  text-align: center;
+}
+
+.calendar{
+  width: 100%;
+  margin: 0 auto;
+}
+
+.dayName, .calendarBox{
+  width: 14.28571428571429%;
+  border: 1px solid black;
+}
+
+
+.dayName + .dayName,
+.calendarBox + .calendarBox{
+  border-left: none;
+}
+
+.calendarBox{
+  height: 100px;
+
+}

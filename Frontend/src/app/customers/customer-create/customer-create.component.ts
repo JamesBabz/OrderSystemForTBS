@@ -51,6 +51,7 @@ export class CustomerCreateComponent implements OnInit {
 
   getCity() {
     this.dawaService.getCity(this.customerGroup.value.zipCode).subscribe(res => this.customerGroup.patchValue({city: res}));
+    console.log(this.customerGroup.value.city);
   }
 
   createCustomer() {

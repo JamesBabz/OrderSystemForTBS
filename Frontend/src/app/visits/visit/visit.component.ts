@@ -11,11 +11,14 @@ import {Customer} from '../../customers/shared/customer.model';
 })
 
 export class VisitComponent implements OnInit {
+  editVisit: Visit;
+  modalString: string;
   @Input()
   visit: Visit;
   @Input()
   employee: Employee;
-  constructor(private visitService: VisitService) { }
+  constructor(private visitService: VisitService) {
+  }
 
   ngOnInit() {
   }
@@ -23,4 +26,20 @@ export class VisitComponent implements OnInit {
     return this.visitService.getDateAsEUString(date);
   }
 
+  updateVisit() {
+    this.visitService.updateVisit(this.visit.id, this.visit).subscribe(Visit => this.visit = Visit);
+  }
+  deleteVisit(){
+    this.visitService.deleteVisit(this.visit.id).subscribe();
+  }
+  openModal(toDo: string) {
+    document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
+    this.modalString = toDo;
+  }
+  closeModal($event) {
+    if ($event.srcElement.classList.contains('shouldClose')) {
+      document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
+      this.modalString = '';
+    }
+  }
 }

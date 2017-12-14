@@ -18,3 +18,19 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  float: right;
+}
+.descTextArea{
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.input{
+  margin-top: 5px;
+}

@@ -88,9 +88,12 @@ body {
 .myModal {
   width: 100vw;
   height: 100vh;
+  left: 0;
   position: fixed;
   top: 0;
   background-color: rgba(128, 128, 128, 0.3);
+  z-index: 10000;
+
 }
 
 .myModalContent {

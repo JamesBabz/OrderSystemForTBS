@@ -1,0 +1,80 @@
+<!--<div class="container">-->
+<!--<table class="calendar">-->
+<!--<tr class="row dayNames">-->
+<!--<th class="dayName">Mandag</th>-->
+<!--<th class="dayName">Tirsdag</th>-->
+<!--<th class="dayName">Onsdag</th>-->
+<!--<th class="dayName">Torsdag</th>-->
+<!--<th class="dayName">Fredag</th>-->
+<!--<th class="dayName">Lørdag</th>-->
+<!--<th class="dayName">Søndag</th>-->
+<!--</tr>-->
+<!--<tr class="row firstRow">-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--</tr>-->
+<!--<tr class="row secondRow">-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--</tr>-->
+<!--<tr class="row thirdRow">-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--</tr>-->
+<!--<tr class="row fourthRow">-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--</tr>-->
+<!--<tr class="row fifthRow">-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--</tr>-->
+<!--<tr class="row sixthRow">-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--<td class="calendarBox"></td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</div>-->
+<button (click)="addEvents()">HEJ</button>
+<div class="container">
+  <div *ngIf="calendarOptions && visits">
+    <ng-fullcalendar #ucCalendar [options]="calendarOptions"
+                     (eventClick)="eventClick($event.detail)"
+                     (eventDrop)="updateEvent($event.detail)"
+                     (eventResize)="updateEvent($event.detail)"
+                     (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
+  </div>
+  <div *ngIf="!visits">
+    LOADING!!!
+  </div>
+</div>

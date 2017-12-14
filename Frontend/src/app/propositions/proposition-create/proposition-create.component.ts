@@ -8,8 +8,8 @@ import {Proposition} from '../shared/proposition.model';
 import {Router} from '@angular/router';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {LoginService} from '../../login/shared/login.service';
-import {EmployeeService} from "../../login/shared/employee.service";
-import {Employee} from "../../login/shared/employee.model";
+import {Employee} from '../../login/shared/employee.model';
+import {EmployeeService} from '../../login/shared/employee.service';
 
 @Component({
   selector: 'app-proposition-create',
@@ -24,11 +24,17 @@ export class PropositionCreateComponent implements OnInit {
   createPropFormGroup: FormGroup;
   employeeId: number;
   employee: Employee;
+  selectedFile: any;
+  base64textString: string;
+  fileIds: number[];
+  upLoadFileId: number;
+
 
   constructor(private employeeService: EmployeeService, private propositionService: PropositionService, private loginService: LoginService, private customerService: CustomerService, private router: Router) {
 
     this.customer = propositionService.getCurrentCustomer();
     customerService.getCustomers().subscribe(Customers => this.customers = Customers);
+
 
   }
 
@@ -40,6 +46,8 @@ export class PropositionCreateComponent implements OnInit {
       file: new FormControl()
     });
     this.employeeService.getEmployee().subscribe(Employee => this.employee = Employee);
+    this.propositionService.getAllFileIds().subscribe(Ids => this.fileIds = Ids);
+
   }
 
   showAll() {
@@ -51,6 +59,10 @@ export class PropositionCreateComponent implements OnInit {
   }
 
   createNewProposition() {
+    this.upLoadFileId = Math.max.apply( null, this.fileIds) + 1;
+
+
+
     const values = this.createPropFormGroup.value;
     this.customerService.getCustomerById(Number(values.customerSelector)).subscribe(cust => this.selectedCust = cust);
     const proposition: Proposition = {
@@ -59,14 +71,41 @@ export class PropositionCreateComponent implements OnInit {
       creationDate: new Date(),
       customerId: Number(values.customerSelector),
       employeeId: this.employee.id,
-      fileId: 0
+      fileId: this.upLoadFileId
     };
+
+    this.propositionService.upLoadImage(this.base64textString).subscribe(File => this.selectedFile = File);
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
         newProp.employee = this.employee,
         this.propositionService.setCurrentProposition(newProp);
         this.router.navigateByUrl('proposition/' + newProp.id);
       });
+
+  }
+
+  onFileChange(event) {
+
+   /* if (event.target.files && event.target.files.length > 0) {
+      this.selectedFile = event.target.files[0];
+    }*/
+    var files = event.target.files;
+    var file = files[0];
+    if (files && file) {
+      var reader = new FileReader();
+
+      reader.onload = this._handleReaderLoaded.bind(this);
+
+      reader.readAsBinaryString(file);
+    }
+  }
+
+
+
+  _handleReaderLoaded(readerEvt) {
+
+    var binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
 
   }
 }
