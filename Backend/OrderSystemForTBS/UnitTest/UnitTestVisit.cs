@@ -28,7 +28,7 @@ namespace UnitTest
                                 {
                                     Title = "Besøg",
                                     Description = "Godt besøg",
-                                    DateOfVisit = DateTime.Today,
+                                    DateTimeOfVisitStart = DateTime.Today,
                                     IsDone = true,
                                     CustomerId = 2,
                                     EmployeeId = 1
@@ -47,7 +47,7 @@ namespace UnitTest
                                  {
                                      Title = "Besøg",
                                      Description = "Godt besøg",
-                                     DateOfVisit = DateTime.Today,
+                                     DateTimeOfVisitStart = DateTime.Today,
                                      IsDone = true,
                                      CustomerId = 2,
                                      EmployeeId = 1
@@ -58,7 +58,7 @@ namespace UnitTest
                                  {
                                      Title = "Besøg2",
                                      Description = "Godt besøg2",
-                                     DateOfVisit = DateTime.Today,
+                                     DateTimeOfVisitStart = DateTime.Today,
                                      IsDone = false,
                                      CustomerId = 2,
                                      EmployeeId = 1
@@ -76,7 +76,7 @@ namespace UnitTest
                                  {
                                      Title = "Besøg",
                                      Description = "Godt besøg",
-                                     DateOfVisit = DateTime.Today,
+                                     DateTimeOfVisitStart = DateTime.Today,
                                      IsDone = true,
                                      CustomerId = 2,
                                      EmployeeId = 1
@@ -87,7 +87,7 @@ namespace UnitTest
                                  {
                                      Title = "Besøg2",
                                      Description = "Godt besøg2",
-                                     DateOfVisit = DateTime.Today,
+                                     DateTimeOfVisitStart = DateTime.Today,
                                      IsDone = false,
                                      CustomerId = 2,
                                      EmployeeId = 1
@@ -108,7 +108,7 @@ namespace UnitTest
                                     Id = 1,
                                     Title = "Besøg",
                                     Description = "Godt besøg",
-                                    DateOfVisit = DateTime.Today,
+                                    DateTimeOfVisitStart = DateTime.Today,
                                     IsDone = true,
                                     CustomerId = 2,
                                     EmployeeId = 1
@@ -119,7 +119,7 @@ namespace UnitTest
             visit.Description = "Nice visit";
             this.GetService().Update(visit);
             visit.IsDone = false;
-            visit.DateOfVisit = DateTime.Now;
+            visit.DateTimeOfVisitStart = DateTime.Now;
             this.GetService().Update(visit);
             Assert.AreEqual("Visit", this.GetService().Get(1).Title);
             Assert.AreEqual("Nice visit", this.GetService().Get(1).Description);

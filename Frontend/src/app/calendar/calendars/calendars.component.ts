@@ -24,9 +24,11 @@ export class CalendarsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.visitService.getAllVisits().subscribe(Visit => this.visits = Visit);
-    // this.addEvents();
-    setTimeout(() => this.addEvents(), 500);
+    this.visitService.getAllVisits().subscribe(Visit => {
+      this.visits = Visit;
+      this.addEvents();
+    });
+    // setTimeout(() => this.addEvents(), 500);
     // this.getSampleEvents();
     this.setCalendarOptions();
   }
@@ -45,8 +47,20 @@ export class CalendarsComponent implements OnInit {
     // ];
     // this.ucCalendar.fullCalendar( 'removeEvents');
     this.data = [];
+    let color;
     for (let i = 0; i < this.visits.length; i++) {
-      this.data[i] = ({title: this.visits[i].title, start: this.visits[i].dateOfVisit.toString()});
+      if (this.visits[i].employeeId === 1) {
+        color = 'red';
+      } else if (this.visits[i].employeeId === 2) {
+        color = 'green';
+      } else {
+        color = 'yellow';
+      }
+      this.data[i] = ({
+        title: this.visits[i].title,
+        start: this.visits[i].dateOfVisit.toString(),
+        color: color
+      });
     }
     this.ucCalendar.fullCalendar('addEventSource', this.data);
   }
@@ -55,7 +69,8 @@ export class CalendarsComponent implements OnInit {
     this.data = [
       {
         title: 'All Day Event',
-        start: '2017-12-01'
+        start: '2017-12-01',
+        color: 'red'
       },
       {
         title: 'Long Event',
