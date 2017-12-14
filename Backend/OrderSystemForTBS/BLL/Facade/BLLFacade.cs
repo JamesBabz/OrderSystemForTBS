@@ -76,20 +76,15 @@ namespace BLL.Facade
             }
         }
 
-<<<<<<< HEAD
-
         public CvrService CvrService
         {
-            get
-            {
-                return new CvrService();
-            }
-=======
+            get { return new CvrService(); }
+        }
+
         public FileService FileService
 
         {
             get {return new FileService();}
->>>>>>> Development
         }
     }
 }

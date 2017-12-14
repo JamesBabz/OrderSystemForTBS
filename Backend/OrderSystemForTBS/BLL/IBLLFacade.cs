@@ -11,10 +11,10 @@ namespace BLL
         VisitService VisitService { get; }
         DawaService DawaService { get; }
         FilePathService FilePathService { get; }
-<<<<<<< HEAD
+
         CvrService CvrService { get; }
-=======
+
         FileService FileService { get; }
->>>>>>> Development
+
     }
 }

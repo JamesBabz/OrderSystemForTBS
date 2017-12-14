@@ -31,15 +31,12 @@ import {EmployeeService} from './login/shared/employee.service';
 import {VisitService} from './visits/shared/visit.service';
 import {DawaService} from './customers/shared/dawa.service';
 import {ErrorInterceptor} from './login/login/Auth/error.interceptor';
-<<<<<<< HEAD
 import {CVRService} from './customers/shared/cvr.service';
-=======
 import {CalendarsComponent} from './calendar/calendars/calendars.component';
 import {CalendarService} from './calendar/shared/calendar.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CalendarModule} from 'angular-calendar';
+
 import {FullCalendarModule} from 'ng-fullcalendar';
->>>>>>> Development
 
 
 const appRoutes: Routes = [
@@ -87,16 +84,12 @@ const appRoutes: Routes = [
     BrowserModule,
     FullCalendarModule
   ],
-<<<<<<< HEAD
-  providers: [CustomerService, LoginService, AuthGuard, PropositionService, EquipmentService, EmployeeService, VisitService, DawaService, CVRService,
-=======
-  providers: [CustomerService, LoginService, AuthGuard, PropositionService,
-    EquipmentService, EmployeeService, VisitService, DawaService, CalendarService,
->>>>>>> Development
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
-  ],
 
+    providers: [CustomerService, LoginService, AuthGuard, PropositionService,
+  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService,
+  {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+  {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {
