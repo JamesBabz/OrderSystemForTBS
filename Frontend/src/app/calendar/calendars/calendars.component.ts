@@ -18,6 +18,7 @@ export class CalendarsComponent implements OnInit {
 
   visits: Visit[];
   employees: Employee[];
+  colorDone = false;
 
   private data: any[];
 
@@ -26,6 +27,7 @@ export class CalendarsComponent implements OnInit {
 
 
   constructor(private visitService: VisitService, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router) {
+
   }
 
   ngOnInit() {
@@ -34,9 +36,16 @@ export class CalendarsComponent implements OnInit {
       // this.addEvents();
     });
     this.employeeService.getEmployees().subscribe(emp => this.employees = emp);
-    setTimeout(() => this.addEvents(), 500);
+    setTimeout(() => this.addEvents(), 1000);
     // this.getSampleEvents();
     this.setCalendarOptions();
+  }
+  setColors() {
+    const spans = document.getElementsByClassName('bullet');
+    for (let i = 0; i < spans.length; i++) {
+      spans.item(i).setAttribute('style', 'color: ' + spans.item(i).getAttribute('class').substr(0, 7));
+    }
+    this.colorDone = true;
   }
 
   eventClick($event) {
@@ -149,5 +158,6 @@ export class CalendarsComponent implements OnInit {
       header: {left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay,listMonth'},
       events: this.data
     };
+
   }
 }

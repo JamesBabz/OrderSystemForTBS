@@ -20,6 +20,7 @@ export class CustomerDetailComponent implements OnInit {
   modalString: string;
   propTab: string;
   equipTab: string;
+  BoSTab: string;
   visitTab: string;
   lastPage: string;
 
@@ -48,7 +49,7 @@ export class CustomerDetailComponent implements OnInit {
         this.equipTab = '1';
         break;
       case 3:
-        // this.propTab = '1';
+        // this.BoSTab = '1';
         break;
       case 4:
         this.visitTab = '1';
