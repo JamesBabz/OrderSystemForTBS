@@ -68,23 +68,11 @@ namespace BLL.Facade
             }
         }
         
-        public FilePathService FilePathService
-        {
-            get
-            {
-                return new FilePathService(this.facade);
-            }
-        }
 
         public CvrService CvrService
         {
             get { return new CvrService(); }
         }
-
-        public FileService FileService
-
-        {
-            get {return new FileService();}
-        }
+    
     }
 }

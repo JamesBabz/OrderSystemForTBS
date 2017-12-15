@@ -74,7 +74,7 @@ export class PropositionCreateComponent implements OnInit {
       fileId: this.upLoadFileId
     };
 
-    this.propositionService.upLoadImage(this.base64textString).subscribe(File => this.selectedFile = File);
+    this.propositionService.upLoadImage(this.base64textString).subscribe();
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
         newProp.employee = this.employee,
