@@ -1,12 +1,16 @@
-<div class="container" *ngIf="calendarOptions && visits">
-  <div class="employeeContainer" *ngIf="employees">
+<div class="row" *ngIf="calendarOptions && visits && employees">
+  <div class="employeeContainer col-md-2">
     <div class="singleEmpCont" *ngFor="let emp of employees">
-      <span class="{{emp.colorCode}}">{{emp.firstname}} {{emp.lastname}}</span>
+      <span class="{{emp.colorCode}} bullet">•</span><span class="empSpan">{{emp.firstname}} {{emp.lastname}}</span>
     </div>
   </div>
-  <ng-fullcalendar #ucCalendar [options]="calendarOptions"
-                   (eventClick)="eventClick($event.detail)"
-                   (eventDrop)="updateEvent($event.detail)"
-                   (eventResize)="updateEvent($event.detail)"
-                   (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
+  <div class="col-md-10 calCont">
+    <ng-fullcalendar #ucCalendar [options]="calendarOptions"
+                     (eventClick)="eventClick($event.detail)"
+                     (eventDrop)="updateEvent($event.detail)"
+                     (eventResize)="updateEvent($event.detail)"
+                     (clickButton)="clickButton($event.detail)"></ng-fullcalendar>
+    <div *ngIf="!colorDone">{{setColors()}}</div>
+    <div *ngIf="colorDone"></div>
+  </div>
 </div>
