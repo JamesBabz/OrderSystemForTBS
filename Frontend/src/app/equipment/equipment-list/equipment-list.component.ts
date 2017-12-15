@@ -48,6 +48,7 @@ export class EquipmentListComponent implements OnInit {
         this.equipmentService.getEquipmentById(this.customer.id)
           .subscribe(Equipment => this.equipments = Equipment);
       });
+    this.createEquipFormGroup.patchValue({name: ''});
 
   }
   refresh() {
