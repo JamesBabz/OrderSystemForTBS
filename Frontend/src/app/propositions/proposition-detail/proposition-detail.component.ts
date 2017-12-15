@@ -42,6 +42,7 @@ export class PropositionDetailComponent implements OnInit {
   delete() {
     this.propositionService.deleteProposition(this.proposition.id)
       .subscribe(prop => this.router.navigateByUrl('customer/' + prop.customerId));
+    this.deleteFileById();
   }
 
 
@@ -104,7 +105,10 @@ export class PropositionDetailComponent implements OnInit {
     });
   }
   getFileById() {
-    this.propositionService.getFileById(this.proposition.fileId).subscribe(File => console.log(this.fileString = File));
+    this.propositionService.getFileById(this.proposition.fileId).subscribe(File => this.fileString = File);
+  }
+  deleteFileById() {
+    this.propositionService.deleteFileById(this.proposition.fileId).subscribe();
   }
   showFile() {
     console.log(this.fileString);

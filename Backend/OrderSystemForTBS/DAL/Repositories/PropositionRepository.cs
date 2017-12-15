@@ -51,7 +51,15 @@ namespace DAL.Repositories
                 ids.Add(contextProposition.FileId);
             }
             ids.Sort();
-            return ids;
+            if (ids.Count.Equals(0))
+            {
+                ids.Add(0);
+                return ids;
+                
+            }
+            else {
+                return ids;
+            }
         }
 
         //public IEnumerable<Proposition> GetAllPropositionsByCustomerId(int id)
