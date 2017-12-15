@@ -64,4 +64,8 @@ export class VisitListComponent implements OnInit {
     this.router.navigateByUrl('visits/create');
   }
 
+  showCalendar() {
+    this.router.navigateByUrl('/calendar');
+  }
+
 }

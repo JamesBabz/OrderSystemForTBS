@@ -32,7 +32,6 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.lastPage = document.referrer.substr(document.referrer.indexOf('0/') + 2);
     this.route.paramMap
       .switchMap(params => this.customerService
         .getCustomerById(+params.get('id')))
@@ -41,21 +40,21 @@ export class CustomerDetailComponent implements OnInit {
         this.editCustomer = Object.assign({}, this.customer);
       });
     this.modalString = '';
-    console.log(this.lastPage);
-    switch (this.lastPage) {
-      case 'qwe':
+    switch (this.customerService.getTab()) {
+      case 1:
         this.propTab = '1';
         break;
-      case 'asd':
+      case 2:
         this.equipTab = '1';
         break;
-      case 'zxc':
+      case 3:
         // this.propTab = '1';
         break;
-      case 'calendar':
+      case 4:
         this.visitTab = '1';
         break;
     }
+    this.customerService.setTab(0);
 
   }
 

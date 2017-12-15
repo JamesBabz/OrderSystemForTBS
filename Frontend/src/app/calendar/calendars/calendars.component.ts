@@ -7,6 +7,7 @@ import {waitForMap} from '@angular/router/src/utils/collection';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
 import {CustomerService} from '../../customers/shared/customer.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-calendars',
@@ -16,6 +17,7 @@ import {CustomerService} from '../../customers/shared/customer.service';
 export class CalendarsComponent implements OnInit {
 
   visits: Visit[];
+  employees: Employee[];
 
   private data: any[];
 
@@ -23,7 +25,7 @@ export class CalendarsComponent implements OnInit {
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
 
-  constructor(private visitService: VisitService, private employeeService: EmployeeService, private customerService: CustomerService) {
+  constructor(private visitService: VisitService, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router) {
   }
 
   ngOnInit() {
@@ -31,12 +33,16 @@ export class CalendarsComponent implements OnInit {
       this.visits = Visit;
       // this.addEvents();
     });
+    this.employeeService.getEmployees().subscribe(emp => this.employees = emp);
     setTimeout(() => this.addEvents(), 500);
     // this.getSampleEvents();
     this.setCalendarOptions();
   }
 
   eventClick($event) {
+    this.customerService.setTab(4);
+    this.router.navigateByUrl('customer/' + $event.valueOf().event.customerId);
+
   }
 
   clickButton($event) {
@@ -48,18 +54,17 @@ export class CalendarsComponent implements OnInit {
   }
 
   addEvents() {
-    console.log(this.visits);
     this.data = [];
     for (let i = 0; i < this.visits.length; i++) {
       const currVisit = this.visits[i];
-      console.log(this.visits[i].dateTimeOfVisitStart.toString());
       this.data[i] = ({
         id: currVisit.id,
         title: currVisit.title,
         start: currVisit.dateTimeOfVisitStart.toString(),
         end: currVisit.dateTimeOfVisitEnd.toString(),
         color: currVisit.employee.colorCode,
-        url: 'customer/' + currVisit.customerId
+        customerId: currVisit.customerId,
+        className: 'clickable'
       });
     }
     this.ucCalendar.fullCalendar('addEventSource', this.data);

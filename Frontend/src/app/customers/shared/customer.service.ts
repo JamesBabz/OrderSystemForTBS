@@ -10,6 +10,8 @@ const url = environment.ApiEndPoint + '/customers';
 
 @Injectable()
 export class CustomerService {
+  private tab: number;
+
   constructor(private http: HttpClient) {
   }
 
@@ -39,4 +41,11 @@ export class CustomerService {
     return this.http.get<Customer[]>(url + '/search?q=' + q);
   }
 
+  setTab(tab: number) {
+    this.tab = tab;
+  }
+
+  getTab() {
+    return this.tab;
+  }
 }
