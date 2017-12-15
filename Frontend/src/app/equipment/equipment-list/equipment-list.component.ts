@@ -50,7 +50,7 @@ export class EquipmentListComponent implements OnInit {
       });
 
   }
-  refresh(){
+  refresh() {
     this.route.paramMap
       .switchMap(params => this.equipmentService.getEquipmentById(+params.get('id')))
       .subscribe(Equipment => this.equipments = Equipment);

@@ -35,12 +35,9 @@ export class EquipmentComponent implements OnInit {
   }
 
   deleteEquipment() {
-    this.equipmentService.deleteEquipmentById(this.equipment.id)
-      .subscribe();
-
-    this.equipmentService.deleteEquipmentById(this.equipment.id).subscribe(Equip =>{
+    this.equipmentService.deleteEquipmentById(this.equipment.id).subscribe(Equip => {
       this.eDeleted.emit(Equip);
-    });
+  });
 
   }
 
