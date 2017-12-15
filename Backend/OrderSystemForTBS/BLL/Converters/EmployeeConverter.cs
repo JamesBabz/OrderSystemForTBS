@@ -21,7 +21,8 @@ namespace BLL.Converters
                     Password = employee.Password,
                     PasswordHash = employee.PasswordHash,
                     PasswordSalt = employee.PasswordSalt,
-                    MacAddress = employee.MacAddress
+                    MacAddress = employee.MacAddress,
+                    ColorCode = employee.ColorCode
                     
                 };
             }
@@ -39,7 +40,8 @@ namespace BLL.Converters
                 Password = employee.Password,
                 PasswordHash = employee.PasswordHash,
                 PasswordSalt = employee.PasswordSalt,
-                MacAddress = employee.MacAddress
+                MacAddress = employee.MacAddress,
+                ColorCode = employee.ColorCode
             };
         }
     }

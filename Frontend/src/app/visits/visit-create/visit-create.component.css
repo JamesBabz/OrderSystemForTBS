@@ -1,9 +1,7 @@
 .cont {
   padding-left: 15px;
 }
-.datepicker{
-  margin-left: 20px;
-}
+
 .dropdown{
   width: 178px;
 }
@@ -14,6 +12,11 @@
 }
 .datepicker {
   margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.dpText{
+  margin-left: -15px;
 }
 .input{
 margin-left: -15px;
@@ -25,3 +28,10 @@ margin-left: -15px;
   width: 88px;
 }
 
+.marginB5{
+  margin-bottom: 5px;
+}
+
+.timeInput{
+  width: 64px;
+}

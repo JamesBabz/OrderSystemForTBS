@@ -4,6 +4,10 @@ import {Options} from 'fullcalendar';
 import {VisitService} from '../../visits/shared/visit.service';
 import {Visit} from '../../visits/shared/visit.model';
 import {waitForMap} from '@angular/router/src/utils/collection';
+import {EmployeeService} from '../../login/shared/employee.service';
+import {Employee} from '../../login/shared/employee.model';
+import {CustomerService} from '../../customers/shared/customer.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-calendars',
@@ -13,6 +17,7 @@ import {waitForMap} from '@angular/router/src/utils/collection';
 export class CalendarsComponent implements OnInit {
 
   visits: Visit[];
+  employees: Employee[];
 
   private data: any[];
 
@@ -20,33 +25,47 @@ export class CalendarsComponent implements OnInit {
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
 
-  constructor(private visitService: VisitService) {
+  constructor(private visitService: VisitService, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router) {
   }
 
   ngOnInit() {
-    this.visitService.getAllVisits().subscribe(Visit => this.visits = Visit);
-    // this.addEvents();
+    this.visitService.getAllVisits().subscribe(Visit => {
+      this.visits = Visit;
+      // this.addEvents();
+    });
+    this.employeeService.getEmployees().subscribe(emp => this.employees = emp);
     setTimeout(() => this.addEvents(), 500);
     // this.getSampleEvents();
     this.setCalendarOptions();
   }
 
+  eventClick($event) {
+    this.customerService.setTab(4);
+    this.router.navigateByUrl('customer/' + $event.valueOf().event.customerId);
+
+  }
+
+  clickButton($event) {
+
+  }
+
+  updateEvent($event) {
+
+  }
+
   addEvents() {
-    console.log(this.visits);
-    // this.data = [
-    //   {
-    //     title: this.visits[1].title,
-    //     start: this.visits[1].dateOfVisit.toString()
-    //   },
-    //   {
-    //     title: this.visits[2].title,
-    //     start: this.visits[2].dateOfVisit.toString()
-    //   }
-    // ];
-    // this.ucCalendar.fullCalendar( 'removeEvents');
     this.data = [];
     for (let i = 0; i < this.visits.length; i++) {
-      this.data[i] = ({title: this.visits[i].title, start: this.visits[i].dateOfVisit.toString()});
+      const currVisit = this.visits[i];
+      this.data[i] = ({
+        id: currVisit.id,
+        title: currVisit.title,
+        start: currVisit.dateTimeOfVisitStart.toString(),
+        end: currVisit.dateTimeOfVisitEnd.toString(),
+        color: currVisit.employee.colorCode,
+        customerId: currVisit.customerId,
+        className: 'clickable'
+      });
     }
     this.ucCalendar.fullCalendar('addEventSource', this.data);
   }
@@ -55,7 +74,8 @@ export class CalendarsComponent implements OnInit {
     this.data = [
       {
         title: 'All Day Event',
-        start: '2017-12-01'
+        start: '2017-12-01',
+        color: 'red'
       },
       {
         title: 'Long Event',
@@ -63,8 +83,9 @@ export class CalendarsComponent implements OnInit {
       },
       {
         id: 999,
-        title: 'Repeating Event',
-        start: '2017-12-12T16:00:00'
+        title: 'Long Event',
+        start: '2017-12-12T16:00:00',
+        end: '2017-12-12T18:00:00'
       },
       {
         id: 999,
@@ -110,7 +131,7 @@ export class CalendarsComponent implements OnInit {
 
   private setCalendarOptions() {
     this.calendarOptions = {
-      editable: true,
+      editable: false,
       locale: 'da-dk',
       timeFormat: 'H:mm',
       eventLimit: false,

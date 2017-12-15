@@ -42,7 +42,7 @@ export class VisitListComponent implements OnInit {
     var today = new Date();
     var currentDate = new Date(today.getTime());
     for (let visit of list) {
-      var date = new Date(visit.dateOfVisit);
+      var date = new Date(visit.dateTimeOfVisitStart);
       var dateFromVisit = new Date(date.getTime());
 
       if (dateFromVisit > currentDate) {
@@ -62,6 +62,10 @@ export class VisitListComponent implements OnInit {
   }
   createVisit() { this.visitService.setCurrentCustomer(this.customer);
     this.router.navigateByUrl('visits/create');
+  }
+
+  showCalendar() {
+    this.router.navigateByUrl('/calendar');
   }
 
 }

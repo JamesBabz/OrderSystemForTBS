@@ -29,7 +29,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Visit> GetAll()
         {
-            return this._context.Visits.ToList();
+            return this._context.Visits.Include(visit => visit.Employee).ToList();
         }
 
         public Visit Get(int id)
@@ -47,7 +47,7 @@ namespace DAL.Repositories
         public IEnumerable<Visit> GetAll(int id)
         {
             return _context.Visits.Include(visit => visit.Customer).Include(visit => visit.Employee)
-                .OrderByDescending(visit => visit.DateOfVisit).Where(x => x.CustomerId == id).ToList();
+                .OrderByDescending(visit => visit.DateTimeOfVisitStart).Where(x => x.CustomerId == id).ToList();
         }
     }
 }

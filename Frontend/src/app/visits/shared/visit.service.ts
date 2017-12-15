@@ -4,6 +4,8 @@ import {HttpClient} from '@angular/common/http';
 import {Visit} from './visit.model';
 import {Observable} from 'rxjs/Observable';
 import {Customer} from '../../customers/shared/customer.model';
+import {forEach} from '@angular/router/src/utils/collection';
+import {EmployeeService} from '../../login/shared/employee.service';
 
 const url = environment.ApiEndPoint + '/visits/';
 
@@ -26,6 +28,12 @@ export class VisitService {
   createVisit(visit: Visit): Observable<Visit> {
     return this.http.post(url, visit);
   }
+  updateVisit(id: number, visit: Visit): Observable<Visit> {
+    return this.http.put<Visit>(url + id, visit);
+  }
+  deleteVisit(id: number){
+    return this.http.delete(url + id);
+  }
 
   getDateAsEUString(date: Date) {
     const newDate = new Date(date);
@@ -38,7 +46,6 @@ export class VisitService {
   setCurrentCustomer(customer: Customer) {
     this.currentCust = customer;
   }
-
   getCurrentCustomer() {
     return this.currentCust;
   }

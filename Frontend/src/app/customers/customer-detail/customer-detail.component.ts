@@ -8,6 +8,7 @@ import {Proposition} from '../../propositions/shared/proposition.model';
 import {PropositionService} from '../../propositions/shared/proposition.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {isChangedDate} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools';
 
 @Component({
   selector: 'app-customer-detail',
@@ -17,7 +18,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class CustomerDetailComponent implements OnInit {
 
   modalString: string;
-
+  propTab: string;
+  equipTab: string;
+  visitTab: string;
+  lastPage: string;
 
   customer: Customer;
   editCustomer: Customer;
@@ -36,6 +40,22 @@ export class CustomerDetailComponent implements OnInit {
         this.editCustomer = Object.assign({}, this.customer);
       });
     this.modalString = '';
+    switch (this.customerService.getTab()) {
+      case 1:
+        this.propTab = '1';
+        break;
+      case 2:
+        this.equipTab = '1';
+        break;
+      case 3:
+        // this.propTab = '1';
+        break;
+      case 4:
+        this.visitTab = '1';
+        break;
+    }
+    this.customerService.setTab(0);
+
   }
 
   open(content) {
