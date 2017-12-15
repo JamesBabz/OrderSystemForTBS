@@ -14,7 +14,7 @@
         <label class="center-block">Efternavn:<span style="color: red">*</span>
           <input type="text" class="form-control" formControlName="lastname">
         </label>
-        <label class="center-block">CVR:
+        <label class="center-block">CVR: - <span style="font-style: italic">Henter fra CVR register</span>
           <input type="number" class="form-control no-spin" (blur)="getCvr()" formControlName="cvr">
         </label>
         <label class="center-block">Adresse:
@@ -27,7 +27,7 @@
           <input type="text" class="form-control" formControlName="city">
         </label>
         <label class="center-block">Tlf:
-          <input type="number" class="form-control no-spin" formControlName="phone">
+          <input  class="form-control no-spin" formControlName="phone">
         </label>
         <label class="left">Email:<span style="color: red">*</span>
           <input type="email" class="form-control" formControlName="email">

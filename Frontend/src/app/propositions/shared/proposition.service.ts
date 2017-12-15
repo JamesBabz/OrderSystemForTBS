@@ -79,4 +79,7 @@ export class PropositionService {
   getFileById(id: number): Observable<string> {
     return this.http.get(environment.ApiEndPoint + '/files/' + id);
   }
+  deleteFileById(id: number) {
+    return this.http.delete(environment.ApiEndPoint + '/files/' + id);
+  }
 }

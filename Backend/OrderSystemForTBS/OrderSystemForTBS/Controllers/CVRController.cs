@@ -29,7 +29,7 @@ namespace OrderSystemForTBS.Controllers
         
         // GET api/cvr/5
         [HttpGet("{query}")]
-        public string[] Get(string query)
+        public List<string> Get(string query)
         {
             return _facade.CvrService.GetCompanyInfo(query);
         }
