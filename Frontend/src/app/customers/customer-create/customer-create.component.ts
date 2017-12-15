@@ -42,11 +42,12 @@ export class CustomerCreateComponent implements OnInit {
 
   getCvr(){
 
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({address: res.toString()}));
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({zipCode: res.toString()}));
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({city: res.toString()}));
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({phone: res.toString()}));
-      this.cvrService.getCVR(this.customerGroup.value.cvr).subscribe(res => this.customerGroup.patchValue({email: res.toString()}));
+      this.cvrService.getCVR(this.customerGroup.value.cvr)
+        .subscribe(res => this.customerGroup.patchValue({address: res[2],
+          zipCode: res[4],
+          city: res[3],
+          phone: res[5],
+          email: res[6]}));
     }
 
   getCity() {
@@ -62,7 +63,7 @@ export class CustomerCreateComponent implements OnInit {
       address: values.address,
       zipCode: Number(values.zipCode),
       city: values.city,
-      phone: Number(values.phone),
+      phone: values.phone,
       email: values.email,
       cvr: Number(values.cvr)
     };
