@@ -68,10 +68,18 @@ namespace OrderSystemForTBS.Controllers
             }
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/visits/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int Id)
         {
+            try
+            {
+                return Ok(facade.VisitService.Delete(Id));
+            }
+            catch (InvalidOperationException e)
+            {
+                return StatusCode(404, e.Message);
+            }
         }
     }
 }

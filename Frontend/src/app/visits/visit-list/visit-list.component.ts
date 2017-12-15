@@ -30,11 +30,7 @@ export class VisitListComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.route.paramMap
-      .switchMap(params => this.visitService.getVisitsByCustomerId(+params.get('id')))
-      .subscribe(Visit => this.sortCurrentDate(this.visits = Visit));
-
+   this.refresh();
   }
 
   sortCurrentDate(list: Visit[]) {
@@ -51,6 +47,11 @@ export class VisitListComponent implements OnInit {
         this.addToPastVisits(visit);
       }
     }
+  }
+  refresh() {
+    this.route.paramMap
+      .switchMap(params => this.visitService.getVisitsByCustomerId(+params.get('id')))
+      .subscribe(Visit => this.sortCurrentDate(this.visits = Visit));
   }
 
   addToFutureVisits(visit: Visit) {

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12 title">
       <h3 style="margin:0px">{{visit?.title}}
-        <button class="button" (click)="openModal('edit')"><i class="fa fa-trash" ></i></button>
+        <button class="button" (click)="openModal('delete')"><i class="fa fa-trash" ></i></button>
       <button class="button" (click)="openModal('edit')"><i class="fa fa-pencil" ></i></button>
       </h3>
       <br>
@@ -34,7 +34,7 @@
 
       </div>
       <div class=" input-container col-md-8">
-        <input type="text" class="input"  [(ngModel)]="visit.title" name="title" />
+        <input type="text" class="input" [(ngModel)]="visit.title" name="title" />
         <textarea class="descTextArea"  [(ngModel)]="visit.description" name="description" ></textarea>
       </div>
     </div>
@@ -42,7 +42,7 @@
     <div class="col-md-12 right">
       <button type="button" class="btn btn-outline-success shouldClose" (click)="updateVisit(); closeModal($event)">Gem
       </button>
-      <button type="button" class="btn btn-outline-danger shouldClose" (click)="  closeModal($event)">Anuller
+      <button type="button" class="btn btn-outline-danger shouldClose" (click)=" cancel(); closeModal($event)">Anuller
       </button>
     </div>
   </div>
@@ -50,14 +50,15 @@
 </div>
 <div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
   <div class="myModalContent">
-    <h3>Slet Tilbud</h3>
+    <h3>Slet Besøg</h3>
     <hr>
-    <p>Er du siker på du vil slette dette tilbud?</p>
+    <p>Er du siker på du vil slette dette besøg?</p>
     <hr>
     <div class="right">
-      <button class="btn btn-outline-danger" onclick="this.disabled=true" (click)="deleteVisit()">Slet</button>
+      <button class="btn btn-outline-danger" onclick="this.disabled=true" (click)="delete($event) ">Slet</button>
       <button class="btn btn-outline-secondary shouldClose should" (click)="closeModal($event)">Annuller</button>
     </div>
   </div>
 </div>
+
 
