@@ -22,7 +22,6 @@ namespace BLL.Services
                 client.DefaultRequestHeaders.Add("User-Agent", "mit-navn");
                 string response = client.GetStringAsync("http://cvrapi.dk/api?search=" + query + "&country=DK").Result;
                 Console.WriteLine(response);
-                //response = response.Replace("\"", string.Empty);
                 var result = response.Split(",\"");
 
                 var company = new Company()

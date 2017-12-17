@@ -8,20 +8,23 @@
   <div class="inputsContainer row-md">
     <form (ngSubmit)="createCustomer()" [formGroup]="customerGroup" novalidate>
       <div class="form-group">
+        <label class="center-block">CVR: <span style="font-style: italic">Henter fra CVR register</span>
+          <input type="number" class="form-control no-spin" (blur)="getCvr()" formControlName="cvr">
+        </label>
+        <label class="center-block">Firma-navn:<span style="color: red">*</span>
+          <input type="text"  class="form-control" formControlName="companyname">
+        </label>
         <label class="center-block">Fornavn:<span style="color: red">*</span>
           <input type="text" class="form-control"  formControlName="firstname">
         </label>
         <label class="center-block">Efternavn:<span style="color: red">*</span>
           <input type="text" class="form-control" formControlName="lastname">
         </label>
-        <label class="center-block">CVR: - <span style="font-style: italic">Henter fra CVR register</span>
-          <input type="number" class="form-control no-spin" (blur)="getCvr()" formControlName="cvr">
-        </label>
         <label class="center-block">Adresse:
           <input type="text" class="form-control" formControlName="address">
         </label>
         <label class="center-block">Postnr:
-          <input type="number" class="form-control no-spin" (blur)="getCity()" formControlName="zipCode">
+          <input type="number" class="form-control no-spin" formControlName="zipCode">
         </label>
         <label class="center-block">By:
           <input type="text" class="form-control" formControlName="city">

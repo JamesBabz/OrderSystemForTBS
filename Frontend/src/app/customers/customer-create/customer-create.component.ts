@@ -22,6 +22,7 @@ export class CustomerCreateComponent implements OnInit {
 
   constructor(private customerService: CustomerService, private dawaService: DawaService, private cvrService: CVRService, private router: Router, private formBuilder: FormBuilder) {
     this.customerGroup = this.formBuilder.group({
+      companyname: '',
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       address: '',
@@ -41,23 +42,18 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   getCvr(){
-
       this.cvrService.getCVR(this.customerGroup.value.cvr)
-        .subscribe(res => this.customerGroup.patchValue({address: res[2],
+        .subscribe(res => this.customerGroup.patchValue({companyname: res[1] ,address: res[2],
           zipCode: res[4],
           city: res[3],
           phone: res[5],
           email: res[6]}));
     }
 
-  getCity() {
-    this.dawaService.getCity(this.customerGroup.value.zipCode).subscribe(res => this.customerGroup.patchValue({city: res}));
-    console.log(this.customerGroup.value.city);
-  }
-
   createCustomer() {
     const values = this.customerGroup.value;
     const customer: Customer = {
+
       firstname: values.firstname,
       lastname: values.lastname,
       address: values.address,
@@ -65,7 +61,9 @@ export class CustomerCreateComponent implements OnInit {
       city: values.city,
       phone: values.phone,
       email: values.email,
-      cvr: Number(values.cvr)
+      companyname: values.companyname,
+      cvr: Number(values.cvr),
+
     };
     this.customerService.createCustomer(customer).subscribe(newCustomer => {
       this.router.navigateByUrl('customer/' + newCustomer.id);
