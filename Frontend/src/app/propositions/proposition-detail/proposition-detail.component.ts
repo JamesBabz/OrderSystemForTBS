@@ -27,7 +27,7 @@ export class PropositionDetailComponent implements OnInit {
   fileString: string;
 
   constructor(private propositionService: PropositionService, private router: Router) {
-   setTimeout(() => this.getFileById(), 50);
+   setTimeout(() => this.getFileById(), 500);
   }
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class PropositionDetailComponent implements OnInit {
     this.proposition = this.propositionService.getCurrentProposition();
     this.modalString = '';
     this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
-    this.createFormGroup(this.editedProp);
+    this.createFormGroup(this.proposition);
   }
 
   goBack() {
@@ -108,7 +108,7 @@ export class PropositionDetailComponent implements OnInit {
       .subscribe(prop => {
         prop.employee = this.propositionService.getCurrentProposition().employee,
           this.proposition = prop,
-          this.editedProp = prop;
+          this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
       });
   }
 
