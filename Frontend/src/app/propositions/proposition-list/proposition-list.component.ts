@@ -31,6 +31,7 @@ export class PropositionListComponent implements OnInit {
 
   details(prop: Proposition) {
     this.propositionService.setCurrentProposition(prop);
+    localStorage.setItem('currentCustomerId', this.customer.id.toString());
     this.router.navigateByUrl('/proposition/' + prop.id);
   }
 
