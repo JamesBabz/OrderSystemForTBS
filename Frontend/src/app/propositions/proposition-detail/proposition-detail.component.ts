@@ -34,7 +34,7 @@ export class PropositionDetailComponent implements OnInit {
     this.propositionService.getPropositionsByCustomerId(currCustId).subscribe(prop => this.propositions = prop);
 
     setTimeout(() => this.setProp(), 500);
-    setTimeout(() => this.getFileById(), 50);
+    setTimeout(() => this.getFileById(), 550);
 
   }
 
