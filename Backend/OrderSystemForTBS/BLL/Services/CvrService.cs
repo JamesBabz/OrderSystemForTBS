@@ -19,48 +19,60 @@ namespace BLL.Services
             HttpClient client = new HttpClient();
             try
             {
+                List<string> companyList = new List<string>();
                 client.DefaultRequestHeaders.Add("User-Agent", "mit-navn");
                 string response = client.GetStringAsync("http://cvrapi.dk/api?search=" + query + "&country=DK").Result;
                 Console.WriteLine(response);
-                //response = response.Replace("\"", string.Empty);
                 var result = response.Split(",\"");
+
+                response.Replace("null", "Ugyldigt CVR");
 
                 var company = new Company()
                 {
                     Vat = result[0].Split(":")[1].Replace("\"", String.Empty),
                     Name = result[1].Split(":")[1].Replace("\"", String.Empty),
                     Address = result[2].Split(":")[1].Replace("\"", String.Empty),
-                    ZipCode = int.Parse(result[3].Split(":")[1].Replace("\"", String.Empty)),
+                    ZipCode = result[3].Split(":")[1].Replace("\"", String.Empty),
                     City = result[4].Split(":")[1].Replace("\"", String.Empty),
                     Phone = result[7].Split(":")[1].Replace("\"", String.Empty),
                     Email = result[8].Split(":")[1].Replace("\"", String.Empty),
                 };
 
-                List<string> companyList = new List<string>();
-
+              
                 companyList.Add(company.Vat);
-                companyList.Add(company.Name);
-                companyList.Add(company.Address);
-                companyList.Add(company.City);
-                companyList.Add(company.ZipCode.ToString());
+                companyList.Add(Regex.Unescape(company.Name));
+                companyList.Add(Regex.Unescape(company.Address));
+                companyList.Add(Regex.Unescape(company.City));
+                companyList.Add(company.ZipCode);
                 companyList.Add(company.Phone);
-                companyList.Add(company.Email);
+                companyList.Add(Regex.Unescape(company.Email));
 
                 for (int i = 0; i < companyList.Count; i++)
                 {
                     if (companyList[i] == "null")
                     {
-                        companyList[i] = "Ingen data oplyst";
+                        companyList[i] = "";
                     }
-                }
 
+                }
+ 
                 return companyList;
             }
 
             catch (Exception e)
-            {
+            {           
+                List<string> emptyList = new List<string>();
+
+                emptyList.Add("");
+                emptyList.Add("Ugyldig CVR");
+                emptyList.Add("");
+                emptyList.Add("");
+                emptyList.Add("");
+                emptyList.Add("");
+                emptyList.Add("");
+                
                 Console.WriteLine(e.ToString());
-                return null;
+                return emptyList;
             }
         }
     }
@@ -70,7 +82,7 @@ namespace BLL.Services
         public string Vat { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
-        public int ZipCode { get; set; }
+        public string ZipCode { get; set; }
         public string City { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }

@@ -5,6 +5,7 @@ import {Employee} from '../../login/shared/employee.model';
 import {PropositionService} from '../shared/proposition.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {timeout} from 'q';
 
 @Component({
   selector: 'app-proposition-detail',
@@ -16,6 +17,8 @@ export class PropositionDetailComponent implements OnInit {
   @Input()
   proposition: Proposition;
 
+  propositions: Proposition[];
+
   editedProp: Proposition;
 
   modalString: string;
@@ -24,15 +27,28 @@ export class PropositionDetailComponent implements OnInit {
   fileString: string;
 
   constructor(private propositionService: PropositionService, private router: Router) {
-
   }
 
   ngOnInit() {
-    this.proposition = this.propositionService.getCurrentProposition();
+    const currCustId = Number(localStorage.getItem('currentCustomerId'));
+    this.propositionService.getPropositionsByCustomerId(currCustId).subscribe(prop => this.propositions = prop);
 
+    setTimeout(() => this.setProp(), 500);
+    setTimeout(() => this.getFileById(), 550);
+
+  }
+
+  setProp() {
+    for (let prop of this.propositions) {
+      const pathArray = window.location.pathname.split('/');
+      if (prop.id == Number(pathArray[pathArray.length - 1])) {
+        this.propositionService.setCurrentProposition(prop);
+      }
+    }
+    this.proposition = this.propositionService.getCurrentProposition();
     this.modalString = '';
     this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
-    this.createFormGroup(this.editedProp);
+    this.createFormGroup(this.proposition);
   }
 
   goBack() {
@@ -49,7 +65,6 @@ export class PropositionDetailComponent implements OnInit {
   getEUString(date: Date) {
     return this.propositionService.getCreationDateAsEUString(date);
   }
-
 
 
   openModal(toDo: string) {
@@ -69,10 +84,10 @@ export class PropositionDetailComponent implements OnInit {
       const values = this.editPropGroup.value;
       if (this.editedProp.title !== values.title || this.editedProp.description !== values.description) {
         // sets the temporary object to contain the input values
-      this.editedProp.title = values.title;
-      this.editedProp.description = values.description;
-      this.unsavedChanges = true;
-    }
+        this.editedProp.title = values.title;
+        this.editedProp.description = values.description;
+        this.unsavedChanges = true;
+      }
     } else if (!$event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
       // resets the input values
       this.createFormGroup(this.proposition);
@@ -93,7 +108,7 @@ export class PropositionDetailComponent implements OnInit {
       .subscribe(prop => {
         prop.employee = this.propositionService.getCurrentProposition().employee,
           this.proposition = prop,
-          this.editedProp = prop;
+          this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
       });
   }
 
@@ -104,12 +119,15 @@ export class PropositionDetailComponent implements OnInit {
       file: new FormControl()
     });
   }
+
   getFileById() {
     this.propositionService.getFileById(this.proposition.fileId).subscribe(File => this.fileString = File);
   }
+
   deleteFileById() {
     this.propositionService.deleteFileById(this.proposition.fileId).subscribe();
   }
+
   showFile() {
     console.log(this.fileString);
   }
