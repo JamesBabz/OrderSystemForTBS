@@ -40,24 +40,22 @@ namespace BLL.Services
 
               
                 companyList.Add(company.Vat);
-                companyList.Add(company.Name);
-                companyList.Add(company.Address);
-                companyList.Add(company.City);
+                companyList.Add(Regex.Unescape(company.Name));
+                companyList.Add(Regex.Unescape(company.Address));
+                companyList.Add(Regex.Unescape(company.City));
                 companyList.Add(company.ZipCode);
                 companyList.Add(company.Phone);
-                companyList.Add(company.Email);
+                companyList.Add(Regex.Unescape(company.Email));
 
                 for (int i = 0; i < companyList.Count; i++)
                 {
                     if (companyList[i] == "null")
                     {
-                        companyList[i] = "Ingen data oplyst";
+                        companyList[i] = "";
                     }
 
-                    byte[] bytes = Encoding.Default.GetBytes(companyList[i]);
-                    companyList[i] = Encoding.UTF8.GetString(bytes);
                 }
-
+ 
                 return companyList;
             }
 

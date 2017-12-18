@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Sanitizer} from '@angular/core';
 import {Router} from '@angular/router';
 import {Customer} from '../shared/customer.model';
 import {CustomerService} from '../shared/customer.service';
@@ -42,14 +42,22 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   getCvr(){
-      this.cvrService.getCVR(this.customerGroup.value.cvr)
-        .subscribe(res => this.customerGroup.patchValue(
-          {companyname: res[1],
-            address: res[2],
-          zipCode: res[4],
-          city: res[3],
-          phone: res[5],
-          email: res[6]}));
+
+    if ((<HTMLInputElement>document.getElementsByName('cvr')[0]).value == "")
+    {
+      return;
+    }
+
+    this.cvrService.getCVR(this.customerGroup.value.cvr)
+        .subscribe(res => {
+          this.customerGroup.patchValue(
+            {companyname: res[1],
+              address: res[2],
+              zipCode: res[4],
+              city: res[3],
+              phone: res[5],
+              email: res[6]});
+        });
     }
 
   createCustomer() {
