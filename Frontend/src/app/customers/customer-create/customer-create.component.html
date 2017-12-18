@@ -9,9 +9,11 @@
     <form (ngSubmit)="createCustomer()" [formGroup]="customerGroup" novalidate>
       <div class="form-group">
         <label class="center-block">CVR: <span style="font-style: italic">Henter fra CVR register</span>
-          <input type="number" pattern="[0-9]*" class="form-control no-spin" (blur)="getCvr()" formControlName="cvr">
+
+          <input name="cvr" placeholder="Indtast CVR" type="number" class="form-control no-spin" (blur)="getCvr()" pattern="[0-9]*" formControlName="cvr">
+
         </label>
-        <label class="center-block">Firma-navn:<span style="color: red">*</span>
+        <label class="center-block">Firma-navn:
           <input type="text"  class="form-control" formControlName="companyname">
         </label>
         <label class="center-block">Fornavn:<span style="color: red">*</span>
