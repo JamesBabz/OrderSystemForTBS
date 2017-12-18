@@ -43,7 +43,9 @@ export class CustomerCreateComponent implements OnInit {
 
   getCvr(){
       this.cvrService.getCVR(this.customerGroup.value.cvr)
-        .subscribe(res => this.customerGroup.patchValue({companyname: res[1] ,address: res[2],
+        .subscribe(res => this.customerGroup.patchValue(
+          {companyname: res[1]
+            ,address: res[2],
           zipCode: res[4],
           city: res[3],
           phone: res[5],
