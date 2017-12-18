@@ -8,7 +8,6 @@ import {DawaService} from '../shared/dawa.service';
 import {CVRService} from '../shared/cvr.service';
 
 
-
 @Component({
   selector: 'app-customer-create',
   templateUrl: './customer-create.component.html',
@@ -41,27 +40,34 @@ export class CustomerCreateComponent implements OnInit {
     this.router.navigateByUrl('/customers');
   }
 
-  getCvr(){
+  getCvr() {
 
-    if ((<HTMLInputElement>document.getElementsByName('cvr')[0]).value == "")
-    {
+    if ((<HTMLInputElement>document.getElementsByName('cvr')[0]).value == '') {
       return;
     }
 
     this.cvrService.getCVR(this.customerGroup.value.cvr)
-        .subscribe(res => {
-          this.customerGroup.patchValue(
-            {companyname: res[1],
-              address: res[2],
-              zipCode: res[4],
-              city: res[3],
-              phone: res[5],
-              email: res[6]});
-        });
-    }
+      .subscribe(res => {
+        this.customerGroup.patchValue(
+          {
+            companyname: res[1],
+            address: res[2],
+            zipCode: res[4],
+            city: res[3],
+            phone: res[5],
+            email: res[6]
+          });
+      });
+  }
 
   createCustomer() {
     const values = this.customerGroup.value;
+    let phoneAsNumber;
+    if (values.phone === '') {
+      phoneAsNumber = 0;
+    } else {
+      phoneAsNumber = values.phone;
+    }
     const customer: Customer = {
 
       firstname: values.firstname,
@@ -69,7 +75,7 @@ export class CustomerCreateComponent implements OnInit {
       address: values.address,
       zipCode: Number(values.zipCode),
       city: values.city,
-      phone: values.phone,
+      phone: phoneAsNumber,
       email: values.email,
       companyname: values.companyname,
       cvr: Number(values.cvr),
