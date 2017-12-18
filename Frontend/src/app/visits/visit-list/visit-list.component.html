@@ -8,16 +8,12 @@
   <div class="col-xl-6 col-md-6">
     <p class="headline">Fremtidige besøg</p>
     <div class="VisitListCont">
-
     <app-visit (vDeleted)="refresh()"*ngFor="let visit of futureVisits" [visit]="visit" [employee]="visit.employee" ></app-visit>
-
-
     </div>
   </div>
   <div class="col-xl-6 col-md-6  ">
     <p class="headline">Afsluttede besøg</p>
     <div class="VisitListCont">
-
         <app-visit  (vDeleted)="refresh()"*ngFor="let visit of pastVisits" [visit]="visit" [employee]="visit.employee" ></app-visit>
     </div>
   </div>

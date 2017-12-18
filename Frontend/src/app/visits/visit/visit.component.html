@@ -40,9 +40,9 @@
     </div>
     <div class="row">
     <div class="col-md-12 right">
-      <button type="button" class="btn btn-outline-success shouldClose" (click)="updateVisit(); closeModal($event)">Gem
+      <button type="button" class="btn btn-outline-success shouldClose clickable" (click)="updateVisit(); closeModal($event)">Gem
       </button>
-      <button type="button" class="btn btn-outline-danger shouldClose" (click)=" cancel(); closeModal($event)">Anuller
+      <button type="button" class="btn btn-outline-danger shouldClose clickable" (click)=" cancel(); closeModal($event)">Anuller
       </button>
     </div>
   </div>
@@ -55,8 +55,8 @@
     <p>Er du siker på du vil slette dette besøg?</p>
     <hr>
     <div class="right">
-      <button class="btn btn-outline-danger shouldClose" onclick="this.disabled=true" (click)="delete($event)">Slet</button>
-      <button class="btn btn-outline-secondary shouldClose should" (click)="closeModal($event)">Annuller</button>
+      <button class="btn btn-outline-danger shouldClose clickable" onclick="this.disabled=true" (click)="delete($event)">Slet</button>
+      <button class="btn btn-outline-secondary shouldClose should clickable" (click)="closeModal($event)">Annuller</button>
     </div>
   </div>
 </div>

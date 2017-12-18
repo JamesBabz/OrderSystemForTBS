@@ -4,11 +4,11 @@
     <div class="row">
       <div class="col-md-10">
 
-        <select class="dropdown" name="customerSelector" formControlName="customerSelector">
+        <select class="dropdown clickable" name="customerSelector" formControlName="customerSelector">
           <option value="">Vælg kunde</option>
           <ng-container *ngFor="let cust of customers">
             <ng-container *ngIf="customer != null">
-              <option *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+              <option  *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
               <option selected *ngIf="cust.id == customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}
               </option>
             </ng-container>
@@ -20,12 +20,12 @@
         <div class="col-md-12">
           <input type="text" class="input" placeholder="Titel" name="title" formControlName="title"/>
 
-          <input placeholder="yyyy-mm-dd" class="datepicker"
+          <input placeholder="Dato" class="datepicker "
                  name="dp" [(ngModel)]="model" (navigate)="date = $event.next" formControlName="datePicked"
                  ngbDatepicker #d="ngbDatepicker"/>
 
           <button (click)="d.toggle()" type="button">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <i class="fa fa-calendar clickable" aria-hidden="true"></i>
           </button>
         </div>
         <div class="row marginB5">
@@ -54,9 +54,9 @@
 </div>
 
 <div class="col-md-4">
-  <input class="btn btn-success" type="button" (click)="createVisit()" value="Gem" name="save"
+  <input class="btn btn-success clickable" type="button" (click)="createVisit()" value="Gem" name="save"
          [disabled]="!visitGroup.valid"/>
-  <input class="btn btn-danger" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
+  <input class="btn btn-danger clickable" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
 </div>
 
 
