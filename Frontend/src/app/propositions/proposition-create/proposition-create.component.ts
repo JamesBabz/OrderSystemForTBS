@@ -32,7 +32,8 @@ export class PropositionCreateComponent implements OnInit {
   upLoadedAImage = false;
 
 
-  constructor(private employeeService: EmployeeService, private propositionService: PropositionService, private loginService: LoginService, private customerService: CustomerService, private router: Router) {
+  constructor(private employeeService: EmployeeService, private propositionService: PropositionService,
+              private loginService: LoginService, private customerService: CustomerService, private router: Router) {
 
     this.customer = propositionService.getCurrentCustomer();
     customerService.getCustomers().subscribe(Customers => this.customers = Customers);
@@ -61,8 +62,7 @@ export class PropositionCreateComponent implements OnInit {
   }
 
   createNewProposition() {
-    this.upLoadFileId = Math.max.apply( null, this.fileIds) + 1;
-
+    this.upLoadFileId = Math.max.apply(null, this.fileIds) + 1;
 
 
     const values = this.createPropFormGroup.value;
@@ -78,7 +78,7 @@ export class PropositionCreateComponent implements OnInit {
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
         newProp.employee = this.employee,
-        this.propositionService.setCurrentProposition(newProp);
+          this.propositionService.setCurrentProposition(newProp);
         this.router.navigateByUrl('proposition/' + newProp.id);
       });
     if (this.upLoadedAImage) {
