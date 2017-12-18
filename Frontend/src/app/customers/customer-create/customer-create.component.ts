@@ -62,11 +62,11 @@ export class CustomerCreateComponent implements OnInit {
 
   createCustomer() {
     const values = this.customerGroup.value;
-    let phoneFix;
+    let phoneAsNumber;
     if (values.phone === '') {
-      phoneFix = 0;
+      phoneAsNumber = 0;
     } else {
-      phoneFix = values.phone;
+      phoneAsNumber = values.phone;
     }
     const customer: Customer = {
 
@@ -75,7 +75,7 @@ export class CustomerCreateComponent implements OnInit {
       address: values.address,
       zipCode: Number(values.zipCode),
       city: values.city,
-      phone: phoneFix,
+      phone: phoneAsNumber,
       email: values.email,
       companyname: values.companyname,
       cvr: Number(values.cvr),
