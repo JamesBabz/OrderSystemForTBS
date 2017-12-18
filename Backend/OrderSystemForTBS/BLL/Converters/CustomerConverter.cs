@@ -12,6 +12,7 @@ namespace BLL.Converters
                 return new Customer()
                 {
                     Id = cust.Id,
+                    CompanyName = cust.CompanyName,
                     Firstname = cust.Firstname,
                     Lastname = cust.Lastname,
                     Address = cust.Address,
@@ -31,6 +32,7 @@ namespace BLL.Converters
             return new CustomerBO()
             {
                 Id = cust.Id,
+                CompanyName = cust.CompanyName,
                 Firstname = cust.Firstname,
                 Lastname = cust.Lastname,
                 Address = cust.Address,

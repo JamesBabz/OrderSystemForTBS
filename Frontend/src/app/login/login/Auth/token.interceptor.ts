@@ -43,6 +43,7 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     // setting the accept header
+    req = req.clone({headers: req.headers.set('', 'application/json')});
 
     req = req.clone({headers: req.headers.set('Accept', 'application/json')});
     return next.handle(req);
