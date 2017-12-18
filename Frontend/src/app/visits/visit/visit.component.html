@@ -34,8 +34,8 @@
 
       </div>
       <div class=" input-container col-md-8">
-        <input type="text" class="input" [(ngModel)]="visit.title" name="title" />
-        <textarea class="descTextArea"  [(ngModel)]="visit.description" name="description" ></textarea>
+        <input type="text" class="input" [value]="visit.title"  (input)="inputTitle=$event.target.value" name="title" />
+        <textarea class="descTextArea"  [value]="visit.description"  (input)="inputDescription=$event.target.value" name="description" ></textarea>
       </div>
     </div>
     <div class="row">
@@ -55,7 +55,7 @@
     <p>Er du siker på du vil slette dette besøg?</p>
     <hr>
     <div class="right">
-      <button class="btn btn-outline-danger" onclick="this.disabled=true" (click)="delete($event) ">Slet</button>
+      <button class="btn btn-outline-danger shouldClose" onclick="this.disabled=true" (click)="delete($event)">Slet</button>
       <button class="btn btn-outline-secondary shouldClose should" (click)="closeModal($event)">Annuller</button>
     </div>
   </div>

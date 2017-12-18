@@ -11,7 +11,8 @@ import {Employee} from '../../login/shared/employee.model';
 })
 
 export class VisitComponent implements OnInit {
-
+  inputTitle: string;
+  inputDescription: string;
   editVisit: Visit;
   modalString: string;
   @Input()
@@ -34,6 +35,12 @@ export class VisitComponent implements OnInit {
     this.editVisit = Object.assign({}, this.visit);
   }
   updateVisit() {
+    if (this.inputTitle) {
+      this.visit.title = this.inputTitle;
+    }
+    if (this.inputDescription) {
+      this.visit.description = this.inputDescription;
+    }
     this.visitService.updateVisit(this.visit.id, this.visit).subscribe(Visit => this.visit = Visit);
   }
   deleteVisit() {
