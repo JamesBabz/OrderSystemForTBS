@@ -44,8 +44,8 @@ export class CustomerCreateComponent implements OnInit {
   getCvr(){
       this.cvrService.getCVR(this.customerGroup.value.cvr)
         .subscribe(res => this.customerGroup.patchValue(
-          {companyname: res[1]
-            ,address: res[2],
+          {companyname: res[1],
+            address: res[2],
           zipCode: res[4],
           city: res[3],
           phone: res[5],
@@ -65,8 +65,8 @@ export class CustomerCreateComponent implements OnInit {
       email: values.email,
       companyname: values.companyname,
       cvr: Number(values.cvr),
-
     };
+
     this.customerService.createCustomer(customer).subscribe(newCustomer => {
       this.router.navigateByUrl('customer/' + newCustomer.id);
     });
