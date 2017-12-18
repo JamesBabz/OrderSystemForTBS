@@ -81,6 +81,12 @@ body {
   overflow: hidden!important;
 }
 
+.fc-clear{
+  clear: none!important;
+}
+
+
+
 
 
 
