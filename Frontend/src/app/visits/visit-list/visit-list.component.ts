@@ -15,7 +15,7 @@ import {parseTime} from 'ngx-bootstrap/timepicker/timepicker.utils';
 export class VisitListComponent implements OnInit {
 
 
-  @Input()
+
   visits: Visit[];
   @Input()
   customer: Customer;
@@ -30,15 +30,12 @@ export class VisitListComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.route.paramMap
       .switchMap(params => this.visitService.getVisitsByCustomerId(+params.get('id')))
       .subscribe(Visit => this.sortCurrentDate(this.visits = Visit));
-
-  }
+}
 
   sortCurrentDate(list: Visit[]) {
-
     var today = new Date();
     var currentDate = new Date(today.getTime());
     for (let visit of list) {
@@ -46,20 +43,25 @@ export class VisitListComponent implements OnInit {
       var dateFromVisit = new Date(date.getTime());
 
       if (dateFromVisit > currentDate) {
-        this.addToFutureVisits(visit);
+        this.futureVisits.push(visit);
       } else {
-        this.addToPastVisits(visit);
+        this.pastVisits.push(visit);
       }
     }
   }
+  refresh() {
+this.popAList(this.pastVisits);
+this.popAList(this.futureVisits);
+    this.route.paramMap
+      .switchMap(params => this.visitService.getVisitsByCustomerId(+params.get('id')))
+      .subscribe(Visit => this.sortCurrentDate(this.visits = Visit));
 
-  addToFutureVisits(visit: Visit) {
-    this.futureVisits.push(visit);
   }
-
-  addToPastVisits(visit: Visit) {
-    this.pastVisits.push(visit);
+popAList(list: any) {
+  for (let i = 0; list.length; i++) {
+    list.pop();
   }
+}
   createVisit() { this.visitService.setCurrentCustomer(this.customer);
     this.router.navigateByUrl('visits/create');
   }

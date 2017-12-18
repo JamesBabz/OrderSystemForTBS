@@ -31,8 +31,8 @@ export class VisitService {
   updateVisit(id: number, visit: Visit): Observable<Visit> {
     return this.http.put<Visit>(url + id, visit);
   }
-  deleteVisit(id: number){
-    return this.http.delete(url + id);
+  deleteVisit(id: number): Observable<Visit> {
+    return this.http.delete<Visit>(url + id);
   }
 
   getDateAsEUString(date: Date) {
