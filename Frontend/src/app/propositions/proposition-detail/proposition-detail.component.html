@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-md-4 addBtnRow">
-    <button class="addBtn" (click)="goBack()">Tilbage til tilbud</button>
+    <button class="addBtn clickable" (click)="goBack()">Tilbage til tilbud</button>
   </div>
   <div class="col-md-1 offset-md-7">
-    <button class="btn-link" (click)="openModal('edit')">Redigér tilbud</button>
-    <button class="btn-link" (click)="openModal('delete')">Slet</button>
+    <button class="btn-link clickable" (click)="openModal('edit')">Redigér tilbud</button>
+    <button class="btn-link clickable" (click)="openModal('delete')">Slet</button>
   </div>
 </div>
 <hr/>
@@ -26,12 +26,12 @@
       {{proposition.description}}
     </p>
   </div>
-  <div style="text-align: center" *ngIf="fileString">
-    <img  [src]="'data:image/jpg;base64,'+fileString"/>
-  </div>
+</div>
+<div style="text-align: center" *ngIf="fileString">
+  <img  [src]="'data:image/jpg;base64,'+fileString"/>
 </div>
 
-<div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
+<div class="myModal shouldClose clickable" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
   <div class="myModalContent">
     <h3>Slet Tilbud</h3>
     <hr>
@@ -71,8 +71,8 @@
       <strong class="unsavedChangesText"> Ændringer er ikke gemt*</strong>
     </div>
     <div class="right">
-      <button class="btn btn-outline-success shouldClose shouldKeepInput" (click)="save($event)">Gem</button>
-      <button class="btn btn-outline-secondary shouldClose" (click)="closeModal($event)">Annuller</button>
+      <button class="btn btn-outline-success shouldClose shouldKeepInput clickable" (click)="save($event)">Gem</button>
+      <button class="btn btn-outline-secondary shouldClose clickable" (click)="closeModal($event)">Annuller</button>
     </div>
     </div>
   </div>
