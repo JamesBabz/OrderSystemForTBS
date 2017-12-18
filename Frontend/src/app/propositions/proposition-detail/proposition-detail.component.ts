@@ -5,6 +5,7 @@ import {Employee} from '../../login/shared/employee.model';
 import {PropositionService} from '../shared/proposition.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {timeout} from 'q';
 
 @Component({
   selector: 'app-proposition-detail',
@@ -24,6 +25,7 @@ export class PropositionDetailComponent implements OnInit {
   fileString: string;
 
   constructor(private propositionService: PropositionService, private router: Router) {
+   setTimeout(() => this.getFileById(), 50);
 
   }
 

@@ -50,14 +50,18 @@ export class VisitListComponent implements OnInit {
     }
   }
   refresh() {
-    this.futureVisits.pop();
-    this.pastVisits.pop();
+this.popAList(this.pastVisits);
+this.popAList(this.futureVisits);
     this.route.paramMap
       .switchMap(params => this.visitService.getVisitsByCustomerId(+params.get('id')))
       .subscribe(Visit => this.sortCurrentDate(this.visits = Visit));
 
   }
-
+popAList(list: any) {
+  for (let i = 0; list.length; i++) {
+    list.pop();
+  }
+}
   createVisit() { this.visitService.setCurrentCustomer(this.customer);
     this.router.navigateByUrl('visits/create');
   }
