@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BLL;
 using BLL.BusinessObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class EquipmentsController : Controller
     {
         private IBLLFacade facade;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
 namespace OrderSystemForTBS.Controllers
@@ -22,6 +22,7 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class FilesController : Controller
     {
         private IBLLFacade facade;
