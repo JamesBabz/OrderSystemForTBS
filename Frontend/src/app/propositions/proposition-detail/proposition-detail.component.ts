@@ -27,7 +27,6 @@ export class PropositionDetailComponent implements OnInit {
   fileString: string;
 
   constructor(private propositionService: PropositionService, private router: Router) {
-   setTimeout(() => this.getFileById(), 500);
   }
 
   ngOnInit() {
@@ -35,6 +34,7 @@ export class PropositionDetailComponent implements OnInit {
     this.propositionService.getPropositionsByCustomerId(currCustId).subscribe(prop => this.propositions = prop);
 
     setTimeout(() => this.setProp(), 500);
+    setTimeout(() => this.getFileById(), 550);
 
   }
 
