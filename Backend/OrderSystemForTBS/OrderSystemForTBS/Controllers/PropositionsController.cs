@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BLL;
 using BLL.BusinessObjects;
 using BLL.Facade;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OrderSystemForTBS.Controllers
@@ -14,6 +15,7 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class PropositionsController : Controller
     {
         private IBLLFacade _facade;
