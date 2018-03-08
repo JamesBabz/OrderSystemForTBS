@@ -28,7 +28,7 @@ namespace OrderSystemForTBS.Controllers
 
         // Connect to Azure
         static string storageConnectionString =
-                "DefaultEndpointsProtocol=https;AccountName=thom953b;AccountKey=0VQ3Mi5N2NCA5IWykeZltouBC6h0Pn+DOfy7rNXZlLYW/K9NwbMHXmTgMp1eOdDvq5iYeHk0l3gM/j0i1J/lQQ==;EndpointSuffix=core.windows.net"
+                "DefaultEndpointsProtocol=https;AccountName=thom953b;AccountKey=oRR2tpbn654CPAdG5kDqPN2jSVxzfI4nm8xTj4qwNsXNN8p4I/v24pY8bVjdlcMDEZVakYMlTPWnXr4hXp3MkQ==;EndpointSuffix=core.windows.net"
             ;
 
         static CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
@@ -36,7 +36,7 @@ namespace OrderSystemForTBS.Controllers
         static CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
         // get the reference to the container where all images a storaged
-        CloudBlobContainer container = blobClient.GetContainerReference("photos");
+        CloudBlobContainer container = blobClient.GetContainerReference("files");
 
         public FilesController(IBLLFacade facade)
         {
@@ -52,7 +52,7 @@ namespace OrderSystemForTBS.Controllers
         [HttpGet("{id}")]
         public async Task<string> Get(int id)
         {
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.png");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.pdf");
 
             // Sets all files on storage in the list
             var listBlobItems = await container.ListBlobsSegmentedAsync(
@@ -100,7 +100,7 @@ namespace OrderSystemForTBS.Controllers
             int id = this.facade.PropositionService.allFileIds().Max() + 1;
 
             // Get a reference to a blob  
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.png");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.pdf");
 
             // Convert base 64 string to byte[]
             byte[] imageBytes = Convert.FromBase64String(file);
@@ -115,7 +115,7 @@ namespace OrderSystemForTBS.Controllers
         {
             try
             {
-                CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.png");
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.pdf");
 
                 return this.Ok(blockBlob.DeleteAsync());
             }

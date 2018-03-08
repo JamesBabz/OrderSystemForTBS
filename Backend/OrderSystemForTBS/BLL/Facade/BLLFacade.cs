@@ -13,12 +13,14 @@ namespace BLL.Facade
     {
         private IDALFacade facade;
 
-        public BLLFacade() => facade = new DALFacade(
-                                  new DbOptions()
-                                      {
-                                          Environment =
-                                              Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
-                                      });
+//        public BLLFacade() => facade = new DALFacade(
+//                                  new DbOptions()
+//                                      {
+//                                          Environment =
+//                                              Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
+//                                      });
+
+        public BLLFacade() => facade = new DALFacade();
 
         public CustomerService CustomerService
         {

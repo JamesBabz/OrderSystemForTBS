@@ -25,11 +25,11 @@ namespace DAL.UOW
         public UnitOfWork(OrderSystemContext context)
         {
             this.context = context;
-            CustomerRepository = new CustomerRepository(this.context);
-            EmployeeRepository = new EmployeeRepository(this.context);
-            PropositionRepository = new PropositionRepository(this.context);
-            EquipmentRepository = new EquipmentRepository(this.context);
-            VisitRepository = new VisitRepository(this.context);
+            this.CustomerRepository = new CustomerRepository(this.context);
+            this.EmployeeRepository = new EmployeeRepository(this.context);
+            this.PropositionRepository = new PropositionRepository(this.context);
+            this.EquipmentRepository = new EquipmentRepository(this.context);
+            this.VisitRepository = new VisitRepository(this.context);
 
             // context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
