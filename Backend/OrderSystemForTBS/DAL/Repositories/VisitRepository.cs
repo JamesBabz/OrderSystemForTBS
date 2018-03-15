@@ -34,7 +34,7 @@ namespace DAL.Repositories
 
         public IEnumerable<Visit> GetAll()
         {
-            return _context.Visits.ToList();
+            return _context.Visits.Include(visit => visit.Customer).Include(visit => visit.Employee).ToList();
         }
 
         public Visit Delete(int id)
