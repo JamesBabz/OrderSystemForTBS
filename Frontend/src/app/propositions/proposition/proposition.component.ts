@@ -28,4 +28,16 @@ export class PropositionComponent implements OnInit {
     return this.propositionService.getCreationDateAsEUString(date);
   }
 
+  getFileById() {
+    this.propositionService.getFileById(this.proposition.fileId).subscribe(File => this.openPdf(File) );
+  }
+
+  openPdf(base64: string) {
+    var windo = window.open('q', '');
+    var objbuilder = '';
+    objbuilder += ('<embed width=\'100%\' height=\'100%\'  src="data:application/pdf;base64,');
+    objbuilder += (base64);
+    objbuilder += ('" type="application/pdf" />');
+    windo.document.write(objbuilder);
+  }
 }

@@ -8,7 +8,7 @@
     <ng-container *ngFor="let prop of propositions; let i = index">
       <div class="clearfix" *ngIf="i % 4 == 0"><br></div>
       <div class="col-xl-3 col-md-6">
-        <app-proposition (click)="details(prop)" [proposition]="prop" [employee]="prop.employee"></app-proposition>
+        <app-proposition  [proposition]="prop" [employee]="prop.employee"></app-proposition>
       </div>
     </ng-container>
   </div>
