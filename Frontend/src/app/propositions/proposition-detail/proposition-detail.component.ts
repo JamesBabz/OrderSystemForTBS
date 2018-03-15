@@ -131,19 +131,6 @@ export class PropositionDetailComponent implements OnInit {
     this.propositionService.deleteFileById(this.proposition.fileId).subscribe();
   }
 
-  showFile() {
-    console.log(this.fileString);
-  }
-
-  openPdf() {
-    var windo = window.open('', '');
-    var objbuilder = '';
-    objbuilder += ('<embed width=\'100%\' height=\'100%\'  src="data:application/pdf;base64,');
-    objbuilder += (this.fileString);
-    objbuilder += ('" type="application/pdf" />');
-    windo.document.write(objbuilder);
-  }
-
 
 
 

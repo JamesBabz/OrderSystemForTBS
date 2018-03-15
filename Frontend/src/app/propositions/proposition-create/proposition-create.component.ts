@@ -63,7 +63,7 @@ export class PropositionCreateComponent implements OnInit {
 
   createNewProposition() {
     this.upLoadFileId = Math.max.apply(null, this.fileIds) + 1;
-
+    const timeStamp =  Math.floor(Date.now() / 10000);
 
     const values = this.createPropFormGroup.value;
     this.customerService.getCustomerById(Number(values.customerSelector)).subscribe(cust => this.selectedCust = cust);
@@ -73,7 +73,7 @@ export class PropositionCreateComponent implements OnInit {
       creationDate: new Date(),
       customerId: Number(values.customerSelector),
       employeeId: this.employee.id,
-      fileId: this.upLoadFileId
+      fileId: timeStamp
     };
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
@@ -81,8 +81,9 @@ export class PropositionCreateComponent implements OnInit {
           this.propositionService.setCurrentProposition(newProp);
         this.router.navigateByUrl('proposition/' + newProp.id);
       });
+    console.log(Date.now());
     if (this.upLoadedAImage) {
-      this.propositionService.upLoadImage(this.base64textString).subscribe();
+      this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
     }
   }
 
