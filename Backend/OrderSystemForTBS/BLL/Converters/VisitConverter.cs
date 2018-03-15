@@ -10,9 +10,16 @@ namespace BLL.Converters
 
     public class VisitConverter
     {
-        CustomerConverter custConv = new CustomerConverter();
+        private CustomerConverter _custConv;
 
-        EmployeeConverter empConv = new EmployeeConverter();
+        private EmployeeConverter _empConv;
+
+        public VisitConverter()
+        {
+            _custConv = new CustomerConverter();
+            _empConv = new EmployeeConverter();
+
+        }
 
         public Visit Convert(VisitBO visit)
         {
@@ -30,9 +37,9 @@ namespace BLL.Converters
                                DateTimeOfVisitStart = visit.DateTimeOfVisitStart,
                                DateTimeOfVisitEnd = visit.DateTimeOfVisitEnd,
                                CustomerId = visit.CustomerId,
-                               Customer = this.custConv.Convert(visit.Customer),
+                               Customer = _custConv.Convert(visit.Customer),
                                EmployeeId = visit.EmployeeId,
-                               Employee = this.empConv.Convert(visit.Employee)
+                               Employee = _empConv.Convert(visit.Employee)
                            };
             }
         }
@@ -53,9 +60,9 @@ namespace BLL.Converters
                            DateTimeOfVisitStart = visit.DateTimeOfVisitStart,
                            DateTimeOfVisitEnd = visit.DateTimeOfVisitEnd,
                            CustomerId = visit.CustomerId,
-                           Customer = this.custConv.Convert(visit.Customer),
+                           Customer = _custConv.Convert(visit.Customer),
                            EmployeeId = visit.EmployeeId,
-                           Employee = this.empConv.Convert(visit.Employee)
+                           Employee = _empConv.Convert(visit.Employee)
                        };
         }
     }

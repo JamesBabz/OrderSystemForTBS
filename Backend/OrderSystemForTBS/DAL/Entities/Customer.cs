@@ -5,7 +5,7 @@ using System.Text;
 namespace DAL.Entities
 {
 
-    public class Customer : IEntity
+    public class Customer 
     {
         public int Id { get; set; }
         public string CompanyName { get; set; }

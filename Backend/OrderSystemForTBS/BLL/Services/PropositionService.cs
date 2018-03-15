@@ -43,6 +43,7 @@ namespace BLL.Services
             }
         }
 
+        // TODO is this needed?
         public List<int> allFileIds()
         {
             using (var uow = this.facade.UnitOfWork)
@@ -55,6 +56,7 @@ namespace BLL.Services
         {
             using (var uow = facade.UnitOfWork)
             {
+                // gets prop from DB that matches the id
                 var propFromDb = uow.PropositionRepository.Get(bo.Id);
                 propFromDb.Title = bo.Title;
                 propFromDb.Description = bo.Description;

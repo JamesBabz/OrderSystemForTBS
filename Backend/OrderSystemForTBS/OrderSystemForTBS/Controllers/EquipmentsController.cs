@@ -15,29 +15,30 @@ namespace OrderSystemForTBS.Controllers
     [Route("api/[controller]")]
     public class EquipmentsController : Controller
     {
-        private IBLLFacade facade;
+        private IBLLFacade _facade;
 
         public EquipmentsController(IBLLFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
         }
 
         // GET: api/Equipment/5
         [HttpGet("{id}")]
         public IEnumerable<EquipmentBO> Get(int Id)
         {
-            return facade.EquipmentService.GetAllById(Id);
+            return _facade.EquipmentService.GetAllById(Id);
         }
 
         // POST: api/Equipments
         [HttpPost]
         public IActionResult Post([FromBody]EquipmentBO equip)
         {
+            //TODO modeltate is not used
             if (!ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return BadRequest(ModelState);
             }
-            return this.Ok(this.facade.EquipmentService.Create(equip));
+            return Ok(_facade.EquipmentService.Create(equip));
         }
 
         // PUT: api/Equipment/5
@@ -50,7 +51,7 @@ namespace OrderSystemForTBS.Controllers
             }
             try
             {
-                return Ok(facade.EquipmentService.Update(equip));
+                return Ok(_facade.EquipmentService.Update(equip));
             }
             catch (InvalidOperationException e)
             {
@@ -64,7 +65,7 @@ namespace OrderSystemForTBS.Controllers
         {
             try
             {
-                return Ok(facade.EquipmentService.Delete(Id));
+                return Ok(_facade.EquipmentService.Delete(Id));
             }
             catch (InvalidOperationException e)
             {

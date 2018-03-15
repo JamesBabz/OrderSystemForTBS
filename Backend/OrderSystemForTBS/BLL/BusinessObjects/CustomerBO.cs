@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BLL.BusinessObjects
 {
-    public class CustomerBO : IBusinessObject
+    public class CustomerBO 
     {
         public int Id { get; set; }
         public string CompanyName { get; set; }

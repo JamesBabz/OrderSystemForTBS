@@ -23,20 +23,12 @@ namespace OrderSystemForTBS.Controllers
             _facade = facade;
         }
 
-        // GET api/Propositions
-        [HttpGet]
-        public IEnumerable<PropositionBO> Get()
-        {
-            return null;
-        }
-
         // GET api/Propositions/5
         [HttpGet("{id}")]
         public IEnumerable<PropositionBO> Get(int id)
         {
             return _facade.PropositionService.GetAllById(id);
         }
-        
 
         // POST api/Propositions
         [HttpPost]
@@ -71,6 +63,7 @@ namespace OrderSystemForTBS.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            //TODO why modelState?
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

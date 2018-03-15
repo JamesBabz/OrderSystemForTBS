@@ -15,24 +15,27 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace OrderSystemForTBS.Controllers
 {
+    //TODO maybe a new service connected to this controller
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/Login")]
     public class LoginController : Controller
     {
-        IBLLFacade facade;
-        private EmployeeConverter employeeConverter = new EmployeeConverter();
+        IBLLFacade _facade;
+
+        private EmployeeConverter _employeeConverter;
 
         public LoginController(IBLLFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
+            _employeeConverter = new EmployeeConverter();
         }
 
         
         [HttpPost]
         public IActionResult Login([FromBody]LoginInput LoginInput)
         {
-            var user = facade.EmployeeService.GetAll().FirstOrDefault(u => u.Username == LoginInput.Username);
+            var user = _facade.EmployeeService.GetAll().FirstOrDefault(u => u.Username == LoginInput.Username);
             
             // check if username exists
             if (user == null)
@@ -47,7 +50,7 @@ namespace OrderSystemForTBS.Controllers
             {
                 id = user.Id,
                 username = user.Username,
-                token = GenerateToken(employeeConverter.Convert(user)),             
+                token = GenerateToken(_employeeConverter.Convert(user)),             
             });
         }
         

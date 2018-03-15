@@ -30,6 +30,7 @@ namespace DAL.Repositories
 
         }
 
+        // TODO not used
         public IEnumerable<Employee> GetAll(int id)
         {
             throw new NotImplementedException();

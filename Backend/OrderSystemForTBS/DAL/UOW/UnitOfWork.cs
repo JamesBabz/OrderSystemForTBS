@@ -21,7 +21,6 @@ namespace DAL.UOW
 
         public OrderSystemContext context;
 
-        // private static DbContextOptions<CustomerProjectContext> optionsStatic;
         public UnitOfWork(OrderSystemContext context)
         {
             this.context = context;
@@ -31,7 +30,6 @@ namespace DAL.UOW
             this.EquipmentRepository = new EquipmentRepository(this.context);
             this.VisitRepository = new VisitRepository(this.context);
 
-            // context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         }
 

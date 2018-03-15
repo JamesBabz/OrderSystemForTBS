@@ -40,6 +40,7 @@ namespace DAL.Repositories
             return equipment;
         }
 
+        //Get all by ID
         public IEnumerable<Equipment> GetAll(int id)
         {
             return _context.Equipments.Include(equip => equip.Customer).Where(x => x.CustomerId == id).ToList();

@@ -8,9 +8,15 @@ namespace BLL.Converters
 {
     class PropositionConverter
     {
+        private CustomerConverter custConv;
 
-        CustomerConverter custConv = new CustomerConverter();
-        EmployeeConverter empConv = new EmployeeConverter();
+        private EmployeeConverter empConv;
+
+        public PropositionConverter()
+        {
+            custConv = new CustomerConverter();
+            empConv = new EmployeeConverter();
+        }
 
         public Proposition Convert(PropositionBO prop)
         {

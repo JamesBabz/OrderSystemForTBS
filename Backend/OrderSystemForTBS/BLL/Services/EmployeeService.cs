@@ -11,36 +11,46 @@ namespace BLL.Services
 {
     public class EmployeeService : IService<EmployeeBO>
     {
-        private IDALFacade facade;
-        private EmployeeConverter employeeConverter = new EmployeeConverter();
-        private Employee newEmployee;
+        private IDALFacade _facade;
+
+        private EmployeeConverter _employeeConverter;
+        private Employee _newEmployee;
 
         public EmployeeService(IDALFacade facade)
         {
-            this.facade = facade;
+            _employeeConverter = new EmployeeConverter();
+            _facade = facade;
         }
 
+        
+        /// <summary>
+        /// Create an employee with password hash and salt
+        /// </summary>
+        /// <param name="employee"> EmployeeBO to create</param>
+        /// <returns> new EmployeeBO</returns>
         public EmployeeBO Create(EmployeeBO employee)
         {
             string password;
             byte[] passwordHash, passwordSalt;
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
                 password = employee.Password;
-                newEmployee = uow.EmployeeRepository.Create(employeeConverter.Convert(employee));
+                _newEmployee = uow.EmployeeRepository.Create(_employeeConverter.Convert(employee));
                 PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-                newEmployee.PasswordHash = passwordHash;
-                newEmployee.PasswordSalt = passwordSalt;
+                _newEmployee.PasswordHash = passwordHash;
+                _newEmployee.PasswordSalt = passwordSalt;
                 uow.Complete();
-                return employeeConverter.Convert(newEmployee);
+                return _employeeConverter.Convert(_newEmployee);
             }
         }
 
+        // TODO remove 
         public EmployeeBO Delete(int Id)
         {
             throw new NotImplementedException();
         }
 
+        // TODO remove
         public List<EmployeeBO> GetAllById(int customerId)
         {
             throw new NotImplementedException();
@@ -48,22 +58,23 @@ namespace BLL.Services
 
         public EmployeeBO Get(int Id)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
-                newEmployee = uow.EmployeeRepository.Get(Id);
+                _newEmployee = uow.EmployeeRepository.Get(Id);
                 uow.Complete();
-                return employeeConverter.Convert(newEmployee);
+                return _employeeConverter.Convert(_newEmployee);
             }
         }
 
         public List<EmployeeBO> GetAll()
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
-                return uow.EmployeeRepository.GetAll().Select(employeeConverter.Convert).ToList();
+                return uow.EmployeeRepository.GetAll().Select(_employeeConverter.Convert).ToList();
             }
         }
 
+        //TODO remove
         public EmployeeBO Update(EmployeeBO bo)
         {
             throw new NotImplementedException();

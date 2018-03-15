@@ -44,6 +44,7 @@ namespace DAL.Repositories
             return visit;
         }
 
+        //new name
         public IEnumerable<Visit> GetAll(int id)
         {
             return _context.Visits.Include(visit => visit.Customer).Include(visit => visit.Employee)

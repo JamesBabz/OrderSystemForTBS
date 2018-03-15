@@ -26,8 +26,6 @@ namespace DAL.Repositories
 
         public IEnumerable<Proposition> GetAll(int id)
         {
-            //return _context.Propositions.Include(prop => prop.Customer).ToList();
-            //return _context.Propositions.Include(prop => prop.Customer).Include(prop => prop.Employee).OrderByDescending(x => x.CreationDate).ToList();
             return _context.Propositions.Include(prop => prop.Customer).Include(prop => prop.Employee).OrderByDescending(x => x.CreationDate).Where(x => x.CustomerId == id).ToList();
         }
 
@@ -43,6 +41,7 @@ namespace DAL.Repositories
             return prop;
         }
 
+        // Is this needed?
         public List<int> getFileIds()
         {
             List<int> ids = new List<int>();
@@ -54,17 +53,8 @@ namespace DAL.Repositories
             if (ids.Count.Equals(0))
             {
                 ids.Add(0);
-                return ids;
-                
             }
-            else {
-                return ids;
-            }
+            return ids;
         }
-
-        //public IEnumerable<Proposition> GetAllPropositionsByCustomerId(int id)
-        //{
-        //    return _context.Propositions.Include(prop => prop.CustomerId).Include(prop => prop.EmployeeId).ToList();
-        //}
     }
 }

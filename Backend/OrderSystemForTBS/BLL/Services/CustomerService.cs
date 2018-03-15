@@ -12,53 +12,55 @@ namespace BLL.Services
 {
     public class CustomerService : ICustomerService
     {
-        private IDALFacade facade;
+        private IDALFacade _facade;
 
-        private CustomerConverter custConv = new CustomerConverter();
+        private CustomerConverter _custConv;
 
-        private Customer newCustomer;
+        private Customer _newCustomer;
 
         public CustomerService(IDALFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
+            _custConv = new CustomerConverter();
         }
 
         public CustomerBO Create(CustomerBO cust)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
-                newCustomer = uow.CustomerRepository.Create(custConv.Convert(cust));
+                _newCustomer = uow.CustomerRepository.Create(_custConv.Convert(cust));
                 uow.Complete();
-                return custConv.Convert(newCustomer);
+                return _custConv.Convert(_newCustomer);
             }
         }
 
         public List<CustomerBO> GetAll()
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
-                return uow.CustomerRepository.GetAll().Select(custConv.Convert).OrderBy(cust => cust.Firstname)
+                return uow.CustomerRepository.GetAll().Select(_custConv.Convert).OrderBy(cust => cust.Firstname)
                     .ToList();
             }
         }
 
         public CustomerBO Get(int id)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
-                newCustomer = uow.CustomerRepository.Get(id);
+                _newCustomer = uow.CustomerRepository.Get(id);
                 uow.Complete();
-                return custConv.Convert(newCustomer);
+                return _custConv.Convert(_newCustomer);
             }
         }
 
+        // TODO Maybe a better way?
         public List<CustomerBO> GetAllBySearchQuery(string query)
         {
             var queryList = query.Split(" ");
 
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
-                return uow.CustomerRepository.GetAll()
+                return uow.CustomerRepository.GetAll() // static maybe??
                     .Where(
                         customer => customer.Firstname.ToUpper().Contains(query.ToUpper())
                                     || customer.Lastname.ToUpper().Contains(query.ToUpper())
@@ -69,18 +71,17 @@ namespace BLL.Services
                                     || customer.Lastname.ToUpper().Contains(queryList.GetValue(0).ToString().ToUpper())
                                     && customer.Firstname.ToUpper()
                                         .Contains(queryList.GetValue(1).ToString().ToUpper()))
-                    .Select(customer => this.custConv.Convert(customer)).OrderBy(customer => customer.Firstname)
+                    .Select(customer => _custConv.Convert(customer)).OrderBy(customer => customer.Firstname)
                     .ToList();
             }
         }
 
         public CustomerBO Update(CustomerBO cust)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
                 var customerFromDb = uow.CustomerRepository.Get(cust.Id);
 
-                // customerFromDb.customerId = cust.customerId;
                 customerFromDb.Firstname = cust.Firstname;
                 customerFromDb.Lastname = cust.Lastname;
                 customerFromDb.Address = cust.Address;
@@ -91,17 +92,17 @@ namespace BLL.Services
                 customerFromDb.Phone = cust.Phone;
                 customerFromDb.CompanyName = cust.CompanyName;
                 uow.Complete();
-                return custConv.Convert(customerFromDb);
+                return _custConv.Convert(customerFromDb);
             }
         }
 
         public CustomerBO Delete(int Id)
         {
-            using (var uow = facade.UnitOfWork)
+            using (var uow = _facade.UnitOfWork)
             {
-                newCustomer = uow.CustomerRepository.Delete(Id);
+                _newCustomer = uow.CustomerRepository.Delete(Id);
                 uow.Complete();
-                return custConv.Convert(newCustomer);
+                return _custConv.Convert(_newCustomer);
             }
         }
     }
