@@ -6,22 +6,17 @@ using System.Text;
 
 namespace BLL.BusinessObjects
 {
-    public class PropositionBO : IBusinessObject
+    public class PropositionBO 
     {
         public int Id { get; set; }
-
         public string Title { get; set; }
-
         public string Description { get; set; }
-
         public DateTime CreationDate { get; set; }
 
         public CustomerBO Customer { get; set; }
-
         public int CustomerId { get; set; }
 
         public EmployeeBO Employee { get; set; }
-
         public int EmployeeId { get; set; }
 
         public int FileId { get; set; }

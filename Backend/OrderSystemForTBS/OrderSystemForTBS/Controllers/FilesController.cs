@@ -12,6 +12,7 @@ namespace OrderSystemForTBS.Controllers
 
     using BLL;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.WindowsAzure.Storage;
@@ -19,41 +20,46 @@ namespace OrderSystemForTBS.Controllers
 
     using NuGet.Frameworks;
 
+    //TODO Fix  Maybe with a service class
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Authorize]
     public class FilesController : Controller
     {
-        private IBLLFacade facade;
+        private IBLLFacade _facade;
 
+        // TODO remember to remove connectionString from the backend or make it safe
         // Connect to Azure
         static string storageConnectionString =
-                "DefaultEndpointsProtocol=https;AccountName=thom953b;AccountKey=0VQ3Mi5N2NCA5IWykeZltouBC6h0Pn+DOfy7rNXZlLYW/K9NwbMHXmTgMp1eOdDvq5iYeHk0l3gM/j0i1J/lQQ==;EndpointSuffix=core.windows.net"
-            ;
+                "DefaultEndpointsProtocol=https;AccountName=thom953b;AccountKey=oRR2tpbn654CPAdG5kDqPN2jSVxzfI4nm8xTj4qwNsXNN8p4I/v24pY8bVjdlcMDEZVakYMlTPWnXr4hXp3MkQ==;EndpointSuffix=core.windows.net";
 
+        // TODO remove to service class
         static CloudStorageAccount storageAccount = CloudStorageAccount.Parse(storageConnectionString);
 
+        // TODO remove to service class
         static CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 
+        // TODO remove to service class
         // get the reference to the container where all images a storaged
-        CloudBlobContainer container = blobClient.GetContainerReference("photos");
+        CloudBlobContainer container = blobClient.GetContainerReference("files");
 
         public FilesController(IBLLFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
         }
 
         [HttpGet]
         public IEnumerable<int> Get()
         {
-            return this.facade.PropositionService.allFileIds();
+            return _facade.PropositionService.allFileIds();
         }
 
         [HttpGet("{id}")]
         public async Task<string> Get(int id)
         {
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.png");
+            // TODO remove to service class
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.pdf");
 
             // Sets all files on storage in the list
             var listBlobItems = await container.ListBlobsSegmentedAsync(
@@ -82,8 +88,7 @@ namespace OrderSystemForTBS.Controllers
 
                     // convert the byte[] to a base64 string, that is gonna be returned
                     string base64 = Convert.ToBase64String(b);
-                    Console.WriteLine();
-                    return base64;
+                    return base64; // use the same return string
                 }
             }
 
@@ -96,19 +101,21 @@ namespace OrderSystemForTBS.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] string file)
         {
+
+            // TODO remove to service class
             // get the max value from file ids from the propositions
             // sets the id to max value +1
-            int id = this.facade.PropositionService.allFileIds().Max() + 1;
+            int id = _facade.PropositionService.allFileIds().Max() + 1;
 
             // Get a reference to a blob  
-            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.png");
+            CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.pdf");
 
             // Convert base 64 string to byte[]
             byte[] imageBytes = Convert.FromBase64String(file);
 
             // Save file to blob
           var done = blockBlob.UploadFromByteArrayAsync(imageBytes, 0, imageBytes.Length);
-            return this.Ok(done);
+            return Ok(done);
         }
 
         [HttpDelete("{id}")]
@@ -116,9 +123,9 @@ namespace OrderSystemForTBS.Controllers
         {
             try
             {
-                CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.png");
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.pdf");
 
-                return this.Ok(blockBlob.DeleteAsync());
+                return Ok(blockBlob.DeleteAsync());
             }
             catch (InvalidOperationException e)
             {

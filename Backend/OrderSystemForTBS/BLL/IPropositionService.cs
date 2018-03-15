@@ -13,8 +13,9 @@ namespace BLL
         List<PropositionBO> GetAllById(int customerId);
         PropositionBO Get(int Id);
 
+        //Is this needed?
         List<int> allFileIds();
-            //U
+        //U
         PropositionBO Update(PropositionBO bo);
         //D
         PropositionBO Delete(int Id);

@@ -11,8 +11,10 @@ using Newtonsoft.Json;
 
 namespace BLL.Services
 {
+    // TODO FIX THIS SHIT. easy.. Go get it LonelyField
     public class CvrService
     {
+        
         public List<string> GetCompanyInfo(string query)
         {
 

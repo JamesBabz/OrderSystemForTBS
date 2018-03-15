@@ -6,7 +6,5 @@ namespace DAL
     {
         IUnitOfWork UnitOfWork { get; }
 
-    
-
     }
 }

@@ -19,11 +19,11 @@ namespace OrderSystemForTBS.Controllers
     [Authorize]
     public class CustomersController : Controller
     {
-        private IBLLFacade facade;
+        private IBLLFacade _facade;
 
         public CustomersController(IBLLFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
         }
 
        
@@ -33,36 +33,37 @@ namespace OrderSystemForTBS.Controllers
         {
             if (q == null)
             {
-                return this.Get();
+                return Get();
             }
-            var custsomers = facade.CustomerService
+            var customers = _facade.CustomerService
                 .GetAllBySearchQuery(q);
-            return custsomers;
+            return customers;
         }
 
         // GET: api/Customers
         [HttpGet]
         public IEnumerable<CustomerBO> Get()
         {
-            return this.facade.CustomerService.GetAll();
+            return _facade.CustomerService.GetAll();
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}", Name = "Get")]
         public CustomerBO Get(int Id)
         {
-            return this.facade.CustomerService.Get(Id);
+            return _facade.CustomerService.Get(Id);
         }
         
         // POST: api/Customers
         [HttpPost]
         public IActionResult Post([FromBody]CustomerBO cust)
         {
+            // TODO you dont use ModelState
             if (!ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return BadRequest(ModelState);
             }
-            return this.Ok(this.facade.CustomerService.Create(cust));
+            return Ok(_facade.CustomerService.Create(cust));
         }
 
         // PUT: api/customer/5
@@ -75,7 +76,7 @@ namespace OrderSystemForTBS.Controllers
             }
             try
             {
-                return Ok(facade.CustomerService.Update(cust));
+                return Ok(_facade.CustomerService.Update(cust));
             }
             catch (InvalidOperationException e)
             {
@@ -89,7 +90,7 @@ namespace OrderSystemForTBS.Controllers
         {
             try
             {
-                return Ok(facade.CustomerService.Delete(Id));
+                return Ok(_facade.CustomerService.Delete(Id));
             }
             catch (InvalidOperationException e)
             {

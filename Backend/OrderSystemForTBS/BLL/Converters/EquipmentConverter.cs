@@ -8,7 +8,12 @@ namespace BLL.Converters
 {
     public class EquipmentConverter
     {
-        CustomerConverter custConv = new CustomerConverter();
+        private CustomerConverter _custConv;
+
+        public EquipmentConverter()
+        {
+            _custConv = new CustomerConverter();
+        }
 
         public Equipment Convert(EquipmentBO equipment)
         {
@@ -19,7 +24,7 @@ namespace BLL.Converters
                     Id = equipment.id,
                     Name = equipment.name,
 
-                    Customer = custConv.Convert(equipment.customer),
+                    Customer = _custConv.Convert(equipment.customer),
                     CustomerId = equipment.customerId
                 };
             }
@@ -34,7 +39,7 @@ namespace BLL.Converters
                     id = equipment.Id,
                     name = equipment.Name,
 
-                    customer = custConv.Convert(equipment.Customer),
+                    customer = _custConv.Convert(equipment.Customer),
                     customerId = equipment.CustomerId
 
                 };

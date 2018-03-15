@@ -11,20 +11,15 @@ namespace BLL.Facade
 {
     public class BLLFacade : IBLLFacade
     {
-        private IDALFacade facade;
+        private IDALFacade _facade;
 
-        public BLLFacade() => facade = new DALFacade(
-                                  new DbOptions()
-                                      {
-                                          Environment =
-                                              Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
-                                      });
+        public BLLFacade() => _facade = new DALFacade();
 
         public CustomerService CustomerService
         {
             get
             {
-                return new CustomerService(facade);
+                return new CustomerService(_facade);
             }
         }
 
@@ -32,7 +27,7 @@ namespace BLL.Facade
         {
             get
             {
-                return new PropositionService(facade);
+                return new PropositionService(_facade);
             }
         }
 
@@ -40,7 +35,7 @@ namespace BLL.Facade
         {
             get
             {
-                return new EmployeeService(facade);
+                return new EmployeeService(_facade);
             }
         }
 
@@ -48,7 +43,7 @@ namespace BLL.Facade
         {
             get
             {
-                return new EquipmentService(facade);
+                return new EquipmentService(_facade);
             }
         }
 
@@ -56,7 +51,7 @@ namespace BLL.Facade
         {
             get
             {
-                return new VisitService(this.facade);
+                return new VisitService(_facade);
             }
         }
 

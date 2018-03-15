@@ -30,7 +30,7 @@
 <div style="text-align: center" *ngIf="fileString">
   <img  [src]="'data:image/jpg;base64,'+fileString"/>
 </div>
-
+<button (click)="openPdf()">test</button>
 <div class="myModal shouldClose clickable" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
   <div class="myModalContent">
     <h3>Slet Tilbud</h3>

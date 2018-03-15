@@ -6,6 +6,7 @@ import {PropositionService} from '../shared/proposition.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {timeout} from 'q';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-proposition-detail',
@@ -35,6 +36,8 @@ export class PropositionDetailComponent implements OnInit {
 
     setTimeout(() => this.setProp(), 500);
     setTimeout(() => this.getFileById(), 550);
+
+
 
   }
 
@@ -131,5 +134,18 @@ export class PropositionDetailComponent implements OnInit {
   showFile() {
     console.log(this.fileString);
   }
+
+  openPdf() {
+    var windo = window.open('', '');
+    var objbuilder = '';
+    objbuilder += ('<embed width=\'100%\' height=\'100%\'  src="data:application/pdf;base64,');
+    objbuilder += (this.fileString);
+    objbuilder += ('" type="application/pdf" />');
+    windo.document.write(objbuilder);
+  }
+
+
+
+
 }
 

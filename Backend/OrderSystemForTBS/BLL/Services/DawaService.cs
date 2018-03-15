@@ -8,7 +8,7 @@ namespace BLL.Services
     public  class DawaService
     {
 
-       
+       // TODO ØØØØHMHMH?!?! Make this work again or does it?? - it does not. fix if easy
         public string GetCityFromZipCode(int zipCode)
         {
             HttpClient client = new HttpClient();

@@ -14,11 +14,11 @@ namespace OrderSystemForTBS.Controllers
     [Route("api/[controller]")]
     public class EmployeesController : Controller
     {
-        IBLLFacade facade;
+        IBLLFacade _facade;
 
         public EmployeesController(IBLLFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
         }
 
         // POST: api/employee/
@@ -29,7 +29,7 @@ namespace OrderSystemForTBS.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(facade.EmployeeService.Create(employee));
+            return Ok(_facade.EmployeeService.Create(employee));
         }
 
 
@@ -37,14 +37,16 @@ namespace OrderSystemForTBS.Controllers
         [HttpGet]
         public IEnumerable<EmployeeBO> Get()
         {
-            return facade.EmployeeService.GetAll();
+            return _facade.EmployeeService.GetAll();
         }
+
+        //TODO is this useed?
 
         // GET api/employee/5
         [HttpGet("{id}")]
         public EmployeeBO Get(int Id)
         {
-            return facade.EmployeeService.Get(Id);
+            return _facade.EmployeeService.Get(Id);
         }
     }
 }
