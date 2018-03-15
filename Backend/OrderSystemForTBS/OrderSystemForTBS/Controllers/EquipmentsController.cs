@@ -43,24 +43,6 @@ namespace OrderSystemForTBS.Controllers
             return Ok(_facade.EquipmentService.Create(equip));
         }
 
-        // PUT: api/Equipment/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] EquipmentBO equip)
-        {
-            if (id != equip.id)
-            {
-                return StatusCode(405, "Path id does not match customer ID json object");
-            }
-            try
-            {
-                return Ok(_facade.EquipmentService.Update(equip));
-            }
-            catch (InvalidOperationException e)
-            {
-                return StatusCode(404, e.Message);
-            }
-        }
-
         // DELETE api/Equipment/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int Id)

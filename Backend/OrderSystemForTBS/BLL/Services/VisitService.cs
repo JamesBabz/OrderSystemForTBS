@@ -50,7 +50,7 @@ namespace BLL.Services
             using (var uow = facade.UnitOfWork)
             {
                 List<VisitBO> returnList = new List<VisitBO>();
-                var fullList = uow.VisitRepository.GetAll(customerId);
+                var fullList = uow.VisitRepository.GetAllById(customerId);
                 foreach (var visit in fullList)
                 {
                     returnList.Add(this.visitConv.Convert(visit));

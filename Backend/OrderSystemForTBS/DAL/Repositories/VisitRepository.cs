@@ -27,14 +27,14 @@ namespace DAL.Repositories
             return visit;
         }
 
-        public IEnumerable<Visit> GetAll()
-        {
-            return this._context.Visits.Include(visit => visit.Employee).ToList();
-        }
-
         public Visit Get(int id)
         {
             return _context.Visits.FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<Visit> GetAll()
+        {
+            return _context.Visits.ToList();
         }
 
         public Visit Delete(int id)
@@ -45,7 +45,7 @@ namespace DAL.Repositories
         }
 
         //new name
-        public IEnumerable<Visit> GetAll(int id)
+        public IEnumerable<Visit> GetAllById(int id)
         {
             return _context.Visits.Include(visit => visit.Customer).Include(visit => visit.Employee)
                 .OrderByDescending(visit => visit.DateTimeOfVisitStart).Where(x => x.CustomerId == id).ToList();
