@@ -40,21 +40,5 @@ namespace DAL.Repositories
             _context.Propositions.Remove(prop);
             return prop;
         }
-
-        // Is this needed?
-        public List<int> getFileIds()
-        {
-            List<int> ids = new List<int>();
-            foreach (var contextProposition in this._context.Propositions)
-            {
-                ids.Add(contextProposition.FileId);
-            }
-            ids.Sort();
-            if (ids.Count.Equals(0))
-            {
-                ids.Add(0);
-            }
-            return ids;
-        }
     }
 }

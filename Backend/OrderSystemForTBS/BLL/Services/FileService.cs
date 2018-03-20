@@ -12,8 +12,6 @@ namespace BLL.Services
 
     public class FileService
     {
-        private IBLLFacade _facade;
-
         // Connect to Azure
         static string storageConnectionString =
             "DefaultEndpointsProtocol=https;AccountName=thom953b;AccountKey=oRR2tpbn654CPAdG5kDqPN2jSVxzfI4nm8xTj4qwNsXNN8p4I/v24pY8bVjdlcMDEZVakYMlTPWnXr4hXp3MkQ==;EndpointSuffix=core.windows.net";
@@ -25,27 +23,11 @@ namespace BLL.Services
         // get the reference to the container where all images a storaged
         CloudBlobContainer container = blobClient.GetContainerReference("files");
 
-        public FileService(IBLLFacade facade)
-        {
-            this._facade = facade;
-        }
-
         public bool createFile(string fileString)
         {
-//
-//            string newString = fileString.Substring(fileString.IndexOf("="));
-//            Console.WriteLine(newString);
-//            fileString = fileString.Substring(0, newString.Length);
-//            Console.WriteLine(fileString + "fdfdfdg");
-
             String[] stringarr = fileString.Split("å");
             fileString = stringarr[0];
             int timeStamp =  Int32.Parse( stringarr[1]);
-
-            Console.WriteLine(timeStamp);
-            // get the max value from file ids from the propositions
-            // sets the id to max value +1
-            int id = _facade.PropositionService.allFileIds().Max() + 1;
 
             // Get a reference to a blob  
             CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{timeStamp}.pdf");

@@ -27,22 +27,14 @@ namespace OrderSystemForTBS.Controllers
     [Route("api/[controller]")]
     public class FilesController : Controller
     {
-        private IBLLFacade _facade;
-
         private FileService _fileService;
-
 
         public FilesController(IBLLFacade facade)
         {
-            _facade = facade;
-            this._fileService = new FileService(facade);
+            _fileService = new FileService();
         }
 
-        [HttpGet]
-        public IEnumerable<int> Get()
-        {
-            return _facade.PropositionService.allFileIds();
-        }
+      
 
         [HttpGet("{id}")]
         public Task<string> Get(int id)
@@ -62,8 +54,6 @@ namespace OrderSystemForTBS.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] string file)
         {
-
-           
             try
             {
                 return Ok(_fileService.createFile(file));
@@ -80,7 +70,7 @@ namespace OrderSystemForTBS.Controllers
         {
             try
             {
-                return Ok(this._fileService.deleteFile(id).DeleteAsync());
+                return Ok(_fileService.deleteFile(id).DeleteAsync());
             }
             catch (InvalidOperationException e)
             {
