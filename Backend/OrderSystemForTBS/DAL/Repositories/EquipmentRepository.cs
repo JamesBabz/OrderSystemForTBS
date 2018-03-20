@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using DAL.Context;
 using DAL.Entities;
+using DAL.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public class EquipmentRepository : IRepository<Equipment>
+    public class EquipmentRepository : IEquipmentRepository
     {
         private OrderSystemContext _context;
 
@@ -23,11 +24,6 @@ namespace DAL.Repositories
             return ent;
         }
 
-        public IEnumerable<Equipment> GetAll()
-        {
-            return _context.Equipments.Include(prop => prop.Customer).ToList();
-        }
-
         public Equipment Get(int Id)
         {
             return _context.Equipments.FirstOrDefault(equip => equip.Id == Id);
@@ -39,9 +35,8 @@ namespace DAL.Repositories
             _context.Equipments.Remove(equipment);
             return equipment;
         }
-
-        //Get all by ID
-        public IEnumerable<Equipment> GetAll(int id)
+        
+        public IEnumerable<Equipment> GetAllById(int id)
         {
             return _context.Equipments.Include(equip => equip.Customer).Where(x => x.CustomerId == id).ToList();
         }

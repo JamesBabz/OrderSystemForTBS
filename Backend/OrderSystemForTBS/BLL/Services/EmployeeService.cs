@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using BLL.BusinessObjects;
 using BLL.Converters;
+using BLL.IServices;
 using DAL;
 using DAL.Entities;
 
 namespace BLL.Services
 {
-    public class EmployeeService : IService<EmployeeBO>
+    public class EmployeeService : IEmployeeService
     {
         private IDALFacade _facade;
 
@@ -44,18 +45,6 @@ namespace BLL.Services
             }
         }
 
-        // TODO remove 
-        public EmployeeBO Delete(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        // TODO remove
-        public List<EmployeeBO> GetAllById(int customerId)
-        {
-            throw new NotImplementedException();
-        }
-
         public EmployeeBO Get(int Id)
         {
             using (var uow = _facade.UnitOfWork)
@@ -74,10 +63,17 @@ namespace BLL.Services
             }
         }
 
-        //TODO remove
+        //TODO implement
         public EmployeeBO Update(EmployeeBO bo)
         {
             throw new NotImplementedException();
         }
+
+        // TODO implement 
+        public EmployeeBO Delete(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
