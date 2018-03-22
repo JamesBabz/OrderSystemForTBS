@@ -43,15 +43,6 @@ namespace BLL.Services
             }
         }
 
-        // TODO is this needed?
-        public List<int> allFileIds()
-        {
-            using (var uow = this.facade.UnitOfWork)
-            {
-                return uow.PropositionRepository.getFileIds().ToList();
-            }
-        }
-
         public PropositionBO Update(PropositionBO bo)
         {
             using (var uow = facade.UnitOfWork)

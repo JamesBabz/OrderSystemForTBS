@@ -28,7 +28,6 @@ export class PropositionCreateComponent implements OnInit {
   selectedFile: any;
   base64textString: string;
   fileIds: number[];
-  upLoadFileId: number;
   upLoadedAImage = false;
 
 
@@ -49,7 +48,6 @@ export class PropositionCreateComponent implements OnInit {
       file: new FormControl()
     });
     this.employeeService.getCurrentEmployee().subscribe(Employee => this.employee = Employee);
-    this.propositionService.getAllFileIds().subscribe(Ids => this.fileIds = Ids);
 
   }
 
@@ -62,8 +60,8 @@ export class PropositionCreateComponent implements OnInit {
   }
 
   createNewProposition() {
-    this.upLoadFileId = Math.max.apply(null, this.fileIds) + 1;
-    const timeStamp =  Math.floor(Date.now() / 10000);
+    // const timeStamp =  Math.floor(Date.now() / 10000);
+    const timeStamp = Date.now();
 
     const values = this.createPropFormGroup.value;
     this.customerService.getCustomerById(Number(values.customerSelector)).subscribe(cust => this.selectedCust = cust);
@@ -79,10 +77,11 @@ export class PropositionCreateComponent implements OnInit {
       newProp => {
         newProp.employee = this.employee,
           this.propositionService.setCurrentProposition(newProp);
-        this.router.navigateByUrl('proposition/' + newProp.id);
+        this.router.navigateByUrl('customer/' + this.customer.id);
       });
     console.log(Date.now());
     if (this.upLoadedAImage) {
+      console.log(this.base64textString);
       this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
     }
   }

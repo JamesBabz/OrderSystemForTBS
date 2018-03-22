@@ -70,11 +70,7 @@ export class PropositionService {
   }
 
   upLoadImage(file: string) {
-    return this.http.post(environment.ApiEndPoint + '/files', '\"' + file +'\"');
-  }
-
-  getAllFileIds(): Observable<number[]> {
-    return this.http.get<number[]>(environment.ApiEndPoint + '/files');
+    return this.http.post(environment.ApiEndPoint + '/files', '\"' + file + '\"');
   }
   getFileById(id: number): Observable<string> {
     return this.http.get(environment.ApiEndPoint + '/files/' + id);

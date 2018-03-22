@@ -12,9 +12,6 @@ namespace BLL
         //R
         List<PropositionBO> GetAllById(int customerId);
         PropositionBO Get(int Id);
-
-        //Is this needed?
-        List<int> allFileIds();
         //U
         PropositionBO Update(PropositionBO bo);
         //D

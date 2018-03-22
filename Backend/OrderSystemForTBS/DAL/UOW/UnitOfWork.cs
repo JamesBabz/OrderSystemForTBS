@@ -29,8 +29,8 @@ namespace DAL.UOW
             this.PropositionRepository = new PropositionRepository(this.context);
             this.EquipmentRepository = new EquipmentRepository(this.context);
             this.VisitRepository = new VisitRepository(this.context);
-
-            context.Database.EnsureCreated();
+            
+             context.Database.EnsureCreated();
         }
 
         public int Complete()

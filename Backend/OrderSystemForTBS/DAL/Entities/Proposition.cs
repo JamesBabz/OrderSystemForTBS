@@ -19,7 +19,7 @@ namespace DAL.Entities
         public Employee Employee { get; set; }
         public int EmployeeId { get; set; }
 
-        public int FileId { get; set; }
+        public long FileId { get; set; }
 
     }
 }
