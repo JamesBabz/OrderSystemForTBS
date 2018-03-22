@@ -19,6 +19,6 @@ namespace BLL.BusinessObjects
         public EmployeeBO Employee { get; set; }
         public int EmployeeId { get; set; }
 
-        public int FileId { get; set; }
+        public long FileId { get; set; }
     }
 }

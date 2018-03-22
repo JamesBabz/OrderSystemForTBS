@@ -23,11 +23,11 @@ namespace BLL.Services
         // get the reference to the container where all images a storaged
         CloudBlobContainer container = blobClient.GetContainerReference("files");
 
-        public bool createFile(string fileString)
+        public bool CreateFile(string fileString)
         {
             String[] stringarr = fileString.Split("å");
             fileString = stringarr[0];
-            int timeStamp =  Int32.Parse( stringarr[1]);
+            long timeStamp =  Int64.Parse( stringarr[1]);
 
             // Get a reference to a blob  
             CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{timeStamp}.pdf");
@@ -40,7 +40,7 @@ namespace BLL.Services
             return true;
         }
 
-        public async Task<string> GetFile(int id)
+        public async Task<string> GetFile(long id)
         {
             CloudBlockBlob blockBlob = container.GetBlockBlobReference($"{id}.pdf");
 
@@ -78,7 +78,7 @@ namespace BLL.Services
             return returnString;
         }
 
-        public CloudBlockBlob deleteFile(int id)
+        public CloudBlockBlob DeleteFile(long id)
         {
             return container.GetBlockBlobReference($"{id}.pdf");
         }

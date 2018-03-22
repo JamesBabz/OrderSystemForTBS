@@ -40,4 +40,10 @@ export class PropositionListComponent implements OnInit {
     this.router.navigateByUrl('/propositions/create');
   }
 
+  refresh() {
+    this.route.paramMap
+      .switchMap(params => this.propositionService.getPropositionsByCustomerId(+params.get('id')))
+      .subscribe(props => this.propositions = props);
+  }
+
 }

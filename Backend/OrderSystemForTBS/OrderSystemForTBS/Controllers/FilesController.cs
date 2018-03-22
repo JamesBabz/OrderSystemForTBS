@@ -20,11 +20,11 @@ namespace OrderSystemForTBS.Controllers
     using Microsoft.WindowsAzure.Storage.Blob;
 
     using NuGet.Frameworks;
-
-    //TODO Fix  Maybe with a service class
+    
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize]
     public class FilesController : Controller
     {
         private FileService _fileService;
@@ -37,7 +37,7 @@ namespace OrderSystemForTBS.Controllers
       
 
         [HttpGet("{id}")]
-        public Task<string> Get(int id)
+        public Task<string> Get(long id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace OrderSystemForTBS.Controllers
         {
             try
             {
-                return Ok(_fileService.createFile(file));
+                return Ok(_fileService.CreateFile(file));
             }
             catch (Exception e)
             {
@@ -66,11 +66,11 @@ namespace OrderSystemForTBS.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(long id)
         {
             try
             {
-                return Ok(_fileService.deleteFile(id).DeleteAsync());
+                return Ok(_fileService.DeleteFile(id).DeleteAsync());
             }
             catch (InvalidOperationException e)
             {
