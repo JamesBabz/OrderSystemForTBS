@@ -51,16 +51,11 @@ export class PropositionCreateComponent implements OnInit {
 
   }
 
-  showAll() {
-    console.log(this.employee);
-  }
-
   cancel() {
     window.history.back();
   }
 
   createNewProposition() {
-    // const timeStamp =  Math.floor(Date.now() / 10000);
     const timeStamp = Date.now();
 
     const values = this.createPropFormGroup.value;
@@ -79,9 +74,7 @@ export class PropositionCreateComponent implements OnInit {
           this.propositionService.setCurrentProposition(newProp);
         this.router.navigateByUrl('customer/' + this.customer.id);
       });
-    console.log(Date.now());
     if (this.upLoadedAImage) {
-      console.log(this.base64textString);
       this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
     }
   }

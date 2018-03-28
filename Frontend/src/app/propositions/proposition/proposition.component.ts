@@ -28,6 +28,11 @@ export class PropositionComponent implements OnInit {
   modalString: string;
   editPropGroup: FormGroup;
   unsavedChanges: boolean;
+  base64textString: string;
+  upLoadedAImage = false;
+  isNewFileSelected = false;
+  prenstFile: string;
+  doDeleteFile = false;
 
   constructor(private propositionService: PropositionService, private router: Router) {
   }
@@ -35,6 +40,7 @@ export class PropositionComponent implements OnInit {
   ngOnInit() {
     this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
     this.createFormGroup(this.proposition);
+    this.propositionService.getFileById(this.proposition.fileId).subscribe(file => this.prenstFile = file);
   }
 
 
@@ -43,7 +49,6 @@ export class PropositionComponent implements OnInit {
   }
 
   getFileById(event) {
-    console.log(event.target.tagName);
     if (event.target.tagName === 'I') {
       return;
     }
@@ -64,7 +69,7 @@ export class PropositionComponent implements OnInit {
   }
 
   openPdf(base64: string) {
-    var windo = window.open('q', '');
+    var windo = window.open('q', '' );
     var objbuilder = '';
     objbuilder += ('<embed width=\'100%\' height=\'100%\'  src="data:application/pdf;base64,');
     objbuilder += (base64);
@@ -79,6 +84,28 @@ export class PropositionComponent implements OnInit {
       file: new FormControl()
     });
   }
+
+  onFileChange(event) {
+
+    var files = event.target.files;
+    var file = files[0];
+    if (files && file) {
+      var reader = new FileReader();
+
+      reader.onload = this._handleReaderLoaded.bind(this);
+
+      reader.readAsBinaryString(file);
+    }
+    this.upLoadedAImage = true;
+  }
+
+  _handleReaderLoaded(readerEvt) {
+
+    var binaryString = readerEvt.target.result;
+    this.base64textString = btoa(binaryString);
+
+  }
+
 
   openModal(toDo: string) {
     document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
@@ -97,10 +124,10 @@ export class PropositionComponent implements OnInit {
       const values = this.editPropGroup.value;
       if (this.editedProp.title !== values.title || this.editedProp.description !== values.description) {
         // sets the temporary object to contain the input values
-        console.log(this.editedProp.title);
         this.editedProp.title = values.title;
         this.editedProp.description = values.description;
         this.unsavedChanges = true;
+
       }
     } else if (!$event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
       // resets the input values
@@ -111,27 +138,48 @@ export class PropositionComponent implements OnInit {
       document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
       this.modalString = '';
     }
+    this.isFileFound = false;
+    this.isNewFileSelected = false;
   }
   save($event) {
+    const timeStamp = Date.now();
+    const oldTimeStamp = this.proposition.fileId;
     this.closeModal($event);
     this.editedProp.id = this.proposition.id;
+    this.editedProp.fileId = timeStamp;
     this.unsavedChanges = false;
     this.propositionService.updateProposition(this.editedProp)
       .subscribe(prop => {
           this.proposition = prop,
           this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
       });
+    if (this.upLoadedAImage) {
+      this.propositionService.getFileById(oldTimeStamp).subscribe(file => {
+        if (file) {
+          this.deleteFileById(oldTimeStamp);
+        }
+      })
+      this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
+      this.prenstFile = this.base64textString;
+    }
   }
 
   delete() {
     this.propositionService.deleteProposition(this.proposition.id)
       .subscribe(prop =>  this.eDeleted.emit(prop));
     if (this.isFileFound) {
-      this.deleteFileById();
+      this.deleteFileById(this.proposition.fileId);
     }
   }
-  deleteFileById() {
-    this.propositionService.deleteFileById(this.proposition.fileId).subscribe();
+  deleteFileById(id: number) {
+    this.propositionService.deleteFileById(id).subscribe();
   }
+  confirmedDeleteFile() {
+    this.deleteFileById(this.proposition.fileId);
+    this.doDeleteFile = false;
+    this.prenstFile = null;
+  }
+
+
 
 }

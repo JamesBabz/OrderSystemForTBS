@@ -27,6 +27,16 @@
   outline:none;
   float: right;
 }
+#delete_file_btn {
+  background-color: #ffcccc;
+}
+.btn_popup {
+  float: right;
+  margin-left: 5px;
+}
+.fileIdtxt {
+  font-weight: 800;
+}
 
 #snackbar {
   visibility: hidden;

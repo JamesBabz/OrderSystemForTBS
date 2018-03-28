@@ -52,9 +52,21 @@
           <textarea class="descTextArea" name="description" formControlName="description"></textarea>
         </div>
       </div>
+      <div class="row top20" *ngIf="prenstFile">
+        <div class="col-md-12">
+          Fil: <span class="fileIdtxt"> {{proposition.fileId}}.pdf </span>
+          <button ID="delete_file_btn" *ngIf="!doDeleteFile" (click)="doDeleteFile = true" class="btn">Slet <i class="fa fa-trash"></i></button>
+          <button *ngIf="doDeleteFile" (click)="doDeleteFile = false" class=" btn_popup btn btn-warning">STOP</button>
+          <button *ngIf="doDeleteFile"  (click)="confirmedDeleteFile()" class="btn_popup btn btn-danger">SLET</button>
+
+        </div>
+      </div>
+      <div *ngIf="isNewFileSelected && prenstFile">
+        <strong class="unsavedChangesText"> Tidligere vedhæftet fil, bliver slettet</strong>
+      </div>
       <div class="row top20">
         <div class="col-md-12">
-          <input type="file" name="file" formControlName="file" disabled/>
+          <input type="file" name="file" formControlName="file" (change)="onFileChange($event); isNewFileSelected = true" />
         </div>
       </div>
     </form>
@@ -64,7 +76,7 @@
       </div>
       <div class="right">
         <button  [disabled]="editPropGroup.invalid" class="btn btn-outline-success shouldClose shouldKeepInput clickable" (click)="save($event)">Gem</button>
-        <button class="btn btn-outline-secondary shouldClose clickable" (click)="closeModal($event)">Annuller</button>
+        <button class="btn btn-outline-danger shouldClose clickable" (click)="closeModal($event)">Annuller</button>
       </div>
     </div>
   </div>

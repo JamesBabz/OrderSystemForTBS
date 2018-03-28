@@ -51,6 +51,7 @@ namespace BLL.Services
                 var propFromDb = uow.PropositionRepository.Get(bo.Id);
                 propFromDb.Title = bo.Title;
                 propFromDb.Description = bo.Description;
+                propFromDb.FileId = bo.FileId;
                 uow.Complete();
                 return propConv.Convert(propFromDb);
             }
