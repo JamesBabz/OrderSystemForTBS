@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Customer} from '../shared/customer.model';
 import {CustomerService} from '../shared/customer.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SalesmanListService} from '../shared/salesman-list.service';
+import {SalesmanList} from '../shared/salesmanList.model';
+import {forEach} from '@angular/router/src/utils/collection';
+import {EmployeeService} from '../../login/shared/employee.service';
+import {Employee} from '../../login/shared/employee.model';
 
 @Component({
   selector: 'app-customer-list',
@@ -11,13 +16,17 @@ import {Router} from '@angular/router';
 export class CustomerListComponent implements OnInit {
   customers: Customer[];
   query: string;
+  salemanList: SalesmanList[];
+  employeeCustomers: Array<Customer> = [];
+  employee: Employee;
+  isP20Showed = false;
 
-  constructor(private customerService: CustomerService, private router: Router) {
-
+  constructor(private customerService: CustomerService, private router: Router, private salesmanListService: SalesmanListService, private employeeService: EmployeeService) {
   }
 
   ngOnInit() {
-    this.customerService.getCustomers().subscribe(Customers => this.customers = Customers);
+    this.showCustomers();
+    this.employeeService.getCurrentEmployee().subscribe(Employee => this.employee = Employee);
   }
 
   details(customer: Customer) {
@@ -31,6 +40,7 @@ export class CustomerListComponent implements OnInit {
   createProposition() {
     this.router.navigateByUrl('propositions/create');
   }
+
   createVisit() {
     this.router.navigateByUrl('visits/create');
   }
@@ -42,4 +52,46 @@ export class CustomerListComponent implements OnInit {
   showCalendar() {
     this.router.navigateByUrl('/calendar');
   }
+
+  test() {
+    this.salesmanListService.getSalesmanList(this.employee.id).subscribe(x => this.salemanList = x);
+  }
+
+
+  showP20() {
+    this.salesmanListService.getSalesmanList(this.employee.id).subscribe(y => {
+      this.salemanList = y;
+      this.addEmployeeCustomersToList();
+    });
+  }
+
+  showCustomers() {
+    this.customerService.getCustomers().subscribe(Customers => this.customers = Customers);
+  }
+
+  changeList() {
+    if (this.isP20Showed) {
+      this.showCustomers();
+    } else {
+      this.showP20();
+    }
+    this.isP20Showed = !this.isP20Showed;
+  }
+
+  addEmployeeCustomersToList() {
+    if (this.employeeCustomers != null) {
+      this.popAList(this.employeeCustomers);
+    }
+    for (let x of this.salemanList) {
+      this.employeeCustomers.push(x.customer);
+    }
+    this.customers = this.employeeCustomers;
+  }
+
+  popAList(list: any) {
+    for (let i = 0; list.length; i++) {
+      list.pop();
+    }
+  }
 }
+

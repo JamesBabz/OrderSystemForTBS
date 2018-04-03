@@ -36,6 +36,7 @@ import {CalendarService} from './calendar/shared/calendar.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {FullCalendarModule} from 'ng-fullcalendar';
+import {SalesmanListService} from './customers/shared/salesman-list.service';
 
 
 const appRoutes: Routes = [
@@ -83,7 +84,7 @@ const appRoutes: Routes = [
   ],
 
     providers: [CustomerService, LoginService, AuthGuard, PropositionService,
-  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService,
+  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService, SalesmanListService,
   {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
   {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
 ],

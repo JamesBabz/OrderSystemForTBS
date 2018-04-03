@@ -19,6 +19,8 @@ namespace DAL
 
         IVisitRepository VisitRepository { get; }
 
+        ISalesmanListRepository SalesmanListRepository { get; }
+
         int Complete();
     }
 }

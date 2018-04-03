@@ -68,6 +68,11 @@ namespace BLL.Facade
         {
             get { return new CvrService(); }
         }
-    
+
+        public SalesmanListService salesmanListService
+        {
+            get { return new SalesmanListService(_facade); }
+        }
+
     }
 }

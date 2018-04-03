@@ -17,5 +17,6 @@ namespace BLL
         DawaService DawaService { get; }
 
         CvrService CvrService { get; }
+        SalesmanListService salesmanListService { get; }
     }
 }
