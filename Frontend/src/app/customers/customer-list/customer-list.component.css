@@ -27,8 +27,14 @@ text-align: center;
 .buttonsContainer{
   margin-top: 4%;
 }
-
-.btn{
+#btnChangeList{
+  height: 55px;
+  width: 55px;
+}
+.big-icon {
+  font-size: 32px;
+}
+.btnMain{
   height: 65px;
   width: 80%;
   font-size: x-large;
@@ -47,3 +53,6 @@ text-align: center;
   font-size: x-large;
   ;
 }
+
+
+

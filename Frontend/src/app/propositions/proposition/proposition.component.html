@@ -76,7 +76,7 @@
       </div>
       <div class="right">
         <button  [disabled]="editPropGroup.invalid" class="btn btn-outline-success shouldClose shouldKeepInput clickable" (click)="save($event)">Gem</button>
-        <button class="btn btn-outline-danger shouldClose clickable" (click)="closeModal($event)">Annuller</button>
+        <button class="btn btn-outline-danger shouldClose clickable" (click)="closeModal($event); doDeleteFile = false">Annuller</button>
       </div>
     </div>
   </div>

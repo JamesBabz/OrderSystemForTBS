@@ -16,7 +16,6 @@ import {CustomerCreateComponent} from './customers/customer-create/customer-crea
 import {TabModule} from 'angular-tabs-component';
 import {AuthGuard} from './login/login/Auth/auth.guard';
 import {PropositionComponent} from './propositions/proposition/proposition.component';
-import {PropositionDetailComponent} from './propositions/proposition-detail/proposition-detail.component';
 import {PropositionListComponent} from './propositions/proposition-list/proposition-list.component';
 import {PropositionService} from './propositions/shared/proposition.service';
 import {TokenInterceptor} from './login/login/Auth/token.interceptor';
@@ -37,13 +36,13 @@ import {CalendarService} from './calendar/shared/calendar.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {FullCalendarModule} from 'ng-fullcalendar';
+import {SalesmanListService} from './customers/shared/salesman-list.service';
 
 
 const appRoutes: Routes = [
 
   {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
   {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
-  {path: 'proposition/:id', component: PropositionDetailComponent, canActivate: [AuthGuard]},
   {path: 'propositions/create', component: PropositionCreateComponent, canActivate: [AuthGuard]},
   {path: 'visits/create', component: VisitCreateComponent},
   {path: 'login', component: LoginComponent},
@@ -62,7 +61,6 @@ const appRoutes: Routes = [
     LoginComponent,
     CustomerCreateComponent,
     PropositionComponent,
-    PropositionDetailComponent,
     PropositionListComponent,
     PropositionCreateComponent,
     EquipmentComponent,
@@ -86,7 +84,7 @@ const appRoutes: Routes = [
   ],
 
     providers: [CustomerService, LoginService, AuthGuard, PropositionService,
-  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService,
+  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService, SalesmanListService,
   {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
   {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
 ],
