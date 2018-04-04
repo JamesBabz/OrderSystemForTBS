@@ -1,8 +1,14 @@
-<div class= "customerBorder singleCust">
+
+<div *ngIf="customer" class= "customerBorder singleCust clickable">
   <div class="textBorder unselectable clickable ">
-    <label class="label">
-  {{customer.firstname}}  {{customer.lastname}}
+    <label class="label clickable">
+      <span>
+        <button *ngIf="this.isP20Showed && this.employee" class="button btnHideAndShow  clickable" (click)="removeCustomerFromP20()"><i class="fa fa-user-times big-icon"></i></button>
+       <button *ngIf="!this.isP20Showed && this.employee" class="button btnHideAndShow  clickable" (click)="addCustomerToP20()"><i class="fa fa-user-plus big-icon"></i></button>
+          {{customer?.firstname}}  {{customer?.lastname}}
+      </span>
     </label>
   </div>
 </div>
 
+<div id="snackbar">Personen er tilføjet til din P20 liste</div>
