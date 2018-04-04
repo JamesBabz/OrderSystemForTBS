@@ -50,7 +50,8 @@ namespace OrderSystemForTBS.Controllers
             {
                 id = user.Id,
                 username = user.Username,
-                token = GenerateToken(_employeeConverter.Convert(user)),             
+                passwordReset = user.PasswordReset,
+                token = GenerateToken(_employeeConverter.Convert(user)),
             });
         }
         

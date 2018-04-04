@@ -32,7 +32,6 @@ namespace OrderSystemForTBS.Controllers
             return Ok(_facade.EmployeeService.Create(employee));
         }
 
-
         // GET api/employee
         [HttpGet]
         public IEnumerable<EmployeeBO> Get()
@@ -40,13 +39,25 @@ namespace OrderSystemForTBS.Controllers
             return _facade.EmployeeService.GetAll();
         }
 
-        //TODO is this useed?
-
         // GET api/employee/5
         [HttpGet("{id}")]
         public EmployeeBO Get(int Id)
         {
             return _facade.EmployeeService.Get(Id);
+        }
+
+        // DELETE: api/employees/5
+        [HttpDelete]
+        public IActionResult Delete(int Id)
+        {
+            try
+            {
+                return Ok(_facade.EmployeeService.Delete(Id));
+            }
+            catch (InvalidOperationException e)
+            {
+                return StatusCode(404, e.Message);
+            }
         }
     }
 }

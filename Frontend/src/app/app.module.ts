@@ -37,12 +37,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {FullCalendarModule} from 'ng-fullcalendar';
 import {SalesmanListService} from './customers/shared/salesman-list.service';
+import {EmployeeCreateComponent} from "./employee/employee-create/employee-create.component";
 
 
 const appRoutes: Routes = [
 
   {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
   {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
+  {path: 'employees/create', component: EmployeeCreateComponent, canActivate: [AuthGuard]},
   {path: 'propositions/create', component: PropositionCreateComponent, canActivate: [AuthGuard]},
   {path: 'visits/create', component: VisitCreateComponent},
   {path: 'login', component: LoginComponent},
@@ -68,7 +70,8 @@ const appRoutes: Routes = [
     VisitListComponent,
     VisitCreateComponent,
     VisitComponent,
-    CalendarsComponent
+    CalendarsComponent,
+    EmployeeCreateComponent
   ],
   imports: [
     BrowserModule,

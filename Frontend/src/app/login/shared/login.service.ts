@@ -21,12 +21,13 @@ export class LoginService {
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         const token = response.json() && response.json().token;
+        const passwordReset = response.json().passwordreset;
         const id = response.json().id;
         if (token) {
           // set token property
           this.token = token;
           // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({id: id, username: username, token: token}));
+          localStorage.setItem('currentUser', JSON.stringify({id: id, passwordreset: passwordReset, username: username, token: token}));
 
           // return true to indicate successful login
           return true;
@@ -42,6 +43,4 @@ export class LoginService {
     this.token = null;
     localStorage.removeItem('currentUser');
   }
-
-
 }

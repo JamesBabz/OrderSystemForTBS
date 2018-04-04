@@ -40,6 +40,7 @@ namespace BLL.Services
                 PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
                 _newEmployee.PasswordHash = passwordHash;
                 _newEmployee.PasswordSalt = passwordSalt;
+                _newEmployee.PasswordReset = true;
                 uow.Complete();
                 return _employeeConverter.Convert(_newEmployee);
             }

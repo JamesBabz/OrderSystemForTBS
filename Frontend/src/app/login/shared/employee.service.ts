@@ -19,6 +19,10 @@ export class EmployeeService {
     return this.http.get<Employee>(url + localStorageId);
   }
 
+  createEmployee(emp: Employee): Observable<Employee> {
+    return this.http.post<Employee>(url, emp);
+  }
+
   getEmployeeById(id: number): Observable<Employee> {
     return this.http.get<Employee>(url + id);
   }

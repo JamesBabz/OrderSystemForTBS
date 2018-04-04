@@ -2,7 +2,7 @@ export class Employee {
   id?: number;
   firstname: string;
   lastname: string;
-  userName?: string;
-  passWord?: string;
-  colorCode: string;
+  username: string;
+  password: string;
+  colorcode: string;
 }
