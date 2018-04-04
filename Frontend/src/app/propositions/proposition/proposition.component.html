@@ -56,7 +56,7 @@
         <div class="col-md-12">
           Fil: <span class="fileIdtxt"> {{proposition.fileId}}.pdf </span>
           <button ID="delete_file_btn" *ngIf="!doDeleteFile" (click)="doDeleteFile = true" class="btn">Slet <i class="fa fa-trash"></i></button>
-          <button *ngIf="doDeleteFile" (click)="doDeleteFile = false" class=" btn_popup btn btn-warning">STOP</button>
+          <button *ngIf="doDeleteFile" (click)="doDeleteFile = false" class=" btn_popup btn btn-warning">Behold</button>
           <button *ngIf="doDeleteFile"  (click)="confirmedDeleteFile()" class="btn_popup btn btn-danger">SLET</button>
 
         </div>

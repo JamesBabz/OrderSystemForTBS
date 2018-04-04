@@ -133,13 +133,14 @@ export class PropositionComponent implements OnInit {
       // resets the input values
       this.createFormGroup(this.proposition);
       this.unsavedChanges = false;
+      this.isNewFileSelected = false;
     }
     if ($event.srcElement.classList.contains('shouldClose')) {
       document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
       this.modalString = '';
     }
     this.isFileFound = false;
-    this.isNewFileSelected = false;
+
   }
   save($event) {
     const timeStamp = Date.now();
