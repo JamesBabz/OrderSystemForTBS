@@ -3,7 +3,7 @@ import {CalendarComponent} from 'ng-fullcalendar';
 import {Options} from 'fullcalendar';
 import {VisitService} from '../../visits/shared/visit.service';
 import {Visit} from '../../visits/shared/visit.model';
-import {waitForMap} from '@angular/router/src/utils/collection';
+import {forEach, waitForMap} from '@angular/router/src/utils/collection';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
 import {CustomerService} from '../../customers/shared/customer.service';
@@ -18,6 +18,7 @@ export class CalendarsComponent implements OnInit {
 
   visits: Visit[];
   employees: Employee[];
+  employeeIdsToShow: number[];
   colorDone = false;
 
   private data: any[];
@@ -33,13 +34,16 @@ export class CalendarsComponent implements OnInit {
   ngOnInit() {
     this.visitService.getAllVisits().subscribe(Visit => {
       this.visits = Visit;
-      // this.addEvents();
     });
     this.employeeService.getEmployees().subscribe(emp => this.employees = emp);
+
+    this.employeeIdsToShow = [];
+    setTimeout(() => this.updateEmployeeIdsToShow(), 1000);
     setTimeout(() => this.addEvents(), 1000);
     // this.getSampleEvents();
     this.setCalendarOptions();
   }
+
   setColors() {
     const spans = document.getElementsByClassName('bullet');
     for (let i = 0; i < spans.length; i++) {
@@ -63,10 +67,16 @@ export class CalendarsComponent implements OnInit {
   }
 
   addEvents() {
+    this.ucCalendar.fullCalendar('removeEvents');
     this.data = [];
+    let k = 0;
     for (let i = 0; i < this.visits.length; i++) {
       const currVisit = this.visits[i];
-      this.data[i] = ({
+
+      if (!this.shouldThisShow(currVisit.employeeId)) {
+        continue;
+      }
+      this.data[k] = ({
         id: currVisit.id,
         title: currVisit.title,
         start: currVisit.dateTimeOfVisitStart.toString(),
@@ -75,6 +85,10 @@ export class CalendarsComponent implements OnInit {
         customerId: currVisit.customerId,
         className: 'clickable'
       });
+      k++;
+    }
+    if (k === 0) {
+      return;
     }
     this.ucCalendar.fullCalendar('addEventSource', this.data);
   }
@@ -149,15 +163,50 @@ export class CalendarsComponent implements OnInit {
         'August', 'September', 'Oktober', 'November', 'December'],
       monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul',
         'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
-      dayNames: ['Søndag', 'Mandag', 'Tirsdag', 'Onsdag',
-        'Torsdag', 'Fredag', 'Lørdag'],
+      dayNames: [' Søndag', ' Mandag', ' Tirsdag', ' Onsdag',
+        ' Torsdag', ' Fredag', ' Lørdag'],
       dayNamesShort: ['Søn', 'Man', 'Tirs', 'Ons',
         'Tors', 'Fre', 'Lør'],
       allDayText: 'Hele dagen',
+      customButtons: {
+        ExcelButton: {
+          text: 'Excel',
+          click: function exportToExcel() {
+            const htmltable = document.getElementsByClassName('fc-list-table ');
+            const html = htmltable[0].outerHTML;
+            window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+          }
+        }
+      },
       buttonText: {today: 'Idag', month: 'Måned', week: 'Uge', day: 'Dag', list: 'Liste'},
-      header: {left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay,listMonth'},
+      header: {left: 'prev,next today', center: 'title', right: 'ExcelButton month,agendaWeek,agendaDay,listMonth'},
       events: this.data
     };
 
+  }
+
+  private shouldThisShow(currId) {
+    for (let x = 0; x < this.employeeIdsToShow.length; x++) {
+      if (currId === this.employeeIdsToShow[x]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private updateEmployeeIdsToShow() {
+    for (let x = 0; x < this.employees.length; x++) {
+      this.employeeIdsToShow.push(this.employees[x].id);
+    }
+  }
+
+  private toggle(employeeId) {
+    const index = this.employeeIdsToShow.indexOf(employeeId);
+    if (index > -1) {
+      this.employeeIdsToShow.splice(index, 1);
+    } else {
+      this.employeeIdsToShow.push(employeeId);
+    }
+    this.addEvents();
   }
 }
