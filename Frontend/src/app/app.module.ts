@@ -38,6 +38,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FullCalendarModule} from 'ng-fullcalendar';
 import {SalesmanListService} from './customers/shared/salesman-list.service';
 import {EmployeeCreateComponent} from "./employee/employee-create/employee-create.component";
+import {PasswordResetComponent} from "./login/login/password-reset/password-reset.component";
 
 
 const appRoutes: Routes = [
@@ -48,6 +49,7 @@ const appRoutes: Routes = [
   {path: 'propositions/create', component: PropositionCreateComponent, canActivate: [AuthGuard]},
   {path: 'visits/create', component: VisitCreateComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'passwordreset', component: PasswordResetComponent},
   {path: 'customers', component: CustomerListComponent, canActivate: [AuthGuard]},
   {path: 'calendar', component: CalendarsComponent, canActivate: [AuthGuard]},
 
@@ -71,7 +73,8 @@ const appRoutes: Routes = [
     VisitCreateComponent,
     VisitComponent,
     CalendarsComponent,
-    EmployeeCreateComponent
+    EmployeeCreateComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

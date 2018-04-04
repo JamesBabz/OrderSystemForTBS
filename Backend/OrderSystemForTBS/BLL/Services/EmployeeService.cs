@@ -14,6 +14,8 @@ namespace BLL.Services
     {
         private IDALFacade _facade;
 
+        string password;
+        byte[] passwordHash, passwordSalt;
         private EmployeeConverter _employeeConverter;
         private Employee _newEmployee;
 
@@ -31,8 +33,7 @@ namespace BLL.Services
         /// <returns> new EmployeeBO</returns>
         public EmployeeBO Create(EmployeeBO employee)
         {
-            string password;
-            byte[] passwordHash, passwordSalt;
+            
             using (var uow = _facade.UnitOfWork)
             {
                 password = employee.Password;
@@ -64,10 +65,20 @@ namespace BLL.Services
             }
         }
 
-        //TODO implement
-        public EmployeeBO Update(EmployeeBO bo)
+        public EmployeeBO Update(EmployeeBO emp)
         {
-            throw new NotImplementedException();
+            using (var uow = _facade.UnitOfWork)
+            {
+                // gets prop from DB that matches the id
+                var userFromDb = uow.EmployeeRepository.Get(emp.Id);
+                userFromDb.Password = emp.Password;
+                password = emp.Password;
+                PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                userFromDb.PasswordHash = passwordHash;
+                userFromDb.PasswordSalt = passwordSalt;
+                uow.Complete();
+                return _employeeConverter.Convert(userFromDb);
+            }
         }
 
         // TODO implement 

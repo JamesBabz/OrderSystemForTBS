@@ -46,6 +46,24 @@ namespace OrderSystemForTBS.Controllers
             return _facade.EmployeeService.Get(Id);
         }
 
+        // PUT api/employee/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] EmployeeBO emp)
+        {
+            if (id != emp.Id)
+            {
+                return StatusCode(405, "Path id does not match employee ID json object");
+            }
+            try
+            {
+                return Ok(_facade.EmployeeService.Update(emp));
+            }
+            catch (InvalidOperationException e)
+            {
+                return StatusCode(404, e.Message);
+            }
+        }
+
         // DELETE: api/employees/5
         [HttpDelete]
         public IActionResult Delete(int Id)

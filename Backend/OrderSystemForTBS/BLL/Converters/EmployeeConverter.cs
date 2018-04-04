@@ -19,6 +19,7 @@ namespace BLL.Converters
                     Lastname = employee.Lastname,
                     Username = employee.Username,
                     Password = employee.Password,
+                    PasswordReset = employee.PasswordReset,
                     PasswordHash = employee.PasswordHash,
                     PasswordSalt = employee.PasswordSalt,
                     ColorCode = employee.ColorCode
@@ -37,6 +38,7 @@ namespace BLL.Converters
                 Lastname = employee.Lastname,
                 Username = employee.Username,
                 Password = employee.Password,
+                PasswordReset = employee.PasswordReset,
                 PasswordHash = employee.PasswordHash,
                 PasswordSalt = employee.PasswordSalt,
                 ColorCode = employee.ColorCode

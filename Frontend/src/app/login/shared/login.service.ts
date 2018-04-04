@@ -3,11 +3,12 @@ import {Observable} from 'rxjs/Observable';
 import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Employee} from './employee.model';
+import {LoginComponent} from '../login/login.component';
 
 @Injectable()
 export class LoginService {
   public token: string;
-
+  loginComponent: LoginComponent;
   employee: Employee;
 
   constructor(private http: Http) {

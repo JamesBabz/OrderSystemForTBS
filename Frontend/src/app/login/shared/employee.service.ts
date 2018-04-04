@@ -14,6 +14,7 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
+
   getCurrentEmployee(): Observable<Employee> {
     const localStorageId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
     return this.http.get<Employee>(url + localStorageId);
@@ -23,8 +24,12 @@ export class EmployeeService {
     return this.http.post<Employee>(url, emp);
   }
 
+  updateEmployeeById(id: number, emp: Employee): Observable<Employee> {
+    return this.http.put<Employee>(url + "/" + id, emp);
+  }
+
   getEmployeeById(id: number): Observable<Employee> {
-    return this.http.get<Employee>(url + id);
+    return this.http.get<Employee>(url + "/" + id);
   }
 
   getEmployees(): Observable<Employee[]>{

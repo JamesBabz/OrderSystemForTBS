@@ -3,6 +3,6 @@ export class Employee {
   firstname: string;
   lastname: string;
   username: string;
-  password: string;
-  colorcode: string;
+  password?: string;
+  colorCode: string;
 }

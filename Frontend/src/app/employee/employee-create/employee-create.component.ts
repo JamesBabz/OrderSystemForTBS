@@ -41,7 +41,7 @@ export class EmployeeCreateComponent implements OnInit {
       lastname: values.lastname,
       username: values.username,
       password: values.password,
-      colorcode: values.colorcode
+      colorCode: values.colorCode
     };
 
     this.employeeService.createEmployee(employee).subscribe(newEmployee => {
