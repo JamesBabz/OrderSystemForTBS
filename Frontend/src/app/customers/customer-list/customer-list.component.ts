@@ -53,11 +53,6 @@ export class CustomerListComponent implements OnInit {
     this.router.navigateByUrl('/calendar');
   }
 
-  test() {
-    this.salesmanListService.getSalesmanList(this.employee.id).subscribe(x => this.salemanList = x);
-  }
-
-
   showP20() {
     this.salesmanListService.getSalesmanList(this.employee.id).subscribe(y => {
       this.salemanList = y;
