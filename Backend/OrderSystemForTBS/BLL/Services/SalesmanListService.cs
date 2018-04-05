@@ -34,7 +34,12 @@ namespace BLL.Services
 
         public SalesmanListBO Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (var uow = _facade.UnitOfWork)
+            {
+                _newSalesmanList = uow.SalesmanListRepository.Delete(Id);
+                uow.Complete();
+                return _salesmanListConverter.Convert(_newSalesmanList);
+            }
         }
 
         public SalesmanListBO Get(int Id)

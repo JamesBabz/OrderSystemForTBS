@@ -41,5 +41,19 @@ namespace OrderSystemForTBS.Controllers
             return Ok(_facade.salesmanListService.Create(BO));
 
         }
+
+        // DELETE api/customer/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int Id)
+        {
+            try
+            {
+                return Ok(_facade.salesmanListService.Delete(Id));
+            }
+            catch (InvalidOperationException e)
+            {
+                return StatusCode(404, e.Message);
+            }
+        }
     }
 }
