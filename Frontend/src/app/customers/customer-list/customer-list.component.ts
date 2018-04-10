@@ -44,6 +44,10 @@ export class CustomerListComponent implements OnInit {
     this.router.navigateByUrl('propositions/create');
   }
 
+  createEmployee() {
+    this.router.navigateByUrl('employees/create');
+  }
+
   createVisit() {
     this.router.navigateByUrl('visits/create');
   }

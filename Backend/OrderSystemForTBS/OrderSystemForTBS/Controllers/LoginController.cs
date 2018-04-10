@@ -48,9 +48,10 @@ namespace OrderSystemForTBS.Controllers
             // Authentication successful
             return Ok(new
             {
+                passwordreset = user.PasswordReset,
                 id = user.Id,
                 username = user.Username,
-                token = GenerateToken(_employeeConverter.Convert(user)),             
+                token = GenerateToken(_employeeConverter.Convert(user)),
             });
         }
         

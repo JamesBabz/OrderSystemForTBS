@@ -14,12 +14,16 @@ namespace BLL.Services
     {
         private IDALFacade _facade;
 
+        string password;
+        byte[] passwordHash, passwordSalt;
         private EmployeeConverter _employeeConverter;
         private Employee _newEmployee;
+        private sendMail _mailto;
 
         public EmployeeService(IDALFacade facade)
         {
             _employeeConverter = new EmployeeConverter();
+            _mailto = new sendMail();
             _facade = facade;
         }
 
@@ -31,8 +35,7 @@ namespace BLL.Services
         /// <returns> new EmployeeBO</returns>
         public EmployeeBO Create(EmployeeBO employee)
         {
-            string password;
-            byte[] passwordHash, passwordSalt;
+            
             using (var uow = _facade.UnitOfWork)
             {
                 password = employee.Password;
@@ -40,6 +43,8 @@ namespace BLL.Services
                 PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
                 _newEmployee.PasswordHash = passwordHash;
                 _newEmployee.PasswordSalt = passwordSalt;
+                _newEmployee.PasswordReset = true;
+                _mailto.mailTo(_newEmployee.Username, password, _newEmployee.Firstname);
                 uow.Complete();
                 return _employeeConverter.Convert(_newEmployee);
             }
@@ -63,10 +68,21 @@ namespace BLL.Services
             }
         }
 
-        //TODO implement
-        public EmployeeBO Update(EmployeeBO bo)
+        public EmployeeBO Update(EmployeeBO emp)
         {
-            throw new NotImplementedException();
+            using (var uow = _facade.UnitOfWork)
+            {
+                // gets prop from DB that matches the id
+                var userFromDb = uow.EmployeeRepository.Get(emp.Id);
+                userFromDb.Password = emp.Password;
+                password = emp.Password;
+                PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                userFromDb.PasswordHash = passwordHash;
+                userFromDb.PasswordSalt = passwordSalt;
+                userFromDb.PasswordReset = false;
+                uow.Complete();
+                return _employeeConverter.Convert(userFromDb);
+            }
         }
 
         // TODO implement 
