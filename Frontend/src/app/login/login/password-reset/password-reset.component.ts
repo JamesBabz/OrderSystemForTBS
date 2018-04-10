@@ -20,10 +20,6 @@ export class PasswordResetComponent implements OnInit {
   isSaved = false;
   changes = false;
 
-
-  password = document.getElementById('password');
-  confirmPassword = document.getElementById('confirmPassword');
-
   constructor(private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
 
   }
@@ -43,7 +39,6 @@ export class PasswordResetComponent implements OnInit {
   }
 
   updateEmployee() {
-    if(this.password = this.confirmPassword)
     {if (this.changes) {
       this.employeeService.updateEmployeeById(this.employee.id, this.editPassword).subscribe(Employee => {
         this.employee = Employee;
