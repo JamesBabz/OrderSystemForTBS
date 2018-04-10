@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmployeeService} from '../../shared/employee.service';
 import {Employee} from '../../shared/employee.model';
+import {toString} from '@ng-bootstrap/ng-bootstrap/util/util';
 
 
 @Component({
@@ -19,6 +20,9 @@ export class PasswordResetComponent implements OnInit {
   isSaved = false;
   changes = false;
 
+
+  password = document.getElementById('password');
+  confirmPassword = document.getElementById('confirmPassword');
 
   constructor(private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
 
@@ -39,7 +43,8 @@ export class PasswordResetComponent implements OnInit {
   }
 
   updateEmployee() {
-    if (this.changes) {
+    if(this.password = this.confirmPassword)
+    {if (this.changes) {
       this.employeeService.updateEmployeeById(this.employee.id, this.editPassword).subscribe(Employee => {
         this.employee = Employee;
         this.editPassword = Object.assign({}, this.employee);
@@ -47,15 +52,15 @@ export class PasswordResetComponent implements OnInit {
         this.logout();
       });
     }
-
-    this.changes = false;
+      this.logout();
+      this.changes = false;}
   }
 
   logout(): void {
     // clear token remove user from local storage to log user out
     this.token = null;
     localStorage.removeItem('currentUser');
+    this.router.navigateByUrl('/login');
   }
-
 }
 

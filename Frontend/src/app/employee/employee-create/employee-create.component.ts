@@ -22,8 +22,10 @@ export class EmployeeCreateComponent implements OnInit {
       lastname: ['', Validators.required],
       username: ['', Validators.required],
       password: [Math.random().toString(36).substring(7)],
-      colorcode: ['']
+      colorCode: ['']
     });
+
+
   }
 
   ngOnInit() {
@@ -41,8 +43,10 @@ export class EmployeeCreateComponent implements OnInit {
       lastname: values.lastname,
       username: values.username,
       password: values.password,
-      colorCode: values.colorCode
+      colorCode: values.colorCode,
     };
+
+    console.log(employee.password);
 
     this.employeeService.createEmployee(employee).subscribe(newEmployee => {
       this.router.navigateByUrl('/customers');

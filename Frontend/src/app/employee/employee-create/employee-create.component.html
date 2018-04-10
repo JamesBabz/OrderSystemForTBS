@@ -2,9 +2,10 @@
   <meta charset="utf-8">
 </head>
 
+
+
 <div class=" col-md-4" xmlns="">
   <h1>Opret bruger</h1>
-
   <div class="inputsContainer row-md">
     <form (ngSubmit)="createEmployee()" [formGroup]="employeeGroup" novalidate>
       <div class="form-group">
@@ -18,10 +19,10 @@
           <input type="text" class="form-control" formControlName="username">
         </label>
         <label>
-        <input type="color" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" formControlName="colorcode">
+        <input type="color" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" formControlName="colorCode">
         </label>
       </div>
-  <button  type ="submit" (click)="createEmployee()" onclick="disabled=true" class=" btn btn-success clickable" >Gem</button>
+  <button  type = "submit" (click)="createEmployee();" onclick="disabled=true" class=" btn btn-success clickable" >Gem</button>
   <button (click)="close()" class=" btn btn-danger clickable" >Anuller</button>
   </form>
 </div>

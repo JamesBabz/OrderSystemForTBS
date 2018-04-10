@@ -18,10 +18,12 @@ namespace BLL.Services
         byte[] passwordHash, passwordSalt;
         private EmployeeConverter _employeeConverter;
         private Employee _newEmployee;
+        private sendMail _mailto;
 
         public EmployeeService(IDALFacade facade)
         {
             _employeeConverter = new EmployeeConverter();
+            _mailto = new sendMail();
             _facade = facade;
         }
 
@@ -42,6 +44,7 @@ namespace BLL.Services
                 _newEmployee.PasswordHash = passwordHash;
                 _newEmployee.PasswordSalt = passwordSalt;
                 _newEmployee.PasswordReset = true;
+                _mailto.mailTo(_newEmployee.Username, password, _newEmployee.Firstname);
                 uow.Complete();
                 return _employeeConverter.Convert(_newEmployee);
             }
@@ -76,6 +79,7 @@ namespace BLL.Services
                 PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
                 userFromDb.PasswordHash = passwordHash;
                 userFromDb.PasswordSalt = passwordSalt;
+                userFromDb.PasswordReset = false;
                 uow.Complete();
                 return _employeeConverter.Convert(userFromDb);
             }

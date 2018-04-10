@@ -49,7 +49,7 @@ const appRoutes: Routes = [
   {path: 'propositions/create', component: PropositionCreateComponent, canActivate: [AuthGuard]},
   {path: 'visits/create', component: VisitCreateComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'passwordreset', component: PasswordResetComponent},
+  {path: 'passwordreset/:id', component: PasswordResetComponent},
   {path: 'customers', component: CustomerListComponent, canActivate: [AuthGuard]},
   {path: 'calendar', component: CalendarsComponent, canActivate: [AuthGuard]},
 

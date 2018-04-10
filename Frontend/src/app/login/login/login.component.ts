@@ -29,16 +29,16 @@ export class LoginComponent implements OnInit {
     this.loginService.logout();
   }
 
-  login() {
+  login(employee: Employee) {
     this.loading = true;
     this.loginService.login(this.model.username, this.model.password)
       .subscribe(
         success => {
-          setTimeout(() => success, 4000);
-          this.localStorageId = (localStorage.getItem('currentUser').split(',')[0].substr(6));
+          this.localStorageId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
           this.localStorageBool = toString(localStorage.getItem('currentUser').split(',')[1].substr(16));
 
           console.log(this.localStorageBool);
+          console.log(this.localStorageId);
 
           if(this.localStorageBool == "true")
           {

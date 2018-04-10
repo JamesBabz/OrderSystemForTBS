@@ -5,11 +5,12 @@ import 'rxjs/add/operator/map';
 import {Employee} from './employee.model';
 import {LoginComponent} from '../login/login.component';
 
+
 @Injectable()
 export class LoginService {
   public token: string;
-  loginComponent: LoginComponent;
   employee: Employee;
+  passwordReset: string;
 
   constructor(private http: Http) {
     // set token if saved in local storage
@@ -22,16 +23,17 @@ export class LoginService {
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         const token = response.json() && response.json().token;
-        const passwordReset = response.json().passwordreset;
+        this.passwordReset = response.json().passwordreset;
         const id = response.json().id;
         if (token) {
           // set token property
           this.token = token;
           // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({id: id, passwordreset: passwordReset, username: username, token: token}));
+          localStorage.setItem('currentUser', JSON.stringify({id: id, passwordreset: this.passwordReset, username: username, token: token}));
 
           // return true to indicate successful login
           return true;
+
         } else {
           // return false to indicate failed login
           return false;
