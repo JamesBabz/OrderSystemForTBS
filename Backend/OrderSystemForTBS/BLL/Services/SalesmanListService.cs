@@ -34,7 +34,12 @@ namespace BLL.Services
 
         public SalesmanListBO Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (var uow = _facade.UnitOfWork)
+            {
+                _newSalesmanList = uow.SalesmanListRepository.Delete(Id);
+                uow.Complete();
+                return _salesmanListConverter.Convert(_newSalesmanList);
+            }
         }
 
         public SalesmanListBO Get(int Id)
@@ -50,8 +55,6 @@ namespace BLL.Services
                 var fullList = uow.SalesmanListRepository.GetAllById(EmployeeId);
                 foreach (var x in fullList)
                 {
-                    SalesmanListBO y = _salesmanListConverter.Convert(x);
-                    Console.WriteLine(y.Customer.Firstname);
                     returnList.Add(_salesmanListConverter.Convert(x));
                 }
 
