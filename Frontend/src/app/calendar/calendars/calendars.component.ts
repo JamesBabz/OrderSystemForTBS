@@ -8,6 +8,8 @@ import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
 import {CustomerService} from '../../customers/shared/customer.service';
 import {Router} from '@angular/router';
+import {saveAs} from 'file-saver/FileSaver';
+import {split} from 'ts-node/dist';
 
 @Component({
   selector: 'app-calendars',
@@ -172,10 +174,30 @@ export class CalendarsComponent implements OnInit {
         ExcelButton: {
           text: 'Excel',
           click: function exportToExcel() {
-            const htmltable = document.getElementsByClassName('fc-list-table ');
-            const html = htmltable[0].outerHTML;
-            window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+            const seperator = ',';
+            const headers = [];
+            headers[0] = 'Dato';
+            headers[1] = 'Dag';
+            headers[2] = 'Tidspunkt';
+            headers[3] = 'Besøg';
+
+            let content = 'sep=' + seperator + '\n';
+            for (let i = 0; i < headers.length; i++) {
+              content += headers[i] + seperator;
+            }
+            content += '\n' + document.getElementsByClassName('fc-list-table')[0].textContent;
+            for (let i = 0; i < content.length; i++) {
+              content = content.replace(' ', seperator);
+            }
+
+            const blob = new Blob([content], {
+              type: 'application/csv;charset=utf-8'
+            });
+            saveAs(blob, 'Report.csv');
           }
+          // const htmltable = document.getElementsByClassName('fc-list-table ');
+          // const html = htmltable[0].outerHTML;
+          // window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
         }
       },
       buttonText: {today: 'Idag', month: 'Måned', week: 'Uge', day: 'Dag', list: 'Liste'},
