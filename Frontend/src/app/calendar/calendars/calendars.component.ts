@@ -190,10 +190,10 @@ export class CalendarsComponent implements OnInit {
               content = content.replace(' ', seperator);
             }
 
-            const blob = new Blob([content], {
-              type: 'application/csv;charset=utf-8'
+            const blob = new Blob([JSON.stringify(content)], {
+              type: 'application/pdf;charset=utf-8'
             });
-            saveAs(blob, 'Report.csv');
+            saveAs(blob, 'Report.pdf');
           }
           // const htmltable = document.getElementsByClassName('fc-list-table ');
           // const html = htmltable[0].outerHTML;
