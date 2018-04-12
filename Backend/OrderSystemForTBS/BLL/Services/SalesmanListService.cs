@@ -50,8 +50,6 @@ namespace BLL.Services
                 var fullList = uow.SalesmanListRepository.GetAllById(EmployeeId);
                 foreach (var x in fullList)
                 {
-                    SalesmanListBO y = _salesmanListConverter.Convert(x);
-                    Console.WriteLine(y.Customer.Firstname);
                     returnList.Add(_salesmanListConverter.Convert(x));
                 }
 

@@ -13,4 +13,7 @@ export class SalesmanListService {
     return this.http
       .get<SalesmanList[]>(url + id);
   }
+  createSalesmanList(salesmanList: SalesmanList): Observable<SalesmanList> {
+    return this.http.post<SalesmanList>(url, salesmanList);
+  }
 }
