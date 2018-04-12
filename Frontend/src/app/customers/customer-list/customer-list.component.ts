@@ -48,6 +48,12 @@ export class CustomerListComponent implements OnInit {
     this.router.navigateByUrl('employees/create');
   }
 
+
+  openAdminPage()
+  {
+    this.router.navigateByUrl('/admin');
+  }
+
   createVisit() {
     this.router.navigateByUrl('visits/create');
   }

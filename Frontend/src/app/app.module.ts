@@ -39,6 +39,7 @@ import {FullCalendarModule} from 'ng-fullcalendar';
 import {SalesmanListService} from './customers/shared/salesman-list.service';
 import {EmployeeCreateComponent} from "./employee/employee-create/employee-create.component";
 import {PasswordResetComponent} from "./login/login/password-reset/password-reset.component";
+import {AdminComponent} from './admin/admin/admin.component';
 
 
 const appRoutes: Routes = [
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
   {path: 'passwordreset/:id', component: PasswordResetComponent},
   {path: 'customers', component: CustomerListComponent, canActivate: [AuthGuard]},
   {path: 'calendar', component: CalendarsComponent, canActivate: [AuthGuard]},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
 
   {path: '**', redirectTo: 'customers'}
 ];
@@ -59,6 +61,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AdminComponent,
     CustomerListComponent,
     CustomerDetailComponent,
     CustomerComponent,
