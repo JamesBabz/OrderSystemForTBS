@@ -10,7 +10,6 @@
     </div>
   </div>
   <div class="row">
-
     <div class="leftBorder col-md-3">
       <input class="input" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
 
@@ -18,7 +17,6 @@
         <app-customer (click)="details(cust, $event)" *ngFor="let cust of customers" [customer]="cust" [employee]="this.employee" (eDeleted)="refresh()"></app-customer>
       </div>
     </div>
-
     <div class="centerBorder col-md-9">
       <div class="calendarButtonContainer">
         <button class=" btnMain btn btn-success clickable calendarButton" (click)="showCalendar()"> Vis kalender</button>
@@ -28,7 +26,6 @@
         <button class=" btnMain btn btn-success clickable"  (click)="createVisit()"> Opret besøg</button>
         <button class=" btnMain btn btn-success clickable" (click)="createProposition()"> Tilføj tilbud</button>
         <button class=" btnMain btn btn-success clickable" disabled> Tilføj slutseddel</button>
-        <button class=" btnMain btn btn-success clickable" (click)="openAdminPage()"> Admin </button>
       </div>
     </div>
   </div>
