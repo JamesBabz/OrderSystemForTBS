@@ -22,7 +22,7 @@ export class EmployeeCreateComponent implements OnInit {
       lastname: ['', Validators.required],
       username: ['', Validators.required],
       password: [Math.random().toString(36).substring(7)],
-      colorCode: ['']
+      colorCode: ['',]
     });
 
 

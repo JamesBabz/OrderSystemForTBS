@@ -4,6 +4,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmployeeService} from '../../shared/employee.service';
 import {Employee} from '../../shared/employee.model';
 import {toString} from '@ng-bootstrap/ng-bootstrap/util/util';
+import {printLine} from 'tslint/lib/test/lines';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+import {PasswordValidation} from './ValidatorFile';
 
 
 @Component({
@@ -18,20 +21,25 @@ export class PasswordResetComponent implements OnInit {
   employee: Employee;
   editPassword: Employee;
   isSaved = false;
-  changes = false;
+
+
+  employeeGroup: FormGroup;
 
   constructor(private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
-
+    const localStorageId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
+    this.employeeGroup = this.formBuilder.group({
+      id:[localStorageId],
+      firstname: ['', ],
+      lastname: ['', ],
+      username: ['', ],
+      password: ['', Validators.required],
+        confirmPassword:['', Validators.required],
+      colorCode: ['']
+    },
+      PasswordValidation.MatchPassword);
   }
 
   ngOnInit() {
-    this.route.paramMap
-      .switchMap(params => this.employeeService
-        .getEmployeeById(+params.get('id')))
-      .subscribe(Employee => {
-        this.employee = Employee;
-        this.editPassword = Object.assign({}, this.employee);
-      });
   }
 
   close() {
@@ -39,16 +47,25 @@ export class PasswordResetComponent implements OnInit {
   }
 
   updateEmployee() {
-    {if (this.changes) {
-      this.employeeService.updateEmployeeById(this.employee.id, this.editPassword).subscribe(Employee => {
+    const values = this.employeeGroup.value;
+    const employee: Employee = {
+
+      id: values.id,
+      firstname: values.firstname,
+      lastname: values.lastname,
+      username: values.username,
+      password: values.confirmPassword,
+      colorCode: values.colorCode,
+    };
+
+    console.log(employee.password);
+
+    this.employee = employee;
+
+      this.employeeService.updateEmployeeById(this.employee.id, employee).subscribe(Employee => {
         this.employee = Employee;
-        this.editPassword = Object.assign({}, this.employee);
-        this.isSaved = true;
-        this.logout();
+      //  this.logout();
       });
-    }
-      this.logout();
-      this.changes = false;}
   }
 
   logout(): void {
