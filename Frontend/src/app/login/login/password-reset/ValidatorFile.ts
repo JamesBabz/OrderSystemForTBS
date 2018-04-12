@@ -1,15 +1,12 @@
-import {AbstractControl} from '@angular/forms';
-export class PasswordValidation {
+import {AbstractControl, ValidatorFn} from '@angular/forms';
 
-  static MatchPassword(AC: AbstractControl) {
-    let password = AC.get('password').value; // to get value in input tag
-    let confirmPassword = AC.get('confirmPassword').value; // to get value in input tag
-    if(password != confirmPassword) {
-      console.log('false');
-      AC.get('confirmPassword').setErrors( {MatchPassword: true} )
-    } else {
-      console.log('true');
-      return null
+export function matchPassword(): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} => {
+    const formGroup = control.parent;
+    if (formGroup) {
+      const password = formGroup.get('password');
+      return password.value !== control.value ? {'no-match': {value: control.value}} : null;
     }
-  }
+    return null;
+  };
 }

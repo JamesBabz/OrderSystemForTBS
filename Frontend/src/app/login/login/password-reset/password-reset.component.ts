@@ -3,10 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmployeeService} from '../../shared/employee.service';
 import {Employee} from '../../shared/employee.model';
-import {toString} from '@ng-bootstrap/ng-bootstrap/util/util';
-import {printLine} from 'tslint/lib/test/lines';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
-import {PasswordValidation} from './ValidatorFile';
+import {matchPassword} from './ValidatorFile';
 
 
 @Component({
@@ -17,12 +15,10 @@ import {PasswordValidation} from './ValidatorFile';
 export class PasswordResetComponent implements OnInit {
 
   public token: string;
+  inputPassword: string;
 
   employee: Employee;
-  editPassword: Employee;
-  isSaved = false;
-
-
+  errormessage = 'Adganskoderne skal være ens';
   employeeGroup: FormGroup;
 
   constructor(private employeeService: EmployeeService, private router: Router, private route: ActivatedRoute, private formBuilder: FormBuilder) {
@@ -33,11 +29,11 @@ export class PasswordResetComponent implements OnInit {
       lastname: ['', ],
       username: ['', ],
       password: ['', Validators.required],
-        confirmPassword:['', Validators.required],
+      confirmPassword:['', [Validators.required, matchPassword()]],
       colorCode: ['']
-    },
-      PasswordValidation.MatchPassword);
+    });
   }
+
 
   ngOnInit() {
   }
@@ -64,7 +60,7 @@ export class PasswordResetComponent implements OnInit {
 
       this.employeeService.updateEmployeeById(this.employee.id, employee).subscribe(Employee => {
         this.employee = Employee;
-      //  this.logout();
+        this.logout();
       });
   }
 
@@ -74,5 +70,6 @@ export class PasswordResetComponent implements OnInit {
     localStorage.removeItem('currentUser');
     this.router.navigateByUrl('/login');
   }
+
 }
 
