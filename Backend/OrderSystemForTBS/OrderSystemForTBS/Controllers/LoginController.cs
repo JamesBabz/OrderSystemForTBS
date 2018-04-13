@@ -51,6 +51,7 @@ namespace OrderSystemForTBS.Controllers
                 passwordreset = user.PasswordReset,
                 id = user.Id,
                 username = user.Username,
+                isadmin = user.IsAdmin,
                 token = GenerateToken(_employeeConverter.Convert(user)),
             });
         }
@@ -78,18 +79,30 @@ namespace OrderSystemForTBS.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, employee.Username)
+                new Claim(ClaimTypes.Name, employee.Username),
+                new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
             };
 
-            var token = new JwtSecurityToken(
-                new JwtHeader(new SigningCredentials(
-                    JwtSecurityKey.Key,
-                    SecurityAlgorithms.HmacSha256)),
-                new JwtPayload(null, // issuer - not needed (ValidateIssuer = false)
-                    null, // audience - not needed (ValidateAudience = false)
-                    claims.ToArray(),
-                    DateTime.Now,               // notBefore
-                    DateTime.Now.AddDays(1)));  // expires
+            if (employee.IsAdmin == "Administrator")
+            {
+                claims.Add(new Claim("role", "Administrator"));
+            }
+            else if (employee.IsAdmin == "User")
+            {
+                claims.Add(new Claim("role", "User"));
+            }
+
+
+                var token = new JwtSecurityToken(
+                    new JwtHeader(new SigningCredentials(
+                        JwtSecurityKey.Key,
+                        SecurityAlgorithms.HmacSha256)),
+                    new JwtPayload(null, // issuer - not needed (ValidateIssuer = false)
+                        null, // audience - not needed (ValidateAudience = false)
+                        claims.ToArray(),
+                        DateTime.Now, // notBefore
+                        DateTime.Now.AddDays(1))); // expires
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

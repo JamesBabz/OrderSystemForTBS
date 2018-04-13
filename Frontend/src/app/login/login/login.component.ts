@@ -4,7 +4,7 @@ import {LoginService} from '../shared/login.service';
 import {Employee} from '../shared/employee.model';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {toString} from '@ng-bootstrap/ng-bootstrap/util/util';
-import {isSuccess} from '@angular/http/src/http_utils';
+
 
 @Component({
   selector: 'app-login',
@@ -15,11 +15,12 @@ export class LoginComponent implements OnInit {
 
   model: any = Employee;
   loading = false;
-  username: string;
+  IsHidden;
   errormessage = '';
   currentUser;
   localStorageId;
   localStorageBool;
+  localStorageRole;
 
   constructor(private router: Router, private loginService: LoginService) {
   }
@@ -34,11 +35,10 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.model.username, this.model.password)
       .subscribe(
         success => {
+          this.showHeader(true);
           this.localStorageId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
           this.localStorageBool = toString(localStorage.getItem('currentUser').split(',')[1].substr(16));
 
-          console.log(this.localStorageBool);
-          console.log(this.localStorageId);
 
           if(this.localStorageBool == "true")
           {
@@ -48,8 +48,6 @@ export class LoginComponent implements OnInit {
           {
             this.router.navigateByUrl('/customers');
           }
-
-          this.showHeader(true);
 
         },
         error => {
@@ -62,9 +60,21 @@ export class LoginComponent implements OnInit {
   private showHeader(b: boolean) {
     if (b) {
       document.getElementById('headerContainer').style.display = 'flex';
+      this.checkIfAdmin();
     } else {
       document.getElementById('headerContainer').style.display = 'none';
     }
   }
 
+  public checkIfAdmin() {
+    this.localStorageRole = toString(localStorage.getItem('currentUser').split('"')[7].substr(0));
+
+    if (localStorage.getItem('currentUser') != null && this.localStorageRole === 'User') {
+      var adminLink = document.getElementById("admin");
+      (<HTMLElement>adminLink).remove();
+      return true;
+    }
+    return false;
+  }
 }
+

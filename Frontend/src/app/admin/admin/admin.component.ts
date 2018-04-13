@@ -24,6 +24,9 @@ export class AdminComponent implements OnInit {
     this.router.navigateByUrl('/customers');
   }
 
+  createEmployee() {
+    this.router.navigateByUrl('employees/create');
+  }
 
   }
 

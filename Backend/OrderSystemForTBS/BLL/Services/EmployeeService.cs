@@ -44,6 +44,7 @@ namespace BLL.Services
                 _newEmployee.PasswordHash = passwordHash;
                 _newEmployee.PasswordSalt = passwordSalt;
                 _newEmployee.PasswordReset = true;
+                _newEmployee.IsAdmin = "User";
               //  _mailto.mailTo(_newEmployee.Username, password, _newEmployee.Firstname);
                 uow.Complete();
                 return _employeeConverter.Convert(_newEmployee);
