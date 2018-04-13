@@ -176,11 +176,11 @@ export class CalendarsComponent implements OnInit {
           text: 'Excel',
           click: function exportToExcel() {
             //   const seperator = ',';
-            //   const headers = [];
-            //   headers[0] = 'Dato';
-            //   headers[1] = 'Dag';
-            //   headers[2] = 'Tidspunkt';
-            //   headers[3] = 'Besøg';
+              const headers = [];
+              headers[0] = 'Dato';
+              headers[1] = 'Dag';
+              headers[2] = 'Tidspunkt';
+              headers[3] = 'Besøg';
             //
             //   let content = 'sep=' + seperator + '\n';
             //   for (let i = 0; i < headers.length; i++) {
@@ -195,7 +195,29 @@ export class CalendarsComponent implements OnInit {
             //     type: 'application/pdf;charset=utf-8'
             //   });
             //   saveAs(blob, 'Report.pdf');
-            var dd = { content: 'your pdf data' };
+
+
+            const htmltable = document.getElementsByClassName('fc-list-table ');
+            const html = htmltable[0].outerHTML;
+            var dd = {
+              content: [
+                {
+                  layout: 'lightHorizontalLines', // optional
+                  table: {
+                    // headers are automatically repeated if the table spans over multiple pages
+                    // you can declare how many rows should be treated as headers
+                    headerRows: 1,
+                    widths: [ '*', 'auto', 100, '*' ],
+
+                    body: [
+                      headers,
+                      [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
+                      [ { text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4' ]
+                    ]
+                  }
+                }
+              ]
+            };
             pdfMake.createPdf(dd).download();
 
             // const htmltable = document.getElementsByClassName('fc-list-table ');
