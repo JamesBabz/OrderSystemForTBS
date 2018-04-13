@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using BLL;
 using BLL.BusinessObjects;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 
 namespace OrderSystemForTBS.Controllers
@@ -14,6 +15,7 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/SalesmanList")]
+    [Authorize(Roles = "Administrator, User")]
     public class SalesmanListController : Controller
     {
         private IBLLFacade _facade;
