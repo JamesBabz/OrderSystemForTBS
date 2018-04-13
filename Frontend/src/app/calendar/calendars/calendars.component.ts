@@ -176,11 +176,12 @@ export class CalendarsComponent implements OnInit {
           text: 'Excel',
           click: function exportToExcel() {
             //   const seperator = ',';
-              const headers = [];
-              headers[0] = 'Dato';
-              headers[1] = 'Dag';
-              headers[2] = 'Tidspunkt';
-              headers[3] = 'Besøg';
+            const headers = [];
+            headers[0] = 'Dato';
+            headers[1] = 'Dag';
+            headers[2] = 'Tidspunkt';
+            headers[3] = 'Besøg';
+            var isAYear = /\d{4}/;
             //
             //   let content = 'sep=' + seperator + '\n';
             //   for (let i = 0; i < headers.length; i++) {
@@ -198,7 +199,12 @@ export class CalendarsComponent implements OnInit {
 
 
             const htmltable = document.getElementsByClassName('fc-list-table ');
-            const html = htmltable[0].outerHTML;
+            const html = htmltable[0].textContent;
+
+            var test = [];
+
+            test = html.split((isAYear) + "(?=[a-zA-Z)");
+
             var dd = {
               content: [
                 {
@@ -207,12 +213,12 @@ export class CalendarsComponent implements OnInit {
                     // headers are automatically repeated if the table spans over multiple pages
                     // you can declare how many rows should be treated as headers
                     headerRows: 1,
-                    widths: [ '*', 'auto', 100, '*' ],
+                    widths: ['*', 'auto', 100, '*'],
 
                     body: [
                       headers,
-                      [ 'Value 1', 'Value 2', 'Value 3', 'Value 4' ],
-                      [ { text: 'Bold value', bold: true }, 'Val 2', 'Val 3', 'Val 4' ]
+                      ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
+                      [html, test, '', '']
                     ]
                   }
                 }
