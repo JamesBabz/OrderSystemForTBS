@@ -72,7 +72,7 @@ export class PropositionCreateComponent implements OnInit {
       newProp => {
         newProp.employee = this.employee,
           this.propositionService.setCurrentProposition(newProp);
-        this.router.navigateByUrl('customer/' + this.customer.id);
+        this.router.navigateByUrl('customer/' + this.selectedCust.id);
       });
     if (this.upLoadedAImage) {
       this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();

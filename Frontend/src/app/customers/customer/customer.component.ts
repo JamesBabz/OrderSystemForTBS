@@ -12,6 +12,7 @@ import {EmployeeService} from '../../login/shared/employee.service';
 })
 export class CustomerComponent implements OnInit {
   isP20Showed: boolean;
+  disableBtn = false;
   @Input()
   customer: Customer;
   @Input()
@@ -25,19 +26,39 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
   }
   removeCustomerFromP20() {
+    this.disableBtn = true;
+    this.showSnackBar('snackbarDelete');
       this.salesmanListService.getSalesmanList(this.employee.id).subscribe(y => {
         for (let v of y)
         {
           if (v.employeeId === this.employee.id && v.customerId === this.customer.id) {
-            this.salesmanListService.removeCustomerFromP20(v.id).subscribe(sml => this.eDeleted.emit(sml));
+            this.salesmanListService.removeCustomerFromP20(v.id).subscribe(sml => {
+              this.eDeleted.emit(sml);
+              this.disableBtn = false;
+            });
           }
         }
       });
   }
   addCustomerToP20() {
+    this.disableBtn = true;
     const custToP20: SalesmanList = {customerId: this.customer.id, employeeId: this.employee.id};
-    this.salesmanListService.addCustomerToP20(custToP20).subscribe();
-    var x = document.getElementById('snackbar')
+    this.salesmanListService.getSalesmanList(this.employee.id).subscribe(y => {
+      for (let v of y)
+      {
+        if (this.customer.id === v.customer.id ) {
+          this.showSnackBar('snackbarError');
+          this.disableBtn = false;
+          return;
+        }
+      }
+      this.salesmanListService.addCustomerToP20(custToP20).subscribe(() => this.disableBtn = false);
+      this.showSnackBar('snackbarSucces');
+
+    });
+  }
+  showSnackBar(snackBarToOpen: string) {
+    const x = document.getElementById(snackBarToOpen)
     x.className = 'show';
     setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
   }
