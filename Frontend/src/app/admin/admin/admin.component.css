@@ -13,3 +13,14 @@
   margin: 0 !important;
   -moz-appearance:textfield !important;
 }
+
+.EmployeesBorder{
+  height: 78vh;
+  border: solid 2px gray;
+  overflow-y: scroll;
+}
+
+.leftBorder{
+  text-align: center;
+  width: 100%;
+}
