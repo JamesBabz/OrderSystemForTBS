@@ -53,7 +53,7 @@ const appRoutes: Routes = [
   {path: 'passwordreset/:id', component: PasswordResetComponent},
   {path: 'customers', component: CustomerListComponent},
   {path: 'calendar', component: CalendarsComponent},
-  {path: 'admin', component: AdminComponent},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
 
   {path: '**', redirectTo: 'customers'}
 ];
