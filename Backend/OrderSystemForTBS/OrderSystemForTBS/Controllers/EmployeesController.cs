@@ -37,7 +37,7 @@ namespace OrderSystemForTBS.Controllers
 
         // GET api/employee
         [HttpGet]
-        [Authorize(Roles = "User, Administrator")]
+        [Authorize(Roles = "Administrator, User")]
         public IEnumerable<EmployeeBO> Get()
         {
             return _facade.EmployeeService.GetAll();
@@ -53,7 +53,7 @@ namespace OrderSystemForTBS.Controllers
 
         // PUT api/employee/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator, User")]
         public IActionResult Put(int id, [FromBody] EmployeeBO emp)
         {
             if (id != emp.Id)
