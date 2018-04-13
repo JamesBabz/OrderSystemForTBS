@@ -177,54 +177,73 @@ export class CalendarsComponent implements OnInit {
           click: function exportToExcel() {
             //   const seperator = ',';
             const headers = [];
-            headers[0] = 'Dato';
-            headers[1] = 'Dag';
-            headers[2] = 'Tidspunkt';
-            headers[3] = 'Besøg';
-            var isAYear = /\d{4}/;
-            //
-            //   let content = 'sep=' + seperator + '\n';
-            //   for (let i = 0; i < headers.length; i++) {
-            //     content += headers[i] + seperator;
-            //   }
-            //   content += '\n' + document.getElementsByClassName('fc-list-table')[0].textContent;
-            //   for (let i = 0; i < content.length; i++) {
-            //     content = content.replace(' ', seperator);
-            //   }
-            //
-            //   const blob = new Blob([JSON.stringify(content)], {
-            //     type: 'application/pdf;charset=utf-8'
-            //   });
-            //   saveAs(blob, 'Report.pdf');
-
+            headers[0] = 'Dato' + '\n';
+            headers[1] = 'Besøg' + '\n';
+            headers[2] = 'Person' + '\n';
 
             const htmltable = document.getElementsByClassName('fc-list-table ');
-            const html = htmltable[0].textContent;
 
-            var test = [];
 
-            test = html.split((isAYear) + "(?=[a-zA-Z)");
+            const dates = [headers[0]];
+            const visits = [headers[1]];
+            const employees = [headers[2]];
+            const regEx = /[0-9]{4}/;
 
-            var dd = {
+            const rows = htmltable.item(0).getElementsByTagName('tr');
+            const rowLength = htmltable.item(0).getElementsByTagName('tr').length;
+            let lastWasVisit = false;
+            for (let i = 0; i < rowLength; i++) {
+              if (rows[i].classList.contains('fc-list-heading'){
+                let text = rows[i].textContent;
+                text = text.substr(0, text.search(regEx) + 4);
+                const today = new Date(text);
+                dates.push(today.toLocaleDateString('da-dk') + '\n');
+                lastWasVisit = false;
+              } else if (rows[i].classList.contains('fc-list-item'){
+                if (lastWasVisit) {
+                  dates.push(dates[dates.length - 1] + '\n');
+                }
+                visits.push(rows[i].textContent + '\n');
+                lastWasVisit = true;
+
+              }
+            }
+
+
+            const pdf = {
               content: [
                 {
-                  layout: 'lightHorizontalLines', // optional
-                  table: {
-                    // headers are automatically repeated if the table spans over multiple pages
-                    // you can declare how many rows should be treated as headers
-                    headerRows: 1,
-                    widths: ['*', 'auto', 100, '*'],
+                  header: 'HEADER',
 
-                    body: [
-                      headers,
-                      ['Value 1', 'Value 2', 'Value 3', 'Value 4'],
-                      [html, test, '', '']
-                    ]
-                  }
+                  columns: [
+                    {
+                      // auto-sized columns have their widths based on their content
+                      width: 'auto',
+                      text: [] = dates, style: 'noBullet'
+                    },
+                    {
+                      // star-sized columns fill the remaining space
+                      // if there's more than one star-column, available width is divided equally
+                      width: '*',
+                      ul: [] = visits, style: 'noBullet'
+                    },
+                    {
+                      // fixed width
+                      width: '*',
+                      ol: [] = employees, style: 'noBullet'
+                    }
+                  ],
+                  // optional space between columns
+                  columnGap: 10
                 }
-              ]
+              ],
+              styles: {
+                noBullet: {
+                  listType: 'none'
+                }
+              }
             };
-            pdfMake.createPdf(dd).download();
+            pdfMake.createPdf(pdf).download();
 
             // const htmltable = document.getElementsByClassName('fc-list-table ');
             // const html = htmltable[0].outerHTML;
