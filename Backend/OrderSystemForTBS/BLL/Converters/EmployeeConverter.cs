@@ -22,8 +22,9 @@ namespace BLL.Converters
                     PasswordReset = employee.PasswordReset,
                     PasswordHash = employee.PasswordHash,
                     PasswordSalt = employee.PasswordSalt,
-                    ColorCode = employee.ColorCode
-                    
+                    ColorCode = employee.ColorCode,
+                    IsAdmin = employee.IsAdmin
+                 
                 };
             }
         }
@@ -41,7 +42,8 @@ namespace BLL.Converters
                 PasswordReset = employee.PasswordReset,
                 PasswordHash = employee.PasswordHash,
                 PasswordSalt = employee.PasswordSalt,
-                ColorCode = employee.ColorCode
+                ColorCode = employee.ColorCode,
+                IsAdmin = employee.IsAdmin
             };
         }
     }

@@ -17,6 +17,7 @@ namespace DAL.Entities
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string ColorCode { get; set; }
+        public string IsAdmin { get; set; }
 
     }
 }

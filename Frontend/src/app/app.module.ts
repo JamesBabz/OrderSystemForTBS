@@ -44,16 +44,16 @@ import {AdminComponent} from './admin/admin/admin.component';
 
 const appRoutes: Routes = [
 
-  {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
-  {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
-  {path: 'employees/create', component: EmployeeCreateComponent, canActivate: [AuthGuard]},
-  {path: 'propositions/create', component: PropositionCreateComponent, canActivate: [AuthGuard]},
+  {path: 'customer/:id', component: CustomerDetailComponent},
+  {path: 'customers/create', component: CustomerCreateComponent},
+  {path: 'employees/create', component: EmployeeCreateComponent},
+  {path: 'propositions/create', component: PropositionCreateComponent},
   {path: 'visits/create', component: VisitCreateComponent},
   {path: 'login', component: LoginComponent},
   {path: 'passwordreset/:id', component: PasswordResetComponent},
-  {path: 'customers', component: CustomerListComponent, canActivate: [AuthGuard]},
-  {path: 'calendar', component: CalendarsComponent, canActivate: [AuthGuard]},
-  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path: 'customers', component: CustomerListComponent},
+  {path: 'calendar', component: CalendarsComponent},
+  {path: 'admin', component: AdminComponent},
 
   {path: '**', redirectTo: 'customers'}
 ];

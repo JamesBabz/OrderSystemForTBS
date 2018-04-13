@@ -18,5 +18,6 @@ namespace BLL.BusinessObjects
         public bool PasswordReset { get; set; }
         public string MacAddress { get; set; }
         public string ColorCode { get; set; }
+        public string IsAdmin { get; set; }
     }
 }
