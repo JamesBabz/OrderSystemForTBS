@@ -27,12 +27,14 @@ namespace DAL.Repositories
 
         public SalesmanList Delete(int Id)
         {
-            throw new NotImplementedException();
+            var salesmanList = Get(Id);
+            _context.SalesmanLists.Remove(salesmanList);
+            return salesmanList;
         }
 
         public SalesmanList Get(int Id)
         {
-            throw new NotImplementedException();
+            return _context.SalesmanLists.FirstOrDefault(x => x.Id == Id);
         }
 
         public IEnumerable<SalesmanList> GetAll()

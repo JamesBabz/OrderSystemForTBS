@@ -29,7 +29,10 @@ export class CustomerListComponent implements OnInit {
     this.employeeService.getCurrentEmployee().subscribe(Employee => this.employee = Employee);
   }
 
-  details(customer: Customer) {
+  details(customer: Customer, event) {
+    if (event.target.tagName === 'I') {
+      return;
+    }
     this.router.navigateByUrl('/customer/' + customer.id);
   }
 
@@ -39,6 +42,16 @@ export class CustomerListComponent implements OnInit {
 
   createProposition() {
     this.router.navigateByUrl('propositions/create');
+  }
+
+  createEmployee() {
+    this.router.navigateByUrl('employees/create');
+  }
+
+
+  openAdminPage()
+  {
+    this.router.navigateByUrl('/admin');
   }
 
   createVisit() {
@@ -58,12 +71,17 @@ export class CustomerListComponent implements OnInit {
       this.salemanList = y;
       this.addEmployeeCustomersToList();
     });
+    this.salesmanListService.setP20ListShowed(true);
   }
 
   showCustomers() {
     this.customerService.getCustomers().subscribe(Customers => this.customers = Customers);
+    this.salesmanListService.setP20ListShowed(false);
   }
 
+  refresh() {
+    this.showP20();
+  }
   changeList() {
     if (this.isP20Showed) {
       this.showCustomers();

@@ -56,6 +56,7 @@ namespace OrderSystemForTBS
 
             services.AddSingleton(Configuration);
 
+
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IBLLFacade, BLLFacade>();
 

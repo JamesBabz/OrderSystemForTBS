@@ -37,17 +37,23 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {FullCalendarModule} from 'ng-fullcalendar';
 import {SalesmanListService} from './customers/shared/salesman-list.service';
+import {EmployeeCreateComponent} from "./employee/employee-create/employee-create.component";
+import {PasswordResetComponent} from "./login/login/password-reset/password-reset.component";
+import {AdminComponent} from './admin/admin/admin.component';
 
 
 const appRoutes: Routes = [
 
-  {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
-  {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
-  {path: 'propositions/create', component: PropositionCreateComponent, canActivate: [AuthGuard]},
+  {path: 'customer/:id', component: CustomerDetailComponent},
+  {path: 'customers/create', component: CustomerCreateComponent},
+  {path: 'employees/create', component: EmployeeCreateComponent},
+  {path: 'propositions/create', component: PropositionCreateComponent},
   {path: 'visits/create', component: VisitCreateComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'customers', component: CustomerListComponent, canActivate: [AuthGuard]},
-  {path: 'calendar', component: CalendarsComponent, canActivate: [AuthGuard]},
+  {path: 'passwordreset/:id', component: PasswordResetComponent},
+  {path: 'customers', component: CustomerListComponent},
+  {path: 'calendar', component: CalendarsComponent},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
 
   {path: '**', redirectTo: 'customers'}
 ];
@@ -55,6 +61,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AdminComponent,
     CustomerListComponent,
     CustomerDetailComponent,
     CustomerComponent,
@@ -68,7 +75,9 @@ const appRoutes: Routes = [
     VisitListComponent,
     VisitCreateComponent,
     VisitComponent,
-    CalendarsComponent
+    CalendarsComponent,
+    EmployeeCreateComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

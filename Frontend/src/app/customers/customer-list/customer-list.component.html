@@ -10,15 +10,13 @@
     </div>
   </div>
   <div class="row">
-
     <div class="leftBorder col-md-3">
       <input class="input" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
 
       <div class="CustomersBorder">
-        <app-customer (click)="details(cust)" *ngFor="let cust of customers" [customer]="cust"></app-customer>
+        <app-customer (click)="details(cust, $event)" *ngFor="let cust of customers" [customer]="cust" [employee]="this.employee" (eDeleted)="refresh()"></app-customer>
       </div>
     </div>
-
     <div class="centerBorder col-md-9">
       <div class="calendarButtonContainer">
         <button class=" btnMain btn btn-success clickable calendarButton" (click)="showCalendar()"> Vis kalender</button>

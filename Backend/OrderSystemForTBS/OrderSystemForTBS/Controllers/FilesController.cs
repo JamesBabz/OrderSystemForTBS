@@ -24,7 +24,7 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Roles = "Administrator, User")]
     public class FilesController : Controller
     {
         private FileService _fileService;
