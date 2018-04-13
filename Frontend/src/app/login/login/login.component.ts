@@ -60,21 +60,11 @@ export class LoginComponent implements OnInit {
   private showHeader(b: boolean) {
     if (b) {
       document.getElementById('headerContainer').style.display = 'flex';
-      this.checkIfAdmin();
     } else {
       document.getElementById('headerContainer').style.display = 'none';
     }
   }
 
-  public checkIfAdmin() {
-    this.localStorageRole = toString(localStorage.getItem('currentUser').split('"')[7].substr(0));
 
-    if (localStorage.getItem('currentUser') != null && this.localStorageRole === 'User') {
-      var adminLink = document.getElementById("admin");
-      (<HTMLElement>adminLink).remove();
-      return true;
-    }
-    return false;
-  }
 }
 
