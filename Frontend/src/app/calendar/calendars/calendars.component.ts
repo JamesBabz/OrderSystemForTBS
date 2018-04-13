@@ -9,7 +9,8 @@ import {Employee} from '../../login/shared/employee.model';
 import {CustomerService} from '../../customers/shared/customer.service';
 import {Router} from '@angular/router';
 import {saveAs} from 'file-saver/FileSaver';
-import {split} from 'ts-node/dist';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: 'app-calendars',
@@ -30,7 +31,7 @@ export class CalendarsComponent implements OnInit {
 
 
   constructor(private visitService: VisitService, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router) {
-
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
   }
 
   ngOnInit() {
@@ -174,30 +175,40 @@ export class CalendarsComponent implements OnInit {
         ExcelButton: {
           text: 'Excel',
           click: function exportToExcel() {
-            const seperator = ',';
-            const headers = [];
-            headers[0] = 'Dato';
-            headers[1] = 'Dag';
-            headers[2] = 'Tidspunkt';
-            headers[3] = 'Besøg';
+            //   const seperator = ',';
+            //   const headers = [];
+            //   headers[0] = 'Dato';
+            //   headers[1] = 'Dag';
+            //   headers[2] = 'Tidspunkt';
+            //   headers[3] = 'Besøg';
+            //
+            //   let content = 'sep=' + seperator + '\n';
+            //   for (let i = 0; i < headers.length; i++) {
+            //     content += headers[i] + seperator;
+            //   }
+            //   content += '\n' + document.getElementsByClassName('fc-list-table')[0].textContent;
+            //   for (let i = 0; i < content.length; i++) {
+            //     content = content.replace(' ', seperator);
+            //   }
+            //
+            //   const blob = new Blob([JSON.stringify(content)], {
+            //     type: 'application/pdf;charset=utf-8'
+            //   });
+            //   saveAs(blob, 'Report.pdf');
+            var dd = { content: 'your pdf data' };
+            pdfMake.createPdf(dd).download();
 
-            let content = 'sep=' + seperator + '\n';
-            for (let i = 0; i < headers.length; i++) {
-              content += headers[i] + seperator;
-            }
-            content += '\n' + document.getElementsByClassName('fc-list-table')[0].textContent;
-            for (let i = 0; i < content.length; i++) {
-              content = content.replace(' ', seperator);
-            }
+            // const htmltable = document.getElementsByClassName('fc-list-table ');
+            // const html = htmltable[0].outerHTML;
+            // window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
 
-            const blob = new Blob([JSON.stringify(content)], {
-              type: 'application/pdf;charset=utf-8'
-            });
-            saveAs(blob, 'Report.pdf');
+
+            // const htmltable = document.getElementsByClassName('fc-list-table ');
+            // const html = htmltable[0].outerHTML;
+            // window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
           }
-          // const htmltable = document.getElementsByClassName('fc-list-table ');
-          // const html = htmltable[0].outerHTML;
-          // window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+
+
         }
       },
       buttonText: {today: 'Idag', month: 'Måned', week: 'Uge', day: 'Dag', list: 'Liste'},
