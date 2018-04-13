@@ -117,34 +117,21 @@ export class CustomerListComponent implements OnInit {
     const docDefinition = {
       content: [
         { text: this.employee.firstname + ' ' + this.employee.lastname + "'s P20 liste", style: 'header' },
-        '    ',
-        {text: 'CVR                      Navn                             Adresse                                    Telefon  ', style: 'headLine'},
+        '  ',
         {
-          columns: [
-            {
-              // auto-sized columns have their widths based on their content
-              width: 'auto',
-              ol: [] = cvr
-            },
-            {
-              // auto-sized columns have their widths based on their content
-              width: 'auto',
-              ul: [] = name
-            },
-            {
-              // auto-sized columns have their widths based on their content
-              width: 'auto',
-              ul: [] = address
-            },
-            {
-              // auto-sized columns have their widths based on their content
-              width: 'auto',
-              ul: [] = phone
-            }
-          ],
-          // optional space between columns
-          columnGap: 10
-        },
+          layout: 'lightHorizontalLines', // optional
+          table: {
+            // headers are automatically repeated if the table spans over multiple pages
+            // you can declare how many rows should be treated as headers
+            headerRows: 1,
+            widths: [ 'auto', '*', '*', 'auto' ],
+
+            body: [
+              [ 'CVR', 'Navn', 'Adresse', 'Telefon' ],
+              [ cvr, name, address, phone ]
+            ]
+          }
+        }
       ],
       styles: {
         header: {
