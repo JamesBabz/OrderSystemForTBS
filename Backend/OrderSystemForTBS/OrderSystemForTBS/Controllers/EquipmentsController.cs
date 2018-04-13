@@ -14,7 +14,7 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "Administrator, User")]
     public class EquipmentsController : Controller
     {
         private IBLLFacade _facade;
