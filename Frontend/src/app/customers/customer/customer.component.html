@@ -3,12 +3,16 @@
   <div class="textBorder unselectable clickable ">
     <label class="label clickable">
       <span>
-        <button *ngIf="this.isP20Showed && this.employee" class="button btnHideAndShow  clickable" (click)="removeCustomerFromP20()"><i class="fa fa-user-times big-icon"></i></button>
-       <button *ngIf="!this.isP20Showed && this.employee" class="button btnHideAndShow  clickable" (click)="addCustomerToP20()"><i class="fa fa-user-plus big-icon"></i></button>
+        <button *ngIf="this.isP20Showed && this.employee" class="button btnHideAndShow  clickable" [disabled]="disableBtn"(click)="removeCustomerFromP20()"><i class="fa fa-user-times big-icon"></i></button>
+       <button *ngIf="!this.isP20Showed && this.employee" class="button btnHideAndShow  clickable" [disabled]="disableBtn"(click)="addCustomerToP20()"><i class="fa fa-user-plus big-icon"></i></button>
           {{customer?.firstname}}  {{customer?.lastname}}
       </span>
     </label>
   </div>
 </div>
 
-<div id="snackbar">Personen er tilføjet til din P20 liste</div>
+<div id="snackbarSucces">Kunden er tilføjet til din P20 liste</div>
+<div id="snackbarError">Kunden er allerede på din P20 liste</div>
+<div id="snackbarDelete"><i class="fa fa-trash big-icon"></i></div>
+
+
