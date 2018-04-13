@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {Customer} from '../shared/customer.model';
 import {CustomerService} from '../shared/customer.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router} from '@angular/router';
 import {SalesmanListService} from '../shared/salesman-list.service';
 import {SalesmanList} from '../shared/salesmanList.model';
-import {forEach} from '@angular/router/src/utils/collection';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 
 @Component({
   selector: 'app-customer-list',
@@ -22,6 +23,7 @@ export class CustomerListComponent implements OnInit {
   isP20Showed = false;
 
   constructor(private customerService: CustomerService, private router: Router, private salesmanListService: SalesmanListService, private employeeService: EmployeeService) {
+
   }
 
   ngOnInit() {
@@ -44,13 +46,7 @@ export class CustomerListComponent implements OnInit {
     this.router.navigateByUrl('propositions/create');
   }
 
-  createEmployee() {
-    this.router.navigateByUrl('employees/create');
-  }
-
-
-  openAdminPage()
-  {
+  openAdminPage() {
     this.router.navigateByUrl('/admin');
   }
 
@@ -99,6 +95,69 @@ export class CustomerListComponent implements OnInit {
       this.employeeCustomers.push(x.customer);
     }
     this.customers = this.employeeCustomers;
+  }
+
+  openP20ListInPdf() {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    const cust = new Customer;
+    const cvr = [];
+    // cvr.push('CVR');
+    const name = [];
+    // name.push('Navn');
+    const address = [];
+    // address.push('Adresse');
+    const phone = [];
+    // phone.push('Telefon');
+    for (let x of this.employeeCustomers){
+      cvr.push(x.cvr);
+      name.push(x.firstname + ' ' + x.lastname);
+      address.push(x.zipCode + ' ' + x.city + ', ' + x.address);
+      phone.push(x.phone);
+    }
+    const docDefinition = {
+      content: [
+        { text: this.employee.firstname + ' ' + this.employee.lastname + "'s P20 liste", style: 'header' },
+        '    ',
+        {text: 'CVR                      Navn                             Adresse                                    Telefon  ', style: 'headLine'},
+        {
+          columns: [
+            {
+              // auto-sized columns have their widths based on their content
+              width: 'auto',
+              ol: [] = cvr
+            },
+            {
+              // auto-sized columns have their widths based on their content
+              width: 'auto',
+              ul: [] = name
+            },
+            {
+              // auto-sized columns have their widths based on their content
+              width: 'auto',
+              ul: [] = address
+            },
+            {
+              // auto-sized columns have their widths based on their content
+              width: 'auto',
+              ul: [] = phone
+            }
+          ],
+          // optional space between columns
+          columnGap: 10
+        },
+      ],
+      styles: {
+        header: {
+          fontSize: 22,
+          bold: true
+        },
+        headLine: {
+          bold: true
+        }
+      }
+    };
+    pdfMake.createPdf(docDefinition).open({}, window);
+
   }
 
   popAList(list: any) {

@@ -6,7 +6,8 @@
       <h1 *ngIf="this.isP20Showed" >Min P20 liste</h1>
     </div>
     <div class="col-md-9">
-      <button class="btn btn-light" id="btnChangeList" (click)="changeList()"><i class="fa fa-exchange big-icon"></i></button>
+      <button class="btn btn-light clickable" id="btnChangeList" (click)="changeList()"><i class="fa fa-exchange big-icon"></i></button>
+      <button *ngIf="isP20Showed" class="btn btn-info clickable" id="btnOpenPdf" (click)="openP20ListInPdf()"><i class="fa fa-external-link big-icon"></i></button>
     </div>
   </div>
   <div class="row">

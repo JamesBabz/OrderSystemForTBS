@@ -31,6 +31,10 @@ text-align: center;
   height: 65px;
   width: 65px;
 }
+#btnOpenPdf{
+  height: 65px;
+  width: 65px;
+}
 .big-icon {
   font-size: 32px;
 }
