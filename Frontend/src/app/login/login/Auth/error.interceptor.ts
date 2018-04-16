@@ -15,12 +15,12 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    next.handle(req).do((event: HttpEvent<any>) => {
+    return next.handle(req).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
       }
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {
+        if (err.status === 401 || 403) {
           this.loginService.logout();
 
           // not logged in so redirect to login page with the return url
@@ -29,22 +29,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
       }
     });
-
-    return next.handle(req).do((event: HttpEvent<any>) => {
-      if (event instanceof HttpResponse) {
-      }
-    }, (err: any) => {
-      if (err instanceof HttpErrorResponse) {
-        if (err.status === 403) {
-          this.loginService.logout();
-
-          // not logged in so redirect to login page with the return url
-          this.router.navigate(['/customers'] );
-
-        }
-      }
-    });
-
   }
 }
 

@@ -31,5 +31,12 @@ export class AdminComponent implements OnInit {
   showEmployees() {
     this.employeeService.getEmployees().subscribe(Employees => this.employees = Employees);
   }
+
+  details(employee: Employee, event) {
+    if (event.target.tagName === 'I') {
+      return;
+    }
+    this.router.navigateByUrl('/employee/' + employee.id);
+  }
 }
 
