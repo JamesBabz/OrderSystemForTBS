@@ -33,6 +33,7 @@ export class PropositionComponent implements OnInit {
   isNewFileSelected = false;
   prenstFile: string;
   doDeleteFile = false;
+  correctFile = true;
 
   constructor(private propositionService: PropositionService, private router: Router) {
   }
@@ -89,14 +90,17 @@ export class PropositionComponent implements OnInit {
 
     var files = event.target.files;
     var file = files[0];
-    if (files && file) {
+    if (files && file && file.type.indexOf('pdf') > -1) {
       var reader = new FileReader();
 
       reader.onload = this._handleReaderLoaded.bind(this);
 
       reader.readAsBinaryString(file);
+      this.upLoadedAImage = true;
+      this.correctFile = true;
+    } else {
+      this.correctFile = false;
     }
-    this.upLoadedAImage = true;
   }
 
   _handleReaderLoaded(readerEvt) {
