@@ -16,5 +16,6 @@ namespace BLL.BusinessObjects
         public string Email { get; set; }
         public int Phone { get; set; }
         public int CVR { get; set; }
+        public string Description { get; set; }
     }
 }

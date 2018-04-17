@@ -35,3 +35,14 @@
 .notSaved-text{
   color: red;
 }
+.big-icon {
+  font-size: 32px;
+}
+
+.descTextArea{
+  resize: none;
+  height: 50%;
+}
+.btn{
+  margin-top: 20px;
+}
