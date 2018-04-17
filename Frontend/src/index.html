@@ -15,9 +15,8 @@
     <a href="customers"><img class="logo" src="assets/TBSLogo.png"></a>
   </div>
   <div *ngIf="checkIfAdmin()" class="col-md-1 offset-md-9">
-    <a href="login" class="btn btn-link" (click)="logout()">Log ud</a>
-    <br>
-    <a  id="admin" href="admin" class="btn btn-link" >Admin</a>
+    <a  id="admin" href="admin" style="margin: 5px" class="btn btn-light" ><i style="font-size: 25px" class="fa fa-cog"></i></a>
+    <a href="login" style="margin: 5px" class="btn btn-danger" (click)="logout()"><i style="font-size: 25px" class="fa fa-sign-out"></i></a>
   </div>
   <hr style="width: 100%;">
 </div>

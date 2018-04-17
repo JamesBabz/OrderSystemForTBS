@@ -7,12 +7,12 @@
     </div>
     <div class="col-md-9">
       <button class="btn btn-light clickable" id="btnChangeList" (click)="changeList()"><i class="fa fa-exchange big-icon"></i></button>
-      <button *ngIf="isP20Showed && employeeCustomers" class="btn btn-info clickable" id="btnOpenPdf" (click)="openP20ListInPdf()"><i class="fa fa-download big-icon"></i></button>
+      <button style="margin-left: 10px" *ngIf="isP20Showed && employeeCustomers" class="btn btn-info clickable" id="btnOpenPdf" (click)="openP20ListInPdf()"><i class="fa fa-download big-icon"></i></button>
     </div>
   </div>
   <div class="row">
     <div class="leftBorder col-md-3">
-      <input class="input" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
+      <input class="input" [disabled]="isP20Showed" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
 
       <div class="CustomersBorder">
         <app-customer (click)="details(cust, $event)" *ngFor="let cust of customers" [customer]="cust" [employee]="this.employee" (eDeleted)="refresh()"></app-customer>

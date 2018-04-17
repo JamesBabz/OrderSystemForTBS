@@ -9,4 +9,5 @@ export class Customer {
   phone: string;
   email: string;
   cvr?: number;
+  description?: string;
 }
