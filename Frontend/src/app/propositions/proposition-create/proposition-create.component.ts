@@ -23,12 +23,10 @@ export class PropositionCreateComponent implements OnInit {
   selectedCust: Customer;
   customers: Customer[];
   createPropFormGroup: FormGroup;
-  employeeId: number;
   employee: Employee;
-  selectedFile: any;
   base64textString: string;
-  fileIds: number[];
   upLoadedAImage = false;
+  correctFile = true;
 
 
   constructor(private employeeService: EmployeeService, private propositionService: PropositionService,
@@ -83,14 +81,17 @@ export class PropositionCreateComponent implements OnInit {
 
     var files = event.target.files;
     var file = files[0];
-    if (files && file) {
+    if (files && file && file.type.indexOf('pdf') > -1) {
       var reader = new FileReader();
 
       reader.onload = this._handleReaderLoaded.bind(this);
 
       reader.readAsBinaryString(file);
+      this.upLoadedAImage = true;
+      this.correctFile = true;
+    } else {
+     this.correctFile = false;
     }
-    this.upLoadedAImage = true;
   }
 
   _handleReaderLoaded(readerEvt) {

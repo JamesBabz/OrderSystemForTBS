@@ -67,6 +67,7 @@
       <div class="row top20">
         <div class="col-md-12">
           <input type="file" name="file" formControlName="file" (change)="onFileChange($event); isNewFileSelected = true" />
+          <div *ngIf="!correctFile" class="alert alert-danger" role="alert">Det er kun muligt, at oploade PDF filer! (.pdf)</div>
         </div>
       </div>
     </form>
@@ -75,7 +76,7 @@
         <strong class="unsavedChangesText"> Ændringer er ikke gemt*</strong>
       </div>
       <div class="right">
-        <button  [disabled]="editPropGroup.invalid" class="btn btn-outline-success shouldClose shouldKeepInput clickable" (click)="save($event)">Gem</button>
+        <button  [disabled]="editPropGroup.invalid || !correctFile" class="btn btn-outline-success shouldClose shouldKeepInput clickable" (click)="save($event)">Gem</button>
         <button class="btn btn-outline-danger shouldClose clickable" (click)="closeModal($event); doDeleteFile = false">Annuller</button>
       </div>
     </div>
