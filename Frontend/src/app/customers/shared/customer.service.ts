@@ -48,4 +48,12 @@ export class CustomerService {
   getTab() {
     return this.tab;
   }
+
+  getDateAsEUString(date: Date) {
+    const newDate = new Date(date);
+    let dateString;
+    const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
+    dateString = newDate.toLocaleString('en-GB', options);
+    return dateString;
+  }
 }

@@ -99,36 +99,47 @@ export class CustomerListComponent implements OnInit {
 
   openP20ListInPdf() {
     pdfMake.vfs = pdfFonts.pdfMake.vfs;
-    const cust = new Customer;
+    var rowNumb = 1;
+    const date = new Date;
     const cvr = [];
-    // cvr.push('CVR');
     const name = [];
-    // name.push('Navn');
+    const city = [];
     const address = [];
-    // address.push('Adresse');
     const phone = [];
-    // phone.push('Telefon');
+    const mail = [];
+    const rowNumber = [];
     for (let x of this.employeeCustomers){
       cvr.push(x.cvr);
       name.push(x.firstname + ' ' + x.lastname);
-      address.push(x.zipCode + ' ' + x.city + ', ' + x.address);
+      city.push(x.zipCode + ' ' + x.city);
+      address.push(x.address);
       phone.push(x.phone);
+      mail.push(x.email);
+      rowNumber.push(rowNumb ++);
     }
     const docDefinition = {
+      pageOrientation: 'landscape',
+      pageBreak: 'before',
+      footer: {
+        columns: [
+          { text: this.customerService.getDateAsEUString(date), margin: [ 50, 2, 10, 20 ] }
+        ]
+      },
       content: [
-        { text: this.employee.firstname + ' ' + this.employee.lastname + "'s P20 liste", style: 'header' },
+        {
+          text: this.employee.firstname + ' ' + this.employee.lastname + "'s P20 liste", style: 'header' },
         '  ',
         {
-          layout: 'lightHorizontalLines', // optional
+          layout: 'lightHorizontalLines',
           table: {
             // headers are automatically repeated if the table spans over multiple pages
             // you can declare how many rows should be treated as headers
             headerRows: 1,
-            widths: [ 'auto', '*', '*', 'auto' ],
+            widths: ['auto', 'auto', '*', 'auto', '*', 'auto', 'auto' ],
 
             body: [
-              [ 'CVR', 'Navn', 'Adresse', 'Telefon' ],
-              [ cvr, name, address, phone ]
+              ['Nr', 'CVR', 'Navn', 'By', 'Vej', 'Telefon', 'Email' ],
+              [ rowNumber, cvr, name, city, address, phone, mail ]
             ]
           }
         }
@@ -143,8 +154,7 @@ export class CustomerListComponent implements OnInit {
         }
       }
     };
-    pdfMake.createPdf(docDefinition).open({}, window);
-
+    pdfMake.createPdf(docDefinition).download(this.employee.firstname + '_' + date);
   }
 
   popAList(list: any) {
