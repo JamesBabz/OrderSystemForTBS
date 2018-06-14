@@ -37,11 +37,12 @@
     <div class="row top20">
       <div class="col-md-4">
         <input type="file" name="file" formControlName="file" (change)="onFileChange($event)"/>
+        <div *ngIf="!correctFile" class="alert alert-danger" role="alert">Det er kun muligt, at oploade PDF filer! (.pdf)</div>
       </div>
     </div>
     <div class="row top20">
       <div class="col-md-4">
-        <input class="btn btn-success clickable" type="button" (click)="createNewProposition()" value="Gem" name="save" [disabled]="!createPropFormGroup.valid"/>
+        <input class="btn btn-success clickable" type="button" (click)="createNewProposition()" value="Gem" name="save" [disabled]="!createPropFormGroup.valid || !correctFile"/>
         <input class="btn btn-danger clickable" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
       </div>
     </div>

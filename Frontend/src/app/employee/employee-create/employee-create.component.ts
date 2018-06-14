@@ -12,9 +12,7 @@ import {Employee} from '../../login/shared/employee.model';
 })
 export class EmployeeCreateComponent implements OnInit {
 
-
   employeeGroup: FormGroup;
-
 
   constructor(private employeeService: EmployeeService, private router: Router, private formBuilder: FormBuilder) {
     this.employeeGroup = this.formBuilder.group({
@@ -22,10 +20,8 @@ export class EmployeeCreateComponent implements OnInit {
       lastname: ['', Validators.required],
       username: ['', Validators.required],
       password: [Math.random().toString(36).substring(7)],
-      colorCode: ['',]
+      colorCode: ['']
     });
-
-
   }
 
   ngOnInit() {
@@ -45,8 +41,6 @@ export class EmployeeCreateComponent implements OnInit {
       password: values.password,
       colorCode: values.colorCode,
     };
-
-    console.log(employee.password);
 
     this.employeeService.createEmployee(employee).subscribe(newEmployee => {
       this.router.navigateByUrl('/customers');

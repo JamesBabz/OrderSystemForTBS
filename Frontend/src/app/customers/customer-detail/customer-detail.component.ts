@@ -28,6 +28,8 @@ export class CustomerDetailComponent implements OnInit {
   editCustomer: Customer;
   isSaved = false;
   changes = false;
+  descriptionChanges = false;
+  customerDescription: string;
 
   constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
   }
@@ -110,6 +112,10 @@ export class CustomerDetailComponent implements OnInit {
       this.modalString = '';
     }
   }
+  saveUserDescrition() {
+    this.editCustomer.description = this.customerDescription;
+    this.customerService.updateCustomerById(this.customer.id, this.editCustomer).subscribe(Customer => this.customer = Customer);
 
+  }
 
 }

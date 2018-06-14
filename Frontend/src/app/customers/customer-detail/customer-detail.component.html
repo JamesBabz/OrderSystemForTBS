@@ -13,7 +13,17 @@
         CVR-Nr: {{customer.cvr}}
       </p>
     </div>
-    <div class="col-md-1 offset-md-9">
+
+    <div class="col-md-3">
+      <strong> Kommentar:</strong>
+      <textarea class="descTextArea" rows="2" cols="50" (input)="customerDescription = $event.target.value">{{customer?.description}}</textarea>
+    </div>
+    <hr>
+    <div class="col-md-4">
+      <button class="btn btn-outline-success" (click)="saveUserDescrition()"><i class="fa fa-save big-icon"></i></button>
+    </div>
+
+    <div class="col-md-1 offset-md-2">
       <button class="btn-link" style="outline: none" (click)="openModal('details')">Kundeoplysninger</button>
       <button class="btn-link" style="outline: none" (click)="openModal('edit')">Redigér kunde</button>
       <button class="btn-link" style="outline: none" (click)="openModal('delete')">Slet</button>

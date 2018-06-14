@@ -91,6 +91,7 @@ namespace BLL.Services
                 customerFromDb.CVR = cust.CVR;
                 customerFromDb.Phone = cust.Phone;
                 customerFromDb.CompanyName = cust.CompanyName;
+                customerFromDb.Description = cust.Description;
                 uow.Complete();
                 return _custConv.Convert(customerFromDb);
             }

@@ -8,7 +8,7 @@
 
   <form [formGroup]="createEquipFormGroup" class="equipAddField" *ngIf="customers">
     <input type="text" class="form-control" placeholder="Indtast maskine" name="name" formControlName="name" >
-    <input class="btn btn-success equipAddButton" type="button" (click)="createNewEquipment()" value="Tilføj" name="save">
+    <input [disabled]="createEquipFormGroup.invalid" class="btn btn-success equipAddButton" type="button" (click)="createNewEquipment()" value="Tilføj" name="save">
   </form>
 </div>
 
