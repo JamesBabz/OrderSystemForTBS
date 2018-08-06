@@ -21,6 +21,7 @@
     <hr>
     <div class="col-md-4">
       <button class="btn btn-outline-success" (click)="saveUserDescrition()"><i class="fa fa-save big-icon"></i></button>
+
     </div>
 
     <div class="col-md-1 offset-md-2">
@@ -46,6 +47,7 @@
     </tabs>
   </div>
 </div>
+<div id="snackbarSucces"><i style="font-size: 35px" class="fa fa-check"></i></div>
 <div class="myModal shouldClose" id="detailsModal" *ngIf="modalString === 'details'" (click)="closeModal($event)">
   <div class="myModalContent">
     <h3>Kundeoplysninger</h3>
