@@ -1,4 +1,6 @@
-
+.textCVRsearch{
+  font-size: x-large;
+}
 
 .btn{
   width: 88px;
@@ -21,3 +23,77 @@
 #check_box_label{
   margin-left: 15px;
 }
+
+/*Clearing Floats*/
+.cf:before, .cf:after {
+  content:"";
+  display:table;
+}
+
+.cf:after {
+  clear:both;
+}
+
+.cf {
+  zoom:1;
+}
+/* Form wrapper styling */
+.form-wrapper {
+  width: 420px;
+  padding: 15px;
+  background: #e8e8e8;
+  border-radius: 10px;
+  box-shadow: 0 1px 1px rgba(0,0,0,.4) inset, 0 1px 0 rgba(255,255,255,.2);
+  margin-bottom: 30px;
+}
+/* Form text input */
+
+.form-wrapper input {
+  width: 390px;
+  height: 20px;
+  padding: 10px 5px;
+  float: left;
+  font: bold 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
+  border: 0;
+  background: #eee;
+  border-radius: 3px 0 0 3px;
+}
+
+/* Form submit button */
+.form-wrapper button {
+  overflow: visible;
+  position: relative;
+  border: 0;
+  padding: 0;
+  margin-top: 10px;
+  cursor: pointer;
+  height: 40px;
+  width: 390px;
+}
+
+.form-wrapper input:focus {
+  outline: 0;
+  background: #fff;
+  box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
+}
+
+.form-wrapper input::-webkit-input-placeholder {
+  color: #c9c9c9;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.form-wrapper input:-moz-placeholder {
+  color: #c9c9c9;
+  font-weight: normal;
+  font-style: italic;
+}
+
+.form-wrapper input:-ms-input-placeholder {
+  color: #c9c9c9;
+  font-weight: normal;
+  font-style: italic;
+}
+
+
+

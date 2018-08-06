@@ -12,3 +12,7 @@
   margin: 0 !important;
   -moz-appearance:textfield !important;
 }
+
+.button{
+  width: auto;
+}
