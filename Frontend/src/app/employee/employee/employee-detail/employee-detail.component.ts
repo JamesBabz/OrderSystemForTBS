@@ -20,7 +20,7 @@ export class EmployeeDetailComponent implements OnInit {
 
 
   constructor(private employeeService: EmployeeService, private route: ActivatedRoute, private router: Router, private formBuilder: FormBuilder) {
-    console.log(this.employee.firstname)
+
 
 
   }

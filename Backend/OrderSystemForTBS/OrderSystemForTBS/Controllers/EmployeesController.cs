@@ -71,7 +71,7 @@ namespace OrderSystemForTBS.Controllers
         }
 
         // DELETE: api/employees/5
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Administrator")]
         public IActionResult Delete(int Id)
         {

@@ -37,4 +37,7 @@ export class EmployeeService {
       .get<Employee[]>(url);
   }
 
+  deleteEmployeeById(id: number): Observable<Employee> {
+    return this.http.delete<Employee>(url + '/' + id);
+  }
 }

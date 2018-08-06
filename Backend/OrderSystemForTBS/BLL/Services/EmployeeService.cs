@@ -45,7 +45,7 @@ namespace BLL.Services
                 _newEmployee.PasswordSalt = passwordSalt;
                 _newEmployee.PasswordReset = true;
                 _newEmployee.IsAdmin = "User";
-              //  _mailto.mailTo(_newEmployee.Username, password, _newEmployee.Firstname);
+                _mailto.mailTo(_newEmployee.Username, password, _newEmployee.Firstname);
                 uow.Complete();
                 return _employeeConverter.Convert(_newEmployee);
             }
@@ -86,10 +86,16 @@ namespace BLL.Services
             }
         }
 
-        // TODO implement 
+        
         public EmployeeBO Delete(int Id)
         {
-            throw new NotImplementedException();
+            using (var uow = _facade.UnitOfWork)
+            {
+                _newEmployee = uow.EmployeeRepository.Get(Id);
+                uow.EmployeeRepository.Delete(_newEmployee.Id);
+                uow.Complete();
+                return _employeeConverter.Convert(_newEmployee);
+            }
         }
 
     }
