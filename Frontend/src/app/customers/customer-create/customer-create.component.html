@@ -8,10 +8,15 @@
   <div class="inputsContainer row-md">
     <form (ngSubmit)="createCustomer()" [formGroup]="customerGroup" novalidate>
       <div class="form-group">
-        <label class="center-block">CVR: <span style="font-style: italic">Henter fra CVR register</span>
 
-          <input name="cvr" placeholder="Indtast CVR" type="number" class="form-control no-spin" (blur)="getCvr()" pattern="[0-9]*" formControlName="cvr">
+          <div class="form-wrapper cf">
+            <label class="center-block textCVRsearch">Søg efter CVR<span style="font-style: italic"></span>   </label>
+            <input name="cvr" placeholder="Indtast CVR" type="number" class="form-control no-spin" pattern="[0-9]*" formControlName="cvr">
+            <button type="button" (click)="getCvr()"  class=" btn btn-info clickable" >Hent fra CVR</button>
+          </div>
 
+        <label class="center-block">CVR:
+          <input type="text"  class="form-control" formControlName="cvr">
         </label>
         <label class="center-block">Firmanavn:
           <input type="text"  class="form-control" formControlName="companyname">

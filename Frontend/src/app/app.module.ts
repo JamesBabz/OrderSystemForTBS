@@ -40,11 +40,14 @@ import {SalesmanListService} from './customers/shared/salesman-list.service';
 import {EmployeeCreateComponent} from "./employee/employee-create/employee-create.component";
 import {PasswordResetComponent} from "./login/login/password-reset/password-reset.component";
 import {AdminComponent} from './admin/admin/admin.component';
+import {EmployeeComponent} from './employee/employee/employee.component';
+import {EmployeeDetailComponent} from './employee/employee/employee-detail/employee-detail.component';
 
 
 const appRoutes: Routes = [
 
   {path: 'customer/:id', component: CustomerDetailComponent},
+  {path: 'employee/:id', component: EmployeeDetailComponent},
   {path: 'customers/create', component: CustomerCreateComponent},
   {path: 'employees/create', component: EmployeeCreateComponent},
   {path: 'propositions/create', component: PropositionCreateComponent},
@@ -66,6 +69,7 @@ const appRoutes: Routes = [
     CustomerDetailComponent,
     CustomerComponent,
     LoginComponent,
+    EmployeeDetailComponent,
     CustomerCreateComponent,
     PropositionComponent,
     PropositionListComponent,
@@ -77,7 +81,8 @@ const appRoutes: Routes = [
     VisitComponent,
     CalendarsComponent,
     EmployeeCreateComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,

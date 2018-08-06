@@ -54,7 +54,6 @@ export class PasswordResetComponent implements OnInit {
       colorCode: values.colorCode,
     };
 
-    console.log(employee.password);
 
     this.employee = employee;
 

@@ -59,7 +59,8 @@ export class CustomerCreateComponent implements OnInit {
             zipCode: res[4],
             city: res[3],
             phone: res[5],
-            email: res[6]
+            email: res[6],
+            cvr: res[0]
           });
       });
   }

@@ -15,7 +15,7 @@
       <input class="input" [disabled]="isP20Showed" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
 
       <div class="CustomersBorder">
-        <app-customer (click)="details(cust, $event)" *ngFor="let cust of customers" [customer]="cust" [employee]="this.employee" (eDeleted)="refresh()"></app-customer>
+        <app-customer (click)="details(cust, $event)" *ngFor="let cust of customers" [customer]="cust" [employee]="this.employee" ></app-customer>
       </div>
     </div>
     <div class="centerBorder col-md-9">
