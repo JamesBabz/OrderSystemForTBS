@@ -26,10 +26,10 @@ namespace BLL.Services
             _mailto = new sendMail();
             _facade = facade;
         }
-
         
         /// <summary>
         /// Create an employee with password hash and salt
+        /// Sends mail with first login password
         /// </summary>
         /// <param name="employee"> EmployeeBO to create</param>
         /// <returns> new EmployeeBO</returns>

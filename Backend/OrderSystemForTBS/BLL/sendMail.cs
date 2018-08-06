@@ -15,6 +15,7 @@ namespace BLL
         //Connecting port
         public const int PORT = 587;
 
+        //sends email with given information
         public void mailTo(string mail, string password, string name)
         {
 
