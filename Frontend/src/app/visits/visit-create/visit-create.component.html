@@ -28,13 +28,24 @@
             <i class="fa fa-calendar clickable" aria-hidden="true"></i>
           </button>
         </div>
+
         <div class="row marginB5">
           <div class="col-md-1">
             <span>Fra: </span>
           </div>
           <div class="col-md-11">
-            <input class="timeInput" type="number" placeholder="TT" name="hours" formControlName="fromHours" min="0" max="24"/>
-            <input class="timeInput" type="number" placeholder="MM" name="minutes" formControlName="fromMinutes" min="0" max="59"/>
+            <select type="number" placeholder="TT" name="hours" formControlName="fromHours" class="timeDropDown">
+              <ng-container *ngFor="let b of hours" >
+                <option *ngIf="b < 10">0{{b}}</option>
+                <option *ngIf="b > 9">{{b}}</option>
+              </ng-container>
+            </select>
+            <select type="number" placeholder="MM" name="minutes" formControlName="fromMinutes" class="timeDropDown">
+              <ng-container *ngFor="let c of minutes" >
+                <option *ngIf="c < 15">0{{c}}</option>
+                <option *ngIf="c > 14">{{c}}</option>
+              </ng-container>
+            </select>
           </div>
         </div>
         <div class="row marginB5">
@@ -42,8 +53,20 @@
             <span>Til: </span>
           </div>
           <div class="col-md-11">
-            <input class="timeInput" type="number" placeholder="TT" name="hours" formControlName="toHours" min="0" max="24"/>
-            <input class="timeInput" type="number" placeholder="MM" name="minutes" formControlName="toMinutes" min="0" max="59"/>
+            <select type="number" placeholder="TT" name="hours" formControlName="toHours"class="timeDropDown">
+              <ng-container *ngFor="let b of hours" >
+                <option *ngIf="b < 10">0{{b}}</option>
+                <option *ngIf="b > 9">{{b}}</option>
+              </ng-container>
+            </select>
+            <select type="number" placeholder="MM" name="minutes" formControlName="toMinutes" class="timeDropDown">
+
+              <ng-container  *ngFor="let c of minutes" >
+                <option *ngIf="c < 15">0{{c}}</option>
+                <option *ngIf="c > 14">{{c}}</option>
+
+              </ng-container>
+            </select>
           </div>
         </div>
       </div>
