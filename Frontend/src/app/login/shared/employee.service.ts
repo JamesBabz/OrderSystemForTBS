@@ -6,7 +6,7 @@ import {environment} from '../../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import {Customer} from '../../customers/shared/customer.model';
 
-const url = environment.ApiEndPoint + '/employees/';
+const url = environment.ApiEndPoint + '/employees';
 
 @Injectable()
 export class EmployeeService {
@@ -17,7 +17,7 @@ export class EmployeeService {
 
   getCurrentEmployee(): Observable<Employee> {
     const localStorageId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
-    return this.http.get<Employee>(url + localStorageId);
+    return this.http.get<Employee>(url + "/" + localStorageId);
   }
 
   createEmployee(emp: Employee): Observable<Employee> {
@@ -33,7 +33,11 @@ export class EmployeeService {
   }
 
   getEmployees(): Observable<Employee[]>{
-    return this.http.get<Employee[]>(url);
+    return this.http
+      .get<Employee[]>(url);
   }
 
+  deleteEmployeeById(id: number): Observable<Employee> {
+    return this.http.delete<Employee>(url + '/' + id);
+  }
 }
