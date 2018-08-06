@@ -9,6 +9,7 @@ import {PropositionService} from '../../propositions/shared/proposition.service'
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {isChangedDate} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools';
+import {$} from 'protractor';
 
 @Component({
   selector: 'app-customer-detail',
@@ -28,7 +29,6 @@ export class CustomerDetailComponent implements OnInit {
   editCustomer: Customer;
   isSaved = false;
   changes = false;
-  descriptionChanges = false;
   customerDescription: string;
 
   constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
@@ -40,6 +40,7 @@ export class CustomerDetailComponent implements OnInit {
         .getCustomerById(+params.get('id')))
       .subscribe(Customer => {
         this.customer = Customer;
+        this.customerDescription = Customer.description;
         this.editCustomer = Object.assign({}, this.customer);
       });
     this.modalString = '';
@@ -113,9 +114,14 @@ export class CustomerDetailComponent implements OnInit {
     }
   }
   saveUserDescrition() {
+    if (this.customer.description !== this.customerDescription) {
     this.editCustomer.description = this.customerDescription;
-    this.customerService.updateCustomerById(this.customer.id, this.editCustomer).subscribe(Customer => this.customer = Customer);
-
+    this.customerService.updateCustomerById(this.customer.id, this.editCustomer).subscribe(Customer => {
+      const x = document.getElementById('snackbarSucces')
+      x.className = 'show';
+      setTimeout(function(){ x.className = x.className.replace('show', ''); }, 1000);
+      this.customer = Customer;
+    });
+    }
   }
-
 }
