@@ -12,6 +12,7 @@ import {EmployeeService} from '../../login/shared/employee.service';
 })
 export class CustomerComponent implements OnInit {
   isP20Showed: boolean;
+  wantToDeleteCustomerFromP20 = false;
   disableBtn = false;
   @Input()
   customer: Customer;
@@ -24,6 +25,11 @@ export class CustomerComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  clickDeleteCustomerFromP20() {
+    this.wantToDeleteCustomerFromP20 = true;
+
   }
   removeCustomerFromP20() {
     this.disableBtn = true;
