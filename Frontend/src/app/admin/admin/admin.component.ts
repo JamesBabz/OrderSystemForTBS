@@ -14,7 +14,8 @@ import {Customer} from '../../customers/shared/customer.model';
 export class AdminComponent implements OnInit {
 
   employees: Employee[];
-
+  id: number;
+  name: string;
 
 
   constructor(private employeeService: EmployeeService, private router: Router, private formBuilder: FormBuilder) {
@@ -37,6 +38,12 @@ export class AdminComponent implements OnInit {
       return;
     }
     this.router.navigateByUrl('/employee/' + employee.id);
+  }
+
+  getInfo(employee: Employee)
+  {
+    this.id = employee.id;
+    this.name = employee.firstname + " " + employee.lastname;
   }
 }
 

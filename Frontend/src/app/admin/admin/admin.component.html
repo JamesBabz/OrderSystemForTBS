@@ -1,8 +1,12 @@
 
 
 <div class="EmployeesBorder col-md-3">
-  <app-employee (click)="details(emp, $event)" *ngFor="let emp of employees" [employee]="emp"  ></app-employee>
+  <app-employee  (click)="getInfo(emp)" *ngFor="let emp of employees" [employee]="emp"  ></app-employee>
 </div>
 <div>
 <button type="button" class="btn  btn-outline-success clickable form-control" (click)="createEmployee()">Opret ny bruger</button>
+</div>
+<div *ngIf="id">
+  {{name}}
+
 </div>
