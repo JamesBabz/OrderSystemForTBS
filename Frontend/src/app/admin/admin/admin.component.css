@@ -2,7 +2,6 @@
 
 .btn{
   width: auto;
-  margin-left: 15px;
   margin-top: 15px;
 }
 .center-block{
@@ -24,4 +23,22 @@
 .leftBorder{
   text-align: center;
   width: 100%;
+}
+
+.colorBox{
+  margin-top: 20%;
+  margin-left: 60%;
+  width: 100px;
+  height: 100px;
+
+}
+
+.centerScreen {
+  position: fixed;
+  width: 20%; /* Set your desired with */
+  z-index: 2; /* Make sure its above other items. */
+  top: 50%;
+  left: 50%;
+  margin-top: -20%; /* Changes with height. */
+  margin-left: -10%; /* Your width divided by 2. */
 }

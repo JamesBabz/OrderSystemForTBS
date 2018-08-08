@@ -19,6 +19,7 @@ namespace BLL.Services
         private EmployeeConverter _employeeConverter;
         private Employee _newEmployee;
         private sendMail _mailto;
+        private Employee userFromDb;
 
         public EmployeeService(IDALFacade facade)
         {
@@ -74,19 +75,31 @@ namespace BLL.Services
             using (var uow = _facade.UnitOfWork)
             {
                 // gets prop from DB that matches the id
-                var userFromDb = uow.EmployeeRepository.Get(emp.Id);
-                userFromDb.Password = emp.Password;
-                password = emp.Password;
-                PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-                userFromDb.PasswordHash = passwordHash;
-                userFromDb.PasswordSalt = passwordSalt;
-                userFromDb.PasswordReset = false;
+                 userFromDb = uow.EmployeeRepository.Get(emp.Id);
+                
+                if (userFromDb.PasswordReset)
+                {
+                    firstLogin(emp);
+                }
+
+                userFromDb.Firstname = emp.Firstname;
+                userFromDb.Lastname = emp.Lastname;
+                userFromDb.ColorCode = emp.ColorCode;
                 uow.Complete();
                 return _employeeConverter.Convert(userFromDb);
             }
         }
 
-        
+        private void firstLogin(EmployeeBO emp)
+        {
+            userFromDb.Password = emp.Password;
+            password = emp.Password;
+            PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            userFromDb.PasswordHash = passwordHash;
+            userFromDb.PasswordSalt = passwordSalt;
+            userFromDb.PasswordReset = false;
+        }
+
         public EmployeeBO Delete(int Id)
         {
             using (var uow = _facade.UnitOfWork)
@@ -97,6 +110,5 @@ namespace BLL.Services
                 return _employeeConverter.Convert(_newEmployee);
             }
         }
-
     }
 }
