@@ -3,7 +3,7 @@
   {{setColors()}}
 </div>
 <div>
-<button type="button" class="btn marginLeft btn-outline-success clickable form-control" (click)="createEmployee()">Opret ny bruger</button>
+<button type="button" class="btn marginLeft btn-success clickable form-control" (click)="createEmployee()">Opret ny bruger</button>
 </div>
 
 <div id="test" *ngIf="id" class="centerScreen">
@@ -23,11 +23,28 @@
   </form>
   <div class="btnContainer">
     <button [disabled]="employeeGroup.invalid" type="button" class="btn btn-success form-control " value="Gem" (click)="updateEmployee()" (eDeleted)="refresh()">Gem</button>
-    <button class="btn btn-danger" (click)="deleteEmployeeById(id)">Slet medarbejder</button>
+    <button class="btn btn-danger" style="outline: none" (click)="openModal('delete')">Slet</button>
+  </div>
+</div>
+
+<div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Slet kunde</h3>
+    <hr>
+    <p>Du er igang med at slette {{firstname}} {{lastname}}!</p>
+    <hr>
+    <div class="right">
+      <button type="button" class="btn btn-outline-danger shouldClose clickable" (click)="deleteEmployeeById(); closeModal($event)">
+        Slet
+      </button>
+      <button type="button" class="btn btn-outline-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+    </div>
   </div>
 </div>
 
 <div id="snackbarSucces">{{firstname}} {{lastname}} er blevet opdateret korrekt</div>
+<div id="snackbarDelete">{{firstname}} {{lastname}} er blevet slettet</div>
+
 
 
 

@@ -23,7 +23,7 @@ export class AdminComponent implements OnInit {
   colorCode: string;
   colorDone = false;
 
-  editEmployee: Employee;
+  modalString: string;
   employeeGroup: FormGroup;
 
   @Input()
@@ -92,6 +92,7 @@ export class AdminComponent implements OnInit {
   deleteEmployeeById() {
     this.employeeService.deleteEmployeeById(this.id).subscribe(Employee => {
       this.showEmployees();
+      this.showSnackBar("snackbarDelete");
       this.id = null;
     });
   }
@@ -102,6 +103,23 @@ export class AdminComponent implements OnInit {
     setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
   }
 
+  openModal(toDo: string) {
+    document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
+    this.modalString = toDo;
+  }
 
+  /**
+   * closes the modal.
+   * reads css classes from the clicked element.
+   * shouldKeepInput class lets the changed input stay in the fields
+   * shouldClose class is to prevent child elements from closing
+   * @param $event
+   */
+  closeModal($event) {
+    if ($event.srcElement.classList.contains('shouldClose')) {
+      document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
+      this.modalString = '';
+    }
+  }
 }
 
