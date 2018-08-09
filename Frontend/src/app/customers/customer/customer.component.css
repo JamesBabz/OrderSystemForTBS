@@ -39,6 +39,14 @@
   overflow: hidden;
   outline:none;
 }
+
+.confirmDeleteContainer {
+  background-color: #ffb349;
+}
+.confirmButton {
+  width: 100px;
+}
+
 #snackbarSucces.show {
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
