@@ -82,7 +82,7 @@ const appRoutes: Routes = [
     CalendarsComponent,
     EmployeeCreateComponent,
     PasswordResetComponent,
-    EmployeeComponent
+    EmployeeComponent,
   ],
   imports: [
     BrowserModule,
