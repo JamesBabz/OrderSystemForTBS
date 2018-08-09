@@ -17,12 +17,13 @@ export class AdminComponent implements OnInit {
   employees: Employee[];
   id: number;
   name: string;
+  username: string;
   firstname: string;
   lastname: string;
   colorCode: string;
   colorDone = false;
 
-  editEmployee: Employee;
+  modalString: string;
   employeeGroup: FormGroup;
 
   @Input()
@@ -34,9 +35,9 @@ export class AdminComponent implements OnInit {
   constructor(private employeeService: EmployeeService, private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.employeeGroup = this.formBuilder.group({
       id:[''],
-      firstname: ['', ],
-      lastname: ['', ],
-      colorCode: ['']
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      colorCode: ['', Validators.required],
     });
   }
 
@@ -53,8 +54,10 @@ export class AdminComponent implements OnInit {
 
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
+      this.showEmployees();
+      this.showSnackBar("snackbarSucces");
     });
-    this.showEmployees();
+
   }
 
   ngOnInit() {
@@ -69,19 +72,13 @@ export class AdminComponent implements OnInit {
     this.employeeService.getEmployees().subscribe(Employees => this.employees = Employees);
   }
 
-  details(employee: Employee, event) {
-    if (event.target.tagName === 'I') {
-      return;
-    }
-    this.router.navigateByUrl('/employee/' + employee.id);
-  }
-
   getInfo(employee: Employee)
   {
     this.id = employee.id;
     this.colorCode = employee.colorCode;
     this.firstname = employee.firstname;
     this.lastname =  employee.lastname;
+    this.username = employee.username;
   }
 
   setColors() {
@@ -95,16 +92,34 @@ export class AdminComponent implements OnInit {
   deleteEmployeeById() {
     this.employeeService.deleteEmployeeById(this.id).subscribe(Employee => {
       this.showEmployees();
+      this.showSnackBar("snackbarDelete");
       this.id = null;
     });
   }
 
   showSnackBar(snackBarToOpen: string) {
-    const x = document.getElementById(snackBarToOpen)
+    const x = document.getElementById(snackBarToOpen);
     x.className = 'show';
     setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
   }
 
+  openModal(toDo: string) {
+    document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
+    this.modalString = toDo;
+  }
 
+  /**
+   * closes the modal.
+   * reads css classes from the clicked element.
+   * shouldKeepInput class lets the changed input stay in the fields
+   * shouldClose class is to prevent child elements from closing
+   * @param $event
+   */
+  closeModal($event) {
+    if ($event.srcElement.classList.contains('shouldClose')) {
+      document.getElementsByTagName('BODY')[0].classList.remove('disableScroll');
+      this.modalString = '';
+    }
+  }
 }
 
