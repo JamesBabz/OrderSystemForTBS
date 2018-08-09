@@ -23,6 +23,7 @@ export class CustomerListComponent implements OnInit {
   employeeCustomers: Array<Customer> = [];
   employee: Employee;
   isP20Showed = false;
+  salesManListCounter: number;
 
   constructor(private customerService: CustomerService, private router: Router, private salesmanListService: SalesmanListService, private employeeService: EmployeeService) {
 
@@ -68,6 +69,7 @@ export class CustomerListComponent implements OnInit {
     this.salesmanListService.getSalesmanList(this.employee.id).subscribe(y => {
       this.salemanList = y;
       this.addEmployeeCustomersToList();
+      this.salesManListCounter = y.length;
     });
     this.salesmanListService.setP20ListShowed(true);
   }
