@@ -1,4 +1,4 @@
-.employeeBorder{
+.customerBorder{
   text-align: left;
 }
 .textBorder{
@@ -24,7 +24,7 @@
   margin-bottom: 5px;
 }
 
-.employeeBorder:hover .btnHideAndShow  {
+.customerBorder:hover .btnHideAndShow  {
   display: inline-block;
  // background-color: #f9af36;
 }
@@ -36,7 +36,7 @@
   background-repeat:no-repeat;
   border: none;
   cursor:pointer;
-  overflow: auto;
+  overflow: hidden;
   outline:none;
 }
 #snackbarSucces.show {

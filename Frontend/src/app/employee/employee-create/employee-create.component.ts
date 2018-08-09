@@ -40,8 +40,9 @@ export class EmployeeCreateComponent implements OnInit {
       username: values.username,
       password: values.password,
       colorCode: values.colorCode,
-    };
 
+    };
+    console.log(employee.password);
     this.employeeService.createEmployee(employee).subscribe(newEmployee => {
       this.router.navigateByUrl('/customers');
     });

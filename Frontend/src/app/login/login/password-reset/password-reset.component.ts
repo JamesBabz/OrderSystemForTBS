@@ -54,7 +54,6 @@ export class PasswordResetComponent implements OnInit {
       colorCode: values.colorCode,
     };
 
-
     this.employee = employee;
 
       this.employeeService.updateEmployeeById(this.employee.id, employee).subscribe(Employee => {

@@ -19,6 +19,7 @@ namespace BLL.Services
         private EmployeeConverter _employeeConverter;
         private Employee _newEmployee;
         private sendMail _mailto;
+        private Employee userFromDb;
 
         public EmployeeService(IDALFacade facade)
         {
@@ -26,10 +27,10 @@ namespace BLL.Services
             _mailto = new sendMail();
             _facade = facade;
         }
-
         
         /// <summary>
         /// Create an employee with password hash and salt
+        /// Sends mail with first login password
         /// </summary>
         /// <param name="employee"> EmployeeBO to create</param>
         /// <returns> new EmployeeBO</returns>
@@ -45,7 +46,7 @@ namespace BLL.Services
                 _newEmployee.PasswordSalt = passwordSalt;
                 _newEmployee.PasswordReset = true;
                 _newEmployee.IsAdmin = "User";
-                _mailto.mailTo(_newEmployee.Username, password, _newEmployee.Firstname);
+               // _mailto.mailTo(_newEmployee.Username, password, _newEmployee.Firstname);
                 uow.Complete();
                 return _employeeConverter.Convert(_newEmployee);
             }
@@ -74,19 +75,38 @@ namespace BLL.Services
             using (var uow = _facade.UnitOfWork)
             {
                 // gets prop from DB that matches the id
-                var userFromDb = uow.EmployeeRepository.Get(emp.Id);
-                userFromDb.Password = emp.Password;
-                password = emp.Password;
-                PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-                userFromDb.PasswordHash = passwordHash;
-                userFromDb.PasswordSalt = passwordSalt;
-                userFromDb.PasswordReset = false;
+                 userFromDb = uow.EmployeeRepository.Get(emp.Id);
+                
+                if (userFromDb.PasswordReset && emp.Password != null)
+                {
+                    firstLogin(emp);
+                }
+
+                if (emp.Password == null)
+                {
+                    userFromDb.Firstname = emp.Firstname;
+                    userFromDb.Lastname = emp.Lastname;
+                    userFromDb.ColorCode = emp.ColorCode;
+                }
+                
                 uow.Complete();
                 return _employeeConverter.Convert(userFromDb);
             }
         }
 
-        
+        private void firstLogin(EmployeeBO emp)
+        {
+            userFromDb.Firstname = userFromDb.Firstname;
+            userFromDb.Lastname = userFromDb.Lastname;
+            userFromDb.ColorCode = userFromDb.ColorCode;
+            userFromDb.Password = emp.Password;
+            password = emp.Password;
+            PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            userFromDb.PasswordHash = passwordHash;
+            userFromDb.PasswordSalt = passwordSalt;
+            userFromDb.PasswordReset = false;
+        }
+
         public EmployeeBO Delete(int Id)
         {
             using (var uow = _facade.UnitOfWork)
@@ -97,6 +117,5 @@ namespace BLL.Services
                 return _employeeConverter.Convert(_newEmployee);
             }
         }
-
     }
 }
