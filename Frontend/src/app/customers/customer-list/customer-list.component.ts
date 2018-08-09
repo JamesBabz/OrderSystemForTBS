@@ -100,9 +100,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   openP20ListInPdf() {
-    pdfMake.vfs = pdfFonts.pdfMake.vfs;
     var rowNumb = 1;
-    const date = new Date;
     const cvr = [];
     const name = [];
     const city = [];
@@ -119,7 +117,12 @@ export class CustomerListComponent implements OnInit {
       mail.push(x.email);
       rowNumber.push(rowNumb ++);
     }
+     this.genereatePdfFile(rowNumber, cvr, name, city, address, phone, mail);
+  }
 
+  genereatePdfFile(rowNumber: string[], cvr: string[], name: string[], city: string[], address: string[], phone: string[], mail: string[] ) {
+    pdfMake.vfs = pdfFonts.pdfMake.vfs;
+    const date = new Date;
     const docDefinition = {
       pageOrientation: 'landscape',
       pageMargins: [40, 60, 40, 0],
@@ -144,7 +147,7 @@ export class CustomerListComponent implements OnInit {
         ]
       },
       content: [
-    {
+        {
           layout: 'lightHorizontalLines',
           margin: [ 0, 25, 10, 0 ],
           table: {
@@ -171,6 +174,7 @@ export class CustomerListComponent implements OnInit {
       }
     };
     pdfMake.createPdf(docDefinition).download(this.employee.firstname + '_' + date);
+
   }
 
   popAList(list: any) {
