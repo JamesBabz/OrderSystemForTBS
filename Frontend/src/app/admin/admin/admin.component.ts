@@ -35,9 +35,9 @@ export class AdminComponent implements OnInit {
   constructor(private employeeService: EmployeeService, private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute) {
     this.employeeGroup = this.formBuilder.group({
       id:[''],
-      firstname: ['', ],
-      lastname: ['', ],
-      colorCode: [''],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      colorCode: ['', Validators.required],
     });
   }
 
