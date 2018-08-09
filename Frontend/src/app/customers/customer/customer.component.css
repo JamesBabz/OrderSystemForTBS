@@ -43,6 +43,9 @@
 .confirmDeleteContainer {
   background-color: #ffb349;
 }
+.confirmButton {
+  width: 100px;
+}
 
 #snackbarSucces.show {
   visibility: visible;

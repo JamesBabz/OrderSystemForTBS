@@ -11,8 +11,8 @@
   </div>
 </div>
 <div class="confirmDeleteContainer" *ngIf="wantToDeleteCustomerFromP20">
-<button type="button" style="margin: 5px" class="btn btn-danger clickable" (click)="removeCustomerFromP20()"> <i class="fa fa-trash" > Slet</i> </button>
-<button type="button" style="margin: 5px" class="btn btn-secondary clickable" (click)="wantToDeleteCustomerFromP20 = false"> <i class="fa fa-ban"> Anuller</i> </button>
+<button type="button" style="margin: 5px" class="btn btn-danger clickable confirmButton" (click)="removeCustomerFromP20()"> <i class="fa fa-trash" > Fjern</i> </button>
+<button type="button" style="margin: 5px" class="btn btn-secondary clickable confirmButton" (click)="wantToDeleteCustomerFromP20 = false"> <i class="fa fa-ban"> Anuller</i> </button>
 </div>
 
 <div id="snackbarSucces">Kunden er tilføjet til din P20 liste</div>
