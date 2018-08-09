@@ -10,22 +10,22 @@
   <form (ngSubmit)="updateEmployee()" [formGroup]="employeeGroup" novalidate>
     <div class="form-group">
       <label class="center-block">Fornavn:<span style="color: red">*</span>
-        <input id="firstname"  type="text" class="form-control" formControlName="firstname">
+        <input name="firstname" id="firstname"  type="text" class="form-control" [(ngModel)]="firstname" formControlName="firstname">
       </label>
       <label class="center-block">Efternavn:<span style="color: red">*</span>
-        <input id="lastname"  type="text" class="form-control" formControlName="lastname">
+        <input name="lastname" id="lastname"  type="text" class="form-control" [(ngModel)]="lastname" formControlName="lastname">
       </label>
       <label class="center-block">Farve vælger:<br>
-        <input id="colorCode" value="{{colorCode}}" type="color" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" formControlName="colorCode">
+        <input id="colorCode" [(ngModel)]="colorCode" type="color" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" formControlName="colorCode">
       </label>
     </div>
-    <div class="btnContainer">
-      <button [disabled]="employeeGroup.invalid" type="button" class="btn btn-outline-success form-control " value="Gem" (click)="updateEmployee()">Gem</button>
-
-    </div>
   </form>
-  <button class="btn btn-success" style="margin-top: 15px" (click)="deleteEmployeeById(id)">Slet medarbejder</button>
+  <div class="btnContainer">
+    <button [disabled]="employeeGroup.invalid" type="button" class="btn btn-outline-success form-control " value="Gem" (click)="updateEmployee()">Gem</button>
+    <button class="btn btn-danger" (click)="deleteEmployeeById(id)">Slet medarbejder</button>
+  </div>
 </div>
+
 
 
 

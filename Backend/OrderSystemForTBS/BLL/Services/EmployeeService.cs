@@ -77,14 +77,18 @@ namespace BLL.Services
                 // gets prop from DB that matches the id
                  userFromDb = uow.EmployeeRepository.Get(emp.Id);
                 
-                if (userFromDb.PasswordReset)
+                if (userFromDb.PasswordReset && emp.Password != null)
                 {
                     firstLogin(emp);
                 }
 
-                userFromDb.Firstname = emp.Firstname;
-                userFromDb.Lastname = emp.Lastname;
-                userFromDb.ColorCode = emp.ColorCode;
+                if (emp.Password == null)
+                {
+                    userFromDb.Firstname = emp.Firstname;
+                    userFromDb.Lastname = emp.Lastname;
+                    userFromDb.ColorCode = emp.ColorCode;
+                }
+                
                 uow.Complete();
                 return _employeeConverter.Convert(userFromDb);
             }
@@ -92,6 +96,9 @@ namespace BLL.Services
 
         private void firstLogin(EmployeeBO emp)
         {
+            userFromDb.Firstname = userFromDb.Firstname;
+            userFromDb.Lastname = userFromDb.Lastname;
+            userFromDb.ColorCode = userFromDb.ColorCode;
             userFromDb.Password = emp.Password;
             password = emp.Password;
             PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);

@@ -17,6 +17,8 @@ export class AdminComponent implements OnInit {
   employees: Employee[];
   id: number;
   name: string;
+  firstname: string;
+  lastname: string;
   colorCode: string;
   colorDone = false;
 
@@ -52,6 +54,7 @@ export class AdminComponent implements OnInit {
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
     });
+    this.showEmployees();
   }
 
   ngOnInit() {
@@ -76,8 +79,9 @@ export class AdminComponent implements OnInit {
   getInfo(employee: Employee)
   {
     this.id = employee.id;
-    this.name = employee.firstname + " " + employee.lastname;
     this.colorCode = employee.colorCode;
+    this.firstname = employee.firstname;
+    this.lastname =  employee.lastname;
   }
 
   setColors() {
@@ -95,6 +99,11 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  showSnackBar(snackBarToOpen: string) {
+    const x = document.getElementById(snackBarToOpen)
+    x.className = 'show';
+    setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
+  }
 
 
 }
