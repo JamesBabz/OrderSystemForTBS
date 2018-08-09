@@ -3,28 +3,48 @@
   {{setColors()}}
 </div>
 <div>
-<button type="button" class="btn  btn-outline-success clickable form-control" (click)="createEmployee()">Opret ny bruger</button>
+<button type="button" class="btn marginLeft btn-success clickable form-control" (click)="createEmployee()">Opret ny bruger</button>
 </div>
 
 <div id="test" *ngIf="id" class="centerScreen">
   <form (ngSubmit)="updateEmployee()" [formGroup]="employeeGroup" novalidate>
     <div class="form-group">
+      <label class="center-block headerSize usernameWidth" >Brugernavn: {{username}}</label>
       <label class="center-block">Fornavn:<span style="color: red">*</span>
-        <input name="firstname" id="firstname"  type="text" class="form-control" [(ngModel)]="firstname" formControlName="firstname">
+        <input name="firstname" id="firstname"  type="text" class="form-control width" [(ngModel)]="firstname" formControlName="firstname">
       </label>
       <label class="center-block">Efternavn:<span style="color: red">*</span>
-        <input name="lastname" id="lastname"  type="text" class="form-control" [(ngModel)]="lastname" formControlName="lastname">
+        <input name="lastname" id="lastname"  type="text" class="form-control width" [(ngModel)]="lastname" formControlName="lastname">
       </label>
-      <label class="center-block">Farve vælger:<br>
-        <input id="colorCode" [(ngModel)]="colorCode" type="color" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" formControlName="colorCode">
+      <label class="center-block">Vælg en farve:<br>
+        <input class="width colorHeight" id="colorCode" [(ngModel)]="colorCode" type="color" name="color" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" formControlName="colorCode">
       </label>
     </div>
   </form>
   <div class="btnContainer">
-    <button [disabled]="employeeGroup.invalid" type="button" class="btn btn-outline-success form-control " value="Gem" (click)="updateEmployee()">Gem</button>
-    <button class="btn btn-danger" (click)="deleteEmployeeById(id)">Slet medarbejder</button>
+    <button [disabled]="employeeGroup.invalid" type="button" class="btn btn-success form-control " value="Gem" (click)="updateEmployee()" (eDeleted)="refresh()">Gem</button>
+    <button class="btn btn-danger" style="outline: none" (click)="openModal('delete')">Slet</button>
   </div>
 </div>
+
+<div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Slet kunde</h3>
+    <hr>
+    <p>Du er igang med at slette {{firstname}} {{lastname}}!</p>
+    <hr>
+    <div class="right">
+      <button type="button" class="btn btn-outline-danger shouldClose clickable" (click)="deleteEmployeeById(); closeModal($event)">
+        Slet
+      </button>
+      <button type="button" class="btn btn-outline-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+    </div>
+  </div>
+</div>
+
+<div id="snackbarSucces">{{firstname}} {{lastname}} er blevet opdateret korrekt</div>
+<div id="snackbarDelete">{{firstname}} {{lastname}} er blevet slettet</div>
+
 
 
 
