@@ -83,7 +83,6 @@ export class VisitCreateComponent implements OnInit {
       customerId: Number(values.customerSelector)
     };
     this.visitService.createVisit(visit).subscribe(newVisit => this.router.navigateByUrl('customer/' + Number(values.customerSelector)));
-    console.log(visit);
 
   }
 }

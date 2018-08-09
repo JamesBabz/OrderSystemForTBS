@@ -120,7 +120,6 @@ export class CustomerListComponent implements OnInit {
       rowNumber.push(rowNumb ++);
     }
 
-    console.log(this.employee.firstname);
     const docDefinition = {
       pageOrientation: 'landscape',
       pageMargins: [40, 60, 40, 0],
