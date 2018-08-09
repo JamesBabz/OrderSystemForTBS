@@ -24,7 +24,7 @@ export class CustomerCreateComponent implements OnInit {
   employee: Employee;
   constructor(private customerService: CustomerService, private dawaService: DawaService, private cvrService: CVRService, private router: Router, private formBuilder: FormBuilder, private salesmanListServive: SalesmanListService, private employeeService: EmployeeService) {
     this.customerGroup = this.formBuilder.group({
-      companyname: '',
+      companyName: '',
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       address: '',
@@ -54,7 +54,7 @@ export class CustomerCreateComponent implements OnInit {
       .subscribe(res => {
         this.customerGroup.patchValue(
           {
-            companyname: res[1],
+            companyName: res[1],
             address: res[2],
             zipCode: res[4],
             city: res[3],
@@ -82,7 +82,7 @@ export class CustomerCreateComponent implements OnInit {
       city: values.city,
       phone: phoneAsNumber,
       email: values.email,
-      companyname: values.companyname,
+      companyName: values.companyName,
       cvr: Number(values.cvr),
     };
 
