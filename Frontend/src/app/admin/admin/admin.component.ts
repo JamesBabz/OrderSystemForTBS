@@ -17,6 +17,7 @@ export class AdminComponent implements OnInit {
   employees: Employee[];
   id: number;
   name: string;
+  username: string;
   firstname: string;
   lastname: string;
   colorCode: string;
@@ -36,7 +37,7 @@ export class AdminComponent implements OnInit {
       id:[''],
       firstname: ['', ],
       lastname: ['', ],
-      colorCode: ['']
+      colorCode: [''],
     });
   }
 
@@ -53,8 +54,10 @@ export class AdminComponent implements OnInit {
 
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
+      this.showEmployees();
+      this.showSnackBar("snackbarSucces");
     });
-    this.showEmployees();
+
   }
 
   ngOnInit() {
@@ -69,19 +72,13 @@ export class AdminComponent implements OnInit {
     this.employeeService.getEmployees().subscribe(Employees => this.employees = Employees);
   }
 
-  details(employee: Employee, event) {
-    if (event.target.tagName === 'I') {
-      return;
-    }
-    this.router.navigateByUrl('/employee/' + employee.id);
-  }
-
   getInfo(employee: Employee)
   {
     this.id = employee.id;
     this.colorCode = employee.colorCode;
     this.firstname = employee.firstname;
     this.lastname =  employee.lastname;
+    this.username = employee.username;
   }
 
   setColors() {
@@ -100,7 +97,7 @@ export class AdminComponent implements OnInit {
   }
 
   showSnackBar(snackBarToOpen: string) {
-    const x = document.getElementById(snackBarToOpen)
+    const x = document.getElementById(snackBarToOpen);
     x.className = 'show';
     setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
   }

@@ -1,7 +1,10 @@
 
+.headerSize{
+  font-size: x-large;
+}
 
 .btn{
-  width: auto;
+  width: 150px;
   margin-top: 15px;
 }
 .center-block{
@@ -14,7 +17,12 @@
   -moz-appearance:textfield !important;
 }
 
+.marginLeft{
+  margin-left: 30px;
+}
+
 .EmployeesBorder{
+  margin-left: 30px;
   height: 78vh;
   border: solid 2px gray;
   overflow-y: scroll;
@@ -30,17 +38,28 @@
   margin-left: 60%;
   width: 100px;
   height: 100px;
-
 }
 
 .centerScreen {
   position: fixed;
   width: 20%; /* Set your desired with */
   z-index: 2; /* Make sure its above other items. */
-  top: 50%;
+  top: 70%;
   left: 50%;
   margin-top: -20%; /* Changes with height. */
   margin-left: -10%; /* Your width divided by 2. */
+}
+
+.width{
+  width: 500px;
+}
+
+.usernameWidth{
+  width: 1000px;
+}
+
+.colorHeight{
+  height: 80px;
 }
 
 #snackbarSucces.show {
@@ -48,11 +67,12 @@
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
+
 #snackbarSucces{
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
-  background-color: #6d6c6a;
+  background-color: #5EBD17;
   color: #fff;
   text-align: center;
   border-radius: 2px;
