@@ -8,7 +8,9 @@ import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import {environment} from '../../../environments/environment';
 
+const tbsLogo = environment.logoDataUrl;
 @Component({
   selector: 'app-customer-list',
   templateUrl: './customer-list.component.html',
@@ -117,25 +119,40 @@ export class CustomerListComponent implements OnInit {
       mail.push(x.email);
       rowNumber.push(rowNumb ++);
     }
+
+    console.log(this.employee.firstname);
     const docDefinition = {
       pageOrientation: 'landscape',
+      pageMargins: [40, 60, 40, 0],
       pageBreak: 'before',
       footer: {
         columns: [
-          { text: this.customerService.getDateAsEUString(date), margin: [ 50, 2, 10, 20 ] }
+          { text: this.customerService.getDateAsEUString(date), margin: [ 50, -50, 10, 20 ] }
+        ]
+      },
+      header: {
+        columns: [
+
+          {
+            margin: 10,
+            image: 'data:image/png;' + tbsLogo + ',...encodedContent...',
+            width: 120
+          },
+          {
+            margin: 20,
+            text: this.employee.firstname + ' ' + this.employee.lastname + "'s P20 liste", style: 'header',
+          }
         ]
       },
       content: [
-        {
-          text: this.employee.firstname + ' ' + this.employee.lastname + "'s P20 liste", style: 'header' },
-        '  ',
-        {
+    {
           layout: 'lightHorizontalLines',
+          margin: [ 0, 25, 10, 0 ],
           table: {
             // headers are automatically repeated if the table spans over multiple pages
             // you can declare how many rows should be treated as headers
             headerRows: 1,
-            widths: ['auto', 'auto', '*', 'auto', '*', 'auto', 'auto' ],
+            widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto' ],
 
             body: [
               ['Nr', 'CVR', 'Navn', 'By', 'Vej', 'Telefon', 'Email' ],
