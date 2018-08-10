@@ -38,6 +38,8 @@ export class AdminComponent implements OnInit {
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       colorCode: ['', Validators.required],
+      password: [Math.random().toString(36).substring(7)],
+      passwordReset:[true],
     });
   }
 
@@ -56,6 +58,24 @@ export class AdminComponent implements OnInit {
       this.employee = Employee;
       this.showEmployees();
       this.showSnackBar("snackbarSucces");
+    });
+
+  }
+
+  resetPassword() {
+    const values = this.employeeGroup.value;
+    const employee: Employee = {
+      id: this.id,
+      password: values.password,
+      passwordReset: values.passwordReset
+    };
+
+    console.log(employee.password);
+
+
+    this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
+      this.employee = Employee;
+      this.showEmployees();
     });
 
   }
