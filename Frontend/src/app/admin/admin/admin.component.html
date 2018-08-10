@@ -22,8 +22,9 @@
     </div>
   </form>
   <div class="btnContainer">
-    <button [disabled]="employeeGroup.invalid" type="button" class="btn btn-success form-control " value="Gem" (click)="updateEmployee()" (eDeleted)="refresh()">Gem</button>
-    <button class="btn btn-danger" style="outline: none" (click)="openModal('delete')">Slet</button>
+    <button id="button1" [disabled]="employeeGroup.invalid" type="button" class="btn btn-success form-control " value="Gem" (click)="updateEmployee()" (eDeleted)="refresh()">Gem</button>
+    <button id="button2" class="btn btn-danger form-control" style="outline: none" (click)="openModal('reset')">Nulstil kodeord</button>
+    <button id="button3" class="btn btn-danger form-control" style="outline: none" (click)="openModal('delete')">Slet</button>
   </div>
 </div>
 
@@ -36,6 +37,21 @@
     <div class="right">
       <button type="button" class="btn btn-outline-danger shouldClose clickable" (click)="deleteEmployeeById(); closeModal($event)">
         Slet
+      </button>
+      <button type="button" class="btn btn-outline-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+    </div>
+  </div>
+</div>
+
+<div class="myModal shouldClose" id="resetPassword" *ngIf="modalString === 'reset'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Nulstil Kode</h3>
+    <hr>
+    <p>Er du sikker på du vil nulstille koden for: {{firstname}} {{lastname}}!</p>
+    <hr>
+    <div class="right">
+      <button type="button" class="btn btn-outline-danger shouldClose clickable" (click)="resetPassword(); closeModal($event)">
+        Nulstil
       </button>
       <button type="button" class="btn btn-outline-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
     </div>

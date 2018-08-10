@@ -25,7 +25,9 @@ export class EmployeeService {
   }
 
   updateEmployeeById(id: number, emp: Employee): Observable<Employee> {
+    console.log(emp.passwordReset);
     return this.http.put<Employee>(url + "/" + id, emp);
+
   }
 
   getEmployeeById(id: number): Observable<Employee> {

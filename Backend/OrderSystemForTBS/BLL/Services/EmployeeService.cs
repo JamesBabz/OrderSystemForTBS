@@ -20,6 +20,7 @@ namespace BLL.Services
         private Employee _newEmployee;
         private sendMail _mailto;
         private Employee userFromDb;
+        private Boolean reset = false;
 
         public EmployeeService(IDALFacade facade)
         {
@@ -76,7 +77,10 @@ namespace BLL.Services
             {
                 // gets prop from DB that matches the id
                  userFromDb = uow.EmployeeRepository.Get(emp.Id);
-                
+
+                Console.WriteLine(userFromDb.Password);
+                Console.WriteLine(userFromDb.PasswordReset);
+
                 if (userFromDb.PasswordReset && emp.Password != null)
                 {
                     firstLogin(emp);
@@ -88,7 +92,15 @@ namespace BLL.Services
                     userFromDb.Lastname = emp.Lastname;
                     userFromDb.ColorCode = emp.ColorCode;
                 }
-                
+
+                if (emp.PasswordReset)
+                {
+                    createPassword(emp);
+                    _mailto.mailTo(userFromDb.Username, password, userFromDb.Firstname);
+                    userFromDb.PasswordReset = true;
+                }
+
+
                 uow.Complete();
                 return _employeeConverter.Convert(userFromDb);
             }
@@ -100,11 +112,16 @@ namespace BLL.Services
             userFromDb.Lastname = userFromDb.Lastname;
             userFromDb.ColorCode = userFromDb.ColorCode;
             userFromDb.Password = emp.Password;
+            createPassword(emp);
+            userFromDb.PasswordReset = false;
+        }
+
+        private void createPassword(EmployeeBO emp)
+        {
             password = emp.Password;
             PasswordHash.CreatePasswordHash(password, out passwordHash, out passwordSalt);
             userFromDb.PasswordHash = passwordHash;
             userFromDb.PasswordSalt = passwordSalt;
-            userFromDb.PasswordReset = false;
         }
 
         public EmployeeBO Delete(int Id)
