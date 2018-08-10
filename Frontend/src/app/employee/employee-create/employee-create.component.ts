@@ -28,7 +28,7 @@ export class EmployeeCreateComponent implements OnInit {
   }
 
   close() {
-    this.router.navigateByUrl('/customers');
+    this.router.navigateByUrl('/admin');
   }
 
   createEmployee() {
@@ -44,7 +44,7 @@ export class EmployeeCreateComponent implements OnInit {
     };
     console.log(employee.password);
     this.employeeService.createEmployee(employee).subscribe(newEmployee => {
-      this.router.navigateByUrl('/customers');
+      this.router.navigateByUrl('/admin');
     });
   }
 }

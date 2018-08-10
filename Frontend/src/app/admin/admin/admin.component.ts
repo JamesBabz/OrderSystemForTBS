@@ -22,6 +22,7 @@ export class AdminComponent implements OnInit {
   lastname: string;
   colorCode: string;
   colorDone = false;
+  currentRole: string;
 
   modalString: string;
   employeeGroup: FormGroup;
@@ -40,6 +41,7 @@ export class AdminComponent implements OnInit {
       colorCode: ['', Validators.required],
       password: [Math.random().toString(36).substring(7)],
       passwordReset:[true],
+      isAdmin:[true]
     });
   }
 
@@ -80,6 +82,25 @@ export class AdminComponent implements OnInit {
 
   }
 
+  makeAdmin()
+  {
+    const values = this.employeeGroup.value;
+    const employee: Employee = {
+      id: this.id,
+      isAdmin: values.isAdmin,
+    };
+
+    console.log(employee.isAdmin);
+
+
+    this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
+      this.employee = Employee;
+      this.showEmployees();
+      this.showSnackBar("snackbarRole");
+    });
+    this.getInfo(this.id);
+  }
+
   ngOnInit() {
   this.showEmployees();
   }
@@ -99,6 +120,7 @@ export class AdminComponent implements OnInit {
     this.firstname = employee.firstname;
     this.lastname =  employee.lastname;
     this.username = employee.username;
+    this.currentRole = employee.isAdmin
   }
 
   setColors() {

@@ -7,9 +7,10 @@
 </div>
 
 <div id="test" *ngIf="id" class="centerScreen">
-  <form (ngSubmit)="updateEmployee()" [formGroup]="employeeGroup" novalidate>
+  <form (ngSubmit)="updateEmployee()" [formGroup]="employeeGroup"  novalidate>
     <div class="form-group">
       <label class="center-block headerSize usernameWidth" >Brugernavn: {{username}}</label>
+      <label class="center-block headerSize usernameWidth" >Nuværende rolle: {{currentRole}} </label>
       <label class="center-block">Fornavn:<span style="color: red">*</span>
         <input name="firstname" id="firstname"  type="text" class="form-control width" [(ngModel)]="firstname" formControlName="firstname">
       </label>
@@ -23,22 +24,38 @@
   </form>
   <div class="btnContainer">
     <button id="button1" [disabled]="employeeGroup.invalid" type="button" class="btn btn-success form-control " value="Gem" (click)="updateEmployee()" (eDeleted)="refresh()">Gem</button>
-    <button id="button2" class="btn btn-danger form-control" style="outline: none" (click)="openModal('reset')">Nulstil kodeord</button>
+    <button id="button2" class="btn btn-primary form-control" style="outline: none" (click)="openModal('reset')">Nulstil kodeord</button>
+    <button id="button4" class="btn btn-info form-control" style="outline: none" (click)="openModal('role')">Ændrer rolle</button>
     <button id="button3" class="btn btn-danger form-control" style="outline: none" (click)="openModal('delete')">Slet</button>
   </div>
 </div>
 
 <div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
   <div class="myModalContent">
-    <h3>Slet kunde</h3>
+    <h3>Slet medarbejder</h3>
     <hr>
     <p>Du er igang med at slette {{firstname}} {{lastname}}!</p>
     <hr>
     <div class="right">
-      <button type="button" class="btn btn-outline-danger shouldClose clickable" (click)="deleteEmployeeById(); closeModal($event)">
+      <button type="button" class="btn btn-danger shouldClose clickable" (click)="deleteEmployeeById(); closeModal($event)">
         Slet
       </button>
-      <button type="button" class="btn btn-outline-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+    </div>
+  </div>
+</div>
+
+<div class="myModal shouldClose" id="role" *ngIf="modalString === 'role'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Ændrer rolle</h3>
+    <hr>
+    <p>Er du sikker på du vil ændre {{firstname}} {{lastname}}s rolle fra {{currentRole}}!</p>
+    <hr>
+    <div class="right">
+      <button type="button" class="btn btn-info shouldClose clickable" (click)="makeAdmin(); closeModal($event)">
+        Ja
+      </button>
+      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
     </div>
   </div>
 </div>
@@ -50,16 +67,17 @@
     <p>Er du sikker på du vil nulstille koden for: {{firstname}} {{lastname}}!</p>
     <hr>
     <div class="right">
-      <button type="button" class="btn btn-outline-danger shouldClose clickable" (click)="resetPassword(); closeModal($event)">
+      <button type="button" class="btn btn-primary shouldClose clickable" (click)="resetPassword(); closeModal($event)">
         Nulstil
       </button>
-      <button type="button" class="btn btn-outline-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
     </div>
   </div>
 </div>
 
 <div id="snackbarSucces">{{firstname}} {{lastname}} er blevet opdateret korrekt</div>
 <div id="snackbarDelete">{{firstname}} {{lastname}} er blevet slettet</div>
+<div id="snackbarRole">Succes</div>
 
 
 
