@@ -26,6 +26,7 @@
     <button id="button1" [disabled]="employeeGroup.invalid" type="button" class="btn btn-success form-control " value="Gem" (click)="updateEmployee()" (eDeleted)="refresh()">Gem</button>
     <button id="button2" class="btn btn-primary form-control" style="outline: none" (click)="openModal('reset')">Nulstil kodeord</button>
     <button id="button4" class="btn btn-info form-control" style="outline: none" (click)="openModal('role')">Ændrer rolle</button>
+    <button id="button5" class="btn btn-secondary form-control" style="outline: none" (click)="openModal('deactivate')">Deaktivere konto</button>
     <button id="button3" class="btn btn-danger form-control" style="outline: none" (click)="openModal('delete')">Slet</button>
   </div>
 </div>
@@ -47,9 +48,9 @@
 
 <div class="myModal shouldClose" id="role" *ngIf="modalString === 'role'" (click)="closeModal($event)">
   <div class="myModalContent">
-    <h3>Ændrer rolle</h3>
+    <h3>Ændre rolle</h3>
     <hr>
-    <p>Er du sikker på du vil ændre {{firstname}} {{lastname}}s rolle fra {{currentRole}}!</p>
+    <p>Er du sikker på du vil ændre {{firstname}} {{lastname}}s rolle fra {{currentRole}}?</p>
     <hr>
     <div class="right">
       <button type="button" class="btn btn-info shouldClose clickable" (click)="makeAdmin(); closeModal($event)">
@@ -75,8 +76,24 @@
   </div>
 </div>
 
+<div class="myModal shouldClose" id="deactivateAccount" *ngIf="modalString === 'deactivate'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Deaktivere konto</h3>
+    <hr>
+    <p>Er du sikker på du vil deaktivere {{firstname}} {{lastname}}?</p>
+    <hr>
+    <div class="right">
+      <button type="button" class="btn btn-outline-secondary shouldClose clickable" (click)="deactivateAccount(); closeModal($event)">
+        Deaktivere
+      </button>
+      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+    </div>
+  </div>
+</div>
+
 <div id="snackbarSucces">{{firstname}} {{lastname}} er blevet opdateret korrekt</div>
 <div id="snackbarDelete">{{firstname}} {{lastname}} er blevet slettet</div>
+<div id="snackbarDeactivate">Du har deaktiveret {{firstname}} {{lastname}}</div>
 <div id="snackbarRole">Succes</div>
 
 
