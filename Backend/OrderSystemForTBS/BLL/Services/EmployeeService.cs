@@ -81,12 +81,30 @@ namespace BLL.Services
                 Console.WriteLine(userFromDb.Password);
                 Console.WriteLine(userFromDb.PasswordReset);
 
+                if (emp.IsAdmin == "true")
+                {
+                    if (userFromDb.IsAdmin == "Administrator")
+                    {
+                        userFromDb.IsAdmin = "User";
+                        userFromDb.Firstname = userFromDb.Firstname;
+                        userFromDb.Lastname = userFromDb.Lastname;
+                        userFromDb.ColorCode = userFromDb.ColorCode;
+                    }
+                    else if (userFromDb.IsAdmin == "User")
+                    {
+                        userFromDb.IsAdmin = "Administrator";
+                        userFromDb.Firstname = userFromDb.Firstname;
+                        userFromDb.Lastname = userFromDb.Lastname;
+                        userFromDb.ColorCode = userFromDb.ColorCode;
+                    }
+                }
+
                 if (userFromDb.PasswordReset && emp.Password != null)
                 {
                     firstLogin(emp);
                 }
 
-                if (emp.Password == null)
+                if (emp.Password == null && emp.IsAdmin == null)
                 {
                     userFromDb.Firstname = emp.Firstname;
                     userFromDb.Lastname = emp.Lastname;

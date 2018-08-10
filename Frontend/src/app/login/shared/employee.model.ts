@@ -6,4 +6,5 @@ export class Employee {
   password?: string;
   colorCode?: string;
   passwordReset?: boolean;
+  isAdmin?: string;
 }
