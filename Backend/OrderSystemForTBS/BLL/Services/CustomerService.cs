@@ -26,6 +26,14 @@ namespace BLL.Services
 
         public CustomerBO Create(CustomerBO cust)
         {
+            string firstName = cust.Firstname;
+            firstName = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(firstName.ToLower());
+            cust.Firstname = firstName;
+
+            string lastName = cust.Lastname;
+            lastName = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(lastName.ToLower());
+            cust.Lastname = lastName;
+
             using (var uow = _facade.UnitOfWork)
             {
                 _newCustomer = uow.CustomerRepository.Create(_custConv.Convert(cust));
