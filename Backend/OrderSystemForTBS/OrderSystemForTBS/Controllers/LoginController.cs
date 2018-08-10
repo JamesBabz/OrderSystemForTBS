@@ -92,6 +92,10 @@ namespace OrderSystemForTBS.Controllers
             {
                 claims.Add(new Claim("role", "User"));
             }
+            else if (employee.IsAdmin == "Deactivated")
+            {
+                claims.Add(new Claim("role", "Deactivated"));
+            }
 
 
                 var token = new JwtSecurityToken(

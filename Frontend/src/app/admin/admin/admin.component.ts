@@ -139,6 +139,28 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  deactivateAccount()
+  {
+    const values = this.employeeGroup.value;
+    const employee: Employee = {
+
+      id: this.id,
+      username: "",
+      firstname: values.firstname,
+      lastname: values.lastname,
+      colorCode: null,
+      isAdmin: "Deactivated",
+      password: ""
+    };
+
+
+    this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
+      this.employee = Employee;
+      this.showEmployees();
+      this.showSnackBar("snackbarDeactivate");
+    });
+  }
+
   showSnackBar(snackBarToOpen: string) {
     const x = document.getElementById(snackBarToOpen);
     x.className = 'show';

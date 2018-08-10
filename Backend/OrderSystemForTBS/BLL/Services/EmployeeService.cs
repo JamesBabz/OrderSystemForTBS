@@ -99,6 +99,17 @@ namespace BLL.Services
                     }
                 }
 
+                if (emp.IsAdmin == "Deactivated")
+                {
+                    userFromDb.Firstname = userFromDb.Firstname;
+                    userFromDb.Lastname = userFromDb.Lastname;
+                    userFromDb.Username = emp.Username;
+                    userFromDb.IsAdmin = "Deactivated";
+                    userFromDb.ColorCode = userFromDb.ColorCode;
+                    userFromDb.Password = emp.Password;
+                    createPassword(emp);
+                }
+
                 if (userFromDb.PasswordReset && emp.Password != null)
                 {
                     firstLogin(emp);
@@ -117,6 +128,8 @@ namespace BLL.Services
                     _mailto.mailTo(userFromDb.Username, password, userFromDb.Firstname);
                     userFromDb.PasswordReset = true;
                 }
+
+                
 
 
                 uow.Complete();
