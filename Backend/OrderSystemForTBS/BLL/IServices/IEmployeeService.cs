@@ -5,7 +5,7 @@ using BLL.BusinessObjects;
 
 namespace BLL.IServices
 {
-    interface IEmployeeService
+    public interface IEmployeeService
     {
         //C
         EmployeeBO Create(EmployeeBO employee);

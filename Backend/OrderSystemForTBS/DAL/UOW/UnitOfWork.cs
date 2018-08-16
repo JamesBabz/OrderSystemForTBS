@@ -21,6 +21,8 @@ namespace DAL.UOW
 
         public ISalesmanListRepository SalesmanListRepository { get; internal set; }
 
+        public IReceiptRepository ReceiptRepository { get; internal set; }
+
         public OrderSystemContext context;
 
         public UnitOfWork(OrderSystemContext context)
@@ -32,6 +34,7 @@ namespace DAL.UOW
             this.EquipmentRepository = new EquipmentRepository(this.context);
             this.VisitRepository = new VisitRepository(this.context);
             this.SalesmanListRepository = new SalesmanListRepository(this.context);
+            this.ReceiptRepository = new ReceiptRepository(this.context);
             
              context.Database.EnsureCreated();
         }

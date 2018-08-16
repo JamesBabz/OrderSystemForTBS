@@ -74,5 +74,9 @@ namespace BLL.Facade
             get { return new SalesmanListService(_facade); }
         }
 
+        public ReceiptService ReceiptService
+        {
+            get { return new ReceiptService(_facade); }
+        }
     }
 }

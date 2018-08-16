@@ -21,6 +21,8 @@ namespace DAL
 
         ISalesmanListRepository SalesmanListRepository { get; }
 
+        IReceiptRepository ReceiptRepository { get; }
+
         int Complete();
     }
 }
