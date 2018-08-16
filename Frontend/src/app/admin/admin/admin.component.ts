@@ -163,7 +163,7 @@ export class AdminComponent implements OnInit {
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
       this.showEmployees();
-      this._notifiService.error("Deaktiveret", "Du har deaktiveret " + this.employee.firstname + " " + this.employee.lastname, );
+      this._notifiService.error("Deaktiveret", "Du har deaktiveret " + this.employee.firstname + " " + this.employee.lastname);
     });
   }
 
