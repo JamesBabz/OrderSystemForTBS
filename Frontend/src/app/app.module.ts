@@ -42,6 +42,8 @@ import {PasswordResetComponent} from "./login/login/password-reset/password-rese
 import {AdminComponent} from './admin/admin/admin.component';
 import {EmployeeComponent} from './employee/employee/employee.component';
 import {EmployeeDetailComponent} from './employee/employee/employee-detail/employee-detail.component';
+import {NotificationModule} from 'angular-ntf';
+import {SimpleNotificationsModule} from 'angular2-notifications';
 
 const appRoutes: Routes = [
 
@@ -90,6 +92,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
     NgbModule.forRoot(),
     TabModule,
     BrowserModule,

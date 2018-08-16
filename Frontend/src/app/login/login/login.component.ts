@@ -4,6 +4,8 @@ import {LoginService} from '../shared/login.service';
 import {Employee} from '../shared/employee.model';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {toString} from '@ng-bootstrap/ng-bootstrap/util/util';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NotificationsService} from 'angular2-notifications';
 
 
 @Component({
@@ -20,14 +22,21 @@ export class LoginComponent implements OnInit {
   currentUser;
   localStorageId;
   localStorageBool;
-  localStorageRole;
 
-  constructor(private router: Router, private loginService: LoginService) {
+  private _service: NotificationsService;
+
+  constructor(private router: Router, private notifiService: NotificationsService, private loginService: LoginService) {
+    this._service = notifiService;
   }
+
+
 
   ngOnInit() {
     this.showHeader(false);
     this.loginService.logout();
+
+
+
   }
 
   login(employee: Employee) {
@@ -47,7 +56,10 @@ export class LoginComponent implements OnInit {
           else if(this.localStorageBool == "false")
           {
             this.router.navigateByUrl('/customers');
+
           }
+
+
 
         },
         error => {

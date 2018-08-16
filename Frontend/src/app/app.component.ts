@@ -8,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  template: '<simple-notifications [options]="options"></simple-notifications>';
+
+  public options = {
+    position: ["bottom", "right"],
+    timeOut: 3000,
+    lastOnBottom: true,
+    showProgressBar: true,
+    maxStack: 3,
+    preventDuplicates: true
+  }
 }
