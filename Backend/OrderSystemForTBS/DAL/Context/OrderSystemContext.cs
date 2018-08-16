@@ -20,6 +20,8 @@ namespace DAL.Context
 
         public DbSet<SalesmanList> SalesmanLists { get; set; }
 
+        public DbSet<Receipt> Receipts { get; set; }
+
         public OrderSystemContext(DbContextOptions<OrderSystemContext> options)
             : base(options)
         {

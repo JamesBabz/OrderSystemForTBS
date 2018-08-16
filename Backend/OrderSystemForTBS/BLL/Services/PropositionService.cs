@@ -78,8 +78,7 @@ namespace BLL.Services
                 {
                         returnList.Add(propConv.Convert(prop));
                 }
-                Console.Write(returnList.ToString());
-                
+              
                 return returnList;
             }
         }
