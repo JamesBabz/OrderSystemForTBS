@@ -5,7 +5,7 @@ using BLL.BusinessObjects;
 
 namespace BLL.IServices
 {
-    interface IEquipmentService
+    public interface IEquipmentService
     {
         //C
         EquipmentBO Create(EquipmentBO equipment);

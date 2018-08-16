@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using BLL.IServices;
 
 namespace UnitTest
 {
@@ -66,13 +67,13 @@ namespace UnitTest
         }
 
         //Generer samme ny bll, skal have ny service hvergang. 
-        public IService<EmployeeBO> GetService()
+        public IEmployeeService GetService()
         {
             var c = this.GetMemoContext();
 
             Mock<IDALFacade> dalFacadeMock = new Mock<IDALFacade>();
             dalFacadeMock.Setup(x => x.UnitOfWork).Returns(new UnitOfWork(c));
-            IService<EmployeeBO> service = new EmployeeService(dalFacadeMock.Object);
+            IEmployeeService service = new EmployeeService(dalFacadeMock.Object);
 
             return service;
         }
