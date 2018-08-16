@@ -8,6 +8,7 @@ import {debounceTime} from 'rxjs/operator/debounceTime';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Button} from 'selenium-webdriver';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-proposition',
@@ -15,6 +16,8 @@ import {Button} from 'selenium-webdriver';
   styleUrls: ['./proposition.component.css']
 })
 export class PropositionComponent implements OnInit {
+
+
 
   @Input()
   proposition: Proposition;
@@ -35,7 +38,10 @@ export class PropositionComponent implements OnInit {
   doDeleteFile = false;
   correctFile = true;
 
-  constructor(private propositionService: PropositionService, private router: Router) {
+  private readonly notifier: NotifierService;
+
+  constructor(private notifierService: NotifierService, private propositionService: PropositionService, private router: Router) {
+    this.notifier = notifierService;
   }
 
   ngOnInit() {
@@ -167,6 +173,7 @@ export class PropositionComponent implements OnInit {
       this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
       this.prenstFile = this.base64textString;
     }
+    this.notifier.notify( 'success', 'YOU SAVED THE INFORMATION' );
   }
 
   delete() {
