@@ -15,7 +15,7 @@ export class AppComponent {
     timeOut: 3000,
     lastOnBottom: true,
     showProgressBar: true,
-    maxStack: 3,
+    maxStack: 5,
     preventDuplicates: true,
   }
 }
