@@ -102,7 +102,7 @@ export class AdminComponent implements OnInit {
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
       this.showEmployees();
-      this._notifiService.create("Opdateret", "Du har opdateret " + this.employee.firstname + " " + this.employee.lastname + "s rolle", 'info');
+      this._notifiService.info("Opdateret", "Du har opdateret " + this.employee.firstname + " " + this.employee.lastname + "s rolle",);
     });
     this.getInfo(this.id);
   }
@@ -140,7 +140,7 @@ export class AdminComponent implements OnInit {
   deleteEmployeeById() {
     this.employeeService.deleteEmployeeById(this.id).subscribe(Employee => {
       this.showEmployees();
-      this._notifiService.create("Slet", "Du har slettet " + this.employee.firstname + " " + this.employee.lastname, 'error');
+      this._notifiService.error("Slet", "Du har slettet " + this.employee.firstname + " " + this.employee.lastname);
       this.id = null;
     });
   }
@@ -163,14 +163,8 @@ export class AdminComponent implements OnInit {
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
       this.showEmployees();
-      this._notifiService.create("Deaktiveret", "Du har deaktiveret " + this.employee.firstname + " " + this.employee.lastname, 'error');
+      this._notifiService.error("Deaktiveret", "Du har deaktiveret " + this.employee.firstname + " " + this.employee.lastname, );
     });
-  }
-
-  showSnackBar(snackBarToOpen: string) {
-    const x = document.getElementById(snackBarToOpen);
-    x.className = 'show';
-    setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
   }
 
   openModal(toDo: string) {

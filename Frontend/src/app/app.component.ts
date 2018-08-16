@@ -16,6 +16,6 @@ export class AppComponent {
     lastOnBottom: true,
     showProgressBar: true,
     maxStack: 3,
-    preventDuplicates: true
+    preventDuplicates: true,
   }
 }
