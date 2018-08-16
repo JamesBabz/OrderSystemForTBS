@@ -38,10 +38,8 @@ export class PropositionComponent implements OnInit {
   doDeleteFile = false;
   correctFile = true;
 
-  private readonly notifier: NotifierService;
 
-  constructor(private notifierService: NotifierService, private propositionService: PropositionService, private router: Router) {
-    this.notifier = notifierService;
+  constructor(private propositionService: PropositionService, private router: Router) {
   }
 
   ngOnInit() {
@@ -169,11 +167,10 @@ export class PropositionComponent implements OnInit {
         if (file) {
           this.deleteFileById(oldTimeStamp);
         }
-      })
+      });
       this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
       this.prenstFile = this.base64textString;
     }
-    this.notifier.notify( 'success', 'YOU SAVED THE INFORMATION' );
   }
 
   delete() {
