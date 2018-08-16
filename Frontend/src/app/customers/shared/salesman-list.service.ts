@@ -19,7 +19,7 @@ export class SalesmanListService {
     return this.http.post<SalesmanList>(url, salesmanList);
   }
   removeCustomerFromP20(id: Number): Observable<SalesmanList> {
-    return this.http.delete<SalesmanList>(url + '/' + id);
+    return this.http.delete<SalesmanList>(url + id);
   }
   addCustomerToP20(salesmanList: SalesmanList): Observable<SalesmanList> {
     return this.http.post<SalesmanList>(url, salesmanList);
