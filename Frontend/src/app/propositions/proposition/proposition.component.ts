@@ -9,6 +9,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Button} from 'selenium-webdriver';
 import {NotifierService} from 'angular-notifier';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-proposition',
@@ -38,8 +39,10 @@ export class PropositionComponent implements OnInit {
   doDeleteFile = false;
   correctFile = true;
 
+  private _service: NotificationsService;
 
   constructor(private propositionService: PropositionService, private router: Router) {
+
   }
 
   ngOnInit() {

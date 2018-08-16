@@ -9,6 +9,7 @@ import {Employee} from '../../login/shared/employee.model';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {environment} from '../../../environments/environment';
+import {NotificationsService} from 'angular2-notifications/dist';
 
 const tbsLogo = environment.logoDataUrl;
 @Component({
@@ -25,7 +26,12 @@ export class CustomerListComponent implements OnInit {
   isP20Showed = false;
   salesManListCounter: number;
 
-  constructor(private customerService: CustomerService, private router: Router, private salesmanListService: SalesmanListService, private employeeService: EmployeeService) {
+  private _notifiService: NotificationsService;
+
+
+
+  constructor(private notifiService: NotificationsService, private customerService: CustomerService, private router: Router, private salesmanListService: SalesmanListService, private employeeService: EmployeeService) {
+    this._notifiService = notifiService;
 
   }
 
@@ -72,6 +78,7 @@ export class CustomerListComponent implements OnInit {
       this.salesManListCounter = y.length;
     });
     this.salesmanListService.setP20ListShowed(true);
+
   }
 
   showCustomers() {

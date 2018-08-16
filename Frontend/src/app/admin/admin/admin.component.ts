@@ -5,6 +5,7 @@ import {EmployeeService} from "../../login/shared/employee.service";
 import {Employee} from '../../login/shared/employee.model';
 import {Customer} from '../../customers/shared/customer.model';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+import {NotificationsService} from 'angular2-notifications/dist';
 
 
 @Component({
@@ -32,8 +33,13 @@ export class AdminComponent implements OnInit {
   @Output()
   eDeleted = new EventEmitter();
 
+  private _notifiService: NotificationsService;
 
-  constructor(private employeeService: EmployeeService, private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+  constructor(private notifiService: NotificationsService, private employeeService: EmployeeService, private router: Router, private formBuilder: FormBuilder, private route: ActivatedRoute) {
+    this._notifiService = notifiService;
+
+
+
     this.employeeGroup = this.formBuilder.group({
       id:[''],
       firstname: ['', Validators.required],
@@ -59,7 +65,7 @@ export class AdminComponent implements OnInit {
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
       this.showEmployees();
-      this.showSnackBar("snackbarSucces");
+      this._notifiService.success("Opdateret", "Du har opdateret " + this.employee.firstname + " " + this.employee.lastname + "s data");
     });
 
   }
@@ -96,7 +102,7 @@ export class AdminComponent implements OnInit {
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
       this.showEmployees();
-      this.showSnackBar("snackbarRole");
+      this._notifiService.info("Opdateret", "Du har opdateret " + this.employee.firstname + " " + this.employee.lastname + "s rolle",);
     });
     this.getInfo(this.id);
   }
@@ -134,7 +140,7 @@ export class AdminComponent implements OnInit {
   deleteEmployeeById() {
     this.employeeService.deleteEmployeeById(this.id).subscribe(Employee => {
       this.showEmployees();
-      this.showSnackBar("snackbarDelete");
+      this._notifiService.error("Slet", "Du har slettet " + this.employee.firstname + " " + this.employee.lastname);
       this.id = null;
     });
   }
@@ -157,14 +163,8 @@ export class AdminComponent implements OnInit {
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;
       this.showEmployees();
-      this.showSnackBar("snackbarDeactivate");
+      this._notifiService.error("Deaktiveret", "Du har deaktiveret " + this.employee.firstname + " " + this.employee.lastname);
     });
-  }
-
-  showSnackBar(snackBarToOpen: string) {
-    const x = document.getElementById(snackBarToOpen);
-    x.className = 'show';
-    setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
   }
 
   openModal(toDo: string) {
