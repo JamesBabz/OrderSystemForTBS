@@ -71,16 +71,22 @@ namespace BLL.Services
             }
         }
 
+        /// <summary>
+        /// Update method, different info getting updated.
+        /// </summary>
+        /// <param name="emp"></param>
+        /// <returns></returns>
         public EmployeeBO Update(EmployeeBO emp)
         {
             using (var uow = _facade.UnitOfWork)
             {
                 // gets prop from DB that matches the id
-                 userFromDb = uow.EmployeeRepository.Get(emp.Id);
+                userFromDb = uow.EmployeeRepository.Get(emp.Id);
 
                 Console.WriteLine(userFromDb.Password);
                 Console.WriteLine(userFromDb.PasswordReset);
 
+                //Updates the role of the user
                 if (emp.IsAdmin == "true")
                 {
                     if (userFromDb.IsAdmin == "Administrator")
@@ -99,6 +105,7 @@ namespace BLL.Services
                     }
                 }
 
+                //Update the user to the deactivated status, removing username/password 
                 if (emp.IsAdmin == "Deactivated")
                 {
                     userFromDb.Firstname = userFromDb.Firstname;
@@ -110,11 +117,13 @@ namespace BLL.Services
                     createPassword(emp);
                 }
 
+                //Changes password whenever password screen is shown
                 if (userFromDb.PasswordReset && emp.Password != null)
                 {
                     firstLogin(emp);
                 }
 
+                //Updates user info from Admin Page
                 if (emp.Password == null && emp.IsAdmin == null)
                 {
                     userFromDb.Firstname = emp.Firstname;
@@ -122,6 +131,7 @@ namespace BLL.Services
                     userFromDb.ColorCode = emp.ColorCode;
                 }
 
+                //Resets password on adminpage, sending an email to the username with a new password.
                 if (emp.PasswordReset)
                 {
                     createPassword(emp);
@@ -129,14 +139,16 @@ namespace BLL.Services
                     userFromDb.PasswordReset = true;
                 }
 
-                
-
 
                 uow.Complete();
                 return _employeeConverter.Convert(userFromDb);
             }
         }
 
+        /// <summary>
+        /// Method called whenever password has been changed.
+        /// </summary>
+        /// <param name="emp"></param>
         private void firstLogin(EmployeeBO emp)
         {
             userFromDb.Firstname = userFromDb.Firstname;
@@ -147,6 +159,10 @@ namespace BLL.Services
             userFromDb.PasswordReset = false;
         }
 
+        /// <summary>
+        /// Creates the password with hash and salt
+        /// </summary>
+        /// <param name="emp"></param>
         private void createPassword(EmployeeBO emp)
         {
             password = emp.Password;
