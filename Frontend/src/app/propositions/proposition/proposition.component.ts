@@ -179,7 +179,6 @@ export class PropositionComponent implements OnInit {
   delete() {
     this.propositionService.deleteProposition(this.proposition.id)
       .subscribe(prop =>  this.eDeleted.emit(prop));
-    console.log(this.proposition.fileId);
     if (this.proposition.fileId !== 0) {
       this.deleteFileById(this.proposition.fileId);
     }

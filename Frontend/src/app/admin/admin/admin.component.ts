@@ -96,8 +96,6 @@ export class AdminComponent implements OnInit {
       isAdmin: values.isAdmin,
     };
 
-    console.log(employee.isAdmin);
-
 
     this.employeeService.updateEmployeeById(this.id, employee).subscribe(Employee => {
       this.employee = Employee;

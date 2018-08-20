@@ -171,9 +171,7 @@ export class ReceiptComponent implements OnInit {
   delete() {
     this.receiptService.deleteReceipt(this.receipt.id)
       .subscribe(prop =>  this.eDeleted.emit(prop));
-    console.log(this.receipt.fileId);
     if (this.receipt.fileId !== 0) {
-      console.log('shit');
       this.deleteFileById(this.receipt.fileId);
     }
   }
