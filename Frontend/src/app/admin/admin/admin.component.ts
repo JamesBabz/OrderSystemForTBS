@@ -140,8 +140,8 @@ export class AdminComponent implements OnInit {
   deleteEmployeeById() {
     this.employeeService.deleteEmployeeById(this.id).subscribe(Employee => {
       this.showEmployees();
-      this._notifiService.error("Slet", "Du har slettet " + this.employee.firstname + " " + this.employee.lastname);
       this.id = null;
+      this._notifiService.error("Slet", "Du har slettet " + this.employee.firstname + " " + this.employee.lastname);
     });
   }
 

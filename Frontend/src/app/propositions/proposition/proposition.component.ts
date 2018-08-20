@@ -162,7 +162,7 @@ export class PropositionComponent implements OnInit {
     this.unsavedChanges = false;
     this.propositionService.updateProposition(this.editedProp)
       .subscribe(prop => {
-          this.proposition = prop,
+          this.proposition = prop;
           this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
       });
     if (this.upLoadedAImage) {
