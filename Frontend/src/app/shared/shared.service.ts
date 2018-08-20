@@ -8,6 +8,7 @@ import {Customer} from '../customers/shared/customer.model';
 export class SharedService {
 
   private currentCust: Customer;
+  private tab: number;
 
   constructor(private http: HttpClient) {
     this.currentCust = null;
@@ -32,7 +33,15 @@ export class SharedService {
     return this.currentCust;
   }
 
-  getCreationDateAsEUString(date: Date) {
+  setTab(tab: number) {
+    this.tab = tab;
+  }
+
+  getTab() {
+    return this.tab;
+  }
+
+  getDateAsEUString(date: Date) {
     const newDate = new Date(date);
     let dateString;
     const options = {year: 'numeric', month: 'numeric', day: 'numeric'};

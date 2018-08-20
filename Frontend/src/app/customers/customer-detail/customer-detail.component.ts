@@ -10,6 +10,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {isChangedDate} from '@ng-bootstrap/ng-bootstrap/datepicker/datepicker-tools';
 import {$} from 'protractor';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-customer-detail',
@@ -31,7 +32,7 @@ export class CustomerDetailComponent implements OnInit {
   changes = false;
   customerDescription: string;
 
-  constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, private modalService: NgbModal) {
+  constructor(private customerService: CustomerService, private router: Router, private route: ActivatedRoute, private modalService: NgbModal, private sharedService: SharedService) {
   }
 
   ngOnInit() {
@@ -44,7 +45,7 @@ export class CustomerDetailComponent implements OnInit {
         this.editCustomer = Object.assign({}, this.customer);
       });
     this.modalString = '';
-    switch (this.customerService.getTab()) {
+    switch (this.sharedService.getTab()) {
       case 1:
         this.propTab = '1';
         break;
@@ -58,7 +59,7 @@ export class CustomerDetailComponent implements OnInit {
         this.visitTab = '1';
         break;
     }
-    this.customerService.setTab(0);
+    this.sharedService.setTab(0);
 
   }
 

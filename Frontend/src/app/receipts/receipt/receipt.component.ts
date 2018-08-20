@@ -46,7 +46,7 @@ export class ReceiptComponent implements OnInit {
 
 
   getEUString(date: Date) {
-    return this.sharedService.getCreationDateAsEUString(date);
+    return this.sharedService.getDateAsEUString(date);
   }
 
   getFileById(event) {
@@ -109,7 +109,6 @@ export class ReceiptComponent implements OnInit {
     this.base64textString = btoa(binaryString);
 
   }
-
 
   openModal(toDo: string) {
     document.getElementsByTagName('BODY')[0].classList.add('disableScroll');

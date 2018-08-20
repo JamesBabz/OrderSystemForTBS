@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {environment} from '../../../environments/environment';
+import {SharedService} from '../../shared/shared.service';
 
 const tbsLogo = environment.logoDataUrl;
 
@@ -33,7 +34,7 @@ export class CalendarsComponent implements OnInit {
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
 
-  constructor(private visitService: VisitService, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router) {
+  constructor(private visitService: VisitService, private employeeService: EmployeeService, private sharedService: SharedService, private router: Router) {
     this.employeeService.getCurrentEmployee().subscribe(Employee => this.currentEmployee = Employee);
 
   }
@@ -60,7 +61,7 @@ export class CalendarsComponent implements OnInit {
   }
 
   eventClick($event) {
-    this.customerService.setTab(4);
+    this.sharedService.setTab(4);
     this.router.navigateByUrl('customer/' + $event.valueOf().event.customerId);
 
   }
@@ -244,7 +245,7 @@ export class CalendarsComponent implements OnInit {
       pageBreak: 'before',
       footer: {
         columns: [
-          { text: this.customerService.getDateAsEUString(date), margin: [ 50, -50, 10, 20 ] },
+          { text: this.sharedService.getDateAsEUString(date), margin: [ 50, -50, 10, 20 ] },
           {
             text: 'Printet af: ' + this.currentEmployee.firstname + ' ' + this.currentEmployee.lastname, margin: [ 10, -50, 10, 20 ]
           }

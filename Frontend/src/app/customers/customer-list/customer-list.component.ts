@@ -10,6 +10,7 @@ import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {environment} from '../../../environments/environment';
 import {NotificationsService} from 'angular2-notifications/dist';
+import {SharedService} from '../../shared/shared.service';
 
 const tbsLogo = environment.logoDataUrl;
 @Component({
@@ -30,7 +31,9 @@ export class CustomerListComponent implements OnInit {
 
 
 
-  constructor(private notifiService: NotificationsService, private customerService: CustomerService, private router: Router, private salesmanListService: SalesmanListService, private employeeService: EmployeeService) {
+  constructor(private notifiService: NotificationsService, private customerService: CustomerService,
+              private router: Router, private salesmanListService: SalesmanListService,
+              private employeeService: EmployeeService, private sharedService: SharedService ) {
     this._notifiService = notifiService;
 
   }
@@ -140,7 +143,7 @@ export class CustomerListComponent implements OnInit {
       pageBreak: 'before',
       footer: {
         columns: [
-          { text: this.customerService.getDateAsEUString(date), margin: [ 50, -50, 10, 20 ] }
+          { text: this.sharedService.getDateAsEUString(date), margin: [ 50, -50, 10, 20 ] }
         ]
       },
       header: {

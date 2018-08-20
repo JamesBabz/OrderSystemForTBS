@@ -53,7 +53,7 @@ export class PropositionComponent implements OnInit {
 
 
   getEUString(date: Date) {
-    return this.sharedService.getCreationDateAsEUString(date);
+    return this.sharedService.getDateAsEUString(date);
   }
 
   getFileById(event) {
