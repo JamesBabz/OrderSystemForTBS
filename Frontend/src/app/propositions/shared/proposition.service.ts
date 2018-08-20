@@ -11,13 +11,7 @@ const url = environment.ApiEndPoint + '/propositions/';
 @Injectable()
 export class PropositionService {
 
-  private currentProp: Proposition;
-  private currentCust: Customer;
-
-
   constructor(private http: HttpClient) {
-    this.currentProp = null;
-    this.currentCust = null;
   }
 
   getPropositionsByCustomerId(id: number): Observable<Proposition[]> {
@@ -28,45 +22,11 @@ export class PropositionService {
     return this.http.post<Proposition>(url, prop);
   }
 
-  getCreationDateAsEUString(date: Date) {
-    const newDate = new Date(date);
-    let dateString;
-    const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
-    dateString = newDate.toLocaleString('en-GB', options);
-    return dateString;
-  }
-
-  setCurrentProposition(prop: Proposition) {
-    this.currentProp = prop;
-  }
-
-  getCurrentProposition() {
-    return this.currentProp;
-  }
-
-  setCurrentCustomer(customer: Customer) {
-    this.currentCust = customer;
-  }
-
-  getCurrentCustomer() {
-    return this.currentCust;
-  }
-
   deleteProposition(id: number) {
     return this.http.delete<Proposition>(url + id);
   }
 
   updateProposition(proposition: Proposition) {
     return this.http.put<Proposition>(url + proposition.id, proposition);
-  }
-
-  upLoadImage(file: string) {
-    return this.http.post(environment.ApiEndPoint + '/files', '\"' + file + '\"');
-  }
-  getFileById(id: number): Observable<string> {
-    return this.http.get(environment.ApiEndPoint + '/files/' + id);
-  }
-  deleteFileById(id: number) {
-    return this.http.delete(environment.ApiEndPoint + '/files/' + id);
   }
 }

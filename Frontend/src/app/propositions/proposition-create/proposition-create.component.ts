@@ -11,6 +11,7 @@ import {LoginService} from '../../login/shared/login.service';
 import {Employee} from '../../login/shared/employee.model';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {ifTrue} from 'codelyzer/util/function';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-proposition-create',
@@ -30,9 +31,9 @@ export class PropositionCreateComponent implements OnInit {
 
 
   constructor(private employeeService: EmployeeService, private propositionService: PropositionService,
-              private loginService: LoginService, private customerService: CustomerService, private router: Router) {
+              private sharedService: SharedService, private customerService: CustomerService, private router: Router) {
 
-    this.customer = propositionService.getCurrentCustomer();
+    this.customer = this.sharedService.getCurrentCustomer();
     customerService.getCustomers().subscribe(Customers => this.customers = Customers);
 
 
@@ -54,7 +55,10 @@ export class PropositionCreateComponent implements OnInit {
   }
 
   createNewProposition() {
-    const timeStamp = Date.now();
+    let timeStamp = 0;
+    if (this.upLoadedAImage) {
+      timeStamp = Date.now();
+    }
 
     const values = this.createPropFormGroup.value;
     this.customerService.getCustomerById(Number(values.customerSelector)).subscribe(cust => this.selectedCust = cust);
@@ -69,11 +73,10 @@ export class PropositionCreateComponent implements OnInit {
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
         newProp.employee = this.employee,
-          this.propositionService.setCurrentProposition(newProp);
         this.router.navigateByUrl('customer/' + this.selectedCust.id);
       });
     if (this.upLoadedAImage) {
-      this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
+      this.sharedService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
     }
   }
 

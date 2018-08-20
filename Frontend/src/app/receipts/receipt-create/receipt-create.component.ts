@@ -4,11 +4,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Employee} from '../../login/shared/employee.model';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {ReceiptService} from '../shared/receipt.service';
-import {LoginService} from '../../login/shared/login.service';
 import {CustomerService} from '../../customers/shared/customer.service';
 import {Router} from '@angular/router';
 import {Receipt} from '../shared/receipt.model';
-import {PropositionService} from '../../propositions/shared/proposition.service';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-receipt-create',
@@ -27,9 +26,9 @@ export class ReceiptCreateComponent implements OnInit {
   correctFile = true;
 
   constructor(private employeeService: EmployeeService, private receiptService: ReceiptService,
-              private propService: PropositionService, private customerService: CustomerService, private router: Router) {
+              private sharedService: SharedService, private customerService: CustomerService, private router: Router) {
 
-    this.customer = this.propService.getCurrentCustomer();
+    this.customer = this.sharedService.getCurrentCustomer();
     customerService.getCustomers().subscribe(Customers => this.customers = Customers);
   }
 
@@ -67,11 +66,10 @@ export class ReceiptCreateComponent implements OnInit {
     this.receiptService.createReceipt(proposition).subscribe(
       newProp => {
         newProp.employee = this.employee,
-          this.receiptService.setCurrentReceipt(newProp);
         this.router.navigateByUrl('customer/' + this.selectedCust.id);
       });
     if (this.upLoadedAImage) {
-      this.receiptService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
+      this.sharedService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
     }
   }
 

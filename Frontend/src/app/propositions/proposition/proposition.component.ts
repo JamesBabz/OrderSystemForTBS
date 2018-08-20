@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {Button} from 'selenium-webdriver';
 import {NotifierService} from 'angular-notifier';
 import {NotificationsService} from 'angular2-notifications';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-proposition',
@@ -39,28 +40,27 @@ export class PropositionComponent implements OnInit {
   doDeleteFile = false;
   correctFile = true;
 
-  private _service: NotificationsService;
 
-  constructor(private propositionService: PropositionService, private router: Router) {
+  constructor(private propositionService: PropositionService, private sharedService: SharedService ) {
 
   }
 
   ngOnInit() {
     this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
     this.createFormGroup(this.proposition);
-    this.propositionService.getFileById(this.proposition.fileId).subscribe(file => this.prenstFile = file);
+    this.sharedService.getFileById(this.proposition.fileId).subscribe(file => this.prenstFile = file);
   }
 
 
   getEUString(date: Date) {
-    return this.propositionService.getCreationDateAsEUString(date);
+    return this.sharedService.getCreationDateAsEUString(date);
   }
 
   getFileById(event) {
     if (event.target.tagName === 'I') {
       return;
     }
-    this.propositionService.getFileById(this.proposition.fileId).subscribe(File => {
+    this.sharedService.getFileById(this.proposition.fileId).subscribe(File => {
       if (File !== null) {
         this.openPdf(File);
       } else {
@@ -154,10 +154,7 @@ export class PropositionComponent implements OnInit {
 
   }
   save($event) {
-    let timeStamp = 0;
-    if (this.isFileFound) {
-      timeStamp = Date.now();
-    }
+    const timeStamp = Date.now();
     const oldTimeStamp = this.proposition.fileId;
     this.closeModal($event);
     this.editedProp.id = this.proposition.id;
@@ -169,12 +166,12 @@ export class PropositionComponent implements OnInit {
           this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
       });
     if (this.upLoadedAImage) {
-      this.propositionService.getFileById(oldTimeStamp).subscribe(file => {
+      this.sharedService.getFileById(oldTimeStamp).subscribe(file => {
         if (file) {
           this.deleteFileById(oldTimeStamp);
         }
       });
-      this.propositionService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
+      this.sharedService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
       this.prenstFile = this.base64textString;
     }
   }
@@ -188,7 +185,7 @@ export class PropositionComponent implements OnInit {
     }
   }
   deleteFileById(id: number) {
-    this.propositionService.deleteFileById(id).subscribe();
+    this.sharedService.deleteFileById(id).subscribe();
   }
   confirmedDeleteFile() {
     this.deleteFileById(this.proposition.fileId);

@@ -3,6 +3,7 @@ import {Employee} from '../../login/shared/employee.model';
 import {Receipt} from '../shared/receipt.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ReceiptService} from '../shared/receipt.service';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-receipt',
@@ -33,26 +34,26 @@ export class ReceiptComponent implements OnInit {
   isFileFound = false;
 
 
-  constructor(private receiptService: ReceiptService) {
+  constructor(private receiptService: ReceiptService, private sharedService: SharedService) {
   }
 
 
   ngOnInit() {
     this.editedProp = Object.assign(Object.create(this.receipt), this.receipt);
     this.createFormGroup(this.receipt);
-    this.receiptService.getFileById(this.receipt.fileId).subscribe(file => this.prenstFile = file);
+    this.sharedService.getFileById(this.receipt.fileId).subscribe(file => this.prenstFile = file);
   }
 
 
   getEUString(date: Date) {
-    return this.receiptService.getCreationDateAsEUString(date);
+    return this.sharedService.getCreationDateAsEUString(date);
   }
 
   getFileById(event) {
     if (event.target.tagName === 'I') {
       return;
     }
-    this.receiptService.getFileById(this.receipt.fileId).subscribe(File => {
+    this.sharedService.getFileById(this.receipt.fileId).subscribe(File => {
       if (File !== null) {
         this.openPdf(File);
       } else {
@@ -158,12 +159,12 @@ export class ReceiptComponent implements OnInit {
           this.editedProp = Object.assign(Object.create(this.receipt), this.receipt);
       });
     if (this.upLoadedAImage) {
-      this.receiptService.getFileById(oldTimeStamp).subscribe(file => {
+      this.sharedService.getFileById(oldTimeStamp).subscribe(file => {
         if (file) {
           this.deleteFileById(oldTimeStamp);
         }
       });
-      this.receiptService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
+      this.sharedService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
       this.prenstFile = this.base64textString;
     }
   }
@@ -178,7 +179,7 @@ export class ReceiptComponent implements OnInit {
     }
   }
   deleteFileById(id: number) {
-    this.receiptService.deleteFileById(id).subscribe();
+    this.sharedService.deleteFileById(id).subscribe();
   }
   confirmedDeleteFile() {
     this.deleteFileById(this.receipt.fileId);

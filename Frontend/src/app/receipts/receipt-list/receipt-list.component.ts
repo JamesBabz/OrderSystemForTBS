@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ReceiptService} from '../shared/receipt.service';
 import {Customer} from '../../customers/shared/customer.model';
 import {Receipt} from '../shared/receipt.model';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-receipt-list',
@@ -17,7 +18,7 @@ export class ReceiptListComponent implements OnInit {
 
   receipts: Receipt[];
 
-  constructor(private receiptService: ReceiptService, private router: Router, private route: ActivatedRoute) {
+  constructor(private receiptService: ReceiptService, private router: Router, private route: ActivatedRoute, private sharedService: SharedService) {
     this.refresh();
   }
 
@@ -25,7 +26,7 @@ export class ReceiptListComponent implements OnInit {
   }
 
   createReceipt() {
-    this.receiptService.setCurrentCustomer(this.customer);
+    this.sharedService.setCurrentCustomer(this.customer);
     this.router.navigateByUrl('/receipts/create');
   }
 

@@ -7,7 +7,7 @@
           <option value="" >Vælg kunde</option>
           <ng-container *ngFor="let cust of customers">
 
-            <ng-container *ngIf="customer != null">
+            <ng-container *ngIf="customer">
 
               <option *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
               <option selected *ngIf="cust.id == customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}
