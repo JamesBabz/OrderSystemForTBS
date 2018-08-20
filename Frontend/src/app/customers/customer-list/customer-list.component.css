@@ -27,8 +27,18 @@ text-align: center;
 .buttonsContainer{
   margin-top: 4%;
 }
-
-.btn{
+#btnChangeList{
+  height: 65px;
+  width: 65px;
+}
+#btnOpenPdf{
+  height: 65px;
+  width: 65px;
+}
+.big-icon {
+  font-size: 32px;
+}
+.btnMain{
   height: 65px;
   width: 80%;
   font-size: x-large;
@@ -47,3 +57,6 @@ text-align: center;
   font-size: x-large;
   ;
 }
+
+
+

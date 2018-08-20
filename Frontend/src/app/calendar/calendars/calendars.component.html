@@ -1,10 +1,11 @@
 <div class="row" *ngIf="calendarOptions && visits && employees">
   <div class="employeeContainer col-md-2">
     <div class="singleEmpCont" *ngFor="let emp of employees">
-      <span class="{{emp.colorCode}} bullet">•</span><span class="empSpan">{{emp.firstname}} {{emp.lastname}}</span>
+      <input type="checkbox" (click)="toggle(emp.id)" [checked]="true" /><span class="{{emp.colorCode}} bullet">•</span><span class="empSpan">{{emp.firstname}} {{emp.lastname}}</span>
     </div>
   </div>
   <div class="col-md-10 calCont">
+    <button (click)="printPdf()" class="btn btn-info clickable"><i class="fa fa-download"></i></button>
     <ng-fullcalendar #ucCalendar [options]="calendarOptions"
                      (eventClick)="eventClick($event.detail)"
                      (eventDrop)="updateEvent($event.detail)"
@@ -14,3 +15,4 @@
     <div *ngIf="colorDone"></div>
   </div>
 </div>
+

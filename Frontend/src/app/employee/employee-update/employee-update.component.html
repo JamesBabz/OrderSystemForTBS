@@ -1,0 +1,13 @@
+
+
+<h4 class="property-text">Fornavn: </h4>
+<h4 class="property-text">Efternavn: </h4>
+<h4 class="property-text">CVR-nr: </h4>
+
+<input class="input form-control" type="text" (change)="changes = true" [(ngModel)]="editEmployee.firstname">
+<input class="input form-control" type="text" (change)="changes = true" [(ngModel)]="editEmployee.lastname">
+
+
+<button type="button" class="btn btn-outline-success shouldClose clickable"
+        (click)="updateEmployee()">Gem
+</button>

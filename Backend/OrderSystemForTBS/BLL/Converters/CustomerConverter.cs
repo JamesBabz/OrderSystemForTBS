@@ -20,7 +20,9 @@ namespace BLL.Converters
                     City = cust.City,
                     Email = cust.Email,
                     Phone = cust.Phone,
-                    CVR = cust.CVR
+                    CVR = cust.CVR,
+                    Description = cust.Description
+                  
 
                 };
             }
@@ -40,7 +42,8 @@ namespace BLL.Converters
                 City = cust.City,
                 Email = cust.Email,
                 Phone = cust.Phone,
-                CVR = cust.CVR
+                CVR = cust.CVR,
+                Description = cust.Description
             };
         }
 

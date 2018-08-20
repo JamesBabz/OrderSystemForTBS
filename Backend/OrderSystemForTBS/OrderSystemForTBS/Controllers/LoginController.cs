@@ -15,24 +15,27 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace OrderSystemForTBS.Controllers
 {
+    //TODO maybe a new service connected to this controller
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/Login")]
     public class LoginController : Controller
     {
-        IBLLFacade facade;
-        private EmployeeConverter employeeConverter = new EmployeeConverter();
+        IBLLFacade _facade;
+
+        private EmployeeConverter _employeeConverter;
 
         public LoginController(IBLLFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
+            _employeeConverter = new EmployeeConverter();
         }
 
         
         [HttpPost]
         public IActionResult Login([FromBody]LoginInput LoginInput)
         {
-            var user = facade.EmployeeService.GetAll().FirstOrDefault(u => u.Username == LoginInput.Username);
+            var user = _facade.EmployeeService.GetAll().FirstOrDefault(u => u.Username == LoginInput.Username);
             
             // check if username exists
             if (user == null)
@@ -45,9 +48,11 @@ namespace OrderSystemForTBS.Controllers
             // Authentication successful
             return Ok(new
             {
+                passwordreset = user.PasswordReset,
                 id = user.Id,
                 username = user.Username,
-                token = GenerateToken(employeeConverter.Convert(user)),             
+                isadmin = user.IsAdmin,
+                token = GenerateToken(_employeeConverter.Convert(user)),
             });
         }
         
@@ -74,18 +79,34 @@ namespace OrderSystemForTBS.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, employee.Username)
+                new Claim(ClaimTypes.Name, employee.Username),
+                new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddDays(1)).ToUnixTimeSeconds().ToString()),
             };
 
-            var token = new JwtSecurityToken(
-                new JwtHeader(new SigningCredentials(
-                    JwtSecurityKey.Key,
-                    SecurityAlgorithms.HmacSha256)),
-                new JwtPayload(null, // issuer - not needed (ValidateIssuer = false)
-                    null, // audience - not needed (ValidateAudience = false)
-                    claims.ToArray(),
-                    DateTime.Now,               // notBefore
-                    DateTime.Now.AddDays(1)));  // expires
+            if (employee.IsAdmin == "Administrator")
+            {
+                claims.Add(new Claim("role", "Administrator"));
+            }
+            else if (employee.IsAdmin == "User")
+            {
+                claims.Add(new Claim("role", "User"));
+            }
+            else if (employee.IsAdmin == "Deactivated")
+            {
+                claims.Add(new Claim("role", "Deactivated"));
+            }
+
+
+                var token = new JwtSecurityToken(
+                    new JwtHeader(new SigningCredentials(
+                        JwtSecurityKey.Key,
+                        SecurityAlgorithms.HmacSha256)),
+                    new JwtPayload(null, // issuer - not needed (ValidateIssuer = false)
+                        null, // audience - not needed (ValidateAudience = false)
+                        claims.ToArray(),
+                        DateTime.Now, // notBefore
+                        DateTime.Now.AddDays(1))); // expires
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }

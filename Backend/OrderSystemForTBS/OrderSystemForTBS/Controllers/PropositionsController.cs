@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BLL;
 using BLL.BusinessObjects;
 using BLL.Facade;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OrderSystemForTBS.Controllers
@@ -14,6 +15,7 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Administrator, User")]
     public class PropositionsController : Controller
     {
         private IBLLFacade _facade;
@@ -23,20 +25,12 @@ namespace OrderSystemForTBS.Controllers
             _facade = facade;
         }
 
-        // GET api/Propositions
-        [HttpGet]
-        public IEnumerable<PropositionBO> Get()
-        {
-            return null;
-        }
-
         // GET api/Propositions/5
         [HttpGet("{id}")]
         public IEnumerable<PropositionBO> Get(int id)
         {
             return _facade.PropositionService.GetAllById(id);
         }
-        
 
         // POST api/Propositions
         [HttpPost]
@@ -71,6 +65,7 @@ namespace OrderSystemForTBS.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            //TODO why modelState?
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

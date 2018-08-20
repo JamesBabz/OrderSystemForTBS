@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using BLL;
 using BLL.BusinessObjects;
 using BLL.Services;
@@ -10,6 +9,7 @@ using DAL.UOW;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using BLL.IServices;
 
 namespace UnitTest
 {
@@ -34,14 +34,14 @@ namespace UnitTest
             return dalFacadeMock;
         }
 
-        public IService<EquipmentBO> GetMockService()
+        public IEquipmentService GetMockService()
         {
 
             var c = GetInMemoryContext();
             var dalFacadeMock = GetDalFacadeMock(c);
 
             //Creates the Service
-            IService<EquipmentBO> service = new EquipmentService(dalFacadeMock.Object);
+            IEquipmentService service = new EquipmentService(dalFacadeMock.Object);
             return service;
         }
 

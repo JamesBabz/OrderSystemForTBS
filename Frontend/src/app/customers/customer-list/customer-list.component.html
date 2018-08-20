@@ -1,29 +1,34 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-3">
-      <h1 class="text">Kunder</h1>
+    <div class="col-md-3 text">
+      <h1 *ngIf="!this.isP20Showed">Kunder</h1>
+      <h1 *ngIf="this.isP20Showed" >Min P20 liste</h1>
+    </div>
+    <div class="col-md-9">
+      <button class="btn btn-light clickable" id="btnChangeList" (click)="changeList()"><i class="fa fa-exchange big-icon"></i></button>
+      <button style="margin-left: 10px" *ngIf="isP20Showed && employeeCustomers" class="btn btn-info clickable" id="btnOpenPdf" (click)="openP20ListInPdf()"><i class="fa fa-download big-icon"></i></button>
     </div>
   </div>
   <div class="row">
-
     <div class="leftBorder col-md-3">
-      <input class="input" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
-
+      <input class="input" *ngIf="!isP20Showed" placeholder="Søg" (keyup)="search($event)" (input)="query= $event.target.value" >
+      <h2 *ngIf="isP20Showed"> {{salesManListCounter}} kunder</h2>
       <div class="CustomersBorder">
-        <app-customer (click)="details(cust)" *ngFor="let cust of customers" [customer]="cust"></app-customer>
+        <app-customer (click)="details(cust, $event)" *ngFor="let cust of customers" [customer]="cust" [employee]="this.employee" (eDeleted)="refresh()"></app-customer>
       </div>
     </div>
     <div class="centerBorder col-md-9">
       <div class="calendarButtonContainer">
-        <button class=" btn btn-success clickable calendarButton" (click)="showCalendar()"> Vis kalender</button>
+        <button class=" btnMain btn btn-success clickable calendarButton" (click)="showCalendar()"> Vis kalender</button>
       </div>
         <div class="buttonsContainer">
-        <button class=" btn btn-success clickable" (click)="createCustomer()"> Opret kunde</button>
-        <button class=" btn btn-success clickable"  (click)="createVisit()"> Opret besøg</button>
-        <button class=" btn btn-success clickable" (click)="createProposition()"> Tilføj tilbud</button>
-        <button class=" btn btn-success clickable" disabled> Tilføj slutseddel</button>
+        <button class=" btnMain btn btn-success clickable" (click)="createCustomer()"> Opret kunde</button>
+        <button class=" btnMain btn btn-success clickable"  (click)="createVisit()"> Opret besøg</button>
+        <button class=" btnMain btn btn-success clickable" (click)="createProposition()"> Tilføj tilbud</button>
+        <button class=" btnMain btn btn-success clickable" (click)="createReceipt()"> Tilføj slutseddel</button>
       </div>
     </div>
   </div>
 </div>
+

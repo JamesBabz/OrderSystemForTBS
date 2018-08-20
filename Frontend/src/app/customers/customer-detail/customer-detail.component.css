@@ -35,3 +35,37 @@
 .notSaved-text{
   color: red;
 }
+.big-icon {
+  font-size: 32px;
+}
+
+.descTextArea{
+  resize: none;
+  height: 50%;
+}
+.btn{
+  margin-top: 20px;
+}
+
+#snackbarSucces.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 1.5s;
+  animation: fadein 0.5s, fadeout 0.5s 1.5s;
+}
+#snackbarSucces{
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #6d6c6a;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 25px;
+  border-radius: 15px;
+}
+

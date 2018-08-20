@@ -1,0 +1,50 @@
+<div class="cont">
+  <h2>Tilføj slutseddel</h2>
+  <form [formGroup]="createPropFormGroup" *ngIf="customers">
+    <div class="row top20">
+      <div class="col-md-4">
+        <select name="customerSelector" formControlName="customerSelector" class="clickable">
+          <option value="" >Vælg kunde</option>
+          <ng-container *ngFor="let cust of customers">
+
+            <ng-container *ngIf="customer != null">
+
+              <option *ngIf="cust.id != customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+              <option selected *ngIf="cust.id == customer.id" value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}
+              </option>
+
+            </ng-container>
+
+            <ng-container *ngIf="customer == null">
+
+              <option value="{{cust.id}}">{{cust.firstname}} {{cust.lastname}}</option>
+
+            </ng-container>
+          </ng-container>
+        </select>
+      </div>
+    </div>
+    <div class="row top20">
+      <div class="col-md-4">
+        <input type="text" placeholder="Titel" name="title" formControlName="title"/>
+      </div>
+    </div>
+    <div class="row top20">
+      <div class="col-md-4">
+        <textarea class="descTextArea" placeholder="Kort beskrivelse" name="description" formControlName="description"></textarea>
+      </div>
+    </div>
+    <div class="row top20">
+      <div class="col-md-4">
+        <input type="file" name="file" formControlName="file" (change)="onFileChange($event)"/>
+        <div *ngIf="!correctFile" class="alert alert-danger" role="alert">Det er kun muligt, at oploade PDF filer! (.pdf)</div>
+      </div>
+    </div>
+    <div class="row top20">
+      <div class="col-md-4">
+        <input class="btn btn-success clickable" type="button" (click)="createNewReceipt()" value="Gem" name="save" [disabled]="!createPropFormGroup.valid || !correctFile"/>
+        <input class="btn btn-danger clickable" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
+      </div>
+    </div>
+  </form>
+</div>

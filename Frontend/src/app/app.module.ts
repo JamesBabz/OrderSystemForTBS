@@ -16,7 +16,6 @@ import {CustomerCreateComponent} from './customers/customer-create/customer-crea
 import {TabModule} from 'angular-tabs-component';
 import {AuthGuard} from './login/login/Auth/auth.guard';
 import {PropositionComponent} from './propositions/proposition/proposition.component';
-import {PropositionDetailComponent} from './propositions/proposition-detail/proposition-detail.component';
 import {PropositionListComponent} from './propositions/proposition-list/proposition-list.component';
 import {PropositionService} from './propositions/shared/proposition.service';
 import {TokenInterceptor} from './login/login/Auth/token.interceptor';
@@ -37,18 +36,34 @@ import {CalendarService} from './calendar/shared/calendar.service';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {FullCalendarModule} from 'ng-fullcalendar';
-
+import {SalesmanListService} from './customers/shared/salesman-list.service';
+import {EmployeeCreateComponent} from './employee/employee-create/employee-create.component';
+import {PasswordResetComponent} from './login/login/password-reset/password-reset.component';
+import {AdminComponent} from './admin/admin/admin.component';
+import {EmployeeComponent} from './employee/employee/employee.component';
+import {EmployeeDetailComponent} from './employee/employee/employee-detail/employee-detail.component';
+import {NotificationModule} from 'angular-ntf';
+import {SimpleNotificationsModule} from 'angular2-notifications';
+import { ReceiptComponent } from './receipts/receipt/receipt.component';
+import { ReceiptCreateComponent } from './receipts/receipt-create/receipt-create.component';
+import { ReceiptListComponent } from './receipts/receipt-list/receipt-list.component';
+import {ReceiptService} from './receipts/shared/receipt.service';
+import {SharedService} from './shared/shared.service';
 
 const appRoutes: Routes = [
 
-  {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [AuthGuard]},
-  {path: 'customers/create', component: CustomerCreateComponent, canActivate: [AuthGuard]},
-  {path: 'proposition/:id', component: PropositionDetailComponent, canActivate: [AuthGuard]},
-  {path: 'propositions/create', component: PropositionCreateComponent, canActivate: [AuthGuard]},
+  {path: 'customer/:id', component: CustomerDetailComponent},
+  {path: 'employee/:id', component: EmployeeDetailComponent},
+  {path: 'customers/create', component: CustomerCreateComponent},
+  {path: 'employees/create', component: EmployeeCreateComponent},
+  {path: 'propositions/create', component: PropositionCreateComponent},
   {path: 'visits/create', component: VisitCreateComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'customers', component: CustomerListComponent, canActivate: [AuthGuard]},
-  {path: 'calendar', component: CalendarsComponent, canActivate: [AuthGuard]},
+  {path: 'passwordreset/:id', component: PasswordResetComponent},
+  {path: 'customers', component: CustomerListComponent},
+  {path: 'calendar', component: CalendarsComponent},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path: 'receipts/create', component: ReceiptCreateComponent},
 
   {path: '**', redirectTo: 'customers'}
 ];
@@ -56,13 +71,14 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    AdminComponent,
     CustomerListComponent,
     CustomerDetailComponent,
     CustomerComponent,
     LoginComponent,
+    EmployeeDetailComponent,
     CustomerCreateComponent,
     PropositionComponent,
-    PropositionDetailComponent,
     PropositionListComponent,
     PropositionCreateComponent,
     EquipmentComponent,
@@ -70,7 +86,13 @@ const appRoutes: Routes = [
     VisitListComponent,
     VisitCreateComponent,
     VisitComponent,
-    CalendarsComponent
+    CalendarsComponent,
+    EmployeeCreateComponent,
+    PasswordResetComponent,
+    EmployeeComponent,
+    ReceiptComponent,
+    ReceiptCreateComponent,
+    ReceiptListComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +101,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    SimpleNotificationsModule.forRoot(),
     NgbModule.forRoot(),
     TabModule,
     BrowserModule,
@@ -86,11 +110,13 @@ const appRoutes: Routes = [
   ],
 
     providers: [CustomerService, LoginService, AuthGuard, PropositionService,
-  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService,
+  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService, SalesmanListService, ReceiptService, SharedService,
   {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
   {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
 ],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule {
 }

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using DAL.Context;
 using DAL.Entities;
+using DAL.IRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public class CustomerRepository : IRepository<Customer>
+    public class CustomerRepository : ICustomerRepository
     {
         OrderSystemContext _context;
 

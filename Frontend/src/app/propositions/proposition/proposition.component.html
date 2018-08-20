@@ -1,7 +1,10 @@
-<div class="singlePropCont clickable" >
+<div class="singlePropCont clickable" (click)="getFileById($event)">
   <div class="row">
     <div class="col-md-12 title">
-      <h3 style="margin:0px">{{proposition.title}}</h3>
+      <h3 style="margin:0px">{{proposition.title}}
+        <button class="button" (click)="openModal('delete')"><i class="fa fa-trash" ></i></button>
+        <button class="button" (click)="openModal('edit')"><i class="fa fa-pencil" ></i></button></h3>
+
       <br>
     </div>
   </div>
@@ -20,3 +23,64 @@
     </div>
   </div>
 </div>
+<div id="snackbar">Ingen PDF-fil tilknyttet</div>
+<div class="myModal shouldClose clickable" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Slet Tilbud</h3>
+    <hr>
+    <p>Er du siker på du vil slette dette tilbud?</p>
+    <hr>
+    <div class="right">
+      <button class="btn btn-outline-danger shouldClose" onclick="this.disabled=true" (click)="delete()">Slet</button>
+      <button class="btn btn-outline-secondary shouldClose" (click)="closeModal($event)">Annuller</button>
+    </div>
+  </div>
+</div>
+<div class="myModal shouldClose shouldKeepInput" id="editModal" *ngIf="modalString === 'edit'" (click)="closeModal($event)">
+  <div class="myModalContent">
+    <h3>Redigér Tilbud</h3>
+    <form [formGroup]="editPropGroup" *ngIf="proposition">
+      <div class="row top20">
+        <div class="col-md-12">
+          Titel: <br>
+          <input type="text" name="title" formControlName="title"/>
+        </div>
+      </div>
+      <div class="row top20">
+        <div class="col-md-12">
+          Beskrivelse: <br>
+          <textarea class="descTextArea" name="description" formControlName="description"></textarea>
+        </div>
+      </div>
+      <div class="row top20" *ngIf="prenstFile">
+        <div class="col-md-12">
+          Fil: <span class="fileIdtxt"> {{proposition.fileId}}.pdf </span>
+          <button ID="delete_file_btn" *ngIf="!doDeleteFile" (click)="doDeleteFile = true" class="btn">Slet <i class="fa fa-trash"></i></button>
+          <button *ngIf="doDeleteFile" (click)="doDeleteFile = false" class=" btn_popup btn btn-warning">Behold</button>
+          <button *ngIf="doDeleteFile"  (click)="confirmedDeleteFile()" class="btn_popup btn btn-danger">SLET</button>
+
+        </div>
+      </div>
+      <div *ngIf="isNewFileSelected && prenstFile">
+        <strong class="unsavedChangesText"> Tidligere vedhæftet fil, bliver slettet</strong>
+      </div>
+      <div class="row top20">
+        <div class="col-md-12">
+          <input type="file" name="file" formControlName="file" (change)="onFileChange($event); isNewFileSelected = true" />
+          <div *ngIf="!correctFile" class="alert alert-danger" role="alert">Det er kun muligt, at oploade PDF filer! (.pdf)</div>
+        </div>
+      </div>
+    </form>
+    <div>
+      <div *ngIf="unsavedChanges">
+        <strong class="unsavedChangesText"> Ændringer er ikke gemt*</strong>
+      </div>
+      <div class="right">
+        <button  [disabled]="editPropGroup.invalid || !correctFile" class="btn btn-outline-success shouldClose shouldKeepInput clickable" (click)="save($event)">Gem</button>
+        <button class="btn btn-outline-danger shouldClose clickable" (click)="closeModal($event); doDeleteFile = false">Annuller</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

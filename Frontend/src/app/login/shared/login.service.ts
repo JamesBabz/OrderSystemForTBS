@@ -4,11 +4,13 @@ import {Http, Response} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Employee} from './employee.model';
 
+
 @Injectable()
 export class LoginService {
   public token: string;
-
   employee: Employee;
+  passwordReset: string;
+  IsAdmin: string;
 
   constructor(private http: Http) {
     // set token if saved in local storage
@@ -21,15 +23,18 @@ export class LoginService {
       .map((response: Response) => {
         // login successful if there's a jwt token in the response
         const token = response.json() && response.json().token;
+        this.passwordReset = response.json().passwordreset;
+        this.IsAdmin = response.json().isadmin;
         const id = response.json().id;
         if (token) {
           // set token property
           this.token = token;
           // store username and jwt token in local storage to keep user logged in between page refreshes
-          localStorage.setItem('currentUser', JSON.stringify({id: id, username: username, token: token}));
+          localStorage.setItem('currentUser', JSON.stringify({id: id, passwordreset: this.passwordReset, isadmin: this.IsAdmin ,  username: username, token: token}));
 
           // return true to indicate successful login
           return true;
+
         } else {
           // return false to indicate failed login
           return false;
@@ -42,6 +47,4 @@ export class LoginService {
     this.token = null;
     localStorage.removeItem('currentUser');
   }
-
-
 }

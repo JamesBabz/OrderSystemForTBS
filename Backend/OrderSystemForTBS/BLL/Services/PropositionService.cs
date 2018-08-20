@@ -43,21 +43,15 @@ namespace BLL.Services
             }
         }
 
-        public List<int> allFileIds()
-        {
-            using (var uow = this.facade.UnitOfWork)
-            {
-                return uow.PropositionRepository.getFileIds().ToList();
-            }
-        }
-
         public PropositionBO Update(PropositionBO bo)
         {
             using (var uow = facade.UnitOfWork)
             {
+                // gets prop from DB that matches the id
                 var propFromDb = uow.PropositionRepository.Get(bo.Id);
                 propFromDb.Title = bo.Title;
                 propFromDb.Description = bo.Description;
+                propFromDb.FileId = bo.FileId;
                 uow.Complete();
                 return propConv.Convert(propFromDb);
             }
@@ -84,8 +78,7 @@ namespace BLL.Services
                 {
                         returnList.Add(propConv.Convert(prop));
                 }
-                Console.Write(returnList.ToString());
-                
+              
                 return returnList;
             }
         }

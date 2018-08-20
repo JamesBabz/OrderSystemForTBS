@@ -9,6 +9,7 @@
 .calCont{
   padding-right: 200px;
   margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .dayName, .calendarBox{
@@ -47,4 +48,11 @@
 }
 
 .empSpan{
+}
+
+.btn-info{
+  float: right;
+  margin-left: 10px;
+  height: 33px;
+
 }

@@ -6,6 +6,7 @@ using BLL;
 using BLL.Facade;
 using DAL;
 using DAL.Entities;
+using DAL.IRepositories;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace OrderSystemForTBS
 {
@@ -54,7 +56,8 @@ namespace OrderSystemForTBS
 
             services.AddSingleton(Configuration);
 
-            services.AddScoped<IRepository<Employee>, EmployeeRepository>();
+
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IBLLFacade, BLLFacade>();
 
             // Add JWT based authentication

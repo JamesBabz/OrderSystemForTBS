@@ -17,11 +17,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     return next.handle(req).do((event: HttpEvent<any>) => {
       if (event instanceof HttpResponse) {
-        // do stuff with response if you want
       }
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {
+        if (err.status === 401 || 403) {
           this.loginService.logout();
 
           // not logged in so redirect to login page with the return url
@@ -30,6 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
       }
     });
-  }}
+  }
+}
 
 

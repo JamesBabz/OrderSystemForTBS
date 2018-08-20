@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../shared/login.service';
 import {Employee} from '../shared/employee.model';
+import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
+import {toString} from '@ng-bootstrap/ng-bootstrap/util/util';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NotificationsService} from 'angular2-notifications';
+
 
 @Component({
   selector: 'app-login',
@@ -12,26 +17,49 @@ export class LoginComponent implements OnInit {
 
   model: any = Employee;
   loading = false;
-  username: string;
+  IsHidden;
   errormessage = '';
+  currentUser;
+  localStorageId;
+  localStorageBool;
 
-  constructor(private router: Router, private loginService: LoginService) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.username = currentUser && currentUser.username;
+  private _service: NotificationsService;
+
+  constructor(private router: Router, private notifiService: NotificationsService, private loginService: LoginService) {
+    this._service = notifiService;
   }
+
+
 
   ngOnInit() {
     this.showHeader(false);
     this.loginService.logout();
+
+
+
   }
 
-  login() {
+  login(employee: Employee) {
     this.loading = true;
     this.loginService.login(this.model.username, this.model.password)
       .subscribe(
         success => {
-          this.router.navigate(['/customers']);
           this.showHeader(true);
+          this.localStorageId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
+          this.localStorageBool = toString(localStorage.getItem('currentUser').split(',')[1].substr(16));
+
+
+          if(this.localStorageBool == "true")
+          {
+            this.router.navigateByUrl('/passwordreset/' + this.localStorageId);
+          }
+          else if(this.localStorageBool == "false")
+          {
+            this.router.navigateByUrl('/customers');
+
+          }
+
+
 
         },
         error => {
@@ -49,4 +77,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
 }
+

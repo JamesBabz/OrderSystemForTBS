@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using DAL.Context;
 using DAL.Entities;
+using DAL.IRepositories;
 
 namespace DAL.Repositories
 {
-    public class EmployeeRepository : IRepository<Employee>
+    public class EmployeeRepository : IEmployeeRepository
     {
         public OrderSystemContext _context;
 
@@ -28,11 +29,6 @@ namespace DAL.Repositories
             _context.Employees.Remove(employee);
             return employee;
 
-        }
-
-        public IEnumerable<Employee> GetAll(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public Employee Get(int Id)

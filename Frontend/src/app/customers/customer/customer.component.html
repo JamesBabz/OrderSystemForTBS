@@ -1,8 +1,22 @@
-<div class= "customerBorder singleCust">
+
+<div *ngIf="customer" class= "customerBorder singleCust clickable">
   <div class="textBorder unselectable clickable ">
-    <label class="label">
-  {{customer.firstname}}  {{customer.lastname}}
+    <label class="label clickable">
+      <span>
+        <button *ngIf="this.isP20Showed && this.employee" class="button btnHideAndShow  clickable" [disabled]="disableBtn"(click)="clickDeleteCustomerFromP20()"><i class="fa fa-user-times big-icon"></i></button>
+       <button *ngIf="!this.isP20Showed && this.employee" class="button btnHideAndShow  clickable" [disabled]="disableBtn"(click)="addCustomerToP20()"><i class="fa fa-user-plus big-icon"></i></button>
+          {{customer?.firstname}}  {{customer?.lastname}}
+      </span>
     </label>
   </div>
 </div>
+<div class="confirmDeleteContainer" *ngIf="wantToDeleteCustomerFromP20">
+<button type="button" style="margin: 5px" class="btn btn-danger clickable confirmButton" (click)="removeCustomerFromP20()"> <i class="fa fa-trash" > Fjern</i> </button>
+<button type="button" style="margin: 5px" class="btn btn-secondary clickable confirmButton" (click)="wantToDeleteCustomerFromP20 = false"> <i class="fa fa-ban"> Anuller</i> </button>
+</div>
+
+<div id="snackbarSucces">Kunden er tilføjet til din P20 liste</div>
+<div id="snackbarError">Kunden er allerede på din P20 liste</div>
+<div id="snackbarDelete"><i class="fa fa-trash big-icon"></i></div>
+
 

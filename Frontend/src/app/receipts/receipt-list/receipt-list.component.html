@@ -1,0 +1,15 @@
+<div class="receiptCont">
+  <div class="row addBtnRowReceipt">
+    <div class="col-md-12">
+      <button class="btn" (click)="createReceipt()"><i class="fa fa-plus"></i></button>
+    </div>
+  </div>
+  <div class="row receiptsCont">
+    <ng-container *ngFor="let receipt of receipts; let i = index">
+      <div class="clearfix" *ngIf="i % 4 == 0"><br></div>
+      <div class="col-xl-3 col-md-6">
+        <app-receipt  [receipt]="receipt" [employee]="receipt.employee" (eDeleted)="refresh()"></app-receipt>
+      </div>
+    </ng-container>
+  </div>
+</div>

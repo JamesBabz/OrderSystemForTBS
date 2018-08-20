@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,38 +16,40 @@ namespace OrderSystemForTBS.Controllers
     [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize(Roles = "Administrator, User")]
     public class VisitsController : Controller
     {
-        private IBLLFacade facade;
+        private IBLLFacade _facade;
 
         public VisitsController(IBLLFacade facade)
         {
-            this.facade = facade;
+            _facade = facade;
         }
 
         // GET: api/Visits
         [HttpGet]
         public IEnumerable<VisitBO> Get()
         {
-            return this.facade.VisitService.GetAll();
+            return _facade.VisitService.GetAll();
         }
 
         // GET: api/Visits/5
         [HttpGet("{id}")]
         public IEnumerable<VisitBO> Get(int id)
         {
-            return this.facade.VisitService.GetAllById(id);
+            return _facade.VisitService.GetAllById(id);
         }
         
         // POST: api/Visits
         [HttpPost]
         public IActionResult Post([FromBody]VisitBO visit)
         {
+            //TODO You dont use modelstate
             if (!ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return BadRequest(ModelState);
             }
-            return this.Ok(this.facade.VisitService.Create(visit));
+            return Ok(_facade.VisitService.Create(visit));
 
         }
         
@@ -60,7 +63,7 @@ namespace OrderSystemForTBS.Controllers
             }
             try
             {
-                return Ok(this.facade.VisitService.Update(visit));
+                return Ok(_facade.VisitService.Update(visit));
             }
             catch (InvalidOperationException e)
             {
@@ -74,7 +77,7 @@ namespace OrderSystemForTBS.Controllers
         {
             try
             {
-                return Ok(facade.VisitService.Delete(Id));
+                return Ok(_facade.VisitService.Delete(Id));
             }
             catch (InvalidOperationException e)
             {

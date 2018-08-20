@@ -11,6 +11,7 @@ import {LoginService} from '../../login/shared/login.service';
 import {Employee} from '../../login/shared/employee.model';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {ifTrue} from 'codelyzer/util/function';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-proposition-create',
@@ -23,19 +24,16 @@ export class PropositionCreateComponent implements OnInit {
   selectedCust: Customer;
   customers: Customer[];
   createPropFormGroup: FormGroup;
-  employeeId: number;
   employee: Employee;
-  selectedFile: any;
   base64textString: string;
-  fileIds: number[];
-  upLoadFileId: number;
   upLoadedAImage = false;
+  correctFile = true;
 
 
   constructor(private employeeService: EmployeeService, private propositionService: PropositionService,
-              private loginService: LoginService, private customerService: CustomerService, private router: Router) {
+              private sharedService: SharedService, private customerService: CustomerService, private router: Router) {
 
-    this.customer = propositionService.getCurrentCustomer();
+    this.customer = this.sharedService.getCurrentCustomer();
     customerService.getCustomers().subscribe(Customers => this.customers = Customers);
 
 
@@ -49,12 +47,7 @@ export class PropositionCreateComponent implements OnInit {
       file: new FormControl()
     });
     this.employeeService.getCurrentEmployee().subscribe(Employee => this.employee = Employee);
-    this.propositionService.getAllFileIds().subscribe(Ids => this.fileIds = Ids);
 
-  }
-
-  showAll() {
-    console.log(this.employee);
   }
 
   cancel() {
@@ -62,8 +55,10 @@ export class PropositionCreateComponent implements OnInit {
   }
 
   createNewProposition() {
-    this.upLoadFileId = Math.max.apply(null, this.fileIds) + 1;
-
+    let timeStamp = 0;
+    if (this.upLoadedAImage) {
+      timeStamp = Date.now();
+    }
 
     const values = this.createPropFormGroup.value;
     this.customerService.getCustomerById(Number(values.customerSelector)).subscribe(cust => this.selectedCust = cust);
@@ -73,16 +68,15 @@ export class PropositionCreateComponent implements OnInit {
       creationDate: new Date(),
       customerId: Number(values.customerSelector),
       employeeId: this.employee.id,
-      fileId: this.upLoadFileId
+      fileId: timeStamp
     };
     this.propositionService.createProposition(proposition).subscribe(
       newProp => {
         newProp.employee = this.employee,
-          this.propositionService.setCurrentProposition(newProp);
-        this.router.navigateByUrl('proposition/' + newProp.id);
+        this.router.navigateByUrl('customer/' + this.selectedCust.id);
       });
     if (this.upLoadedAImage) {
-      this.propositionService.upLoadImage(this.base64textString).subscribe();
+      this.sharedService.upLoadImage(this.base64textString +  'å' + timeStamp).subscribe();
     }
   }
 
@@ -90,14 +84,17 @@ export class PropositionCreateComponent implements OnInit {
 
     var files = event.target.files;
     var file = files[0];
-    if (files && file) {
+    if (files && file && file.type.indexOf('pdf') > -1) {
       var reader = new FileReader();
 
       reader.onload = this._handleReaderLoaded.bind(this);
 
       reader.readAsBinaryString(file);
+      this.upLoadedAImage = true;
+      this.correctFile = true;
+    } else {
+     this.correctFile = false;
     }
-    this.upLoadedAImage = true;
   }
 
   _handleReaderLoaded(readerEvt) {

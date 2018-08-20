@@ -22,6 +22,8 @@ export class VisitCreateComponent implements OnInit {
   model: NgbDateStruct;
   date: { year: number, month: number, day: number };
   employee: Employee;
+  hours: Array <string> = [];
+  minutes: Array <string> = [];
 
   constructor(private visitService: VisitService, private router: Router, private formBuilder: FormBuilder, private customerService: CustomerService, private employeeService: EmployeeService) {
 
@@ -31,11 +33,23 @@ export class VisitCreateComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       datePicked: ['', Validators.required],
-      fromHours: ['', Validators.required],
-      fromMinutes: ['', Validators.required],
-      toHours: ['', Validators.required],
-      toMinutes: ['', Validators.required]
+      fromHours: ['´00', Validators.required],
+      fromMinutes: ['00', Validators.required],
+      toHours: ['00', Validators.required],
+      toMinutes: ['00', Validators.required]
     });
+
+    for (var i = 0; i <= 23; i++) {
+      this.hours.push(i.toString());
+    }
+    this.minutes.push('0');
+    this.minutes.push('15');
+    this.minutes.push('30');
+    this.minutes.push('45');
+
+
+
+
   }
 
   ngOnInit() {
@@ -49,8 +63,16 @@ export class VisitCreateComponent implements OnInit {
 
   createVisit() {
     const values = this.visitGroup.value;
-    const newStartDate = new Date(this.model.year, this.model.month - 1, this.model.day, values.fromHours + 1, values.fromMinutes);
-    const newEndDate = new Date(this.model.year, this.model.month - 1, this.model.day, values.toHours + 1, values.toMinutes);
+
+    // if (values.fromHours.startsWith(0)) {
+    //   values.fromHours.slice(1);
+    // }
+    // if (values.toHours.startsWith(0)) {
+    //   values.toHours.slice(1);
+    // }
+
+    const newStartDate = new Date(this.model.year, this.model.month - 1, this.model.day, Number(values.fromHours) + 2, Number(values.fromMinutes));
+    const newEndDate = new Date(this.model.year, this.model.month - 1, this.model.day, Number(values.toHours) + 2, Number(values.toMinutes));
     const visit: Visit = {
       dateTimeOfVisitStart: newStartDate,
       dateTimeOfVisitEnd: newEndDate,

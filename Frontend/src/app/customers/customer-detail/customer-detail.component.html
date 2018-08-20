@@ -13,7 +13,18 @@
         CVR-Nr: {{customer.cvr}}
       </p>
     </div>
-    <div class="col-md-1 offset-md-9">
+
+    <div class="col-md-3">
+      <strong> Kommentar:</strong>
+      <textarea class="descTextArea" rows="2" cols="50" (input)="customerDescription = $event.target.value">{{customer?.description}}</textarea>
+    </div>
+    <hr>
+    <div class="col-md-4">
+      <button class="btn btn-outline-success" (click)="saveUserDescrition()"><i class="fa fa-save big-icon"></i></button>
+
+    </div>
+
+    <div class="col-md-1 offset-md-2">
       <button class="btn-link" style="outline: none" (click)="openModal('details')">Kundeoplysninger</button>
       <button class="btn-link" style="outline: none" (click)="openModal('edit')">Redigér kunde</button>
       <button class="btn-link" style="outline: none" (click)="openModal('delete')">Slet</button>
@@ -25,7 +36,7 @@
         <app-proposition-list [customer]="customer"></app-proposition-list>
       </tab>
       <tab tabTitle="Slutseddel" id="Slutseddel" active="">
-        SLUTSEDDEL!
+        <app-receipt-list [customer]="customer"></app-receipt-list>
       </tab>
       <tab tabTitle="Maskinliste" id="Maskinliste" active="{{equipTab}}">
         <app-equipment-list [customer]="customer"></app-equipment-list>
@@ -36,6 +47,7 @@
     </tabs>
   </div>
 </div>
+<div id="snackbarSucces"><i style="font-size: 35px" class="fa fa-check"></i></div>
 <div class="myModal shouldClose" id="detailsModal" *ngIf="modalString === 'details'" (click)="closeModal($event)">
   <div class="myModalContent">
     <h3>Kundeoplysninger</h3>

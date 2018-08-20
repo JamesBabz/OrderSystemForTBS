@@ -6,6 +6,10 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {waitForMap} from '@angular/router/src/utils/collection';
 import {DawaService} from '../shared/dawa.service';
 import {CVRService} from '../shared/cvr.service';
+import {SalesmanListService} from '../shared/salesman-list.service';
+import {SalesmanList} from '../shared/salesmanList.model';
+import {EmployeeService} from '../../login/shared/employee.service';
+import {Employee} from '../../login/shared/employee.model';
 
 
 @Component({
@@ -17,11 +21,10 @@ export class CustomerCreateComponent implements OnInit {
 
 
   customerGroup: FormGroup;
-
-
-  constructor(private customerService: CustomerService, private dawaService: DawaService, private cvrService: CVRService, private router: Router, private formBuilder: FormBuilder) {
+  employee: Employee;
+  constructor(private customerService: CustomerService, private dawaService: DawaService, private cvrService: CVRService, private router: Router, private formBuilder: FormBuilder, private salesmanListServive: SalesmanListService, private employeeService: EmployeeService) {
     this.customerGroup = this.formBuilder.group({
-      companyname: '',
+      companyName: '',
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       address: '',
@@ -29,7 +32,8 @@ export class CustomerCreateComponent implements OnInit {
       city: '',
       email: ['', Validators.email],
       phone: '',
-      cvr: ''
+      cvr: '',
+      p20: [false]
     });
   }
 
@@ -50,12 +54,13 @@ export class CustomerCreateComponent implements OnInit {
       .subscribe(res => {
         this.customerGroup.patchValue(
           {
-            companyname: res[1],
+            companyName: res[1],
             address: res[2],
             zipCode: res[4],
             city: res[3],
             phone: res[5],
-            email: res[6]
+            email: res[6],
+            cvr: res[0]
           });
       });
   }
@@ -77,12 +82,25 @@ export class CustomerCreateComponent implements OnInit {
       city: values.city,
       phone: phoneAsNumber,
       email: values.email,
-      companyname: values.companyname,
+      companyName: values.companyName,
       cvr: Number(values.cvr),
     };
 
     this.customerService.createCustomer(customer).subscribe(newCustomer => {
       this.router.navigateByUrl('customer/' + newCustomer.id);
+      if (values.p20) {
+        this.addCustomerToP20List(newCustomer.id);
+      }
+    });
+  }
+  addCustomerToP20List(customerId: number) {
+    this.employeeService.getCurrentEmployee().subscribe(emp => {
+      this.employee = emp;
+      const newSalesmanList: SalesmanList = {
+        customerId: customerId,
+        employeeId: this.employee.id
+      };
+      this.salesmanListServive.createSalesmanList(newSalesmanList).subscribe();
     });
   }
 }

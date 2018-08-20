@@ -9,15 +9,19 @@ namespace DAL
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Customer> CustomerRepository { get; }
+        ICustomerRepository CustomerRepository { get; }
 
-        IRepository<Employee> EmployeeRepository { get; }
+        IEmployeeRepository EmployeeRepository { get; }
 
         IPropositionRepository PropositionRepository { get; }
 
-        IRepository<Equipment> EquipmentRepository { get; }
+        IEquipmentRepository EquipmentRepository { get; }
 
         IVisitRepository VisitRepository { get; }
+
+        ISalesmanListRepository SalesmanListRepository { get; }
+
+        IReceiptRepository ReceiptRepository { get; }
 
         int Complete();
     }

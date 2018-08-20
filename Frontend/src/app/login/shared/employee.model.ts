@@ -1,8 +1,10 @@
 export class Employee {
   id?: number;
-  firstname: string;
-  lastname: string;
-  userName?: string;
-  passWord?: string;
-  colorCode: string;
+  firstname?: string;
+  lastname?: string;
+  username?: string;
+  password?: string;
+  colorCode?: string;
+  passwordReset?: boolean;
+  isAdmin?: string;
 }

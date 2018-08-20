@@ -33,5 +33,9 @@ margin-left: -15px;
 }
 
 .timeInput{
+  width: 50px;
+}
+
+.timeDropDown{
   width: 64px;
 }

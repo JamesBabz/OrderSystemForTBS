@@ -9,30 +9,34 @@ namespace DAL.UOW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public IRepository<Customer> CustomerRepository { get; internal set; }
+        public ICustomerRepository CustomerRepository { get; internal set; }
 
-        public IRepository<Employee> EmployeeRepository { get; internal set; }
+        public IEmployeeRepository EmployeeRepository { get; internal set; }
 
         public IPropositionRepository PropositionRepository { get; internal set; }
 
-        public IRepository<Equipment> EquipmentRepository { get; internal set; }
+        public IEquipmentRepository EquipmentRepository { get; internal set; }
 
         public IVisitRepository VisitRepository { get; internal set; }
 
+        public ISalesmanListRepository SalesmanListRepository { get; internal set; }
+
+        public IReceiptRepository ReceiptRepository { get; internal set; }
+
         public OrderSystemContext context;
 
-        // private static DbContextOptions<CustomerProjectContext> optionsStatic;
         public UnitOfWork(OrderSystemContext context)
         {
             this.context = context;
-            CustomerRepository = new CustomerRepository(this.context);
-            EmployeeRepository = new EmployeeRepository(this.context);
-            PropositionRepository = new PropositionRepository(this.context);
-            EquipmentRepository = new EquipmentRepository(this.context);
-            VisitRepository = new VisitRepository(this.context);
-
-            // context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            this.CustomerRepository = new CustomerRepository(this.context);
+            this.EmployeeRepository = new EmployeeRepository(this.context);
+            this.PropositionRepository = new PropositionRepository(this.context);
+            this.EquipmentRepository = new EquipmentRepository(this.context);
+            this.VisitRepository = new VisitRepository(this.context);
+            this.SalesmanListRepository = new SalesmanListRepository(this.context);
+            this.ReceiptRepository = new ReceiptRepository(this.context);
+            
+             context.Database.EnsureCreated();
         }
 
         public int Complete()

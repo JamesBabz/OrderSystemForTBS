@@ -1,0 +1,130 @@
+.customerBorder{
+  text-align: left;
+}
+.textBorder{
+  text-overflow: clip;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.singleCust :hover {
+  background-color: #AAD48C;
+
+}
+.label{
+  margin-left: 5px;
+  margin-bottom: -2px;
+}
+.btnHideAndShow {
+  display: none;
+  margin-right: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.customerBorder:hover .btnHideAndShow  {
+  display: inline-block;
+ // background-color: #f9af36;
+}
+.big-icon {
+  font-size: 32px;
+}
+.button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+#snackbarSucces.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#snackbarSucces{
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #6d6c6a;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 25px;
+  border-radius: 15px;
+}
+
+#snackbarError.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#snackbarError{
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #e9ef34;
+  color: #6d6c6a;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 25px;
+  border-radius: 15px;
+}
+
+#snackbarDelete.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+#snackbarDelete{
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #ef0404;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+  font-size: 25px;
+  border-radius: 15px;
+}
+
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+

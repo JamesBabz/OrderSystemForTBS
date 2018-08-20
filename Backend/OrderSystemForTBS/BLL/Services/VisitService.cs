@@ -16,12 +16,13 @@ namespace BLL.Services
     {
         private IDALFacade facade;
 
-        private VisitConverter visitConv = new VisitConverter();
+        private VisitConverter visitConv;
 
         private Visit newVisit;
 
         public VisitService(IDALFacade facade)
         {
+            visitConv = new VisitConverter();
             this.facade = facade;
         }
 
@@ -49,7 +50,7 @@ namespace BLL.Services
             using (var uow = facade.UnitOfWork)
             {
                 List<VisitBO> returnList = new List<VisitBO>();
-                var fullList = uow.VisitRepository.GetAll(customerId);
+                var fullList = uow.VisitRepository.GetAllById(customerId);
                 foreach (var visit in fullList)
                 {
                     returnList.Add(this.visitConv.Convert(visit));
@@ -73,6 +74,7 @@ namespace BLL.Services
         {
             using (var uow = this.facade.UnitOfWork)
             {
+                // Gets visit from db with ID that matches
                 var visitFromDb = uow.VisitRepository.Get(visit.Id);
 
                 visitFromDb.Title = visit.Title;

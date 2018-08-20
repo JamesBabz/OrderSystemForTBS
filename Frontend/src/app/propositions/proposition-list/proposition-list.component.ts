@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CustomerService} from '../../customers/shared/customer.service';
 import {PropositionService} from '../shared/proposition.service';
 import {Customer} from '../../customers/shared/customer.model';
+import {SharedService} from '../../shared/shared.service';
 
 @Component({
   selector: 'app-proposition-list',
@@ -19,25 +20,21 @@ export class PropositionListComponent implements OnInit {
 
   propositions: Proposition[];
 
-  constructor(private propositionService: PropositionService, private router: Router, private route: ActivatedRoute) {
-    this.route.paramMap
-      .switchMap(params => this.propositionService.getPropositionsByCustomerId(+params.get('id')))
-      .subscribe(Proposition => this.propositions = Proposition);
+  constructor(private propositionService: PropositionService, private router: Router, private route: ActivatedRoute, private sharedService: SharedService) {
+  this.refresh();
   }
 
   ngOnInit() {
   }
-
-
-  details(prop: Proposition) {
-    this.propositionService.setCurrentProposition(prop);
-    localStorage.setItem('currentCustomerId', this.customer.id.toString());
-    this.router.navigateByUrl('/proposition/' + prop.id);
+  create() {
+    this.sharedService.setCurrentCustomer(this.customer);
+    this.router.navigateByUrl('/propositions/create');
   }
 
-  create() {
-    this.propositionService.setCurrentCustomer(this.customer);
-    this.router.navigateByUrl('/propositions/create');
+  refresh() {
+    this.route.paramMap
+      .switchMap(params => this.propositionService.getPropositionsByCustomerId(+params.get('id')))
+      .subscribe(props => this.propositions = props);
   }
 
 }

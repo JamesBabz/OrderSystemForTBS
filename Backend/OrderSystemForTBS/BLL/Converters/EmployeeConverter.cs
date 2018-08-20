@@ -19,11 +19,12 @@ namespace BLL.Converters
                     Lastname = employee.Lastname,
                     Username = employee.Username,
                     Password = employee.Password,
+                    PasswordReset = employee.PasswordReset,
                     PasswordHash = employee.PasswordHash,
                     PasswordSalt = employee.PasswordSalt,
-                    MacAddress = employee.MacAddress,
-                    ColorCode = employee.ColorCode
-                    
+                    ColorCode = employee.ColorCode,
+                    IsAdmin = employee.IsAdmin
+                 
                 };
             }
         }
@@ -38,10 +39,11 @@ namespace BLL.Converters
                 Lastname = employee.Lastname,
                 Username = employee.Username,
                 Password = employee.Password,
+                PasswordReset = employee.PasswordReset,
                 PasswordHash = employee.PasswordHash,
                 PasswordSalt = employee.PasswordSalt,
-                MacAddress = employee.MacAddress,
-                ColorCode = employee.ColorCode
+                ColorCode = employee.ColorCode,
+                IsAdmin = employee.IsAdmin
             };
         }
     }
