@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EmployeeService} from "../../login/shared/employee.service";
 import {Employee} from '../../login/shared/employee.model';
+import {NotificationsService} from 'angular2-notifications/dist';
 
 
 @Component({
@@ -14,7 +15,12 @@ export class EmployeeCreateComponent implements OnInit {
 
   employeeGroup: FormGroup;
 
-  constructor(private employeeService: EmployeeService, private router: Router, private formBuilder: FormBuilder) {
+  private _notifiService: NotificationsService;
+
+  constructor(private notifiService: NotificationsService, private employeeService: EmployeeService, private router: Router, private formBuilder: FormBuilder) {
+    this._notifiService = this.notifiService;
+
+
     this.employeeGroup = this.formBuilder.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -45,6 +51,7 @@ export class EmployeeCreateComponent implements OnInit {
     console.log(employee.password);
     this.employeeService.createEmployee(employee).subscribe(newEmployee => {
       this.router.navigateByUrl('/admin');
+      this._notifiService.success("Oprettet", "Du har oprettet " + employee.firstname + " " + employee.lastname);
     });
   }
 }

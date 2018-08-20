@@ -25,7 +25,7 @@ namespace OrderSystemForTBS.Controllers
 
         // POST: api/employee/
         [HttpPost]
-        [Authorize(Roles = "Administrator")]
+       // [Authorize(Roles = "Administrator")]
         public IActionResult Post([FromBody] EmployeeBO employee)
         {
             if (!ModelState.IsValid)
