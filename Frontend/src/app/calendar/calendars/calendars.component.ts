@@ -3,7 +3,6 @@ import {CalendarComponent} from 'ng-fullcalendar';
 import {Options} from 'fullcalendar';
 import {VisitService} from '../../visits/shared/visit.service';
 import {Visit} from '../../visits/shared/visit.model';
-import {forEach, waitForMap} from '@angular/router/src/utils/collection';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
 import {CustomerService} from '../../customers/shared/customer.service';
@@ -11,6 +10,7 @@ import {Router} from '@angular/router';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {environment} from '../../../environments/environment';
+import {SharedService} from '../../shared/shared.service';
 
 const tbsLogo = environment.logoDataUrl;
 
@@ -34,7 +34,7 @@ export class CalendarsComponent implements OnInit {
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
 
-  constructor(private visitService: VisitService, private employeeService: EmployeeService, private customerService: CustomerService, private router: Router) {
+  constructor(private visitService: VisitService, private employeeService: EmployeeService, private sharedService: SharedService, private router: Router) {
     this.employeeService.getCurrentEmployee().subscribe(Employee => this.currentEmployee = Employee);
 
   }
@@ -57,11 +57,11 @@ export class CalendarsComponent implements OnInit {
     for (let i = 0; i < spans.length; i++) {
       spans.item(i).setAttribute('style', 'color: ' + spans.item(i).getAttribute('class').substr(0, 7));
     }
-    //this.colorDone = true;
+    // this.colorDone = true;
   }
 
   eventClick($event) {
-    this.customerService.setTab(4);
+    this.sharedService.setTab(4);
     this.router.navigateByUrl('customer/' + $event.valueOf().event.customerId);
 
   }
@@ -245,7 +245,7 @@ export class CalendarsComponent implements OnInit {
       pageBreak: 'before',
       footer: {
         columns: [
-          { text: this.customerService.getDateAsEUString(date), margin: [ 50, -50, 10, 20 ] },
+          { text: this.sharedService.getDateAsEUString(date), margin: [ 50, -50, 10, 20 ] },
           {
             text: 'Printet af: ' + this.currentEmployee.firstname + ' ' + this.currentEmployee.lastname, margin: [ 10, -50, 10, 20 ]
           }

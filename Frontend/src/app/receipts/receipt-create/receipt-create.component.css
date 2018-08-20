@@ -1,0 +1,12 @@
+.cont {
+  padding-left: 15px;
+}
+
+.descTextArea {
+  height: 150px;
+  min-width: 350px;
+  resize: horizontal;
+}
+.btn{
+  width: 88px;
+}

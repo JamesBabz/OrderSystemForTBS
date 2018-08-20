@@ -1,0 +1,22 @@
+.receiptsCont{
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: block;
+}
+
+.addBtnRowReceipt{
+  border-bottom: 1px solid #c9c9c9;
+  padding: 5px;
+  display: block;
+}
+
+.receiptCont{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.fa{
+  font-size: 20px;
+}
