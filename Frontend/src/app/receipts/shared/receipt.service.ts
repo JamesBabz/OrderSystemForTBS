@@ -1,31 +1,30 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {environment} from '../../../environments/environment';
-import {Proposition} from './proposition.model';
-import {Observable} from 'rxjs/Observable';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Receipt} from './receipt.model';
 import {Customer} from '../../customers/shared/customer.model';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
-
-const url = environment.ApiEndPoint + '/propositions/';
+const url = environment.ApiEndPoint + '/receipts/';
 
 @Injectable()
-export class PropositionService {
+export class ReceiptService {
 
-  private currentProp: Proposition;
+  private currentReceipt: Receipt;
   private currentCust: Customer;
 
 
   constructor(private http: HttpClient) {
-    this.currentProp = null;
+    this.currentReceipt = null;
     this.currentCust = null;
   }
 
-  getPropositionsByCustomerId(id: number): Observable<Proposition[]> {
-    return this.http.get<Proposition[]>(url + id);
+  getReceiptsByCustomerId(id: number): Observable<Receipt[]> {
+    return this.http.get<Receipt[]>(url + id);
   }
 
-  createProposition(prop: Proposition) {
-    return this.http.post<Proposition>(url, prop);
+  createReceipt(receipt: Receipt) {
+    return this.http.post<Receipt>(url, receipt);
   }
 
   getCreationDateAsEUString(date: Date) {
@@ -36,12 +35,8 @@ export class PropositionService {
     return dateString;
   }
 
-  setCurrentProposition(prop: Proposition) {
-    this.currentProp = prop;
-  }
-
-  getCurrentProposition() {
-    return this.currentProp;
+  setCurrentReceipt(receipt: Receipt) {
+    this.currentReceipt = receipt;
   }
 
   setCurrentCustomer(customer: Customer) {
@@ -52,12 +47,11 @@ export class PropositionService {
     return this.currentCust;
   }
 
-  deleteProposition(id: number) {
-    return this.http.delete<Proposition>(url + id);
+  deleteReceipt(id: number) {
+    return this.http.delete<Receipt>(url + id);
   }
-
-  updateProposition(proposition: Proposition) {
-    return this.http.put<Proposition>(url + proposition.id, proposition);
+  updateReceipt(receipt: Receipt) {
+    return this.http.put<Receipt>(url + receipt.id, receipt);
   }
 
   upLoadImage(file: string) {

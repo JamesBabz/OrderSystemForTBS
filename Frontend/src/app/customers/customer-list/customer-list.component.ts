@@ -62,6 +62,9 @@ export class CustomerListComponent implements OnInit {
   createVisit() {
     this.router.navigateByUrl('visits/create');
   }
+  createReceipt() {
+    this.router.navigateByUrl('receipts/create');
+  }
 
   search() {
     this.customerService.searchQuery(this.query).subscribe(Customers => this.customers = Customers);
@@ -78,7 +81,6 @@ export class CustomerListComponent implements OnInit {
       this.salesManListCounter = y.length;
     });
     this.salesmanListService.setP20ListShowed(true);
-
   }
 
   showCustomers() {

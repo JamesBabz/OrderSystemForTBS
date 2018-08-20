@@ -37,13 +37,18 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {FullCalendarModule} from 'ng-fullcalendar';
 import {SalesmanListService} from './customers/shared/salesman-list.service';
-import {EmployeeCreateComponent} from "./employee/employee-create/employee-create.component";
-import {PasswordResetComponent} from "./login/login/password-reset/password-reset.component";
+import {EmployeeCreateComponent} from './employee/employee-create/employee-create.component';
+import {PasswordResetComponent} from './login/login/password-reset/password-reset.component';
 import {AdminComponent} from './admin/admin/admin.component';
 import {EmployeeComponent} from './employee/employee/employee.component';
 import {EmployeeDetailComponent} from './employee/employee/employee-detail/employee-detail.component';
 import {NotificationModule} from 'angular-ntf';
 import {SimpleNotificationsModule} from 'angular2-notifications';
+import { ReceiptComponent } from './receipts/receipt/receipt.component';
+import { ReceiptCreateComponent } from './receipts/receipt-create/receipt-create.component';
+import { ReceiptListComponent } from './receipts/receipt-list/receipt-list.component';
+import {ReceiptService} from './receipts/shared/receipt.service';
+import {SharedService} from './shared/shared.service';
 
 const appRoutes: Routes = [
 
@@ -58,6 +63,7 @@ const appRoutes: Routes = [
   {path: 'customers', component: CustomerListComponent},
   {path: 'calendar', component: CalendarsComponent},
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuard]},
+  {path: 'receipts/create', component: ReceiptCreateComponent},
 
   {path: '**', redirectTo: 'customers'}
 ];
@@ -84,6 +90,9 @@ const appRoutes: Routes = [
     EmployeeCreateComponent,
     PasswordResetComponent,
     EmployeeComponent,
+    ReceiptComponent,
+    ReceiptCreateComponent,
+    ReceiptListComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,7 +110,7 @@ const appRoutes: Routes = [
   ],
 
     providers: [CustomerService, LoginService, AuthGuard, PropositionService,
-  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService, SalesmanListService,
+  EquipmentService, EmployeeService, VisitService, DawaService, CalendarService, CVRService, SalesmanListService, ReceiptService, SharedService,
   {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
   {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
 ],

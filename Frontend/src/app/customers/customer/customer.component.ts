@@ -74,7 +74,7 @@ export class CustomerComponent implements OnInit {
       this.salesmanListService.addCustomerToP20(custToP20).subscribe(() => this.disableBtn = false);
       this._notifiService.success(this.customer.firstname + " " + this.customer.lastname, "Tilføjet til P20", {
         preventDuplicates: false
-      })
+      });
     });
   }
 }

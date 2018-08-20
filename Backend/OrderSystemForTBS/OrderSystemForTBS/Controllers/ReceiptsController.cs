@@ -26,6 +26,13 @@ public class ReceiptsController : Controller
             _facade = facade;
         }
 
+        // GET api/receipts/5
+        [HttpGet("{id}")]
+        public IEnumerable<ReceiptBO> Get(int id)
+        {
+            return _facade.ReceiptService.GetAllById(id);
+        }
+
         // POST api/Receipts
         [HttpPost]
         public IActionResult Post([FromBody]ReceiptBO receipt)
@@ -35,6 +42,35 @@ public class ReceiptsController : Controller
                 return BadRequest(ModelState);
             }
             return Ok(_facade.ReceiptService.Create(receipt));
+        }
+        // PUT api/receipts/5
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] ReceiptBO receipt)
+        {
+            if (id != receipt.Id)
+            {
+                return StatusCode(405, "Path id does not match customer ID json object");
+            }
+            try
+            {
+                return Ok(_facade.ReceiptService.Update(receipt));
+            }
+            catch (InvalidOperationException e)
+            {
+                return StatusCode(404, e.Message);
+            }
+        }
+
+        // DELETE api/receipts/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            //TODO why modelState?
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(_facade.ReceiptService.Delete(id));
         }
     }
 }

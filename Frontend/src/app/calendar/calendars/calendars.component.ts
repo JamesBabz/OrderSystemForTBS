@@ -3,7 +3,6 @@ import {CalendarComponent} from 'ng-fullcalendar';
 import {Options} from 'fullcalendar';
 import {VisitService} from '../../visits/shared/visit.service';
 import {Visit} from '../../visits/shared/visit.model';
-import {forEach, waitForMap} from '@angular/router/src/utils/collection';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
 import {CustomerService} from '../../customers/shared/customer.service';
@@ -57,7 +56,7 @@ export class CalendarsComponent implements OnInit {
     for (let i = 0; i < spans.length; i++) {
       spans.item(i).setAttribute('style', 'color: ' + spans.item(i).getAttribute('class').substr(0, 7));
     }
-    //this.colorDone = true;
+    // this.colorDone = true;
   }
 
   eventClick($event) {

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output, Sanitizer} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EmployeeService} from "../../login/shared/employee.service";
+import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
 import {Customer} from '../../customers/shared/customer.model';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
