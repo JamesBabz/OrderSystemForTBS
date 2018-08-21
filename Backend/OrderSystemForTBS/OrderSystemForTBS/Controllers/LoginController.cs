@@ -53,7 +53,8 @@ namespace OrderSystemForTBS.Controllers
                 username = user.Username,
                 isadmin = user.IsAdmin,
                 token = GenerateToken(_employeeConverter.Convert(user)),
-            });
+            }
+          );
         }
         
         // This method verifies that the password entered by a user corresponds to the stored

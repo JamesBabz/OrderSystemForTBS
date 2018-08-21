@@ -83,9 +83,6 @@ namespace BLL.Services
                 // gets prop from DB that matches the id
                 userFromDb = uow.EmployeeRepository.Get(emp.Id);
 
-                Console.WriteLine(userFromDb.Password);
-                Console.WriteLine(userFromDb.PasswordReset);
-
                 //Updates the role of the user
                 if (emp.IsAdmin == "true")
                 {
@@ -124,7 +121,7 @@ namespace BLL.Services
                 }
 
                 //Updates user info from Admin Page
-                if (emp.Password == null && emp.IsAdmin == null)
+                if (emp.Password == null && emp.IsAdmin == null && emp.LastLogin == null)
                 {
                     userFromDb.Firstname = emp.Firstname;
                     userFromDb.Lastname = emp.Lastname;
@@ -137,6 +134,11 @@ namespace BLL.Services
                     createPassword(emp);
                     _mailto.mailTo(userFromDb.Username, password, userFromDb.Firstname);
                     userFromDb.PasswordReset = true;
+                }
+
+                if (emp.LastLogin != null)
+                {
+                    userFromDb.LastLogin = emp.LastLogin;
                 }
 
 

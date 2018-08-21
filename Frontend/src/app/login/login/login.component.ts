@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from '../shared/login.service';
 import {Employee} from '../shared/employee.model';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
 import {toString} from '@ng-bootstrap/ng-bootstrap/util/util';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationsService} from 'angular2-notifications';
+import {EmployeeService} from '../shared/employee.service';
+import {SharedService} from '../../shared/shared.service';
 
 
 @Component({
@@ -15,6 +17,13 @@ import {NotificationsService} from 'angular2-notifications';
 })
 export class LoginComponent implements OnInit {
 
+
+  id: number;
+
+  @Input()
+  employee: Employee;
+
+
   model: any = Employee;
   loading = false;
   IsHidden;
@@ -23,10 +32,19 @@ export class LoginComponent implements OnInit {
   localStorageId;
   localStorageBool;
 
-  private _service: NotificationsService;
+  employeeGroup: FormGroup;
 
-  constructor(private router: Router, private notifiService: NotificationsService, private loginService: LoginService) {
+  private _service: NotificationsService;
+  private _employeeService: EmployeeService;
+  private _sharedService: SharedService;
+
+  constructor(private sharedService: SharedService, private formBuilder: FormBuilder, private router: Router, private notifiService: NotificationsService, private employeeService: EmployeeService, private loginService: LoginService) {
     this._service = notifiService;
+    this._employeeService = employeeService;
+    this._sharedService = sharedService;
+
+
+
   }
 
 
@@ -48,6 +66,7 @@ export class LoginComponent implements OnInit {
           this.localStorageId = toNumber(localStorage.getItem('currentUser').split(',')[0].substr(6));
           this.localStorageBool = toString(localStorage.getItem('currentUser').split(',')[1].substr(16));
 
+          this.updateEmployee();
 
           if(this.localStorageBool == "true")
           {
@@ -67,6 +86,21 @@ export class LoginComponent implements OnInit {
           this.loading = false;
           this.showHeader(false);
         });
+  }
+
+  updateEmployee() {
+    const date = new Date;
+    const employee: Employee = {
+      id: this.localStorageId,
+      lastLogin: this._sharedService.getDateAsEUString(date),
+
+    };
+
+    this.employeeService.updateEmployeeById(employee.id, employee).subscribe(Employee => {
+      this.employee = Employee;
+
+    });
+
   }
 
   private showHeader(b: boolean) {
