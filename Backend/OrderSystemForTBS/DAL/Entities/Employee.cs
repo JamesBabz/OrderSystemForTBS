@@ -18,6 +18,8 @@ namespace DAL.Entities
         public byte[] PasswordSalt { get; set; }
         public string ColorCode { get; set; }
         public string IsAdmin { get; set; }
+        public string LastLogin { get; set; }
+
 
     }
 }

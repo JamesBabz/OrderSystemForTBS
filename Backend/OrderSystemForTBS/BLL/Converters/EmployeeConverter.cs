@@ -23,7 +23,8 @@ namespace BLL.Converters
                     PasswordHash = employee.PasswordHash,
                     PasswordSalt = employee.PasswordSalt,
                     ColorCode = employee.ColorCode,
-                    IsAdmin = employee.IsAdmin
+                    IsAdmin = employee.IsAdmin,
+                    LastLogin = employee.LastLogin
                  
                 };
             }
@@ -43,7 +44,8 @@ namespace BLL.Converters
                 PasswordHash = employee.PasswordHash,
                 PasswordSalt = employee.PasswordSalt,
                 ColorCode = employee.ColorCode,
-                IsAdmin = employee.IsAdmin
+                IsAdmin = employee.IsAdmin,
+                LastLogin = employee.LastLogin
             };
         }
     }
