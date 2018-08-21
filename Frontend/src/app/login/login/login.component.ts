@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
     const date = new Date;
     const employee: Employee = {
       id: this.localStorageId,
-      lastLogin: this._sharedService.getDateAsEUString(date),
+      lastLogin: new Date(),
 
     };
 
@@ -100,7 +100,6 @@ export class LoginComponent implements OnInit {
       this.employee = Employee;
 
     });
-
   }
 
   private showHeader(b: boolean) {

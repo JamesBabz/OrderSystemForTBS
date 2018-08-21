@@ -7,5 +7,5 @@ export class Employee {
   colorCode?: string;
   passwordReset?: boolean;
   isAdmin?: string;
-  lastLogin?: string;
+  lastLogin?: Date;
 }
