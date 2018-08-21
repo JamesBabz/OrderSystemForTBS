@@ -1,24 +1,20 @@
-import {Component, OnInit} from '@angular/core';
-import {PropositionService} from '../shared/proposition.service';
+import { Component, OnInit } from '@angular/core';
 import {Customer} from '../../customers/shared/customer.model';
-import {CustomerService} from '../../customers/shared/customer.service';
-import {stringify} from 'querystring';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Proposition} from '../shared/proposition.model';
-import {Router} from '@angular/router';
-import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
-import {LoginService} from '../../login/shared/login.service';
 import {Employee} from '../../login/shared/employee.model';
 import {EmployeeService} from '../../login/shared/employee.service';
-import {ifTrue} from 'codelyzer/util/function';
+import {ReceiptService} from '../shared/receipt.service';
+import {CustomerService} from '../../customers/shared/customer.service';
+import {Router} from '@angular/router';
+import {Receipt} from '../shared/receipt.model';
 import {SharedService} from '../../shared/shared.service';
 
 @Component({
-  selector: 'app-proposition-create',
-  templateUrl: './proposition-create.component.html',
-  styleUrls: ['./proposition-create.component.css']
+  selector: 'app-receipt-create',
+  templateUrl: './receipt-create.component.html',
+  styleUrls: ['./receipt-create.component.css']
 })
-export class PropositionCreateComponent implements OnInit {
+export class ReceiptCreateComponent implements OnInit {
 
   customer: Customer;
   selectedCust: Customer;
@@ -29,14 +25,11 @@ export class PropositionCreateComponent implements OnInit {
   upLoadedAImage = false;
   correctFile = true;
 
-
-  constructor(private employeeService: EmployeeService, private propositionService: PropositionService,
+  constructor(private employeeService: EmployeeService, private receiptService: ReceiptService,
               private sharedService: SharedService, private customerService: CustomerService, private router: Router) {
 
     this.customer = this.sharedService.getCurrentCustomer();
     customerService.getCustomers().subscribe(Customers => this.customers = Customers);
-
-
   }
 
   ngOnInit() {
@@ -54,7 +47,7 @@ export class PropositionCreateComponent implements OnInit {
     window.history.back();
   }
 
-  createNewProposition() {
+  createNewReceipt() {
     let timeStamp = 0;
     if (this.upLoadedAImage) {
       timeStamp = Date.now();
@@ -62,7 +55,7 @@ export class PropositionCreateComponent implements OnInit {
 
     const values = this.createPropFormGroup.value;
     this.customerService.getCustomerById(Number(values.customerSelector)).subscribe(cust => this.selectedCust = cust);
-    const proposition: Proposition = {
+    const proposition: Receipt = {
       title: values.title,
       description: values.description,
       creationDate: new Date(),
@@ -70,7 +63,7 @@ export class PropositionCreateComponent implements OnInit {
       employeeId: this.employee.id,
       fileId: timeStamp
     };
-    this.propositionService.createProposition(proposition).subscribe(
+    this.receiptService.createReceipt(proposition).subscribe(
       newProp => {
         newProp.employee = this.employee,
         this.router.navigateByUrl('customer/' + this.selectedCust.id);
@@ -93,7 +86,7 @@ export class PropositionCreateComponent implements OnInit {
       this.upLoadedAImage = true;
       this.correctFile = true;
     } else {
-     this.correctFile = false;
+      this.correctFile = false;
     }
   }
 

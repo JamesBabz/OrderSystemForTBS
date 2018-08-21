@@ -1,34 +1,26 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Proposition} from '../shared/proposition.model';
-import {stringify} from 'querystring';
 import {Employee} from '../../login/shared/employee.model';
-import {getDayOfWeek} from 'ngx-bootstrap/bs-moment/utils/date-getters';
-import {PropositionService} from '../shared/proposition.service';
-import {debounceTime} from 'rxjs/operator/debounceTime';
+import {Receipt} from '../shared/receipt.model';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Button} from 'selenium-webdriver';
-import {NotifierService} from 'angular-notifier';
-import {NotificationsService} from 'angular2-notifications';
+import {ReceiptService} from '../shared/receipt.service';
 import {SharedService} from '../../shared/shared.service';
 
 @Component({
-  selector: 'app-proposition',
-  templateUrl: './proposition.component.html',
-  styleUrls: ['./proposition.component.css']
+  selector: 'app-receipt',
+  templateUrl: './receipt.component.html',
+  styleUrls: ['./receipt.component.css']
 })
-export class PropositionComponent implements OnInit {
-
+export class ReceiptComponent implements OnInit {
 
 
   @Input()
-  proposition: Proposition;
+  receipt: Receipt;
   @Input()
   employee: Employee;
-  isFileFound = false;
   @Output()
   eDeleted = new EventEmitter();
-  editedProp: Proposition;
+  editedProp: Receipt;
+
 
   modalString: string;
   editPropGroup: FormGroup;
@@ -39,16 +31,17 @@ export class PropositionComponent implements OnInit {
   prenstFile: string;
   doDeleteFile = false;
   correctFile = true;
+  isFileFound = false;
 
 
-  constructor(private propositionService: PropositionService, private sharedService: SharedService ) {
-
+  constructor(private receiptService: ReceiptService, private sharedService: SharedService) {
   }
 
+
   ngOnInit() {
-    this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
-    this.createFormGroup(this.proposition);
-    this.sharedService.getFileById(this.proposition.fileId).subscribe(file => this.prenstFile = file);
+    this.editedProp = Object.assign(Object.create(this.receipt), this.receipt);
+    this.createFormGroup(this.receipt);
+    this.sharedService.getFileById(this.receipt.fileId).subscribe(file => this.prenstFile = file);
   }
 
 
@@ -60,7 +53,7 @@ export class PropositionComponent implements OnInit {
     if (event.target.tagName === 'I') {
       return;
     }
-    this.sharedService.getFileById(this.proposition.fileId).subscribe(File => {
+    this.sharedService.getFileById(this.receipt.fileId).subscribe(File => {
       if (File !== null) {
         this.openPdf(File);
       } else {
@@ -85,7 +78,7 @@ export class PropositionComponent implements OnInit {
     windo.document.write(objbuilder);
   }
 
-  createFormGroup(prop: Proposition) {
+  createFormGroup(prop: Receipt) {
     this.editPropGroup = new FormGroup({
       title: new FormControl(prop.title, Validators.required),
       description: new FormControl(prop.description, Validators.required),
@@ -117,7 +110,6 @@ export class PropositionComponent implements OnInit {
 
   }
 
-
   openModal(toDo: string) {
     document.getElementsByTagName('BODY')[0].classList.add('disableScroll');
     this.modalString = toDo;
@@ -142,7 +134,7 @@ export class PropositionComponent implements OnInit {
       }
     } else if (!$event.srcElement.classList.contains('shouldKeepInput') && $event.srcElement.classList.contains('shouldClose')) {
       // resets the input values
-      this.createFormGroup(this.proposition);
+      this.createFormGroup(this.receipt);
       this.unsavedChanges = false;
       this.isNewFileSelected = false;
     }
@@ -155,15 +147,15 @@ export class PropositionComponent implements OnInit {
   }
   save($event) {
     const timeStamp = Date.now();
-    const oldTimeStamp = this.proposition.fileId;
+    const oldTimeStamp = this.receipt.fileId;
     this.closeModal($event);
-    this.editedProp.id = this.proposition.id;
+    this.editedProp.id = this.receipt.id;
     this.editedProp.fileId = timeStamp;
     this.unsavedChanges = false;
-    this.propositionService.updateProposition(this.editedProp)
+    this.receiptService.updateReceipt(this.editedProp)
       .subscribe(prop => {
-          this.proposition = prop;
-          this.editedProp = Object.assign(Object.create(this.proposition), this.proposition);
+        this.receipt = prop,
+          this.editedProp = Object.assign(Object.create(this.receipt), this.receipt);
       });
     if (this.upLoadedAImage) {
       this.sharedService.getFileById(oldTimeStamp).subscribe(file => {
@@ -177,17 +169,17 @@ export class PropositionComponent implements OnInit {
   }
 
   delete() {
-    this.propositionService.deleteProposition(this.proposition.id)
+    this.receiptService.deleteReceipt(this.receipt.id)
       .subscribe(prop =>  this.eDeleted.emit(prop));
-    if (this.proposition.fileId !== 0) {
-      this.deleteFileById(this.proposition.fileId);
+    if (this.receipt.fileId !== 0) {
+      this.deleteFileById(this.receipt.fileId);
     }
   }
   deleteFileById(id: number) {
     this.sharedService.deleteFileById(id).subscribe();
   }
   confirmedDeleteFile() {
-    this.deleteFileById(this.proposition.fileId);
+    this.deleteFileById(this.receipt.fileId);
     this.doDeleteFile = false;
     this.prenstFile = null;
   }
