@@ -36,9 +36,16 @@ namespace DAL.Repositories
             return _context.Receipts.FirstOrDefault(x => x.Id == Id);
         }
 
+
         public IEnumerable<Receipt> GetAll(int id)
         {
             return _context.Receipts.Include(prop => prop.Customer).Include(prop => prop.Employee).OrderByDescending(x => x.CreationDate).Where(x => x.CustomerId == id).ToList();
+        }
+
+        public IEnumerable<Receipt> GetNotificationList(int Id)
+        {
+            return _context.Receipts.Include(prop => prop.Customer).Include(prop => prop.Employee).Where(x => x.EmployeeId == Id).ToList();
+
         }
     }
 }

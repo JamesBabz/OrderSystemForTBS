@@ -50,7 +50,7 @@ export class CustomerDetailComponent implements OnInit {
         this.propTab = '1';
         break;
       case 2:
-        // this.BoSTab = '1';
+        this.BoSTab = '1';
         break;
       case 3:
         this.equipTab = '1';
