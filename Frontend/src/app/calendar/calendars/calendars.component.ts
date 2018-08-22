@@ -63,7 +63,6 @@ export class CalendarsComponent implements OnInit {
   eventClick($event) {
     this.sharedService.setTab(4);
     this.router.navigateByUrl('customer/' + $event.valueOf().event.customerId);
-
   }
 
   clickButton($event) {

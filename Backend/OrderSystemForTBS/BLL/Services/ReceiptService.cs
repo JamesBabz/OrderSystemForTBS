@@ -88,7 +88,7 @@ namespace BLL.Services
 
         }
 
-        public List<ReceiptBO> GetNotificationList(int employeeId, DateTime lastLogin)
+        public List<ReceiptBO> GetNotificationList(int employeeId)
         {
             using (var uow = _facade.UnitOfWork)
             {
@@ -98,7 +98,7 @@ namespace BLL.Services
                 DateTime lastLoginTemp = userFromDb.LastLogin.Date;
                 List<ReceiptBO> returnList = new List<ReceiptBO>();
                 List<DateTime> dateList = new List<DateTime>();
-                var fullList = uow.ReceiptRepository.GetAll(employeeId);
+                var fullList = uow.ReceiptRepository.GetNotificationList(userFromDb.Id);
 
                 for (i = DateTime.Today.Date; i >= lastLoginTemp; lastLoginTemp = lastLoginTemp.AddDays(+1))
                 {
