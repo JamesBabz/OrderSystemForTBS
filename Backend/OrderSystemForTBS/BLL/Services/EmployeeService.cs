@@ -120,8 +120,10 @@ namespace BLL.Services
                     firstLogin(emp);
                 }
 
+                Console.WriteLine(emp.LastLogin);
+
                 //Updates user info from Admin Page
-                if (emp.Password == null && emp.IsAdmin == null && emp.LastLogin == null)
+                if (emp.Password == null && emp.IsAdmin == null && emp.LastLogin == DateTime.MinValue)
                 {
                     userFromDb.Firstname = emp.Firstname;
                     userFromDb.Lastname = emp.Lastname;
