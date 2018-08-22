@@ -42,9 +42,9 @@ namespace DAL.Repositories
             return _context.Receipts.Include(prop => prop.Customer).Include(prop => prop.Employee).OrderByDescending(x => x.CreationDate).Where(x => x.CustomerId == id).ToList();
         }
 
-        public IEnumerable<Receipt> GetNotificationList(int Id, DateTime date)
+        public IEnumerable<Receipt> GetNotificationList(int Id)
         {
-            return _context.Receipts.Include(x => x.EmployeeId == Id).Where(x => x.CreationDate == date).ToList();
+            return _context.Receipts.Include(prop => prop.Customer).Include(prop => prop.Employee).Where(x => x.EmployeeId == Id).ToList();
 
         }
     }

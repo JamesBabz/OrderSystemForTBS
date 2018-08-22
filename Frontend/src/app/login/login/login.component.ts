@@ -109,16 +109,14 @@ export class LoginComponent implements OnInit {
         for (let i = 0; i < receipts.length ; i++) {
           console.log(i);
           receipts.forEach((item, index) => {
-           const notifi = this._service.info("PÅMINDELSE", "Hej " + item.employee.firstname + " Det er et år siden du havde et salg med " + item.customer.firstname + " på " + item.title,
+           const notifi = this._service.info("PÅMINDELSE", "Det er nu et år siden du havde et salg med " + item.customer.firstname + " på " + item.title,
               {timeOut: 0,
                 clickToClose: true,
                 clickIconToClose: true
               });
-
-            notifi.click.subscribe((event) => {
-
+/*            notifi.click.subscribe((event) => {
               this.iconClickDirect(item);
-            });
+            });*/
           });
         }
     })

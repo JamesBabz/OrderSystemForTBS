@@ -28,9 +28,9 @@ namespace OrderSystemForTBS.Controllers
 
         // GET api/notifications/5
         [HttpGet("{id}")]
-        public IEnumerable<ReceiptBO> Get(int id, DateTime date)
+        public IEnumerable<ReceiptBO> Get(int id)
         {
-            return _facade.ReceiptService.GetNotificationList(id, date);
+            return _facade.ReceiptService.GetNotificationList(id);
         }
     }
 }

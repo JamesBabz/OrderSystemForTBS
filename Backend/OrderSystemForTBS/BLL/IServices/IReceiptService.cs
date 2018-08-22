@@ -11,7 +11,7 @@ namespace BLL.IServices
         ReceiptBO Create(ReceiptBO bo);
         //R
         List<ReceiptBO> GetAllById(int customerId);
-        List<ReceiptBO> GetNotificationList(int employeeId, DateTime lastLogin);
+        List<ReceiptBO> GetNotificationList(int employeeId);
         ReceiptBO Get(int Id);
         //U
         ReceiptBO Update(ReceiptBO bo);

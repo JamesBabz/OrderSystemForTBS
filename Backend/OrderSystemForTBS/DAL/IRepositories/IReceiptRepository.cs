@@ -12,7 +12,7 @@ namespace DAL.IRepositories
         //R
         Receipt Get(int Id);
 
-        IEnumerable<Receipt> GetNotificationList(int Id, DateTime date);
+        IEnumerable<Receipt> GetNotificationList(int Id);
         //U
         //No Update for Repository, It will be the task of Unit of Work
         //D
