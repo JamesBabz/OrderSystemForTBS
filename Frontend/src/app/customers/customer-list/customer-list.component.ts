@@ -11,6 +11,7 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import {environment} from '../../../environments/environment';
 import {NotificationsService} from 'angular2-notifications/dist';
 import {SharedService} from '../../shared/shared.service';
+import {ReceiptService} from '../../receipts/shared/receipt.service';
 
 const tbsLogo = environment.logoDataUrl;
 @Component({
@@ -28,13 +29,15 @@ export class CustomerListComponent implements OnInit {
   salesManListCounter: number;
 
   private _notifiService: NotificationsService;
+  private _receiptService: ReceiptService;
 
 
 
-  constructor(private notifiService: NotificationsService, private customerService: CustomerService,
+  constructor(private receiptsService: ReceiptService, private notifiService: NotificationsService, private customerService: CustomerService,
               private router: Router, private salesmanListService: SalesmanListService,
               private employeeService: EmployeeService, private sharedService: SharedService ) {
     this._notifiService = notifiService;
+    this._receiptService = receiptsService;
 
   }
 
@@ -58,7 +61,7 @@ export class CustomerListComponent implements OnInit {
     this.router.navigateByUrl('propositions/create');
   }
 
-  openAdminPage() {
+  getNotifications() {
     this.router.navigateByUrl('/admin');
   }
 

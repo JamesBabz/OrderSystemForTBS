@@ -102,9 +102,7 @@ namespace BLL.Services
 
                 for (i = DateTime.Today.Date; i >= lastLoginTemp; lastLoginTemp = lastLoginTemp.AddDays(+1))
                 {
-
                     dateList.Add(lastLoginTemp);
-                    Console.WriteLine(dateList.ToString());
                 }
 
                 foreach (var receipt in fullList)
@@ -113,7 +111,6 @@ namespace BLL.Services
                     {
                         returnList.Add(_recieptConv.Convert(receipt));
                     }
-
                 }
 
                 return returnList;

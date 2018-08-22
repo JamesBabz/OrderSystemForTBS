@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {Route, Router, ActivatedRoute} from '@angular/router';
 import {LoginService} from '../shared/login.service';
 import {Employee} from '../shared/employee.model';
 import {toNumber} from 'ngx-bootstrap/timepicker/timepicker.utils';
@@ -8,6 +8,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NotificationsService} from 'angular2-notifications';
 import {EmployeeService} from '../shared/employee.service';
 import {SharedService} from '../../shared/shared.service';
+import {ReceiptService} from '../../receipts/shared/receipt.service';
+import {Receipt} from '../../receipts/shared/receipt.model';
+import {forEach} from '@angular/router/src/utils/collection';
 
 
 @Component({
@@ -23,7 +26,6 @@ export class LoginComponent implements OnInit {
   @Input()
   employee: Employee;
 
-
   model: any = Employee;
   loading = false;
   IsHidden;
@@ -32,19 +34,20 @@ export class LoginComponent implements OnInit {
   localStorageId;
   localStorageBool;
 
+  receipts: Receipt[];
+
   employeeGroup: FormGroup;
 
   private _service: NotificationsService;
   private _employeeService: EmployeeService;
   private _sharedService: SharedService;
+  private _receiptService: ReceiptService;
 
-  constructor(private sharedService: SharedService, private formBuilder: FormBuilder, private router: Router, private notifiService: NotificationsService, private employeeService: EmployeeService, private loginService: LoginService) {
+  constructor(private route: ActivatedRoute, private receiptService: ReceiptService, private sharedService: SharedService, private formBuilder: FormBuilder, private router: Router, private notifiService: NotificationsService, private employeeService: EmployeeService, private loginService: LoginService) {
     this._service = notifiService;
     this._employeeService = employeeService;
     this._sharedService = sharedService;
-
-
-
+    this._receiptService = receiptService;
   }
 
 
@@ -52,9 +55,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.showHeader(false);
     this.loginService.logout();
-
-
-
   }
 
   login(employee: Employee) {
@@ -67,6 +67,8 @@ export class LoginComponent implements OnInit {
           this.localStorageBool = toString(localStorage.getItem('currentUser').split(',')[1].substr(16));
 
           this.updateEmployee();
+          this.getNotifications();
+          console.log(this.receipts);
 
           if(this.localStorageBool == "true")
           {
@@ -77,9 +79,7 @@ export class LoginComponent implements OnInit {
             this.router.navigateByUrl('/customers');
 
           }
-
-
-
+          
         },
         error => {
           this.errormessage = 'Wrong username or password!';
@@ -101,6 +101,21 @@ export class LoginComponent implements OnInit {
 
     });
   }
+
+  getNotifications() {
+    this.receiptService.getReceiptsByEmployeeId(this.localStorageId)
+      .subscribe((receipts: Receipt[]) => {
+
+        for (let i = 0; i < receipts.length ; i++) {
+          console.log(i);
+          receipts.forEach((item, index) => {
+            this._service.info("PÅMINDELSE", "Hej " + item.employee.firstname + " Det er et år siden du havde et salg med " + item.customer.firstname + " på " + item.title, {timeOut: 0});
+          });
+        }
+    })
+  }
+
+
 
   private showHeader(b: boolean) {
     if (b) {
