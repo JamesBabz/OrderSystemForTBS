@@ -19,6 +19,10 @@ export class ReceiptService {
     return this.http.get<Receipt[]>(url + id);
   }
 
+  getReceiptsByEmployeeId(id: number): Observable<Receipt[]> {
+    return this.http.get<Receipt[]>(environment.ApiEndPoint + '/notifications/' + id);
+  }
+
   createReceipt(receipt: Receipt) {
     return this.http.post<Receipt>(url, receipt);
   }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using DAL.Context;
@@ -35,6 +36,7 @@ namespace DAL.Repositories
         {
             return _context.Employees.FirstOrDefault(x => x.Id == Id);
         }
+
 
         public IEnumerable<Employee> GetAll()
         {

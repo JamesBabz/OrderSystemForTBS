@@ -19,5 +19,6 @@ namespace BLL.BusinessObjects
         public string MacAddress { get; set; }
         public string ColorCode { get; set; }
         public string IsAdmin { get; set; }
+        public DateTime LastLogin { get; set; }
     }
 }
