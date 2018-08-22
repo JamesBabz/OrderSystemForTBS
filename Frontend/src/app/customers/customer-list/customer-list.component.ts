@@ -197,4 +197,3 @@ export class CustomerListComponent implements OnInit {
     }
   }
 }
-

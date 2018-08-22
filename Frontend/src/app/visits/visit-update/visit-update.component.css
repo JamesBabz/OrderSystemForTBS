@@ -1,0 +1,25 @@
+
+.border_updateVisit{
+  border: solid 3px lightgrey;
+  float: right;
+  margin-top: -20px;
+}
+.button{
+  float: right;
+  margin: 10px;
+  width: 80px;
+  margin-top: -60px;
+}
+.btn{
+  width: 80px;
+  margin-bottom: 5px;
+}
+.part_txt{
+  font-style: italic;
+  color: #EE7203;
+}
+.txtArea{
+  resize: horizontal;
+  min-width: 350px;
+}
+

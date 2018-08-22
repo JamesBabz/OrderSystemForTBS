@@ -1,9 +1,9 @@
-<div class="singleVisitCont">
+<div class="singleVisitCont" [style.background-color]="outDatedVisit">
   <div class="row">
     <div class="col-md-12 title">
       <h3 style="margin:0px">{{visit?.title}}
         <button class="button" (click)="openModal('delete')"><i class="fa fa-trash" ></i></button>
-      <button class="button" (click)="openModal('edit')"><i class="fa fa-pencil" ></i></button>
+      <button class="button" (click)="updateVisit()"><i class="fa fa-pencil" ></i></button>
       </h3>
       <br>
     </div>
@@ -16,37 +16,15 @@
   <br>
   <div class="row">
     <div class="col-md-3">
-      {{getEUString(visit?.dateTimeOfVisitStart)}}
+      {{getEUString(visit?.dateTimeOfVisitStart)}} - {{getTimeOfDate(visit?.dateTimeOfVisitStart)}}
     </div>
-    <div class="col-md-2 offset-7 right">
+    <div class="col-md-4 offset-5 right">
       Af: {{employee?.firstname}} {{employee?.lastname}}
     </div>
   </div>
 </div>
-
-<div class="myModal shouldClose" id="editModal" *ngIf="modalString === 'edit'" (click)="closeModal($event)">
-  <div class="myModalContent">
-    <h3 class="editModal-title">Redigér besøg</h3>
-    <div class="row">
-      <div class="col-md-4">
-        <h4 class="property-text">Titel: </h4>
-        <h4 class="property-text">Beskrivelse: </h4>
-
-      </div>
-      <div class=" input-container col-md-8">
-        <input type="text" class="input" [value]="visit.title"  (input)="inputTitle=$event.target.value" name="title" />
-        <textarea class="descTextArea"  [value]="visit.description"  (input)="inputDescription=$event.target.value" name="description" ></textarea>
-      </div>
-    </div>
-    <div class="row">
-    <div class="col-md-12 right">
-      <button type="button" class="btn btn-outline-success shouldClose clickable" (click)="updateVisit(); closeModal($event)">Gem
-      </button>
-      <button type="button" class="btn btn-outline-danger shouldClose clickable" (click)=" cancel(); closeModal($event)">Anuller
-      </button>
-    </div>
-  </div>
-</div>
+<div *ngIf="updateVisitSelected">
+  <app-visit-update (cancelSelected)="updateVisitSelected = false" [customer]="visit.customer" [visit]="visit"></app-visit-update>
 </div>
 <div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
   <div class="myModalContent">
@@ -60,5 +38,4 @@
     </div>
   </div>
 </div>
-
 

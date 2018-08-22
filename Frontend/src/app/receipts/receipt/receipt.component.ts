@@ -64,7 +64,7 @@ export class ReceiptComponent implements OnInit {
   showNoFileAlert() {
 
     this.isFileFound = false;
-    var x = document.getElementById('snackbar')
+    var x = document.getElementById('snackbarNoPdf')
     x.className = 'show';
     setTimeout(function(){ x.className = x.className.replace('show', ''); }, 3000);
   }
