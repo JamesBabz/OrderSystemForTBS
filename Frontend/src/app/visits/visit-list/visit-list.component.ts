@@ -21,7 +21,8 @@ export class VisitListComponent implements OnInit {
   customer: Customer;
   pastVisits: Visit[];
   futureVisits: Visit[];
-
+  futureVistColor = '#AAD48C';
+  pastVisitColor = '#f7df2c';
 
   constructor(private visitService: VisitService, private router: Router, private route: ActivatedRoute) {
     this.pastVisits = [];
@@ -36,13 +37,13 @@ export class VisitListComponent implements OnInit {
 }
 
   sortCurrentDate(list: Visit[]) {
-    var today = new Date();
-    var currentDate = new Date(today.getTime());
+    const today = new Date();
+    const currentDate = new Date(today.getTime());
     for (let visit of list) {
-      var date = new Date(visit.dateTimeOfVisitStart);
-      var dateFromVisit = new Date(date.getTime());
+      const date = new Date(visit.dateTimeOfVisitStart);
+      const dateFromVisit = new Date(date.getTime());
 
-      if (dateFromVisit > currentDate) {
+      if (dateFromVisit >= currentDate) {
         this.futureVisits.push(visit);
       } else {
         this.pastVisits.push(visit);
@@ -57,6 +58,7 @@ this.popAList(this.futureVisits);
       .subscribe(Visit => this.sortCurrentDate(this.visits = Visit));
 
   }
+
 popAList(list: any) {
   for (let i = 0; list.length; i++) {
     list.pop();

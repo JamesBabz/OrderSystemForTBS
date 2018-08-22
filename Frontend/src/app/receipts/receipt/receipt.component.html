@@ -18,12 +18,12 @@
     <div class="col-md-3">
       {{getEUString(receipt.creationDate)}}
     </div>
-    <div class="col-md-4 offset-5">
+    <div class="col-md-6 offset-3">
       Af: {{employee.firstname}} {{employee.lastname}}
     </div>
   </div>
 </div>
-<div id="snackbar">Ingen PDF-fil tilknyttet</div>
+<div id="snackbarNoPdf">Ingen PDF-fil tilknyttet</div>
 <div class="myModal shouldClose clickable" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
   <div class="myModalContent">
     <h3>Slet Tilbud</h3>
