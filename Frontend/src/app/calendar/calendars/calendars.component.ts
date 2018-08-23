@@ -5,7 +5,6 @@ import {VisitService} from '../../visits/shared/visit.service';
 import {Visit} from '../../visits/shared/visit.model';
 import {EmployeeService} from '../../login/shared/employee.service';
 import {Employee} from '../../login/shared/employee.model';
-import {CustomerService} from '../../customers/shared/customer.service';
 import {Router} from '@angular/router';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -21,7 +20,7 @@ const tbsLogo = environment.logoDataUrl;
 })
 export class CalendarsComponent implements OnInit {
 
-  visits: Visit[];
+  visits: Visit[] = Array();
   employees: Employee[];
   currentEmployee: Employee;
   employeeIdsToShow: number[];
@@ -29,19 +28,20 @@ export class CalendarsComponent implements OnInit {
 
   private data: any[];
   dataToPrint: any[];
-
   calendarOptions: Options;
   @ViewChild(CalendarComponent) ucCalendar: CalendarComponent;
 
-
   constructor(private visitService: VisitService, private employeeService: EmployeeService, private sharedService: SharedService, private router: Router) {
     this.employeeService.getCurrentEmployee().subscribe(Employee => this.currentEmployee = Employee);
-
   }
 
   ngOnInit() {
-    this.visitService.getAllVisits().subscribe(Visit => {
-      this.visits = Visit;
+    this.visitService.getAllVisits().subscribe(Visits => {
+      Visits.forEach(x => {
+        if (!x.canceled) {
+          this.visits.push(x);
+        }
+      });
     });
     this.employeeService.getEmployees().subscribe(emp => this.employees = emp);
 
@@ -79,7 +79,6 @@ export class CalendarsComponent implements OnInit {
     let k = 0;
     for (let i = 0; i < this.visits.length; i++) {
       const currVisit = this.visits[i];
-
       if (!this.shouldThisShow(currVisit.employeeId)) {
         continue;
       }
