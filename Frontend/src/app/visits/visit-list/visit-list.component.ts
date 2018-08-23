@@ -22,7 +22,7 @@ export class VisitListComponent implements OnInit {
   pastVisits: Visit[];
   futureVisits: Visit[];
   futureVistColor = '#AAD48C';
-  pastVisitColor = '#f7df2c';
+  pastVisitColor = '#fcf82d';
 
   constructor(private visitService: VisitService, private router: Router, private route: ActivatedRoute) {
     this.pastVisits = [];

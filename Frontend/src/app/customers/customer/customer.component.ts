@@ -31,6 +31,7 @@ export class CustomerComponent implements OnInit {
   constructor(private notifiService: NotificationsService, private salesmanListService: SalesmanListService) {
     this.isP20Showed = this.salesmanListService.getP20ListShowed();
     this._notifiService = notifiService;
+
   }
 
   ngOnInit() {

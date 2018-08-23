@@ -35,7 +35,7 @@ namespace DAL.UOW
             this.VisitRepository = new VisitRepository(this.context);
             this.SalesmanListRepository = new SalesmanListRepository(this.context);
             this.ReceiptRepository = new ReceiptRepository(this.context);
-            
+
              context.Database.EnsureCreated();
         }
 
