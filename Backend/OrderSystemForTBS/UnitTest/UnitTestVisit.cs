@@ -26,7 +26,7 @@ namespace UnitTest
                 Title = "Besøg",
                 Description = "Godt besøg",
                 DateTimeOfVisitStart = DateTime.Today,
-                IsDone = true,
+                Canceled = true,
                 CustomerId = 2,
                 EmployeeId = 1
             };
