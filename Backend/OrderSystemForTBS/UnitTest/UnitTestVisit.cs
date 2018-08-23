@@ -123,7 +123,7 @@ namespace UnitTest
                 Title = "Besøg",
                 Description = "Godt besøg",
                 DateTimeOfVisitStart = DateTime.Today,
-                IsDone = true,
+                Canceled = true,
                 CustomerId = 2,
                 EmployeeId = 1
             };
@@ -132,12 +132,12 @@ namespace UnitTest
             visit.Title = "Visit";
             visit.Description = "Nice visit";
             this.GetService().Update(visit);
-            visit.IsDone = false;
+            visit.Canceled = false;
             visit.DateTimeOfVisitStart = DateTime.Now;
             this.GetService().Update(visit);
             Assert.AreEqual("Visit", this.GetService().Get(1).Title);
             Assert.AreEqual("Nice visit", this.GetService().Get(1).Description);
-            Assert.AreEqual(false, this.GetService().Get(1).IsDone);
+            Assert.AreEqual(false, this.GetService().Get(1).Canceled);
 
         }
 
