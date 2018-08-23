@@ -1,3 +1,4 @@
+<div *ngIf="visits">
 <div class="row" *ngIf="calendarOptions && visits && employees">
   <div class="employeeContainer col-md-2">
     <div class="singleEmpCont" *ngFor="let emp of employees">
@@ -15,4 +16,5 @@
     <div *ngIf="colorDone"></div>
   </div>
 </div>
-
+</div>
+<div *ngIf="!visits"><H2>Loading...</H2></div>
