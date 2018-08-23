@@ -19,9 +19,10 @@ export class VisitComponent implements OnInit {
   @Input()
   employee: Employee;
   @Input()
-  outDatedVisit: string;
+  outDatedVisit: true;
   @Output()
   vDeleted = new EventEmitter();
+
   constructor(private visitService: VisitService) {
     this.updateVisitSelected = false;
   }
@@ -60,5 +61,16 @@ export class VisitComponent implements OnInit {
     this.closeModal($event);
     this.deleteVisit();
   }
+  refreshVisitList() {
+    this.vDeleted.emit(this.visit);
+  }
+  getColorCodeForVisit(currentColorCode: string) {
+    const canceled = '#e8eaed';
+    if (this.visit.canceled) {
+      currentColorCode = canceled;
+      return canceled;
 
+    }
+    return currentColorCode;
+  }
 }

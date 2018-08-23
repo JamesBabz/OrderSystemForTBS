@@ -8,9 +8,10 @@ export class Visit {
   description: string;
   dateTimeOfVisitStart: Date;
   dateTimeOfVisitEnd: Date;
-  isDone: boolean;
+  canceled: boolean;
   customer?: Customer;
   customerId?: number;
   employee?: Employee;
   employeeId: number;
+  progressPart: number;
 }

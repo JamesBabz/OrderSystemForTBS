@@ -82,9 +82,10 @@ export class VisitCreateComponent implements OnInit {
       dateTimeOfVisitEnd: newEndDate,
       title: values.title,
       description: values.description,
-      isDone: false,
+      canceled: false,
       employeeId: this.employee.id,
-      customerId: Number(values.customerSelector)
+      customerId: Number(values.customerSelector),
+      progressPart: 1
     };
     this.visitService.createVisit(visit).subscribe(newVisit => this.router.navigateByUrl('customer/' + Number(values.customerSelector)));
 

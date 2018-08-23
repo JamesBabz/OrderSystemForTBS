@@ -11,7 +11,8 @@ namespace BLL.BusinessObjects
         public string Description { get; set; }
         public DateTime DateTimeOfVisitStart { get; set; }
        public DateTime DateTimeOfVisitEnd { get; set; }
-        public bool IsDone { get; set; }
+        public bool Canceled { get; set; }
+        public int ProgressPart { get; set; }
 
         public CustomerBO Customer { get; set; }
         public int CustomerId { get; set; }

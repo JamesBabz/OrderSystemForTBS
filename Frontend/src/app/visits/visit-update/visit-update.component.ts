@@ -27,6 +27,8 @@ export class VisitUpdateComponent implements OnInit {
   minutes: Array <string> = [];
 
   @Output()
+  createdNewVisit = new EventEmitter();
+  @Output()
   cancelSelected = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder,  private calendar: NgbCalendar, private config: NgbDatepickerConfig, private employeeService: EmployeeService, private visitService: VisitService, private router: Router) {
@@ -71,20 +73,26 @@ export class VisitUpdateComponent implements OnInit {
     //   values.toHours.slice(1);
     // }
 
-    console.log(this.customer.id);
-
     const newStartDate = new Date(this.model.year, this.model.month - 1, this.model.day, Number(values.fromHours) + 2, Number(values.fromMinutes));
     const newEndDate = new Date(this.model.year, this.model.month - 1, this.model.day, Number(values.toHours) + 2, Number(values.toMinutes));
     const visit: Visit = {
       dateTimeOfVisitStart: newStartDate,
       dateTimeOfVisitEnd: newEndDate,
-      title: this.visit.title + ' DEL 2',
+      title: this.visit.title,
       description: values.description,
-      isDone: false,
+      canceled: false,
       employeeId: this.employee.id,
-      customerId: this.customer.id
+      customerId: this.customer.id,
+      progressPart: this.visit.progressPart + 1
+
     };
-    this.visitService.createVisit(visit).subscribe(newVisit => this.router.navigateByUrl('customer/' + this.customer.id));
+    this.visitService.createVisit(visit).subscribe(newVisit => {
+      this.router.navigateByUrl('customer/' + this.customer.id);
+      this.visit.canceled = true;
+      this.visitService.updateVisit(this.visit.id, this.visit).subscribe(() => {
+        this.createdNewVisit.emit(this.visit);
+      });
+    });
 
   }
 

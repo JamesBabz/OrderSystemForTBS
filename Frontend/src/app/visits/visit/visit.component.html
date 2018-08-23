@@ -1,9 +1,11 @@
-<div class="singleVisitCont" [style.background-color]="outDatedVisit">
+<div class="singleVisitCont" [style.background-color]="getColorCodeForVisit(outDatedVisit)" >
   <div class="row">
     <div class="col-md-12 title">
-      <h3 style="margin:0px">{{visit?.title}}
-        <button class="button" (click)="openModal('delete')"><i class="fa fa-trash" ></i></button>
-      <button class="button" (click)="updateVisit()"><i class="fa fa-pencil" ></i></button>
+      <h3 style="margin:0px">{{visit?.title}} <span *ngIf="visit.progressPart > 1" class="part_txt"> DEL {{visit?.progressPart}}</span>
+
+        <button *ngIf="visit.progressPart == 1 && !visit.canceled " class="button" (click)="openModal('delete')"><i class="fa fa-trash" ></i></button>
+      <button *ngIf="!visit.canceled" class="button" (click)="updateVisit()"><i class="fa fa-pencil" ></i></button>
+
       </h3>
       <br>
     </div>
@@ -24,7 +26,7 @@
   </div>
 </div>
 <div *ngIf="updateVisitSelected">
-  <app-visit-update (cancelSelected)="updateVisitSelected = false" [customer]="visit.customer" [visit]="visit"></app-visit-update>
+  <app-visit-update (createdNewVisit)="refreshVisitList()" (cancelSelected)="updateVisitSelected = false" [customer]="visit.customer" [visit]="visit"></app-visit-update>
 </div>
 <div class="myModal shouldClose" id="deleteModal" *ngIf="modalString === 'delete'" (click)="closeModal($event)">
   <div class="myModalContent">

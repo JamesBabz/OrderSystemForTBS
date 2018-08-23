@@ -5,7 +5,7 @@
     <form [formGroup]="visitGroup">
     <div class="row">
       <div class=" col-md-12 title">
-        <h3 >{{visit?.title}} <span class="part_txt"> DEL 2</span> </h3>
+        <h3 >{{visit?.title}} <span class="part_txt"> DEL {{visit?.progressPart + 1 }}</span> </h3>
         <div class="txtArea col-md-1">
         <textarea  formControlName="description"[placeholder]="visit.description"></textarea>
         </div>
