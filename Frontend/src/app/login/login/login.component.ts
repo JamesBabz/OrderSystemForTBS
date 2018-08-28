@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit {
         for (let i = 0; i < receipts.length ; i++) {
           console.log(i);
           receipts.forEach((item, index) => {
-           const notifi = this._service.info("PÅMINDELSE", "Det er et år siden du har solgt"  + item.title,
+           const notifi = this._service.info("PÅMINDELSE", "Du har en notifikation på "  + item.title,
               {timeOut: 0,
                 clickToClose: true,
                 clickIconToClose: true
