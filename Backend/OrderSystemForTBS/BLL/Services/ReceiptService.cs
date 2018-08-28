@@ -95,7 +95,7 @@ namespace BLL.Services
 
                 userFromDb = uow.EmployeeRepository.Get(employeeId);
 
-                DateTime lastLoginTemp = userFromDb.LastLogin.Date;
+                DateTime lastLoginTemp = userFromDb.LastLogin.Date.AddDays(1);
                 List<ReceiptBO> returnList = new List<ReceiptBO>();
                 List<DateTime> dateList = new List<DateTime>();
                 var fullList = uow.ReceiptRepository.GetNotificationList(userFromDb.Id);
@@ -107,7 +107,7 @@ namespace BLL.Services
 
                 foreach (var receipt in fullList)
                 {
-                    if (dateList.Contains(receipt.CreationDate = receipt.CreationDate.Date.AddYears(+1)))
+                    if (dateList.Contains(receipt.CreationDate = receipt.CreationDate.Date.AddYears(+1)) || dateList.Contains(receipt.CreationDate = receipt.CreationDate.Date.AddYears(+2)))
                     {
                         returnList.Add(_recieptConv.Convert(receipt));
                     }

@@ -24,9 +24,9 @@
   </form>
   <div class="btnContainer">
     <button id="button1" [disabled]="employeeGroup.invalid" type="button" class="btn btn-success form-control " value="Gem" (click)="updateEmployee()" (eDeleted)="refresh()">Gem</button>
-    <button id="button2" class="btn btn-primary form-control" style="outline: none" (click)="openModal('reset')">Nulstil kodeord</button>
+    <button id="button2" class="btn btn-primary form-control" style="outline: none" (click)="openModal('reset')">Nulstil adgangskode</button>
     <button id="button4" class="btn btn-info form-control" style="outline: none" (click)="openModal('role')">Ændrer rolle</button>
-    <button id="button5" class="btn btn-secondary form-control" style="outline: none" (click)="openModal('deactivate')">Deaktivere konto</button>
+    <button id="button5" class="btn btn-secondary form-control" style="outline: none" (click)="openModal('deactivate')">Deaktiver konto</button>
     <button id="button3" class="btn btn-danger form-control" style="outline: none" (click)="openModal('delete')">Slet</button>
   </div>
 </div>
@@ -35,13 +35,13 @@
   <div class="myModalContent">
     <h3>Slet medarbejder</h3>
     <hr>
-    <p>Du er igang med at slette {{firstname}} {{lastname}}!</p>
+    <p>Er du sikker på at du vil slette {{firstname}} {{lastname}}?</p>
     <hr>
     <div class="right">
       <button type="button" class="btn btn-danger shouldClose clickable" (click)="deleteEmployeeById(); closeModal($event)">
         Slet
       </button>
-      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Annuller</button>
     </div>
   </div>
 </div>
@@ -56,37 +56,37 @@
       <button type="button" class="btn btn-info shouldClose clickable" (click)="makeAdmin(); closeModal($event)">
         Ja
       </button>
-      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Nej</button>
     </div>
   </div>
 </div>
 
 <div class="myModal shouldClose" id="resetPassword" *ngIf="modalString === 'reset'" (click)="closeModal($event)">
   <div class="myModalContent">
-    <h3>Nulstil Kode</h3>
+    <h3>Nulstil adgangskode</h3>
     <hr>
-    <p>Er du sikker på du vil nulstille koden for: {{firstname}} {{lastname}}!</p>
+    <p>Er du sikker på du vil nulstille adgangskoden for {{firstname}} {{lastname}}?</p>
     <hr>
     <div class="right">
       <button type="button" class="btn btn-primary shouldClose clickable" (click)="resetPassword(); closeModal($event)">
         Nulstil
       </button>
-      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Annuller</button>
     </div>
   </div>
 </div>
 
 <div class="myModal shouldClose" id="deactivateAccount" *ngIf="modalString === 'deactivate'" (click)="closeModal($event)">
   <div class="myModalContent">
-    <h3>Deaktivere konto</h3>
+    <h3>Deaktiver konto</h3>
     <hr>
     <p>Er du sikker på du vil deaktivere {{firstname}} {{lastname}}?</p>
     <hr>
     <div class="right">
       <button type="button" class="btn btn-outline-secondary shouldClose clickable" (click)="deactivateAccount(); closeModal($event)">
-        Deaktivere
+        Deaktiver
       </button>
-      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Anuller</button>
+      <button type="button" class="btn btn-secondary shouldClose clickable" (click)="closeModal($event)">Nej</button>
     </div>
   </div>
 </div>
