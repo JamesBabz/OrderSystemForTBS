@@ -1,0 +1,74 @@
+<div *ngIf="visit">
+<div class="row">
+
+  <div class=" col-md-offset-1 col-md-10  border_updateVisit">
+    <form [formGroup]="visitGroup">
+    <div class="row">
+      <div class=" col-md-12 title">
+        <h3 >{{visit?.title}} <span class="part_txt"> DEL {{visit?.progressPart + 1 }}</span> </h3>
+        <div class="txtArea col-md-1">
+        <textarea  formControlName="description"[placeholder]="visit.description"></textarea>
+        </div>
+
+          <input style="margin-left: -110px" placeholder="Dato" class="datepicker2 "
+                 name="dp" [(ngModel)]="model" (navigate)="date = $event.next" formControlName="datePicked"
+                 ngbDatepicker #d="ngbDatepicker"/>
+
+          <button (click)="d.toggle()" type="button">
+            <i class="fa fa-calendar clickable" aria-hidden="true"></i>
+          </button>
+
+        <div class="col-md-offset-8" style="margin-top: -25px">
+        <div class="row marginB5">
+          <div class="col-md-1">
+            <span>Fra: </span>
+          </div>
+          <div style="margin-left: 15px">
+            <select type="number" placeholder="TT" name="hours" formControlName="fromHours" class="timeDropDown">
+              <ng-container *ngFor="let b of hours" >
+                <option *ngIf="b < 10">0{{b}}</option>
+                <option *ngIf="b > 9">{{b}}</option>
+              </ng-container>
+            </select>
+            <select type="number" placeholder="MM" name="minutes" formControlName="fromMinutes" class="timeDropDown">
+              <ng-container *ngFor="let c of minutes" >
+                <option *ngIf="c < 15">0{{c}}</option>
+                <option *ngIf="c > 14">{{c}}</option>
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        <div class="row marginB5" style="margin-top: 10px">
+          <div class="col-md-1">
+            <span>Til: </span>
+          </div>
+          <div style="margin-left: 15px">
+            <select type="number" placeholder="TT" name="hours" formControlName="toHours"class="timeDropDown">
+              <ng-container *ngFor="let b of hours" >
+                <option *ngIf="b < 10">0{{b}}</option>
+                <option *ngIf="b > 9">{{b}}</option>
+              </ng-container>
+            </select>
+            <select type="number" placeholder="MM" name="minutes" formControlName="toMinutes" class="timeDropDown">
+
+              <ng-container  *ngFor="let c of minutes" >
+                <option *ngIf="c < 15">0{{c}}</option>
+                <option *ngIf="c > 14">{{c}}</option>
+
+              </ng-container>
+            </select>
+          </div>
+        </div>
+        </div>
+
+          <div class="button col-md-2" >
+            <input class="btn btn-success clickable" type="button" (click)="createVisit()" value="Gem" name="save"
+                   [disabled]="!visitGroup.valid"/>
+            <input class="btn btn-danger clickable" type="button" value="Annuller" name="cancel" (click)="cancel()"/>
+          </div>
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+</div>

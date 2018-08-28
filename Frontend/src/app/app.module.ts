@@ -49,6 +49,7 @@ import { ReceiptCreateComponent } from './receipts/receipt-create/receipt-create
 import { ReceiptListComponent } from './receipts/receipt-list/receipt-list.component';
 import {ReceiptService} from './receipts/shared/receipt.service';
 import {SharedService} from './shared/shared.service';
+import { VisitUpdateComponent } from './visits/visit-update/visit-update.component';
 
 const appRoutes: Routes = [
 
@@ -93,6 +94,7 @@ const appRoutes: Routes = [
     ReceiptComponent,
     ReceiptCreateComponent,
     ReceiptListComponent,
+    VisitUpdateComponent,
   ],
   imports: [
     BrowserModule,

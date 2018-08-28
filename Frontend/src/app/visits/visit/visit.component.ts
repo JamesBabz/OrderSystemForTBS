@@ -11,19 +11,20 @@ import {Employee} from '../../login/shared/employee.model';
 })
 
 export class VisitComponent implements OnInit {
-  inputTitle: string;
-  inputDescription: string;
+ updateVisitSelected: boolean;
   editVisit: Visit;
   modalString: string;
   @Input()
   visit: Visit;
   @Input()
   employee: Employee;
+  @Input()
+  outDatedVisit: true;
   @Output()
   vDeleted = new EventEmitter();
+
   constructor(private visitService: VisitService) {
-
-
+    this.updateVisitSelected = false;
   }
 
   ngOnInit() {
@@ -31,17 +32,15 @@ export class VisitComponent implements OnInit {
   getEUString(date: Date) {
     return this.visitService.getDateAsEUString(date);
   }
+
+  getTimeOfDate(date: Date) {
+    return date.toString().substring(11);
+  }
   cancel() {
     this.editVisit = Object.assign({}, this.visit);
   }
   updateVisit() {
-    if (this.inputTitle) {
-      this.visit.title = this.inputTitle;
-    }
-    if (this.inputDescription) {
-      this.visit.description = this.inputDescription;
-    }
-    this.visitService.updateVisit(this.visit.id, this.visit).subscribe(Visit => this.visit = Visit);
+    this.updateVisitSelected = true;
   }
   deleteVisit() {
     this.visitService.deleteVisit(this.visit.id).subscribe(Visit => {
@@ -62,5 +61,16 @@ export class VisitComponent implements OnInit {
     this.closeModal($event);
     this.deleteVisit();
   }
+  refreshVisitList() {
+    this.vDeleted.emit(this.visit);
+  }
+  getColorCodeForVisit(currentColorCode: string) {
+    const canceled = '#e8eaed';
+    if (this.visit.canceled) {
+      currentColorCode = canceled;
+      return canceled;
 
+    }
+    return currentColorCode;
+  }
 }

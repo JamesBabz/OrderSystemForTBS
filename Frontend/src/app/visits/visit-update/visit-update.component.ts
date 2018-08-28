@@ -1,40 +1,41 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {VisitService} from '../shared/visit.service';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
-import {CustomerService} from '../../customers/shared/customer.service';
-import {Customer} from '../../customers/shared/customer.model';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Visit} from '../shared/visit.model';
-import {NgbCalendar, NgbDateParserFormatter, NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NgbCalendar, NgbDatepickerConfig, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDate} from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
 import {Employee} from '../../login/shared/employee.model';
 import {EmployeeService} from '../../login/shared/employee.service';
-import {NgbDate} from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date';
+import {Customer} from '../../customers/shared/customer.model';
+import {VisitService} from '../shared/visit.service';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-visit-create',
-  templateUrl: './visit-create.component.html',
-  styleUrls: ['./visit-create.component.css']
+  selector: 'app-visit-update',
+  templateUrl: './visit-update.component.html',
+  styleUrls: ['./visit-update.component.css']
 })
-export class VisitCreateComponent implements OnInit {
+export class VisitUpdateComponent implements OnInit {
 
-  customers: Customer[];
-  visitGroup: FormGroup;
-  customer: Customer;
-  model: NgbDateStruct;
-  date: { year: number, month: number, day: number };
+  @Input()
+  visit: Visit;
   employee: Employee;
+  @Input()
+    customer: Customer;
+  visitGroup: FormGroup;
+  model: NgbDateStruct;
   hours: Array <string> = [];
   minutes: Array <string> = [];
 
-  constructor(private visitService: VisitService, private router: Router, private formBuilder: FormBuilder, private customerService: CustomerService, private employeeService: EmployeeService, private calendar: NgbCalendar, private config: NgbDatepickerConfig ) {
+  @Output()
+  createdNewVisit = new EventEmitter();
+  @Output()
+  cancelSelected = new EventEmitter();
 
-    this.customer = this.visitService.getCurrentCustomer();
+  constructor(private formBuilder: FormBuilder,  private calendar: NgbCalendar, private config: NgbDatepickerConfig, private employeeService: EmployeeService, private visitService: VisitService, private router: Router) {
     this.visitGroup = this.formBuilder.group({
-      customerSelector: new FormControl(this.customer === null ? '' : this.customer.id, Validators.required),
-      title: ['', Validators.required],
       description: ['', Validators.required],
       datePicked: ['', Validators.required],
-      fromHours: ['´00', Validators.required],
+      fromHours: ['00', Validators.required],
       fromMinutes: ['00', Validators.required],
       toHours: ['00', Validators.required],
       toMinutes: ['00', Validators.required]
@@ -48,21 +49,18 @@ export class VisitCreateComponent implements OnInit {
     this.minutes.push('30');
     this.minutes.push('45');
 
-
     this.model = this.calendar.getToday();
     this.config.showWeekNumbers = true;
     this.config.markDisabled = (date: NgbDate) => calendar.getWeekday(date) >= 6;
     this.config.outsideDays = 'hidden';
-
   }
 
   ngOnInit() {
-    this.customerService.getCustomers().subscribe(c => this.customers = c);
     this.employeeService.getCurrentEmployee().subscribe(Employee => this.employee = Employee);
   }
 
   cancel() {
-    window.history.back();
+    this.cancelSelected.emit(this.visit);
   }
 
   createVisit() {
@@ -80,14 +78,22 @@ export class VisitCreateComponent implements OnInit {
     const visit: Visit = {
       dateTimeOfVisitStart: newStartDate,
       dateTimeOfVisitEnd: newEndDate,
-      title: values.title,
+      title: this.visit.title,
       description: values.description,
       canceled: false,
       employeeId: this.employee.id,
-      customerId: Number(values.customerSelector),
-      progressPart: 1
+      customerId: this.customer.id,
+      progressPart: this.visit.progressPart + 1
+
     };
-    this.visitService.createVisit(visit).subscribe(newVisit => this.router.navigateByUrl('customer/' + Number(values.customerSelector)));
+    this.visitService.createVisit(visit).subscribe(newVisit => {
+      this.router.navigateByUrl('customer/' + this.customer.id);
+      this.visit.canceled = true;
+      this.visitService.updateVisit(this.visit.id, this.visit).subscribe(() => {
+        this.createdNewVisit.emit(this.visit);
+      });
+    });
 
   }
+
 }

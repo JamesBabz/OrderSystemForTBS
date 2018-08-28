@@ -1,5 +1,4 @@
 .singleVisitCont{
-  background-color: #AAD48C;
   margin: 5px 5px 30px 5px;
   padding: 5px;
 }
@@ -33,4 +32,8 @@
 }
 .input{
   margin-top: 5px;
+}
+.part_txt{
+  font-style: italic;
+  color: #EE7203;
 }

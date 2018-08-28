@@ -79,7 +79,8 @@ namespace BLL.Services
 
                 visitFromDb.Title = visit.Title;
                 visitFromDb.Description = visit.Description;
-                visitFromDb.IsDone = visit.IsDone;
+                visitFromDb.Canceled = visit.Canceled;
+                visitFromDb.ProgressPart = visit.ProgressPart;
                 visitFromDb.DateTimeOfVisitStart = visit.DateTimeOfVisitStart;
                 visitFromDb.DateTimeOfVisitEnd = visit.DateTimeOfVisitEnd;
                 uow.Complete();
